@@ -66,45 +66,6 @@ jobs:
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
-  build_and_deploy_job_all:
-    env:
-      DIST_PATH: src/ToDo.Wasm/bin/Release/net5.0/dist
-
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
-    runs-on: windows-latest
-    name: Build All Apps
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # Required for gitversion
-          submodules: true
-
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: '5.x'
-
-      - name: Determine Version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
-        with:
-          useConfigFile: true
-          configFilePath: build/gitversion.yml
-
-      - name: Setup dotnet 5.0.x
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: '5.0.x'
-
-      - run: |
-          cd src
-          msbuild /r /bl "/p:Configuration:Release" "/p:PackageVersion=${{ steps.gitversion.outputs.fullSemVer }}"
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Apps
-          path: ${{ env.DIST_PATH }}
-
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
