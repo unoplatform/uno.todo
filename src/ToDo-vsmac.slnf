@@ -1,0 +1,21 @@
+{
+  "solution": {
+    "path": "ToDo.sln",
+    "projects": [
+		"ToDo.UI\\ToDo.UI.shproj",
+
+		"ToDo.Droid\\ToDo.Droid.csproj",
+
+		"ToDo.iOS\\ToDo.iOS.csproj",
+
+
+		"ToDo.Wasm\\ToDo.Wasm.csproj",
+
+		"ToDo.macOS\\ToDo.macOS.csproj",
+
+		"ToDo.Skia.Gtk\\ToDo.Skia.Gtk.csproj",
+
+		"ToDo.Skia.Linux.FrameBuffer\\ToDo.Skia.Linux.FrameBuffer.csproj",
+    ]
+  }
+}

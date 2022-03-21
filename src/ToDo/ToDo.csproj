@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.308" />
+    <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.308" />
+  </ItemGroup>
+</Project>

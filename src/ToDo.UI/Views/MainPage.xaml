@@ -1,0 +1,37 @@
+﻿<Page x:Class="ToDo.Views.MainPage"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:local="using:ToDo.Views"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  mc:Ignorable="d"
+	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
+	  xmlns:utu="using:Uno.Toolkit.UI"
+	 Background="{ThemeResource MaterialBackgroundBrush}">
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<utu:NavigationBar Content="Main Page" 
+				Style="{StaticResource MaterialNavigationBarStyle}"/>
+		<StackPanel Grid.Row="1"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center">
+			<TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}"/>
+			<Button Content="Go to Second Page - XAML"
+					AutomationProperties.AutomationId="XamlButton"
+					HorizontalAlignment="Stretch"
+					uen:Navigation.Request="Second" />
+			<Button Content="Go to Second Page - CodeBehind"
+					AutomationProperties.AutomationId="CodeBehindButton"
+					HorizontalAlignment="Stretch"
+					Click="GoToSecondPageClick"/>
+			<Button Content="Go to Second Page - ViewModel"
+					AutomationProperties.AutomationId="ViewModelButton"
+					HorizontalAlignment="Stretch"
+					Click="{x:Bind ViewModel.GoToSecondPage}"/>
+		</StackPanel>
+	</Grid>
+</Page>
