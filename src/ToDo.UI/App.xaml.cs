@@ -3,8 +3,8 @@ namespace ToDo;
 
 public sealed partial class App : Application
 {
-	private Window _window;
-	public Window Window => _window;
+	private Window? _window;
+	public Window? Window => _window;
 
 	private IHost Host { get; }
 
@@ -88,9 +88,10 @@ public sealed partial class App : Application
 		_window = Window.Current;
 #endif
 
-		var notif = Host.Services.GetService<IRouteNotifier>();
-		notif.RouteChanged += RouteUpdated;
-
+		if(Host.Services.GetService<IRouteNotifier>() is { } notif)
+		{
+			notif.RouteChanged += RouteUpdated;
+		}
 
 		_window.Content = Host.Services.NavigationHost();
 		_window.Activate();
@@ -150,7 +151,7 @@ public sealed partial class App : Application
 						}));
 	}
 
-	public async void RouteUpdated(object sender, RouteChangedEventArgs e)
+    public async void RouteUpdated(object? sender, RouteChangedEventArgs e)
 	{
 		try
 		{
@@ -174,8 +175,13 @@ public sealed partial class App : Application
 			{
 				var href = WebAssemblyRuntime.InvokeJS("window.location.href");
 				var url = new UriBuilder(href);
-				url.Query = route.Query();
-				url.Path = route.FullPath()?.Replace("+", "/");
+
+				if (route != null)
+				{
+					url.Query = route.Query();
+					url.Path = route.FullPath()?.Replace("+", "/");
+				}
+
 				var webUri = url.Uri.OriginalString;
 				var js = $"window.history.pushState(\"{webUri}\",\"\", \"{webUri}\");";
 				Console.WriteLine($"JS:{js}");

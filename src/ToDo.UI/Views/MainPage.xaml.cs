@@ -3,18 +3,23 @@ namespace ToDo.Views;
 
 public sealed partial class MainPage : Page, IInjectable<INavigator>
 {
-	public MainViewModel ViewModel { get; private set; }
+	public MainViewModel? ViewModel { get; private set; }
+	private INavigator? _navigator;
+
 	public MainPage()
 	{
 		this.InitializeComponent();
 
-		DataContextChanged += (_, changeArgs) => ViewModel = changeArgs.NewValue as MainViewModel;
+		DataContextChanged += (_, changeArgs) => ViewModel = changeArgs?.NewValue as MainViewModel;
 
 	}
 
 	public void GoToSecondPageClick(object sender, RoutedEventArgs arg)
 	{
-		_navigator.NavigateViewAsync<SecondPage>(this);
+		if (_navigator is not null)
+		{
+			_navigator.NavigateViewAsync<SecondPage>(this);
+		}
 	}
 
 	public void Inject(INavigator navigator)
@@ -22,5 +27,4 @@ public sealed partial class MainPage : Page, IInjectable<INavigator>
 		_navigator = navigator;
 	}
 
-	private INavigator _navigator;
 }
