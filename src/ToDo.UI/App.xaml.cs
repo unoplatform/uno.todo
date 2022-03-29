@@ -1,4 +1,8 @@
 
+using ToDo.Models;
+using ToDo.Services.Implementation;
+using ToDo.Services.Interface;
+
 namespace ToDo;
 
 public sealed partial class App : Application
@@ -35,20 +39,20 @@ public sealed partial class App : Application
 
 				// Load AppInfo section
 				.UseConfiguration<AppInfo>()
+				.UseConfiguration<MicrosoftGraphSettings>()
 
 				// Register Json serializers (ISerializer and IStreamSerializer)
 				.UseSerialization()
 
 				// Register services for the application
 				.ConfigureServices(services =>
-				{
-					//services
+                {
+					services
 
-					//	.AddSingleton<IProductService, ProductService>()
-					//	.AddSingleton<ICartService, CartService>()
-					//	.AddSingleton<IDealService, DealService>()
-					//	.AddSingleton<IProfileService, ProfileService>();
-				})
+						.AddSingleton<ITodoListService, TodoListService>();
+                    //	.AddSingleton<IDealService, DealService>()
+                    //	.AddSingleton<IProfileService, ProfileService>();
+                })
 
 
 				// Enable navigation, including registering views and viewmodels
