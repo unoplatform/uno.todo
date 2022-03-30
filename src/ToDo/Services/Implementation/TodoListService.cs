@@ -22,39 +22,54 @@ public class TodoListService : ITodoListService
         return Task.FromResult(_microsoftGraphSettings?.AccessToken ?? "");
     }
 
-    public async Task<bool> CreateTodoListAsync(CreateUpdateTodoListObj todoList, CancellationToken ct)
+    public async Task<HttpResponseMessage> CreateTodoListAsync(CreateUpdateTodoListObj todoList, CancellationToken ct)
     {
         var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
         var response = await apiResponse.CreateTodoListAsync(todoList, ct);
-        return response.StatusCode == System.Net.HttpStatusCode.Created;
-    }
 
-    public async Task<bool> DeleteTodoListAsync(string todoTaskListId, CancellationToken ct)
-    {
-        var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-        var response = await apiResponse.DeleteTodoListAsync(todoTaskListId, ct);
-        return response.StatusCode == System.Net.HttpStatusCode.NoContent;
-
-    }
-
-    public async Task<TodoList> GetTodoListAsync(string todoTaskListId, CancellationToken ct)
-    {
-        var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-        var response = await apiResponse.GetTodoListAsync(todoTaskListId, ct);
         return response;
     }
 
-    public async Task<List<TodoList>> GetTodoListsAsync(CancellationToken ct)
+    public async Task<HttpResponseMessage> DeleteTodoListAsync(string todoTaskListId, CancellationToken ct)
     {
         var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-        var response = await apiResponse.GetTodoListsAsync(ct);
-        return response?.Value ?? new List<TodoList>();
+        var response = await apiResponse.DeleteTodoListAsync(todoTaskListId, ct);
+        return response;
+
     }
 
-    public async Task<bool> UpdateTodoListAsync(string todoTaskListId, CreateUpdateTodoListObj todo, CancellationToken ct)
+    public async Task<ResponseService<TodoList>> GetTodoListAsync(string todoTaskListId, CancellationToken ct)
+    {
+        try
+        {
+            var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
+            var response = await apiResponse.GetTodoListAsync(todoTaskListId, ct);
+            return GetResponseService<TodoList>.GetResponse(System.Net.HttpStatusCode.OK, response);
+        }
+        catch (ApiException ex)
+        {
+            return GetResponseService<TodoList>.GetResponse(ex.StatusCode);
+        }
+    }
+
+    public async Task<ResponseService<List<TodoList>>> GetTodoListsAsync(CancellationToken ct)
+    {
+        try
+        {
+            var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
+            var response = await apiResponse.GetTodoListsAsync(ct);
+            return GetResponseService<List<TodoList>>.GetResponse(System.Net.HttpStatusCode.OK, response.Value);
+        }
+        catch (ApiException ex)
+        {
+            return GetResponseService<List<TodoList>>.GetResponse(ex.StatusCode);
+        }
+    }
+
+    public async Task<HttpResponseMessage> UpdateTodoListAsync(string todoTaskListId, CreateUpdateTodoListObj todo, CancellationToken ct)
     {
         var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
         var response = await apiResponse.UpdateTodoListAsync(todoTaskListId, todo, ct);
-        return response.StatusCode == System.Net.HttpStatusCode.OK;
+        return response;
     }
 }

@@ -4,13 +4,13 @@ namespace ToDo.Services.Interface;
 
 public interface ITodoListService
 {
-    Task<List<TodoList>> GetTodoListsAsync(CancellationToken ct);
+    Task<ResponseService<List<TodoList>>> GetTodoListsAsync(CancellationToken ct);
 
-    Task<TodoList> GetTodoListAsync(string todoTaskListId, CancellationToken ct);
+    Task<ResponseService<TodoList>> GetTodoListAsync(string todoTaskListId, CancellationToken ct);
 
-    Task<bool> CreateTodoListAsync(CreateUpdateTodoListObj todoList, CancellationToken ct);
+    Task<HttpResponseMessage> CreateTodoListAsync(CreateUpdateTodoListObj todoList, CancellationToken ct);
 
-    Task<bool> UpdateTodoListAsync(string todoTaskListId, CreateUpdateTodoListObj todoList, CancellationToken ct);
+    Task<HttpResponseMessage> UpdateTodoListAsync(string todoTaskListId, CreateUpdateTodoListObj todoList, CancellationToken ct);
 
-    Task<bool> DeleteTodoListAsync(string todoTaskListId, CancellationToken ct);
+    Task<HttpResponseMessage> DeleteTodoListAsync(string todoTaskListId, CancellationToken ct);
 }
