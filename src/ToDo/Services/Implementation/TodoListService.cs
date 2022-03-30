@@ -9,12 +9,14 @@ public class TodoListService : ITodoListService
 {
     private readonly MicrosoftGraphSettings? _microsoftGraphSettings;
     private readonly RefitSettings _refitSettings;
+    private ITodoListServiceApi apiRequest;
 
     public TodoListService(IOptions<MicrosoftGraphSettings> microsoftGraphSettings)
     {
         _microsoftGraphSettings = microsoftGraphSettings?.Value;
         _refitSettings = new RefitSettings();
         _refitSettings.AuthorizationHeaderValueGetter = GetAccessToken;
+        apiRequest = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
     }
 
     public Task<string> GetAccessToken()
@@ -24,16 +26,13 @@ public class TodoListService : ITodoListService
 
     public async Task<HttpResponseMessage> CreateTodoListAsync(CreateUpdateTodoListObj todoList, CancellationToken ct)
     {
-        var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-        var response = await apiResponse.CreateTodoListAsync(todoList, ct);
-
+        var response = await apiRequest.CreateTodoListAsync(todoList, ct);
         return response;
     }
 
     public async Task<HttpResponseMessage> DeleteTodoListAsync(string todoTaskListId, CancellationToken ct)
     {
-        var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-        var response = await apiResponse.DeleteTodoListAsync(todoTaskListId, ct);
+          var response = await apiRequest.DeleteTodoListAsync(todoTaskListId, ct);
         return response;
 
     }
@@ -42,8 +41,7 @@ public class TodoListService : ITodoListService
     {
         try
         {
-            var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-            var response = await apiResponse.GetTodoListAsync(todoTaskListId, ct);
+            var response = await apiRequest.GetTodoListAsync(todoTaskListId, ct);
             return GetResponseService<TodoList>.GetResponse(System.Net.HttpStatusCode.OK, response);
         }
         catch (ApiException ex)
@@ -56,8 +54,7 @@ public class TodoListService : ITodoListService
     {
         try
         {
-            var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-            var response = await apiResponse.GetTodoListsAsync(ct);
+            var response = await apiRequest.GetTodoListsAsync(ct);
             return GetResponseService<List<TodoList>>.GetResponse(System.Net.HttpStatusCode.OK, response.Value);
         }
         catch (ApiException ex)
@@ -68,8 +65,7 @@ public class TodoListService : ITodoListService
 
     public async Task<HttpResponseMessage> UpdateTodoListAsync(string todoTaskListId, CreateUpdateTodoListObj todo, CancellationToken ct)
     {
-        var apiResponse = RestService.For<ITodoListServiceApi>(_microsoftGraphSettings?.Endpoint ?? "", _refitSettings);
-        var response = await apiResponse.UpdateTodoListAsync(todoTaskListId, todo, ct);
+        var response = await apiRequest.UpdateTodoListAsync(todoTaskListId, todo, ct);
         return response;
     }
 }
