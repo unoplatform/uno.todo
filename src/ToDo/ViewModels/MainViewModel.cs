@@ -1,7 +1,5 @@
 
 using Microsoft.Extensions.Options;
-using ToDo.Models;
-using ToDo.Services.Interface;
 
 namespace ToDo.ViewModels;
 
@@ -13,7 +11,6 @@ public class MainViewModel
 		INavigator navigator,
 		IOptions<AppInfo> appInfo)
 	{
-		//TODO UnitTesting
 		_navigator = navigator;
 		Title = appInfo?.Value?.Title;
 	}
