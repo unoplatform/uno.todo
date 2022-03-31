@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.308" />
+    <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.344" />
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.308" />
   </ItemGroup>
 </Project>
