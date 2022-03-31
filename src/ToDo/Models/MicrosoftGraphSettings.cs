@@ -1,7 +1,7 @@
 ﻿
 namespace ToDo.Models
 {
-    public class MicrosoftGraphSettings
+    public record MicrosoftGraphSettings
     {
         public MicrosoftGraphSettings(string endPoint, string accessToken)
         {
