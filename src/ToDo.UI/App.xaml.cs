@@ -1,3 +1,4 @@
+#pragma warning disable 109 // Remove warning for Window property on iOS
 
 using ToDo.Models;
 using ToDo.Services.Implementation;
@@ -8,7 +9,7 @@ namespace ToDo;
 public sealed partial class App : Application
 {
 	private Window? _window;
-	public Window? Window => _window;
+	public new Window? Window => _window;
 
 	private IHost Host { get; }
 
