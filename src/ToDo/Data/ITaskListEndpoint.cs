@@ -1,0 +1,33 @@
+﻿using Refit;
+using ToDo.Data.Models;
+using ToDo.Data.Models.DataModels;
+
+namespace ToDo.Services.Interface;
+
+[Headers("Content-Type: application/json")]
+public interface ITaskListEndpoint
+{
+    [Get("/todo/lists")]
+    [Headers("Authorization: Bearer")]
+    Task<TaskReponseData<TaskListData>> GetAllAsync(CancellationToken ct);
+
+    [Get("/todo/lists/{todoTaskListId}")]
+    [Headers("Authorization: Bearer")]
+    Task<TaskListData> GetAsync(string todoTaskListId, CancellationToken ct);
+
+    [Post("/todo/lists")]
+    [Headers("Authorization: Bearer")]
+    Task<HttpResponseMessage> CreateAsync([Body] TaskListRequestData todoList, CancellationToken ct);
+
+    [Patch("/todo/lists/{todoTaskListId}")]
+    [Headers("Authorization: Bearer")]
+    Task<HttpResponseMessage> UpdateAsync(string todoTaskListId, [Body] TaskListRequestData todoList, CancellationToken ct);
+
+    [Delete("/todo/lists/{todoTaskListId}")]
+    [Headers("Authorization: Bearer")]
+    Task<HttpResponseMessage> DeleteAsync(string todoTaskListId, CancellationToken ct);
+
+    [Get("/todo/lists/{todoTaskListId}/tasks")]
+    [Headers("Authorization: Bearer")]
+    Task<TaskReponseData<TaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct);
+}

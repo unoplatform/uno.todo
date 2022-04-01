@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace ToDo.Models;
+namespace ToDo.Data.Models;
 
-public record TodoList
+public record TaskListData
 {
     [JsonProperty(PropertyName = "@odata.etag")]
     public string? Odata { get; set; }

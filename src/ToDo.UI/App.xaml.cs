@@ -1,8 +1,9 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 
-using ToDo.Models;
-using ToDo.Services.Implementation;
+using ToDo.Business.Implementation;
+using ToDo.Business.Interface;
+using ToDo.Data.Models;
 using ToDo.Services.Interface;
 
 namespace ToDo;
@@ -52,8 +53,8 @@ public sealed partial class App : Application
 				.ConfigureServices(services =>
 				{
 					services
-					.AddSingleton<ITodoTaskService, TodoTaskService>()
-					.AddSingleton<ITodoListService, TodoListService>();
+					.AddSingleton<ITaskService, Business.Implementation.Task>()
+					.AddSingleton<ITaskListService, TaskList>();
                     //	.AddSingleton<IDealService, DealService>()
                     //	.AddSingleton<IProfileService, ProfileService>();
                 })
@@ -108,7 +109,7 @@ public sealed partial class App : Application
 		_window.Content = Host.Services.NavigationHost();
 		_window.Activate();
 
-		await Task.Run(async () =>
+		await System.Threading.Tasks.Task.Run(async () =>
 		{
 			await Host.StartAsync();
 		});
@@ -184,7 +185,7 @@ public sealed partial class App : Application
 
 #if __WASM__
 			// Note: This is a hack to avoid error being thrown when loading products async
-			await Task.Delay(1000).ConfigureAwait(false);
+			await System.Threading.Tasks.Task.Delay(1000).ConfigureAwait(false);
 			CoreApplication.MainView?.DispatcherQueue.TryEnqueue(() =>
 			{
 				var href = WebAssemblyRuntime.InvokeJS("window.location.href");

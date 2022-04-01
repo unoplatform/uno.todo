@@ -5,11 +5,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Utils\**" />
+    <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Utils\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Refit" Version="6.3.2" />
     <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.342" />
-    <None Remove="Models\ResponseTodoListObj.xaml" />
+    <None Remove="Data\Models\ResponseTodoListObj.xaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -18,10 +23,7 @@
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.308" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Models\ResponseTodoListObj.xaml">
+    <Page Include="Data\Models\ResponseTodoListObj.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

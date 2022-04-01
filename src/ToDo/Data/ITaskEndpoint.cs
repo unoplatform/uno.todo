@@ -1,25 +1,25 @@
 ﻿using Refit;
-using ToDo.Models.DataModels;
+using ToDo.Data.Models.DataModels;
 
 namespace ToDo.Services
 {
     [Headers("Content-Type: application/json")]
-    public interface ITodoTaskServiceApi
+    public interface ITaskEndpoint
     {
         [Get("/todo/lists/{listId}/tasks/{taskId}")]
         [Headers("Authorization: Bearer")]
-        Task<TodoTask> GetTask(string listId, string taskId, CancellationToken ct);
+        Task<TaskData> GetAsync(string listId, string taskId, CancellationToken ct);
 
         [Post("/todo/lists/{listId}/tasks")]
         [Headers("Authorization: Bearer")]
-        Task<TodoTask> CreateTask(string listId, [Body] object newTask, CancellationToken ct);
+        Task<TaskData> CreateAsync(string listId, [Body] object newTask, CancellationToken ct);
 
         [Patch("/todo/lists/{listId}/tasks/{taskId}")]
         [Headers("Authorization: Bearer")]
-        Task<TodoTask> UpdateTask(string listId, string taskId, [Body] object updatedTask, CancellationToken ct);
+        Task<TaskData> UpdateAsync(string listId, string taskId, [Body] object updatedTask, CancellationToken ct);
 
         [Delete("/todo/lists/{listId}/tasks/{taskId}")]
         [Headers("Authorization: Bearer")]
-        Task DeleteTask(string listId, string taskId, CancellationToken ct);
+        Task DeleteAsync(string listId, string taskId, CancellationToken ct);
     }
 }

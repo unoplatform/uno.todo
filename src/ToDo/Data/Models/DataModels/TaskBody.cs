@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ToDo.Models.DataModels
+namespace ToDo.Data.Models.DataModels
 {
     public class TaskBody
     {

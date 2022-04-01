@@ -1,4 +1,4 @@
-﻿namespace ToDo.Models;
+﻿namespace ToDo.Data.Models;
 
 public record MicrosoftGraphSettings
 {
