@@ -19,12 +19,12 @@ namespace ToDo.Services.Implementation
             {
                 AuthorizationHeaderValueGetter = GetAccessToken
             };
-            _todoTaskService = RestService.For<ITodoTaskServiceApi>(_microsoftGraphSettings.Endpoint, _refitSettings);
+            _todoTaskService = RestService.For<ITodoTaskServiceApi>(_microsoftGraphSettings.Endpoint ?? "", _refitSettings);
         }
 
         private Task<string> GetAccessToken()
         {
-            return Task.FromResult(_microsoftGraphSettings.AccessToken);
+            return Task.FromResult(_microsoftGraphSettings.AccessToken ?? "");
         }
 
         public async Task<TodoTask> CreateTask(string listId, object newTask, CancellationToken ct)

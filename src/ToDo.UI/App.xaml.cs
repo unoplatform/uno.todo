@@ -1,5 +1,6 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
+
 using ToDo.Models;
 using ToDo.Services.Implementation;
 using ToDo.Services.Interface;
@@ -8,8 +9,10 @@ namespace ToDo;
 
 public sealed partial class App : Application
 {
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 	private Window? _window;
 	public new Window? Window => _window;
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
 	private IHost Host { get; }
 
@@ -49,9 +52,8 @@ public sealed partial class App : Application
 				.ConfigureServices(services =>
 				{
 					services
-					.AddSingleton<ITodoTaskService, TodoTaskService>();
-
-						.AddSingleton<ITodoListService, TodoListService>();
+					.AddSingleton<ITodoTaskService, TodoTaskService>()
+					.AddSingleton<ITodoListService, TodoListService>();
                     //	.AddSingleton<IDealService, DealService>()
                     //	.AddSingleton<IProfileService, ProfileService>();
                 })
@@ -161,8 +163,10 @@ public sealed partial class App : Application
 						}));
 	}
 
+#pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     public async void RouteUpdated(object? sender, RouteChangedEventArgs e)
-	{
+#pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
+    {
 		try
 		{
 			var rootRegion = e.Region.Root();
