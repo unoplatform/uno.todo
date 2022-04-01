@@ -16,7 +16,7 @@ public sealed partial class App : Application
 	public App()
 	{
 		Host = UnoHost
-				.CreateDefaultBuilder(true)
+				.CreateDefaultBuilder()
 #if DEBUG
 				// Switch to Development environment when running in DEBUG
 				.UseEnvironment(Environments.Development)
@@ -47,8 +47,9 @@ public sealed partial class App : Application
 
 				// Register services for the application
 				.ConfigureServices(services =>
-                {
+				{
 					services
+					.AddSingleton<ITodoTaskService, TodoTaskService>();
 
 						.AddSingleton<ITodoListService, TodoListService>();
                     //	.AddSingleton<IDealService, DealService>()
@@ -90,10 +91,14 @@ public sealed partial class App : Application
 		_window = new Window();
 		_window.Activate();
 #else
-		_window = Window.Current;
+#if WINUI
+		_window = Microsoft.UI.Xaml.Window.Current;
+#else
+		_window = Windows.UI.Xaml.Window.Current;
+#endif
 #endif
 
-		if(Host.Services.GetService<IRouteNotifier>() is { } notif)
+		if (Host.Services.GetService<IRouteNotifier>() is { } notif)
 		{
 			notif.RouteChanged += RouteUpdated;
 		}
