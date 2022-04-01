@@ -1,6 +1,5 @@
 ﻿using Refit;
 using ToDo.Data.Models;
-using ToDo.Data.Models.DataModels;
 
 namespace ToDo.Services.Interface;
 

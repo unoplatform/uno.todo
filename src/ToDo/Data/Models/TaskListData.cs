@@ -2,7 +2,7 @@
 
 namespace ToDo.Data.Models;
 
-public record TaskListData
+public class TaskListData
 {
     [JsonProperty(PropertyName = "@odata.etag")]
     public string? Odata { get; set; }

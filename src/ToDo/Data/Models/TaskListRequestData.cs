@@ -2,7 +2,7 @@
 
 namespace ToDo.Data.Models;
 
-public record TaskListRequestData
+public class TaskListRequestData
 {
     [JsonProperty(PropertyName = "displayName")]
     public string? DisplayName { get; set; }

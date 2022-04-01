@@ -1,11 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System.Threading;
-using System.Threading.Tasks;
 using ToDo.Business.Interface;
 using ToDo.Data.Models;
-using ToDo.Data.Models.DataModels;
-using ToDo.Services.Interface;
 
 namespace ToDo.Tests.Services
 {
@@ -31,7 +28,7 @@ namespace ToDo.Tests.Services
         {
             //Arrange
             var listId = "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AACzQA1BAAA=";
-            var newTask = new { title = "new task" };
+            var newTask = new TaskData{ Title = "new task" };
             //Act
             var result = await _todoTaskService.CreateAsync(listId, newTask, CancellationToken.None);
 

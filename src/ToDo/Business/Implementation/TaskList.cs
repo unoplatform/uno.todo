@@ -2,7 +2,6 @@
 using Refit;
 using ToDo.Business.Interface;
 using ToDo.Data.Models;
-using ToDo.Data.Models.DataModels;
 using ToDo.Services.Interface;
 
 namespace ToDo.Business.Implementation;
@@ -26,17 +25,30 @@ public class TaskList : ITaskListService
         return System.Threading.Tasks.Task.FromResult(_microsoftGraphSettings?.AccessToken ?? "");
     }
 
-    public async Task<HttpResponseMessage> CreateAsync(TaskListRequestData todoList, CancellationToken ct)
+    public async Task<ResponseService<HttpResponseMessage>> CreateAsync(TaskListRequestData todoList, CancellationToken ct)
     {
-        var response = await _apiRequest.CreateAsync(todoList, ct);
-        return response;
+        try
+        {
+            var response = await _apiRequest.CreateAsync(todoList, ct);
+            return GetResponseService<HttpResponseMessage>.GetResponse(System.Net.HttpStatusCode.OK, response);
+        }
+        catch (ApiException ex)
+        {
+            return GetResponseService<HttpResponseMessage>.GetResponse(ex.StatusCode);
+        }
     }
 
-    public async Task<HttpResponseMessage> DeleteAsync(string todoTaskListId, CancellationToken ct)
+    public async Task<ResponseService<HttpResponseMessage>> DeleteAsync(string todoTaskListId, CancellationToken ct)
     {
-          var response = await _apiRequest.DeleteAsync(todoTaskListId, ct);
-        return response;
-
+        try
+        {
+            var response = await _apiRequest.DeleteAsync(todoTaskListId, ct);
+            return GetResponseService<HttpResponseMessage>.GetResponse(System.Net.HttpStatusCode.OK, response);
+        }
+        catch (ApiException ex)
+        {
+            return GetResponseService<HttpResponseMessage>.GetResponse(ex.StatusCode);
+        }
     }
 
     public async Task<ResponseService<TaskListData>> GetAsync(string todoTaskListId, CancellationToken ct)
@@ -65,10 +77,17 @@ public class TaskList : ITaskListService
         }
     }
 
-    public async Task<HttpResponseMessage> UpdateAsync(string todoTaskListId, TaskListRequestData todo, CancellationToken ct)
+    public async Task<ResponseService<HttpResponseMessage>> UpdateAsync(string todoTaskListId, TaskListRequestData todo, CancellationToken ct)
     {
-        var response = await _apiRequest.UpdateAsync(todoTaskListId, todo, ct);
-        return response;
+        try
+        {
+            var response = await _apiRequest.UpdateAsync(todoTaskListId, todo, ct);
+            return GetResponseService<HttpResponseMessage>.GetResponse(System.Net.HttpStatusCode.OK, response);
+        }
+        catch (ApiException ex)
+        {
+            return GetResponseService<HttpResponseMessage>.GetResponse(ex.StatusCode);
+        }
     }
 
     public async Task<ResponseService<List<TaskData>?>> GetTasksAsync(string todoTaskListId, CancellationToken ct)
