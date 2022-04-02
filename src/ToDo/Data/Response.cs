@@ -1,8 +1,8 @@
 ﻿using System.Net;
 
-namespace ToDo.Data.Models;
+namespace ToDo;
 
-public class ResponseService<T>
+public class Response<T>
 {
     public HttpStatusCode StatusCode { get; set; }
     public T? Data { get; set; }

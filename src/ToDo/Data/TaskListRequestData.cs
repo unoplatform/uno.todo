@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ToDo.Data.Models;
+namespace ToDo;
 
 public class TaskListRequestData
 {

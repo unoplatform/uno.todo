@@ -54,7 +54,7 @@ public sealed partial class App : Application
 				{
 					services
 					.AddSingleton<ITaskService, Business.Implementation.Task>()
-					.AddSingleton<ITaskListService, TaskList>();
+					.AddSingleton<ITaskListService, TaskListService>();
                     //	.AddSingleton<IDealService, DealService>()
                     //	.AddSingleton<IProfileService, ProfileService>();
                 })

@@ -1,7 +1,6 @@
 ﻿using Refit;
-using ToDo.Data.Models;
 
-namespace ToDo.Services.Interface;
+namespace ToDo;
 
 [Headers("Content-Type: application/json")]
 public interface ITaskListEndpoint
