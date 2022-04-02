@@ -15,7 +15,7 @@ public class MainViewModel
 		Title = appInfo?.Value?.Title;
 	}
 
-	public async TaskService GoToSecondPage()
+	public async Task GoToSecondPage()
 	{
 		await _navigator.NavigateViewModelAsync<SecondViewModel>(this);
 	}

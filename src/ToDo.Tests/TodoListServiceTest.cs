@@ -1,8 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
 using Task = System.Threading.Tasks.Task;
-using ToDo.Data.Models;
-using ToDo.Business.Implementation;
-using ToDo.Business.Interface;
 using NUnit.Framework;
 
 namespace ToDo.Tests
@@ -28,7 +25,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Create_TodoList_ShouldReturn_Created()
+        public async Task Create_TodoList_ShouldReturn_Created()
         {
             //Arrange
             TaskListRequestData todoList = new TaskListRequestData()
@@ -44,7 +41,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Create_TodoList_ShouldReturn_BadRequest()
+        public async Task Create_TodoList_ShouldReturn_BadRequest()
         {
             //Arrange
             TaskListRequestData todoList = new TaskListRequestData();
@@ -56,7 +53,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Delete_TodoList_ShouldReturn_NotFound()
+        public async Task Delete_TodoList_ShouldReturn_NotFound()
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADbMaF_ABA=";
@@ -69,7 +66,7 @@ namespace ToDo.Tests
 
 
         [Test]
-        public async TaskService Delete_TodoList_ShouldReturn_NoContent()
+        public async Task Delete_TodoList_ShouldReturn_NoContent()
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADcfLguAAA=";
@@ -81,7 +78,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Get_TodoList_ShouldReturn_NotFound()
+        public async Task Get_TodoList_ShouldReturn_NotFound()
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADbMaF_ABA=";
@@ -94,7 +91,7 @@ namespace ToDo.Tests
 
 
         [Test]
-        public async TaskService Get_TodoList_ShouldReturn_TodoList()
+        public async Task Get_TodoList_ShouldReturn_TodoList()
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
@@ -106,7 +103,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Get_TodoLists_ShouldReturn_TodoLists()
+        public async Task Get_TodoLists_ShouldReturn_TodoLists()
         {
             //Arrange
             //Act
@@ -117,7 +114,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Update_TodoList_ShouldReturn_NotFound()
+        public async Task Update_TodoList_ShouldReturn_NotFound()
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y4u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
@@ -134,7 +131,7 @@ namespace ToDo.Tests
         }
 
         [Test]
-        public async TaskService Update_TodoLists_ShouldReturn_Ok()
+        public async Task Update_TodoLists_ShouldReturn_Ok()
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";

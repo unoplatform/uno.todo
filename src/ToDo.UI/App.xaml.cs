@@ -1,11 +1,5 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-
-using ToDo.Business.Implementation;
-using ToDo.Business.Interface;
-using ToDo.Data.Models;
-using ToDo.Services.Interface;
-
 namespace ToDo;
 
 public sealed partial class App : Application
@@ -53,7 +47,7 @@ public sealed partial class App : Application
 				.ConfigureServices(services =>
 				{
 					services
-					.AddSingleton<ITaskService, Business.Implementation.Task>()
+					.AddSingleton<ITaskService, ToDo.TaskService>()
 					.AddSingleton<ITaskListService, TaskListService>();
                     //	.AddSingleton<IDealService, DealService>()
                     //	.AddSingleton<IProfileService, ProfileService>();

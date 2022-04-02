@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System.Threading;
-using ToDo.Business.Interface;
-using ToDo.Data.Models;
 
 namespace ToDo.Tests.Services
 {
@@ -17,7 +15,7 @@ namespace ToDo.Tests.Services
                 Endpoint = "https://graph.microsoft.com/v1.0/me"
             };
             IOptions<MicrosoftGraphSettings> options = Options.Create(microsoftGraphSettings);
-            _todoTaskService = new ToDo.Business.Implementation.Task(options);
+            _todoTaskService = new ToDo.TaskService(options);
         }
 
         [SetUp]
