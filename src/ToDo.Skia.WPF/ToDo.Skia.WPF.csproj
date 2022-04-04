@@ -25,7 +25,7 @@
     <UpToDateCheckInput Include="..\ToDo.UI\**\*.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.342" />
+    <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.356" />
     <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.342" />
