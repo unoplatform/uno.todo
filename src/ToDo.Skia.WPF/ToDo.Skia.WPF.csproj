@@ -27,7 +27,7 @@
   <ItemGroup>
     <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.342" />
-    <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.342" />
+    <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.356" />
     <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.342" />
