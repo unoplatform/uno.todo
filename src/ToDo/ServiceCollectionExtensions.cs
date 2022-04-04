@@ -15,10 +15,11 @@ public static class ServiceCollectionExtensions
         Func<Task<string>> accessTokenCallback)
     {
         Action<RefitSettings> authSettingsBuilder = settings => settings.AuthorizationHeaderValueGetter = accessTokenCallback;
-        return services.AddNativeHandler()
-        .AddContentSerializer()
-        .AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder)
-        .AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder);
+	return services
+		.AddNativeHandler()
+		.AddContentSerializer()
+		.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder)
+		.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder);
 
     }
 
