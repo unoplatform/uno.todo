@@ -9,9 +9,9 @@ public class MainViewModel
 
 	public MainViewModel(
 		INavigator navigator,
-		IOptions<AppInfo> appInfo)
-	{ 
-	
+		IOptions<AppInfo> appInfo,
+		ITaskEndpoint taskEndpoint)
+	{
 		_navigator = navigator;
 		Title = appInfo?.Value?.Title;
 	}
