@@ -1,17 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿
 
 namespace ToDo;
 public class LinkedResourceData
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string? Id { get; set; }
 
-    [JsonProperty("webUrl")]
+    [JsonPropertyName("webUrl")]
     public string? WebUrl { get; set; }
 
-    [JsonProperty("applicationName")]
+    [JsonPropertyName("applicationName")]
     public string? ApplicationName { get; set; }
 
-    [JsonProperty("displayName")]
+    [JsonPropertyName("displayName")]
     public string? DisplayName { get; set; }
 }

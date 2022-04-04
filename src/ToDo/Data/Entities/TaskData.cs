@@ -1,41 +1,41 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace ToDo;
 public class TaskData
 {
-    [JsonProperty("id")]
+    [JsonPropertyName("id")]
     public string? Id { get; set; }
 
-    [JsonProperty("importance")]
+    [JsonPropertyName("importance")]
     public string? Importance { get; set; }
 
-    [JsonProperty("isReminderOn")]
+    [JsonPropertyName("isReminderOn")]
     public bool IsReminderOn { get; set; }
 
-    [JsonProperty("status")]
+    [JsonPropertyName("status")]
     public string? Status { get; set; }
 
-    [JsonProperty("title")]
+    [JsonPropertyName("title")]
     public string? Title { get; set; }
 
-    [JsonProperty("createdDateTime")]
+    [JsonPropertyName("createdDateTime")]
     public DateTime CreatedDateTime { get; set; }
 
-    [JsonProperty("lastModifiedDateTime")]
+    [JsonPropertyName("lastModifiedDateTime")]
     public DateTime LastModifiedDateTime { get; set; }
 
-    [JsonProperty("body")]
+    [JsonPropertyName("body")]
     public TaskBodyData? Body { get; set; }
 
-    [JsonProperty("dueDateTime")]
+    [JsonPropertyName("dueDateTime")]
     public DateTimeData? DueDateTime { get; set; }
 
-    [JsonProperty("linkedResources@odata.context")]
+    [JsonPropertyName("linkedResources@odata.context")]
     public string? LinkedResourcesOdataContext { get; set; }
 
-    [JsonProperty("linkedResources")]
+    [JsonPropertyName("linkedResources")]
     public List<LinkedResourceData>? LinkedResources { get; set; }
 
-    [JsonProperty("@odata.etag")]
+    [JsonPropertyName("@odata.etag")]
     public string? OdataEtag { get; set; }
 }

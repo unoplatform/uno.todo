@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿
+using System.Text.Json.Serialization;
 
 namespace ToDo;
 public class DateTimeData
 {
-    [JsonProperty("dateTime")]
+    [JsonPropertyName("dateTime")]
     public DateTime DateTime { get; set; }
 
-    [JsonProperty("timeZone")]
+    [JsonPropertyName("timeZone")]
     public string? TimeZone { get; set; }
 }

@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿
+using System.Text.Json.Serialization;
 
 namespace ToDo;
 
 public class TaskListRequestData
 {
-    [JsonProperty(PropertyName = "displayName")]
+    [JsonPropertyName("displayName")]
     public string? DisplayName { get; set; }
 }

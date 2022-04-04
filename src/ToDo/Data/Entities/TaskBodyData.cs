@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿
+using System.Text.Json.Serialization;
 
 namespace ToDo;
 public class TaskBodyData
 {
-    [JsonProperty("content")]
+    [JsonPropertyName("content")]
     public string? Content { get; set; }
 
-    [JsonProperty("contentType")]
+    [JsonPropertyName("contentType")]
     public string? ContentType { get; set; }
 }

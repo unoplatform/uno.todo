@@ -2,22 +2,10 @@
 using Task = System.Threading.Tasks.Task;
 using NUnit.Framework;
 
-namespace ToDo.Tests
+namespace ToDo.Tests.Services
 {
-    public class TodoListServiceTest
+    internal class TaskListEndpointTests: BaseEndpointTests<ITaskListEndpoint>
     {
-        private readonly ITaskListService _todoListService;
-
-        public TodoListServiceTest()
-        {
-            MicrosoftGraphSettings microsoftGraphSettings = new MicrosoftGraphSettings()
-            {
-                AccessToken = "",
-                Endpoint = "https://graph.microsoft.com/v1.0/me"
-            };
-            IOptions<MicrosoftGraphSettings> options = Options.Create(microsoftGraphSettings);
-            _todoListService = new TaskListService(options);
-        }
 
         [SetUp]
         public void Setup()
@@ -34,7 +22,7 @@ namespace ToDo.Tests
             };
 
             //Act
-            var result = await _todoListService.CreateAsync(todoList, System.Threading.CancellationToken.None);
+            var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
             //Assert
             Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.Created, "The ToDo List can't be created");
@@ -46,7 +34,7 @@ namespace ToDo.Tests
             //Arrange
             TaskListRequestData todoList = new TaskListRequestData();
             //Act
-            var result = await _todoListService.CreateAsync(todoList, System.Threading.CancellationToken.None);
+            var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
             //Assert
             Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.BadRequest, "The ToDo List can't be created");
@@ -58,7 +46,7 @@ namespace ToDo.Tests
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADbMaF_ABA=";
             //Act
-            var result = await _todoListService.DeleteAsync(idTodoList, System.Threading.CancellationToken.None);
+            var result = await service.DeleteAsync(idTodoList, System.Threading.CancellationToken.None);
 
             //Assert
             Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.NotFound, "The ToDo List have an error");
@@ -71,7 +59,7 @@ namespace ToDo.Tests
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADcfLguAAA=";
             //Act
-            var result = await _todoListService.DeleteAsync(idTodoList, System.Threading.CancellationToken.None);
+            var result = await service.DeleteAsync(idTodoList, System.Threading.CancellationToken.None);
 
             //Assert
             Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.NoContent, "The ToDo List wasn't delete");
@@ -83,10 +71,10 @@ namespace ToDo.Tests
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADbMaF_ABA=";
             //Act
-            var result = await _todoListService.GetAsync(idTodoList, System.Threading.CancellationToken.None);
+            var result = await service.GetAsync(idTodoList, System.Threading.CancellationToken.None);
 
             //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.NotFound && result.Data == default, "The ToDo List was find");
+            Assert.IsTrue(result == default, "The ToDo List was find");
         }
 
 
@@ -96,10 +84,10 @@ namespace ToDo.Tests
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
             //Act
-            var result = await _todoListService.GetAsync(idTodoList, System.Threading.CancellationToken.None);
+            var result = await service.GetAsync(idTodoList, System.Threading.CancellationToken.None);
 
             //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.OK && result.Data != default, "The ToDo List wasn't find");
+            Assert.IsTrue(result != default, "The ToDo List wasn't find");
         }
 
         [Test]
@@ -107,10 +95,10 @@ namespace ToDo.Tests
         {
             //Arrange
             //Act
-            var result = await _todoListService.GetAllAsync(System.Threading.CancellationToken.None);
+            var result = await service.GetAllAsync(System.Threading.CancellationToken.None);
 
             //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.OK && result.Data != default, "The ToDo List wasn't find");
+            Assert.IsTrue(result != default, "The ToDo List wasn't find");
         }
 
         [Test]
@@ -124,7 +112,7 @@ namespace ToDo.Tests
             };
 
             //Act
-            var result = await _todoListService.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
+            var result = await service.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
 
             //Assert
             Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.NotFound, "The ToDo List found");
@@ -141,7 +129,7 @@ namespace ToDo.Tests
             };
 
             //Act
-            var result = await _todoListService.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
+            var result = await service.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
 
             //Assert
             Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.OK, "The ToDo List wasn't find");

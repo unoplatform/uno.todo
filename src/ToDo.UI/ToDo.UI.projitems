@@ -8,6 +8,10 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>ToDo</Import_RootNamespace>
   </PropertyGroup>
+  	<ItemGroup>
+	  <Content Remove="*.json" />
+	  <EmbeddedResource Include="*.json" />
+		</ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
       <SubType>Designer</SubType>
@@ -42,6 +46,6 @@
     <PRIResource Include="@(_Globbed_PRIResource)" />
     <_Globbed_Content Include="$(MSBuildThisFileDirectory)Assets/**/*.*" Exclude="@(Content)" />
     <_Globbed_Content Include="$(MSBuildThisFileDirectory)*.json" Exclude="@(Content)" />
-    <Content Include="@(_Globbed_Content)" />
+    <EmbeddedResource Include="@(_Globbed_Content)" />
   </ItemGroup>
 </Project>
