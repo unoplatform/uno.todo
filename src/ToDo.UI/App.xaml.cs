@@ -166,7 +166,7 @@ public sealed partial class App : Application
     }
 
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
-    public async void RouteUpdated(object? sender, RouteChangedEventArgs e)
+    public void RouteUpdated(object? sender, RouteChangedEventArgs e)
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
     {
         try
