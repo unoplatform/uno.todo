@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
@@ -25,15 +25,15 @@
 		<PackageReference Include="Uno.Core.Extensions.Logging.Singleton" Version="4.0.1" />
 	</ItemGroup>
 	<ItemGroup>
-		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.18362.22" />
-		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.18362.22" />
+		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22000.24" />
+		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22000.24" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Uno.WinUI" Version="4.1.9" />
+		<PackageReference Include="Uno.WinUI" Version="4.2.0-dev.543" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
-		<PackageReference Include="Uno.Material.WinUI" Version="1.2.0" />
-		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.2.0" />
-		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.2.1" />
+		<PackageReference Include="Uno.Material.WinUI" Version="1.4.0-dev.30" />
+		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.3" />
+		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.3" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
 		<PackageReference Include="System.Net.Http.WinHttpHandler" Version="6.0.0" />
 	</ItemGroup>
