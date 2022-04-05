@@ -6,6 +6,7 @@ using Uno.Extensions.Http;
 using Uno.Extensions.Http.Refit;
 using System.Net.Http;
 using Uno.Extensions.Serialization.Refit;
+using ToDo.Presentation;
 
 namespace ToDo;
 
@@ -74,7 +75,13 @@ public sealed partial class App : Application
 
     private Task<string> GetAccessToken()
     {
-        return Task.FromResult("TBD: Need to connect in MSAL to provide access token when requeested");
+        // TODO: This needs to be connected to the authentication process to return the current Access Token
+        // In the meantime do NOT commit an actual access token into the repo
+        // To get a temporary access token for development, go to https://developer.microsoft.com/en-us/graph/graph-explorer
+        // Sign in and select "get To Do task lists" from the sample queries
+        // Run the query, and then select the Access token tab. Paste the access token here for development ONLY
+        // The access token will expire periodically, so if you start to get errors, you may need to update the access token
+        return Task.FromResult("Put Access Token here!");
     }
 
     /// <summary>
@@ -145,8 +152,10 @@ public sealed partial class App : Application
     {
         views.Register(
             new ViewMap<ShellControl, ShellViewModel>(),
-            new ViewMap<MainPage, MainViewModel>(),
-            new ViewMap<SecondPage, SecondViewModel>()
+            new ViewMap<WelcomePage, WelcomeViewModel>(),
+            new ViewMap<TaskListsPage, TaskListsViewModel.BindableTaskListsViewModel>(),
+            new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
+            new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>()
             );
 
         routes
@@ -155,13 +164,18 @@ public sealed partial class App : Application
                 new("", View: views.FindByViewModel<ShellViewModel>(),
                         Nested: new RouteMap[]
                         {
-                                        new ("Main",
-                                                View: views.FindByViewModel<MainViewModel>(),
-                                                IsDefault: true
+                                        new ("Welcome",
+                                                View: views.FindByViewModel<WelcomeViewModel>()
                                                 ),
-                                        new("Second",
-                                                View: views.FindByViewModel<SecondViewModel>(),
-                                                DependsOn:"Main"),
+                                        new ("TaskLists",
+                                                View: views.FindByViewModel<TaskListsViewModel.BindableTaskListsViewModel>()
+                                                ),
+                                        new("TaskList",
+                                                View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
+                                                DependsOn:"TaskLists"),
+                                        new("Task",
+                                                View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
+                                                DependsOn:"TaskLists")
                         }));
     }
 

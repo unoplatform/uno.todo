@@ -2,21 +2,21 @@
 using System.Linq;
 using Uno.Extensions.Reactive;
 
-namespace ToDo.ViewModels;
+namespace ToDo.Presentation;
 
-internal partial class TaskListViewModel
+public partial class TaskListViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskListEndpoint _listClient;
 	private readonly ITaskEndpoint _taskClient;
-	private readonly IFeed<TaskListData[]> _allTasksLists;
+	//private readonly IFeed<TaskListData[]> _allTasksLists;
 	private readonly IState<TaskListData> _entity;
 
 	private TaskListViewModel(
 		INavigator navigator,
 		ITaskListEndpoint listClient,
 		ITaskEndpoint taskClient,
-		IFeed<TaskListData[]> allTasksLists,
+		//IFeed<TaskListData[]> allTasksLists,
 		IInput<TaskListData> entity, // TODO: Feed - this should be a state
 		ICommandBuilder createTask,
 		ICommandBuilder<TaskData> navigateToTask,
@@ -25,7 +25,7 @@ internal partial class TaskListViewModel
 		_navigator = navigator;
 		_listClient = listClient;
 		_taskClient = taskClient;
-		_allTasksLists = allTasksLists;
+		//_allTasksLists = allTasksLists;
 		_entity = entity;
 
 		createTask.Given(entity).Execute(CreateTask);

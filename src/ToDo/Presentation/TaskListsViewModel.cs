@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Uno.Extensions.Reactive;
 
-namespace ToDo.ViewModels;
+namespace ToDo.Presentation;
 
-internal partial class TaskListsViewModel
+public partial class TaskListsViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskListEndpoint _client;
@@ -27,7 +27,7 @@ internal partial class TaskListsViewModel
 
 	public IFeed<TaskListData> Important => Lists.Select(allList => allList.Single(list => list is { WellknownListName: "Important" }));
 
-	public IFeed<TaskListData[]> CustomLists => Lists.Select(allList => allList.Where(list => list is { WellknownListName: null }).ToArray());
+	public IFeed<TaskListData[]> CustomLists => Lists.Select(allList => allList.Where(list => list is { WellknownListName: null } || list is { WellknownListName: "none" }).ToArray());
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
@@ -40,6 +40,6 @@ internal partial class TaskListsViewModel
 
 	private async ValueTask NavigateToTaskList(TaskListData taskList, CancellationToken ct)
 	{
-		await _navigator.NavigateViewModelAsync<SecondViewModel>(this, data: (Lists, taskList), cancellation: ct);
+		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: taskList, cancellation: ct);
 	}
 }

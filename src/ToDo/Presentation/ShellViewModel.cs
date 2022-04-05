@@ -1,5 +1,5 @@
 
-namespace ToDo.ViewModels;
+namespace ToDo.Presentation;
 
 public class ShellViewModel
 {
@@ -17,6 +17,7 @@ public class ShellViewModel
 
 	public async Task Start()
 	{
-		await Navigator.NavigateViewModelAsync<MainViewModel>(this);
+		// Change the viewmodel to specify the first page of the application to navigate to
+		await Navigator.NavigateViewModelAsync<TaskListsViewModel.BindableTaskListsViewModel>(this);
 	}
 }
