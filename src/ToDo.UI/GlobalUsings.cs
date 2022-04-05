@@ -20,7 +20,7 @@ global using Uno.Extensions.Logging;
 global using Uno.Extensions.Serialization;
 global using Uno.Extensions.Navigation.Toolkit;
 global using Uno.Extensions.Navigation.Regions;
-global using ToDo.ViewModels;
+global using ToDo.Presentation;
 global using ToDo.Views;
 
 #if WINUI

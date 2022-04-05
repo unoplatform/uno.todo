@@ -1,11 +1,10 @@
 ﻿
 namespace ToDo.Views;
 
-public sealed partial class SecondPage : Page
+public sealed partial class TaskListsPage : Page
 {
-    public SecondPage()
+    public TaskListsPage()
     {
         this.InitializeComponent();
     }
 }
-
