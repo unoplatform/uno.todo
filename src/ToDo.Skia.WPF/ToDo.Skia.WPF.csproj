@@ -31,7 +31,7 @@
     <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.342" />
-    <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.342" />
+    <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.362" />
     <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.342" />
