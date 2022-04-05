@@ -23,8 +23,8 @@ internal class BaseEndpointTests<T> where T : notnull
             {
                 var appsettingsPrefix = new Dictionary<string, string>
                         {
-                            { "ITaskEndpoint:Url", "https://graph.microsoft.com/v1.0/me" },
-                            { "ITaskEndpoint:UseNativeHandler","true" }
+                            { "IToDoTaskEndpoint:Url", "https://graph.microsoft.com/v1.0/me" },
+                            { "IToDoTaskEndpoint:UseNativeHandler","true" }
                         };
                 builder.AddInMemoryCollection(appsettingsPrefix);
 
