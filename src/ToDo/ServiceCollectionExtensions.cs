@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Http;
 using Refit;
+using ToDo.Business;
 using Uno.Extensions.Http;
 using Uno.Extensions.Serialization.Refit;
 
@@ -18,14 +19,14 @@ public static class ServiceCollectionExtensions
 		return services
 			.AddNativeHandler()
 			.AddContentSerializer()
-			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder)
-			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder);
-
+			.AddRefitClient<IToDoTaskEndpoint>(context, nameof(IToDoTaskEndpoint), settingsBuilder: authSettingsBuilder)
+			.AddRefitClient<IToDoTaskListEndpoint>(context, nameof(IToDoTaskEndpoint), settingsBuilder: authSettingsBuilder);
 	}
 
-
-
-
+	public static IServiceCollection AddServices(this IServiceCollection services)
+		=> services
+			.AddSingleton(typeof(IToDoTaskService), typeof(ToDoTaskService))
+			.AddSingleton(typeof(IToDoTaskListService), typeof(ToDoTaskListService));
 
 	/*********************** Temporary extensions until Uno.Extensions.Http is updated **************/
 	// See: https://github.com/unoplatform/uno.extensions/pull/347

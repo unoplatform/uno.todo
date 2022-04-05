@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ToDo;
-public class TaskData
+public class ToDoTaskData
 {
 	[JsonPropertyName("id")]
 	public string? Id { get; set; }
@@ -25,7 +25,7 @@ public class TaskData
 	public DateTime LastModifiedDateTime { get; set; }
 
 	[JsonPropertyName("body")]
-	public TaskBodyData? Body { get; set; }
+	public ToDoTaskBodyData? Body { get; set; }
 
 	[JsonPropertyName("dueDateTime")]
 	public DateTimeData? DueDateTime { get; set; }

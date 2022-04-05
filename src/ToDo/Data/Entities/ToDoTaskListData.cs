@@ -2,7 +2,7 @@
 
 namespace ToDo;
 
-public class TaskListData
+public class ToDoTaskListData
 {
 	[JsonPropertyName("@odata.etag")]
 	public string? Odata { get; set; }
