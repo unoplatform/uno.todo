@@ -25,7 +25,7 @@ public class ToDoTaskData
 	public DateTime LastModifiedDateTime { get; set; }
 
 	[JsonPropertyName("body")]
-	public TaskBodyData? Body { get; set; }
+	public ToDoTaskBodyData? Body { get; set; }
 
 	[JsonPropertyName("dueDateTime")]
 	public DateTimeData? DueDateTime { get; set; }

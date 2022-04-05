@@ -3,7 +3,7 @@
 namespace ToDo;
 
 [Headers("Content-Type: application/json")]
-public interface ITaskEndpoint
+public interface IToDoTaskEndpoint
 {
 	[Get("/todo/lists/{listId}/tasks/{taskId}")]
 	[Headers("Authorization: Bearer")]

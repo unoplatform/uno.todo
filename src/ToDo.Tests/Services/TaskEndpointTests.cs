@@ -43,7 +43,7 @@ internal class BaseEndpointTests<T> where T : notnull
     }
 }
 
-internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
+internal class TaskEndpointTests : BaseEndpointTests<IToDoTaskEndpoint>
 {
 
     [SetUp]

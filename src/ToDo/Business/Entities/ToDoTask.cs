@@ -58,7 +58,7 @@ public record ToDoTask
 
 	public DateTime LastModifiedDateTime { get; init; }
 
-	public TaskBodyData? Body { get; init; }
+	public ToDoTaskBodyData? Body { get; init; }
 
 	public DateTimeData? DueDateTime { get; init; }
 

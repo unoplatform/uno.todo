@@ -6,9 +6,9 @@ namespace ToDo.Business;
 
 public class ToDoTaskListService : IToDoTaskListService
 {
-	private readonly ITaskListEndpoint _client;
+	private readonly IToDoTaskListEndpoint _client;
 
-	public ToDoTaskListService(ITaskListEndpoint client)
+	public ToDoTaskListService(IToDoTaskListEndpoint client)
 	{
 		_client = client;
 	}
@@ -25,11 +25,11 @@ public class ToDoTaskListService : IToDoTaskListService
 
 	/// <inheritdoc />
 	public async Task CreateAsync(string displayName, CancellationToken ct)
-		=> (await _client.CreateAsync(new TaskListRequestData { DisplayName = displayName }, ct)).EnsureSuccessStatusCode();
+		=> (await _client.CreateAsync(new ToDoTaskListRequestData { DisplayName = displayName }, ct)).EnsureSuccessStatusCode();
 
 	/// <inheritdoc />
 	public async Task UpdateAsync(ToDoTaskList list, CancellationToken ct)
-		=> (await _client.UpdateAsync(list.Id, new TaskListRequestData { DisplayName = list.DisplayName }, ct)).EnsureSuccessStatusCode();
+		=> (await _client.UpdateAsync(list.Id, new ToDoTaskListRequestData { DisplayName = list.DisplayName }, ct)).EnsureSuccessStatusCode();
 
 	/// <inheritdoc />
 	public async Task DeleteAsync(ToDoTaskList list, CancellationToken ct)

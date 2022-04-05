@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ToDo;
 
-public class TaskReponseData<T>
+public class ToDoTaskReponseData<T>
 {
 	[JsonPropertyName("@odata.context")]
 	public string? OdataContext { get; set; }

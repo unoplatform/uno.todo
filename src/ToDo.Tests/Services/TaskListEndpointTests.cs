@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace ToDo.Tests.Services
 {
-    internal class TaskListEndpointTests: BaseEndpointTests<ITaskListEndpoint>
+    internal class TaskListEndpointTests: BaseEndpointTests<IToDoTaskListEndpoint>
     {
 
         [SetUp]
@@ -16,7 +16,7 @@ namespace ToDo.Tests.Services
         public async Task Create_TodoList_ShouldReturn_Created()
         {
             //Arrange
-            TaskListRequestData todoList = new TaskListRequestData()
+            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData()
             {
                 DisplayName = "New Todo List"
             };
@@ -32,7 +32,7 @@ namespace ToDo.Tests.Services
         public async Task Create_TodoList_ShouldReturn_BadRequest()
         {
             //Arrange
-            TaskListRequestData todoList = new TaskListRequestData();
+            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData();
             //Act
             var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
@@ -106,7 +106,7 @@ namespace ToDo.Tests.Services
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y4u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
-            TaskListRequestData todoList = new TaskListRequestData()
+            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData()
             {
                 DisplayName = "New Todo List Updated"
             };
@@ -123,7 +123,7 @@ namespace ToDo.Tests.Services
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
-            TaskListRequestData todoList = new TaskListRequestData()
+            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData()
             {
                 DisplayName = "New Todo List Updated"
             };

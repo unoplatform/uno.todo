@@ -5,9 +5,9 @@ namespace ToDo.Business;
 
 public class ToDoTaskService : IToDoTaskService
 {
-	private readonly ITaskEndpoint _client;
+	private readonly IToDoTaskEndpoint _client;
 
-	public ToDoTaskService(ITaskEndpoint client)
+	public ToDoTaskService(IToDoTaskEndpoint client)
 	{
 		_client = client;
 	}
