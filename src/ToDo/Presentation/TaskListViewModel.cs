@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using ToDo.Business;
 using Uno.Extensions.Reactive;
+using Uno.Logging;
 
 namespace ToDo.Presentation;
 
@@ -11,12 +12,14 @@ public partial class TaskListViewModel
 	private readonly INavigator _navigator;
 	private readonly IToDoTaskListService _listSvc;
 	private readonly IToDoTaskService _taskSvc;
+	private readonly IMessenger _messenger;
 	private readonly IState<ToDoTaskList> _entity;
 
 	private TaskListViewModel(
 		INavigator navigator,
 		IToDoTaskListService listSvc,
 		IToDoTaskService taskSvc,
+		IMessenger messenger,
 		IInput<ToDoTaskList> entity,
 		ICommandBuilder createTask,
 		ICommandBuilder<ToDoTask> navigateToTask,
@@ -25,11 +28,15 @@ public partial class TaskListViewModel
 		_navigator = navigator;
 		_listSvc = listSvc;
 		_taskSvc = taskSvc;
+		_messenger = messenger;
 		_entity = entity;
 
 		createTask.Given(entity).Execute(CreateTask);
 		navigateToTask.Execute(NavigateToTask);
 		deleteList.Given(entity).Execute(DeleteList);
+
+		// TODO: Unsubscribe
+		messenger.TaskChanged += OnTaskChanged;
 	}
 
 	// TODO: Feed - This should be a ListFeed / This should listen for Task creation/update/deletion
@@ -39,9 +46,7 @@ public partial class TaskListViewModel
 	{
 		// TODO: Configure properties of TaskData
 		var newTask = new ToDoTask {Title = "Hello world"};
-		var createdTask = await _taskSvc.CreateAsync(list, newTask, ct);
-
-		// TODO: Broadcast - Notify task created
+		await _taskSvc.CreateAsync(list, newTask, ct);
 	}
 
 	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)
@@ -53,9 +58,31 @@ public partial class TaskListViewModel
 	private async ValueTask DeleteList(ToDoTaskList list, CancellationToken ct)
 	{
 		await _listSvc.DeleteAsync(list, ct);
-
-		// TODO: Broadcast - Notify list deleted
-
 		await _navigator.NavigateBackAsync(this, cancellation: ct);
+	}
+
+	private async void OnTaskChanged(object sender, EntityMessage<ToDoTask> msg)
+	{
+		try
+		{
+			// TODO: Feed
+			//var listOpt = await _entity;
+			//if (listOpt.IsSome(out var list) && msg.Value.ListId == list.Id)
+			//{
+			//	await Tasks.Update(tasks =>
+			//	{
+			//		return msg.Change switch
+			//		{
+			//			EntityChange.Create => tasks.Add(msg.Value),
+			//			EntityChange.Update => tasks.Replace(msg.Value),
+			//			EntityChange.Delete => tasks.Remove(msg.Value),
+			//		};
+			//	});
+			//}
+		}
+		catch (Exception e)
+		{
+			this.Log().Error("Failed to apply update message.", e);
+		}
 	}
 }

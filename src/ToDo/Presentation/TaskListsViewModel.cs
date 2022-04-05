@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using ToDo.Business;
 using Uno.Extensions.Reactive;
+using Uno.Logging;
 
 namespace ToDo.Presentation;
 
@@ -13,6 +14,7 @@ public partial class TaskListsViewModel
 	private TaskListsViewModel(
 		INavigator navigator,
 		IToDoTaskListService svc,
+		IMessenger messenger,
 		ICommandBuilder createTaskList,
 		ICommandBuilder<ToDoTaskListData> navigateToTaskList)
 	{
@@ -21,6 +23,9 @@ public partial class TaskListsViewModel
 
 		createTaskList.Execute(CreateTaskList);
 		navigateToTaskList.Execute(NavigateToTaskList);
+
+		// TODO: Unsubscribe
+		messenger.TaskListChanged += OnTaskListChanged;
 	}
 
 	// TODO: Feed - This should be a ListFeed / This should listen for List creation/update/deletion
@@ -45,5 +50,26 @@ public partial class TaskListsViewModel
 	{
 		// TODO: Nav - Could this be an implicit nav?
 		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: list, cancellation: ct);
+	}
+
+	private async void OnTaskListChanged(object sender, EntityMessage<ToDoTaskList> msg)
+	{
+		try
+		{
+			// TODO: Feed
+			//await Lists.Update(tasks =>
+			//{
+			//	return msg.Change switch
+			//	{
+			//		EntityChange.Create => tasks.Add(msg.Value),
+			//		EntityChange.Update => tasks.Replace(msg.Value),
+			//		EntityChange.Delete => tasks.Remove(msg.Value),
+			//	};
+			//});
+		}
+		catch (Exception e)
+		{
+			this.Log().Error("Failed to apply update message.", e);
+		}
 	}
 }
