@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Immutable;
 using System.Linq;
+using ToDo.Business;
 using Uno.Extensions.Reactive;
 
 namespace ToDo.Presentation;
@@ -7,25 +9,22 @@ namespace ToDo.Presentation;
 public partial class TaskListViewModel
 {
 	private readonly INavigator _navigator;
-	private readonly ITaskListEndpoint _listClient;
-	private readonly ITaskEndpoint _taskClient;
-	//private readonly IFeed<TaskListData[]> _allTasksLists;
-	private readonly IState<TaskListData> _entity;
+	private readonly IToDoTaskListService _listSvc;
+	private readonly IToDoTaskService _taskSvc;
+	private readonly IState<ToDoTaskList> _entity;
 
 	private TaskListViewModel(
 		INavigator navigator,
-		ITaskListEndpoint listClient,
-		ITaskEndpoint taskClient,
-		//IFeed<TaskListData[]> allTasksLists,
-		IInput<TaskListData> entity, // TODO: Feed - this should be a state
+		IToDoTaskListService listSvc,
+		IToDoTaskService taskSvc,
+		IInput<ToDoTaskList> entity,
 		ICommandBuilder createTask,
-		ICommandBuilder<TaskData> navigateToTask,
+		ICommandBuilder<ToDoTask> navigateToTask,
 		ICommandBuilder deleteList)
 	{
 		_navigator = navigator;
-		_listClient = listClient;
-		_taskClient = taskClient;
-		//_allTasksLists = allTasksLists;
+		_listSvc = listSvc;
+		_taskSvc = taskSvc;
 		_entity = entity;
 
 		createTask.Given(entity).Execute(CreateTask);
@@ -33,28 +32,29 @@ public partial class TaskListViewModel
 		deleteList.Given(entity).Execute(DeleteList);
 	}
 
-	private async ValueTask CreateTask(TaskListData list, CancellationToken ct)
+	// TODO: Feed - This should be a ListFeed / This should listen for Task creation/update/deletion
+	public IFeed<IImmutableList<ToDoTask>> Tasks => _entity.SelectAsync(async (list, ct) => await _listSvc.GetTasksAsync(list!, ct));
+
+	private async ValueTask CreateTask(ToDoTaskList list, CancellationToken ct)
 	{
 		// TODO: Configure properties of TaskData
-		var newTask = new TaskData();
-		var createdTask = await _taskClient.CreateAsync(list.Id!, newTask, ct);
+		var newTask = new ToDoTask {Title = "Hello world"};
+		var createdTask = await _taskSvc.CreateAsync(list, newTask, ct);
+
+		// TODO: Broadcast - Notify task created
 	}
 
-	private async ValueTask NavigateToTask(TaskData theTask, CancellationToken ct)
+	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)
 	{
-		// TODO: Propagate the ListId within the TaskData
-		var list = (await _entity).SomeOrDefault()!;
-
-		// TODO: Split data in multiple values so they can be used in the TaskViewModel ctor (especially the IInput<TaskData> entity).
-		await _navigator.NavigateViewModelAsync<TaskViewModel>(this, data: (list, _entity, theTask), cancellation: ct);
+		// TODO: Nav - Could this be an implicit nav?
+		await _navigator.NavigateViewModelAsync<TaskViewModel>(this, data: task, cancellation: ct);
 	}
 
-	private async ValueTask DeleteList(TaskListData list, CancellationToken ct)
+	private async ValueTask DeleteList(ToDoTaskList list, CancellationToken ct)
 	{
-		await _listClient.DeleteAsync(list.Id!, ct);
+		await _listSvc.DeleteAsync(list, ct);
 
-		// TODO: Feed - Update the local state, so the previous page is updated live
-		//await _allTasksLists.Update(lists => lists.Remove(list));
+		// TODO: Broadcast - Notify list deleted
 
 		await _navigator.NavigateBackAsync(this, cancellation: ct);
 	}

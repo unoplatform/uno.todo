@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ToDo;
-public class TaskData
+public class ToDoTaskData
 {
 	[JsonPropertyName("id")]
 	public string? Id { get; set; }

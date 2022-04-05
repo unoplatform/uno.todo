@@ -54,12 +54,12 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
     {
         //Arrange
         var listId = "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AACzQA1BAAA=";
-        var newTask = new TaskData{ Title = "new task" };
+        var newTask = new ToDoTaskData{ Title = "new task" };
         //Act
         var result = await service.CreateAsync(listId, newTask, CancellationToken.None);
 
         //Assert
-        Assert.IsInstanceOf<TaskData>(result);
+        Assert.IsInstanceOf<ToDoTaskData>(result);
     }
 
     [Test]
@@ -73,6 +73,6 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
         var result = await service.GetAsync(listId, taskId, CancellationToken.None);
 
         //Assert
-        Assert.IsInstanceOf<TaskData>(result);
+        Assert.IsInstanceOf<ToDoTaskData>(result);
     }
 }

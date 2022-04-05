@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ToDo.Business;
 using Uno.Extensions.Reactive;
 
 namespace ToDo.Presentation;
@@ -7,42 +8,35 @@ namespace ToDo.Presentation;
 public partial class TaskViewModel
 {
 	private readonly INavigator _navigator;
-	private readonly ITaskEndpoint _client;
-	//private readonly TaskListData _theListRequiredOnlyForListIdWhichShouldBePartOfTheTaskRecord;
-	//private readonly IInput<TaskData> _entity;
-	//private readonly IFeed<TaskData[]> _allTasks;
+	private readonly IToDoTaskService _svc;
 
 	private TaskViewModel(
 		INavigator navigator,
-		ITaskEndpoint client,
-		//TaskListData theListRequiredOnlyForListIdWhichShouldBePartOfTheTaskRecord, 
-		//IFeed<TaskData[]> allTasks,
-		//IInput<TaskData> entity,
+		IToDoTaskService svc,
+		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
 		ICommandBuilder save)
 	{
 		_navigator = navigator;
-		_client = client;
-		//_theListRequiredOnlyForListIdWhichShouldBePartOfTheTaskRecord = theListRequiredOnlyForListIdWhichShouldBePartOfTheTaskRecord;
-		//_allTasks = allTasks;
-		//_entity = entity;
+		_svc = svc;
 
-		//delete.Given(_entity).Execute(Delete);
-		//save.Given(_entity).Execute(Save);
+		delete.Given(entity).Execute(Delete);
+		save.Given(entity).Execute(Save);
 	}
 
-	private async ValueTask Delete(TaskData task, CancellationToken ct)
+	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
 	{
-		//await _client.DeleteAsync(_theListRequiredOnlyForListIdWhichShouldBePartOfTheTaskRecord.Id!, task.Id!, ct);
+		await _svc.DeleteAsync(task, ct);
 
-		// TODO: Feed - Delete the task from the list, so the previous page is updated live
-		// await _allTasks.Update(tasks => tasks.Remove(task));
+		// TODO: Broadcast - Notify task deleted
 
 		await _navigator.NavigateBackAsync(this, cancellation: ct);
 	}
 
-	private async ValueTask Save(TaskData task, CancellationToken ct)
+	private async ValueTask Save(ToDoTask task, CancellationToken ct)
 	{
-		//await _client.UpdateAsync(_theListRequiredOnlyForListIdWhichShouldBePartOfTheTaskRecord.Id!, task.Id!, task, ct);
+		await _svc.UpdateAsync(task, ct);
+
+		// TODO: Broadcast - Notify task changed
 	}
 }

@@ -7,11 +7,11 @@ public interface ITaskListEndpoint
 {
 	[Get("/todo/lists")]
 	[Headers("Authorization: Bearer")]
-	Task<TaskReponseData<TaskListData>> GetAllAsync(CancellationToken ct);
+	Task<TaskReponseData<ToDoTaskListData>> GetAllAsync(CancellationToken ct);
 
 	[Get("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]
-	Task<TaskListData> GetAsync(string todoTaskListId, CancellationToken ct);
+	Task<ToDoTaskListData> GetAsync(string todoTaskListId, CancellationToken ct);
 
 	[Post("/todo/lists")]
 	[Headers("Authorization: Bearer")]
@@ -27,5 +27,5 @@ public interface ITaskListEndpoint
 
 	[Get("/todo/lists/{todoTaskListId}/tasks")]
 	[Headers("Authorization: Bearer")]
-	Task<TaskReponseData<TaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct);
+	Task<TaskReponseData<ToDoTaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct);
 }
