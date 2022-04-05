@@ -104,7 +104,7 @@
     <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.342" />
-    <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.342" />
+    <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.362" />
     <PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.342" />
     <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.342" />
