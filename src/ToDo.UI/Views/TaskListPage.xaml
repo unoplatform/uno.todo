@@ -64,9 +64,11 @@
 			<!-- TODO: Replace Click handler with the following Command binding - this
 				doens't currently work due to some threading issues with commands and navigation -->
 			<!--Command="{Binding CreateTask}"/>-->
-			<HyperlinkButton Content="Delete?"
-							 uen:Navigation.Request="!Confirm"
-							 Style="{StaticResource MaterialHyperlinkButtonStyle}" />
+			<Button Content="Delete List"
+					Click="DeleteListClick" />
+			<!-- TODO: Replace Click handler with the following Command binding - this
+				doens't currently work due to some threading issues with commands and navigation -->
+			<!--Command="{Binding DeleteList}"/>-->
 		</StackPanel>
 	</Grid>
 </Page>

@@ -22,6 +22,21 @@ public sealed partial class TaskListPage : Page, IInjectable<INavigator>
 
 	}
 
+	public async void DeleteListClick(object sender, RoutedEventArgs args)
+	{
+
+		var response = await Navigator!.NavigateRouteForResultAsync< DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+
+		var actionLabel= result.SomeOrDefault()?.Label;
+
+	}
+
 	private INavigator? Navigator { get; set; }
 	public void Inject(INavigator entity) => Navigator = entity;
 }

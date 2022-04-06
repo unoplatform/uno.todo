@@ -64,8 +64,19 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 
 	private async ValueTask DeleteList(ToDoTaskList list, CancellationToken ct)
 	{
-		await _listSvc.DeleteAsync(list, ct);
-		await _navigator.NavigateBackAsync(this, cancellation: ct);
+		var response = await _navigator!.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+		if (result.SomeOrDefault()?.Id?.ToString() == "Y")
+		{
+
+			await _listSvc.DeleteAsync(list, ct);
+			await _navigator.NavigateBackAsync(this, cancellation: ct);
+		}
 	}
 
 	public void Receive(EntityMessage<ToDoTask> msg)
