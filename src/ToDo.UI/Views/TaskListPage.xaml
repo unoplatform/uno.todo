@@ -54,8 +54,19 @@
 				</UserControl>
 			</DataTemplate>
 		</uer:FeedView>
-		<Button Content="Task"
-				uen:Navigation.Request="Task"
-				Grid.Row="2" />
+		<StackPanel Orientation="Horizontal"
+					Grid.Row="2">
+			<Button Content="Task"
+					uen:Navigation.Request="Task"
+					/>
+			<Button Content="Add"
+					Click="CreateTaskClick" />
+			<!-- TODO: Replace Click handler with the following Command binding - this
+				doens't currently work due to some threading issues with commands and navigation -->
+			<!--Command="{Binding CreateTask}"/>-->
+			<HyperlinkButton Content="Delete?"
+							 uen:Navigation.Request="!Confirm"
+							 Style="{StaticResource MaterialHyperlinkButtonStyle}" />
+		</StackPanel>
 	</Grid>
 </Page>

@@ -35,11 +35,23 @@ public partial class HomeViewModel:IRecipient<EntityMessage<ToDoTaskList>>
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
-		// TODO: Build query parameter to create the task list
-		// var newTaskList = _client.CreateAsync(default!, ct);
 
-		// TODO: Feed - Edit the local state to add the newly created list, so the previous page is updated live.
-		// await Lists.Update(lists => lists.Add(newTaskList));
+		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, ToDoTaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
+		if(response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+
+		var listName = result.SomeOrDefault()?.DisplayName;
+		if (listName is not null) {
+			// TODO: Build query parameter to create the task list
+			var newTaskList = _svc.CreateAsync(listName, ct);
+
+			// TODO: Feed - Edit the local state to add the newly created list, so the previous page is updated live.
+			// await Lists.Update(lists => lists.Add(newTaskList));
+		}
 	}
 
 	private async ValueTask NavigateToTaskList(ToDoTaskListData list, CancellationToken ct)

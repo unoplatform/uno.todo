@@ -38,9 +38,22 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 
 	private async ValueTask CreateTask(ToDoTaskList list, CancellationToken ct)
 	{
-		// TODO: Configure properties of TaskData
-		var newTask = new ToDoTask {Title = "Hello world"};
-		await _taskSvc.CreateAsync(list, newTask, ct);
+		var response = await _navigator!.NavigateViewModelForResultAsync<AddTaskViewModel, ToDoTaskData>(this, qualifier: Qualifiers.Dialog);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+
+		var taskName = result.SomeOrDefault()?.Title;
+		if (taskName is not null)
+		{
+
+			// TODO: Configure properties of TaskData
+			var newTask = new ToDoTask { Title = taskName };
+			await _taskSvc.CreateAsync(list, newTask, ct);
+		}
 	}
 
 	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)
