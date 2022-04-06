@@ -27,16 +27,9 @@ public partial class TaskViewModel
 	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
 	{
 		await _svc.DeleteAsync(task, ct);
-
-		// TODO: Broadcast - Notify task deleted
-
 		await _navigator.NavigateBackAsync(this, cancellation: ct);
 	}
 
 	private async ValueTask Save(ToDoTask task, CancellationToken ct)
-	{
-		await _svc.UpdateAsync(task, ct);
-
-		// TODO: Broadcast - Notify task changed
-	}
+		=> await _svc.UpdateAsync(task, ct);
 }

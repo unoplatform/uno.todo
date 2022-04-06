@@ -25,7 +25,7 @@ namespace ToDo.Tests.Services
             var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
             //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.Created, "The ToDo List can't be created");
+            Assert.IsNotNull(result, "The ToDo List can't be created");
         }
 
         [Test]
@@ -36,8 +36,8 @@ namespace ToDo.Tests.Services
             //Act
             var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
-            //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.BadRequest, "The ToDo List can't be created");
+			//Assert
+			Assert.IsNotNull(result, "The ToDo List can't be created");
         }
 
         [Test]
@@ -114,8 +114,8 @@ namespace ToDo.Tests.Services
             //Act
             var result = await service.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
 
-            //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.NotFound, "The ToDo List found");
+			//Assert
+			Assert.IsNotNull(result, "The ToDo List found");
         }
 
         [Test]
@@ -131,8 +131,8 @@ namespace ToDo.Tests.Services
             //Act
             var result = await service.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
 
-            //Assert
-            Assert.IsTrue(result.StatusCode == System.Net.HttpStatusCode.OK, "The ToDo List wasn't find");
+			//Assert
+			Assert.IsNotNull(result, "The ToDo List wasn't find");
         }
     }
 }

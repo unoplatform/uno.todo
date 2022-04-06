@@ -26,7 +26,9 @@ public static class ServiceCollectionExtensions
 	public static IServiceCollection AddServices(this IServiceCollection services)
 		=> services
 			.AddSingleton(typeof(IToDoTaskService), typeof(ToDoTaskService))
-			.AddSingleton(typeof(IToDoTaskListService), typeof(ToDoTaskListService));
+			.AddSingleton(typeof(IToDoTaskListService), typeof(ToDoTaskListService))
+			.AddSingleton(typeof(IMessenger), typeof(Messenger));
+
 
 	/*********************** Temporary extensions until Uno.Extensions.Http is updated **************/
 	// See: https://github.com/unoplatform/uno.extensions/pull/347

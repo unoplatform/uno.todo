@@ -15,11 +15,11 @@ public interface IToDoTaskListEndpoint
 
 	[Post("/todo/lists")]
 	[Headers("Authorization: Bearer")]
-	Task<HttpResponseMessage> CreateAsync([Body] ToDoTaskListRequestData todoList, CancellationToken ct);
+	Task<ToDoTaskListData> CreateAsync([Body] ToDoTaskListRequestData todoList, CancellationToken ct);
 
 	[Patch("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]
-	Task<HttpResponseMessage> UpdateAsync(string todoTaskListId, [Body] ToDoTaskListRequestData todoList, CancellationToken ct);
+	Task<ToDoTaskListData> UpdateAsync(string todoTaskListId, [Body] ToDoTaskListRequestData todoList, CancellationToken ct);
 
 	[Delete("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]

@@ -7,10 +7,12 @@ namespace ToDo.Business;
 public class ToDoTaskListService : IToDoTaskListService
 {
 	private readonly IToDoTaskListEndpoint _client;
+	private readonly IMessenger _messenger;
 
-	public ToDoTaskListService(IToDoTaskListEndpoint client)
+	public ToDoTaskListService(IToDoTaskListEndpoint client, IMessenger messenger)
 	{
 		_client = client;
+		_messenger = messenger;
 	}
 
 	/// <inheritdoc />
@@ -25,15 +27,27 @@ public class ToDoTaskListService : IToDoTaskListService
 
 	/// <inheritdoc />
 	public async Task CreateAsync(string displayName, CancellationToken ct)
-		=> (await _client.CreateAsync(new ToDoTaskListRequestData { DisplayName = displayName }, ct)).EnsureSuccessStatusCode();
+	{
+		var createdList = await _client.CreateAsync(new ToDoTaskListRequestData { DisplayName = displayName }, ct);
+
+		_messenger.Notify(new EntityMessage<ToDoTaskList>(EntityChange.Create, new (createdList)));
+	}
 
 	/// <inheritdoc />
 	public async Task UpdateAsync(ToDoTaskList list, CancellationToken ct)
-		=> (await _client.UpdateAsync(list.Id, new ToDoTaskListRequestData { DisplayName = list.DisplayName }, ct)).EnsureSuccessStatusCode();
+	{
+		var updatedList = await _client.UpdateAsync(list.Id, new ToDoTaskListRequestData { DisplayName = list.DisplayName }, ct);
+
+		_messenger.Notify(new EntityMessage<ToDoTaskList>(EntityChange.Update, new(updatedList)));
+	}
 
 	/// <inheritdoc />
 	public async Task DeleteAsync(ToDoTaskList list, CancellationToken ct)
-		=> (await _client.DeleteAsync(list.Id, ct)).EnsureSuccessStatusCode();
+	{
+		(await _client.DeleteAsync(list.Id, ct)).EnsureSuccessStatusCode();
+
+		_messenger.Notify(new EntityMessage<ToDoTaskList>(EntityChange.Delete, list));
+	}
 
 	/// <inheritdoc />
 	public async Task<IImmutableList<ToDoTask>> GetTasksAsync(string listId, CancellationToken ct)
