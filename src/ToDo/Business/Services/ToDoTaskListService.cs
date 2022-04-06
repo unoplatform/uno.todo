@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-
+﻿
 namespace ToDo.Business;
 
 public class ToDoTaskListService : IToDoTaskListService
@@ -30,7 +27,7 @@ public class ToDoTaskListService : IToDoTaskListService
 	{
 		var createdList = await _client.CreateAsync(new ToDoTaskListRequestData { DisplayName = displayName }, ct);
 
-		_messenger.Notify(new EntityMessage<ToDoTaskList>(EntityChange.Create, new (createdList)));
+		_messenger.Send(new EntityMessage<ToDoTaskList>(EntityChange.Create, new (createdList)));
 	}
 
 	/// <inheritdoc />
@@ -38,7 +35,7 @@ public class ToDoTaskListService : IToDoTaskListService
 	{
 		var updatedList = await _client.UpdateAsync(list.Id, new ToDoTaskListRequestData { DisplayName = list.DisplayName }, ct);
 
-		_messenger.Notify(new EntityMessage<ToDoTaskList>(EntityChange.Update, new(updatedList)));
+		_messenger.Send(new EntityMessage<ToDoTaskList>(EntityChange.Update, new(updatedList)));
 	}
 
 	/// <inheritdoc />
@@ -46,7 +43,7 @@ public class ToDoTaskListService : IToDoTaskListService
 	{
 		(await _client.DeleteAsync(list.Id, ct)).EnsureSuccessStatusCode();
 
-		_messenger.Notify(new EntityMessage<ToDoTaskList>(EntityChange.Delete, list));
+		_messenger.Send(new EntityMessage<ToDoTaskList>(EntityChange.Delete, list));
 	}
 
 	/// <inheritdoc />

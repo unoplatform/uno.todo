@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics.Contracts;
-using System.Net.Sockets;
-using System.Text;
-
-namespace ToDo.Business;
+﻿namespace ToDo.Business;
 
 public record ToDoTask
 {

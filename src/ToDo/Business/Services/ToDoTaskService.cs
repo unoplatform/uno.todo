@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace ToDo.Business;
+﻿namespace ToDo.Business;
 
 public class ToDoTaskService : IToDoTaskService
 {
@@ -23,7 +20,7 @@ public class ToDoTaskService : IToDoTaskService
 	{
 		var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
 
-		_messenger.Notify(new EntityMessage<ToDoTask>(EntityChange.Create, new (list, createdTask)));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new (list, createdTask)));
 	}
 
 	/// <inheritdoc />
@@ -31,7 +28,7 @@ public class ToDoTaskService : IToDoTaskService
 	{
 		var updatedTask = await _client.UpdateAsync(task.ListId, task.Id, task.ToData(), ct);
 
-		_messenger.Notify(new EntityMessage<ToDoTask>(EntityChange.Update, new (task.ListId, updatedTask)));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new (task.ListId, updatedTask)));
 	}
 
 	/// <inheritdoc />
@@ -39,6 +36,6 @@ public class ToDoTaskService : IToDoTaskService
 	{
 		await _client.DeleteAsync(task.ListId, task.Id, ct);
 
-		_messenger.Notify(new EntityMessage<ToDoTask>(EntityChange.Delete, task));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task));
 	}
 }

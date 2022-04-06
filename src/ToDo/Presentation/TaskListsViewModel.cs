@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Immutable;
-using ToDo.Business;
-using Uno.Extensions.Reactive;
-using Uno.Logging;
-
+﻿
 namespace ToDo.Presentation;
 
-public partial class TaskListsViewModel
+public partial class TaskListsViewModel:IRecipient<EntityMessage<ToDoTaskList>>
 {
 	private readonly INavigator _navigator;
 	private readonly IToDoTaskListService _svc;
-
+	private readonly ILogger _logger;
 	private TaskListsViewModel(
+		ILogger<TaskListsViewModel> logger,
 		INavigator navigator,
 		IToDoTaskListService svc,
 		IMessenger messenger,
@@ -19,13 +15,13 @@ public partial class TaskListsViewModel
 		ICommandBuilder<ToDoTaskListData> navigateToTaskList)
 	{
 		_navigator = navigator;
+		_logger = logger;
 		_svc = svc;
 
 		createTaskList.Execute(CreateTaskList);
 		navigateToTaskList.Execute(NavigateToTaskList);
 
-		// TODO: Unsubscribe
-		messenger.TaskListChanged += OnTaskListChanged;
+		messenger.Register(this);
 	}
 
 	// TODO: Feed - This should be a ListFeed / This should listen for List creation/update/deletion
@@ -52,7 +48,7 @@ public partial class TaskListsViewModel
 		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: list, cancellation: ct);
 	}
 
-	private async void OnTaskListChanged(object sender, EntityMessage<ToDoTaskList> msg)
+	public void Receive(EntityMessage<ToDoTaskList> msg)
 	{
 		try
 		{
@@ -69,7 +65,7 @@ public partial class TaskListsViewModel
 		}
 		catch (Exception e)
 		{
-			this.Log().Error("Failed to apply update message.", e);
+			_logger.LogError(e,"Failed to apply update message.");
 		}
 	}
 }
