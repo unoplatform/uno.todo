@@ -34,7 +34,7 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 	}
 
 	// TODO: Feed - This should be a ListFeed / This should listen for Task creation/update/deletion
-	public IFeed<IImmutableList<ToDoTask>> Tasks => _entity.SelectAsync(async (list, ct) => await _listSvc.GetTasksAsync(list!, ct));
+	public IFeed<IImmutableList<ToDoTask>> Tasks => _entity.SelectAsync(async (list, ct) => list is not null ? await _listSvc.GetTasksAsync(list, ct): default);
 
 	private async ValueTask CreateTask(ToDoTaskList list, CancellationToken ct)
 	{
