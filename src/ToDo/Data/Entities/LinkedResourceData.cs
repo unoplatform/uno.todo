@@ -1,6 +1,4 @@
-﻿
-
-namespace ToDo;
+﻿namespace ToDo;
 public class LinkedResourceData
 {
 	[JsonPropertyName("id")]

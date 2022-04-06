@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace ToDo.Business;
+﻿namespace ToDo.Business;
 
 public record ToDoTaskList
 {

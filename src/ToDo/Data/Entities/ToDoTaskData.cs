@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ToDo;
+﻿namespace ToDo;
 public class ToDoTaskData
 {
 	[JsonPropertyName("id")]

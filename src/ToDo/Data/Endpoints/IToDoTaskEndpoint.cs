@@ -1,6 +1,4 @@
-﻿using Refit;
-
-namespace ToDo;
+﻿namespace ToDo;
 
 [Headers("Content-Type: application/json")]
 public interface IToDoTaskEndpoint

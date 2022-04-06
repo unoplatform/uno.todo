@@ -1,10 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Http;
-using Refit;
-using ToDo.Business;
-using Uno.Extensions.Http;
-using Uno.Extensions.Serialization.Refit;
+﻿
 
 namespace ToDo;
 
@@ -25,9 +19,9 @@ public static class ServiceCollectionExtensions
 
 	public static IServiceCollection AddServices(this IServiceCollection services)
 		=> services
-			.AddSingleton(typeof(IToDoTaskService), typeof(ToDoTaskService))
-			.AddSingleton(typeof(IToDoTaskListService), typeof(ToDoTaskListService))
-			.AddSingleton(typeof(IMessenger), typeof(Messenger));
+			.AddSingleton<IToDoTaskService, ToDoTaskService>()
+			.AddSingleton<IToDoTaskListService, ToDoTaskListService>()
+			.AddSingleton< CommunityToolkit.Mvvm.Messaging.IMessenger, CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger>();
 
 
 	/*********************** Temporary extensions until Uno.Extensions.Http is updated **************/

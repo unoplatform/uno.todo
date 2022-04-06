@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-using ToDo.Business;
-using Uno.Extensions.Reactive;
-using Uno.Logging;
+﻿namespace ToDo.Presentation;
 
-namespace ToDo.Presentation;
-
-public partial class TaskListViewModel
+public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 {
 	private readonly INavigator _navigator;
 	private readonly IToDoTaskListService _listSvc;
 	private readonly IToDoTaskService _taskSvc;
-	private readonly IMessenger _messenger;
 	private readonly IState<ToDoTaskList> _entity;
+	private readonly ILogger _logger;
 
 	private TaskListViewModel(
+		ILogger<TaskListViewModel> logger,
 		INavigator navigator,
 		IToDoTaskListService listSvc,
 		IToDoTaskService taskSvc,
@@ -25,10 +19,10 @@ public partial class TaskListViewModel
 		ICommandBuilder<ToDoTask> navigateToTask,
 		ICommandBuilder deleteList)
 	{
+		_logger = logger;
 		_navigator = navigator;
 		_listSvc = listSvc;
 		_taskSvc = taskSvc;
-		_messenger = messenger;
 		_entity = entity;
 
 		createTask.Given(entity).Execute(CreateTask);
@@ -36,7 +30,7 @@ public partial class TaskListViewModel
 		deleteList.Given(entity).Execute(DeleteList);
 
 		// TODO: Unsubscribe
-		messenger.TaskChanged += OnTaskChanged;
+		messenger.Register(this);
 	}
 
 	// TODO: Feed - This should be a ListFeed / This should listen for Task creation/update/deletion
@@ -61,7 +55,7 @@ public partial class TaskListViewModel
 		await _navigator.NavigateBackAsync(this, cancellation: ct);
 	}
 
-	private async void OnTaskChanged(object sender, EntityMessage<ToDoTask> msg)
+	public void Receive(EntityMessage<ToDoTask> msg)
 	{
 		try
 		{
@@ -82,7 +76,7 @@ public partial class TaskListViewModel
 		}
 		catch (Exception e)
 		{
-			this.Log().Error("Failed to apply update message.", e);
+			_logger.LogError(e,"Failed to apply update message.");
 		}
 	}
 }

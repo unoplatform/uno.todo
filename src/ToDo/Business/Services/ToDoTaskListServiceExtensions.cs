@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Immutable;
-using System.Linq;
-
-namespace ToDo.Business;
+﻿namespace ToDo.Business;
 
 public static class ToDoTaskListServiceExtensions
 {
