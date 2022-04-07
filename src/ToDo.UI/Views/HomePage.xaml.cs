@@ -1,9 +1,9 @@
 ﻿
 namespace ToDo.Views;
 
-public sealed partial class TaskListsPage : Page
+public sealed partial class HomePage : Page
 {
-    public TaskListsPage()
+    public HomePage()
     {
         this.InitializeComponent();
     }

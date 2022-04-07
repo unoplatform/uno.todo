@@ -156,7 +156,7 @@ public sealed partial class App : Application
 		views.Register(
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel>(),
-			new ViewMap<TaskListsPage, TaskListsViewModel.BindableTaskListsViewModel>(),
+			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
 			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>()
 			);
@@ -171,7 +171,7 @@ public sealed partial class App : Application
 												View: views.FindByViewModel<WelcomeViewModel>()
 												),
 										new ("TaskLists",
-												View: views.FindByViewModel<TaskListsViewModel.BindableTaskListsViewModel>()
+												View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
 												),
 										new("TaskList",
 												View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),

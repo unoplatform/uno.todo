@@ -1,13 +1,13 @@
 ﻿
 namespace ToDo.Presentation;
 
-public partial class TaskListsViewModel:IRecipient<EntityMessage<ToDoTaskList>>
+public partial class HomeViewModel:IRecipient<EntityMessage<ToDoTaskList>>
 {
 	private readonly INavigator _navigator;
 	private readonly IToDoTaskListService _svc;
 	private readonly ILogger _logger;
-	private TaskListsViewModel(
-		ILogger<TaskListsViewModel> logger,
+	private HomeViewModel(
+		ILogger<HomeViewModel> logger,
 		INavigator navigator,
 		IToDoTaskListService svc,
 		IMessenger messenger,
