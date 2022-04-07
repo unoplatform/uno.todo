@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Identity.Client;
 using Newtonsoft.Json.Linq;
+using ToDo.Business.Entities;
 using Uno.UI.MSAL;
 
 namespace ToDo.Business.Services
@@ -21,7 +22,7 @@ namespace ToDo.Business.Services
 					.Build();
 		}
 
-		public async Task<UserContext> Login()
+		public async Task<UserContext> LoginAsync()
 		{
 			try
 			{
@@ -58,7 +59,6 @@ namespace ToDo.Business.Services
 
 		JObject ParseToken(string idToken)
 		{
-			// Get the piece with actual user info
 			idToken = idToken.Split('.')[1];
 			idToken = Base64UrlDecode(idToken);
 			return JObject.Parse(idToken);
@@ -72,28 +72,5 @@ namespace ToDo.Business.Services
 			var decoded = Encoding.UTF8.GetString(byteArray, 0, byteArray.Count());
 			return decoded;
 		}
-	}
-
-	public class UserContext
-	{
-		public string? UserIdentifier { get; set; }
-		public string? DisplayName { get; set; }
-		public string? Name { get; set; }
-		public string? Surname { get; set; }
-		public string? Country { get; set; }
-		public string? EmailAddress { get; set; }
-		public bool IsLoggedOn { get; set; }
-		public string? AccessToken { get; set; }
-		//public UserContext(string userIdentifier, string displayName, string name, string surname, string country, string emailAddress, bool isLoggedOn, string accessToken)
-		//{
-		//	UserIdentifier = userIdentifier;
-		//	DisplayName = displayName;
-		//	Name = name;
-		//	Surname = surname;
-		//	Country = country;
-		//	EmailAddress = emailAddress;
-		//	IsLoggedOn = isLoggedOn;
-		//	AccessToken = accessToken;
-		//}
 	}
 }
