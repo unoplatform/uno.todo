@@ -8,6 +8,9 @@ using System.Net.Http;
 using ToDo.Business;
 using Uno.Extensions.Serialization.Refit;
 using ToDo.Presentation;
+using Microsoft.Identity.Client;
+using Uno.UI.MSAL;
+using ToDo.Business.Services;
 
 namespace ToDo;
 
@@ -37,9 +40,9 @@ public sealed partial class App : Application
 				.ConfigureLogging(logBuilder =>
 				{
 					logBuilder
-							.SetMinimumLevel(LogLevel.Information)
-							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information);
+							.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information)
+							.XamlLogLevel(Microsoft.Extensions.Logging.LogLevel.Information)
+							.XamlLayoutLogLevel(Microsoft.Extensions.Logging.LogLevel.Information);
 				})
 
 				// Load configuration information from appsettings.json
@@ -76,15 +79,19 @@ public sealed partial class App : Application
 #endif
 	}
 
-	private Task<string> GetAccessToken()
+	private async Task<string> GetAccessToken()
 	{
-		// TODO: This needs to be connected to the authentication process to return the current Access Token
-		// In the meantime do NOT commit an actual access token into the repo
-		// To get a temporary access token for development, go to https://developer.microsoft.com/en-us/graph/graph-explorer
-		// Sign in and select "get To Do task lists" from the sample queries
-		// Run the query, and then select the Access token tab. Paste the access token here for development ONLY
-		// The access token will expire periodically, so if you start to get errors, you may need to update the access token
-		return Task.FromResult("Put Access Token here!");
+		//TODO:There is a IAuthenticationService already to use it with injection
+		var auth = new AuthenticationService();
+		var userContext = await auth.Login();
+		if (userContext.AccessToken is not null)
+		{
+			return userContext.AccessToken;
+		}
+		else
+		{
+			return string.Empty;
+		}
 	}
 
 	/// <summary>

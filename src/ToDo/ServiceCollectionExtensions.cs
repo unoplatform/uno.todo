@@ -1,5 +1,7 @@
 ﻿
 
+using ToDo.Business.Services;
+
 namespace ToDo;
 
 public static class ServiceCollectionExtensions
@@ -21,6 +23,7 @@ public static class ServiceCollectionExtensions
 		=> services
 			.AddSingleton<IToDoTaskService, ToDoTaskService>()
 			.AddSingleton<IToDoTaskListService, ToDoTaskListService>()
+			.AddSingleton<IAuthenticationService, AuthenticationService>()
 			.AddSingleton< CommunityToolkit.Mvvm.Messaging.IMessenger, CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger>();
 
 
