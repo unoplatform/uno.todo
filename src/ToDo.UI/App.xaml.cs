@@ -83,17 +83,7 @@ public sealed partial class App : Application
 	{
 		//TODO:There is a IAuthenticationService already to use it with injection
 		var auth = new AuthenticationService();
-		//TODO:We need to store userContext in order to use it in the HomePage
-		var userContext = await auth.LoginAsync();
-		if (userContext.AccessToken is not null)
-		{
-			return userContext.AccessToken;
-		}
-		else
-		{
-			Console.WriteLine("Error: Access token is null");
-			throw new MsalClientException("", "Access token is null");
-		}
+		return await auth.LoginAsync();
 	}
 
 	/// <summary>
