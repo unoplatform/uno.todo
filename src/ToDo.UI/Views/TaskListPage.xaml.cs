@@ -10,7 +10,7 @@ public sealed partial class TaskListPage : Page, IInjectable<INavigator>
 	public async void CreateTaskClick(object sender, RoutedEventArgs args)
 	{
 
-		var response = await Navigator!.NavigateViewModelForResultAsync<AddTaskViewModel, ToDoTaskData>(this, qualifier: Qualifiers.Dialog);
+		var response = await Navigator!.NavigateViewModelForResultAsync<AddTaskViewModel, TaskData>(this, qualifier: Qualifiers.Dialog);
 		if (response is null)
 		{
 			return;

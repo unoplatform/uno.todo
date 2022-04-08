@@ -3,11 +3,11 @@
 public partial class TaskViewModel
 {
 	private readonly INavigator _navigator;
-	private readonly IToDoTaskService _svc;
+	private readonly ITaskService _svc;
 
 	private TaskViewModel(
 		INavigator navigator,
-		IToDoTaskService svc,
+		ITaskService svc,
 		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
 		ICommandBuilder save)

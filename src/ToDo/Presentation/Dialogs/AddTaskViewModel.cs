@@ -23,6 +23,6 @@ public class AddTaskViewModel
 
 	public async Task Add()
 	{
-		await Navigator.NavigateBackWithResultAsync(this, data: new ToDoTaskData { Title = Title });
+		await Navigator.NavigateBackWithResultAsync(this, data: new TaskData { Title = Title });
 	}
 }

@@ -11,7 +11,7 @@ public sealed partial class HomePage : Page
 	public async void CreateTaskListClick(object sender, RoutedEventArgs args)
 	{
 
-		var response = await Navigator!.NavigateViewModelForResultAsync<AddListViewModel, ToDoTaskListRequestData>(this, qualifier: Qualifiers.Dialog);
+		var response = await Navigator!.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this, qualifier: Qualifiers.Dialog);
 		if (response is null)
 		{
 			return;
