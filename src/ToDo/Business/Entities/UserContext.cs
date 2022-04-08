@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ToDo.Business.Entities
 {
-	public class UserContext
+	public record UserContext
 	{
 		public string? name { get; set; }
 		public string? preferred_username { get; set; }
