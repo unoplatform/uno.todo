@@ -12,7 +12,7 @@ namespace ToDo;
 
 public partial class App 
 {
-	private partial void UpdateAccessToken()
+	partial void UpdateAccessToken()
 	{
 		_accessToken = "Put Access Token here - DO NOT commit changes to this file";
 	}

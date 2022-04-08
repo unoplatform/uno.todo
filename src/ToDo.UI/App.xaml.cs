@@ -131,7 +131,7 @@ public sealed partial class App : Application
 		return Task.FromResult(_accessToken);
 	}
 
-	private partial void UpdateAccessToken();
+	partial void UpdateAccessToken();
 
 	/// <summary>
 	/// Invoked when Navigation to a certain page fails
