@@ -107,7 +107,7 @@ public sealed partial class App : Application
 			notif.RouteChanged += RouteUpdated;
 		}
 
-		_window.AttachNavigationHost(Host.Services);
+		_window.AttachNavigation(Host.Services);
 		_window.Activate();
 
 		await System.Threading.Tasks.Task.Run(async () =>
