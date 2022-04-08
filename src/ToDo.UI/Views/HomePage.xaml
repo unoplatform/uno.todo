@@ -16,7 +16,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
-        </Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
         <utu:NavigationBar
             utu:AutoLayout.CounterAlignment="Stretch"
             Content="Task Lists"
@@ -57,6 +58,7 @@
                 </UserControl>
             </DataTemplate>
         </uer:FeedView>
-
-    </Grid>
+		<Button Content="Add"
+				Command="{Binding CreateTaskList}" Grid.Row="2" />
+	</Grid>
 </Page>

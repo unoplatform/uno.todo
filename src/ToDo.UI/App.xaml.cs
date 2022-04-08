@@ -8,6 +8,7 @@ using System.Net.Http;
 using ToDo.Business;
 using Uno.Extensions.Serialization.Refit;
 using ToDo.Presentation;
+using ToDo.Views.Dialogs;
 
 namespace ToDo;
 
@@ -76,17 +77,6 @@ public sealed partial class App : Application
 #endif
 	}
 
-	private Task<string> GetAccessToken()
-	{
-		// TODO: This needs to be connected to the authentication process to return the current Access Token
-		// In the meantime do NOT commit an actual access token into the repo
-		// To get a temporary access token for development, go to https://developer.microsoft.com/en-us/graph/graph-explorer
-		// Sign in and select "get To Do task lists" from the sample queries
-		// Run the query, and then select the Access token tab. Paste the access token here for development ONLY
-		// The access token will expire periodically, so if you start to get errors, you may need to update the access token
-		return Task.FromResult("Put Access Token here!");
-	}
-
 	/// <summary>
 	/// Invoked when the application is launched normally by the end user.  Other entry points
 	/// will be used such as when the application is launched to open a specific file.
@@ -117,7 +107,7 @@ public sealed partial class App : Application
 			notif.RouteChanged += RouteUpdated;
 		}
 
-		_window.Content = Host.Services.NavigationHost();
+		_window.AttachNavigation(Host.Services);
 		_window.Activate();
 
 		await System.Threading.Tasks.Task.Run(async () =>
@@ -126,6 +116,22 @@ public sealed partial class App : Application
 		});
 
 	}
+
+
+	private string _accessToken = string.Empty;
+	private Task<string> GetAccessToken()
+	{
+		UpdateAccessToken();
+		// TODO: This needs to be connected to the authentication process to return the current Access Token
+		// In the meantime do NOT commit an actual access token into the repo
+		// To get a temporary access token for development, go to https://developer.microsoft.com/en-us/graph/graph-explorer
+		// Sign in and select "get To Do task lists" from the sample queries
+		// Run the query, and then select the Access token tab. Paste the access token here for development ONLY
+		// The access token will expire periodically, so if you start to get errors, you may need to update the access token
+		return Task.FromResult(_accessToken);
+	}
+
+	partial void UpdateAccessToken();
 
 	/// <summary>
 	/// Invoked when Navigation to a certain page fails
@@ -153,12 +159,28 @@ public sealed partial class App : Application
 
 	private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
 	{
+		var confirmDialog = new MessageDialogViewMap(
+		Content: "Are you sure you want to delete?",
+		Title: "Confirm delete?",
+		DelayUserInput: true,
+		DefaultButtonIndex: 1,
+		Buttons: new DialogAction[]
+		{
+						new(Label: "Yeh!",Id:"Y"),
+						new(Label: "Nah", Id:"N")
+		}
+	);
+
+
 		views.Register(
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel>(),
 			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>()
+			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
+			new ViewMap<AddTaskDialog>(),
+			new ViewMap<AddListDialog, AddListViewModel>(),
+			confirmDialog
 			);
 
 		routes
@@ -167,18 +189,23 @@ public sealed partial class App : Application
 				new("", View: views.FindByViewModel<ShellViewModel>(),
 						Nested: new RouteMap[]
 						{
-										new ("Welcome",
-												View: views.FindByViewModel<WelcomeViewModel>()
-												),
-										new ("TaskLists",
-												View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
-												),
-										new("TaskList",
-												View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
-												DependsOn:"TaskLists"),
-										new("Task",
-												View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
-												DependsOn:"TaskLists")
+							new ("Welcome",
+									View: views.FindByViewModel<WelcomeViewModel>()
+									),
+							new ("TaskLists",
+									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()												
+									),
+							new("TaskList",
+									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
+									DependsOn:"TaskLists"),
+							new("Task",
+									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
+									DependsOn:"TaskLists"),
+							new("AddTask",
+								View: views.FindByView<AddTaskDialog>()),
+							new("AddList",
+								View: views.FindByViewModel<AddListViewModel>()),
+							new ("Confirm", confirmDialog)
 						}));
 	}
 

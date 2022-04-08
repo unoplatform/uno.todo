@@ -5,26 +5,48 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
-      xmlns:utu="using:Uno.Toolkit.UI"
-      xmlns:um="using:Uno.Material"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
+	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
+	  xmlns:utu="using:Uno.Toolkit.UI"
+	  xmlns:um="using:Uno.Material"
+	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <utu:NavigationBar Content="Task"
-                           utu:AutoLayout.CounterAlignment="Stretch"
-                           Style="{StaticResource MaterialNavigationBarStyle}">
-            <!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
-            <utu:NavigationBar.MainCommand>
-                <AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-                    <AppBarButton.Icon>
-                        <BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
-                    </AppBarButton.Icon>
-                </AppBarButton>
-            </utu:NavigationBar.MainCommand>
-        </utu:NavigationBar>
-    </Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<utu:NavigationBar Content="Task List"
+						   utu:AutoLayout.CounterAlignment="Stretch"
+						   Style="{StaticResource MaterialNavigationBarStyle}">
+			<!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
+			<utu:NavigationBar.MainCommand>
+				<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+					<AppBarButton.Icon>
+						<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
+					</AppBarButton.Icon>
+				</AppBarButton>
+			</utu:NavigationBar.MainCommand>
+		</utu:NavigationBar>
+		<uer:FeedView Style="{StaticResource CompositeFeedViewStyle}"
+					  Source="{Binding Entity}"
+					  Grid.Row="1">
+			<DataTemplate>
+				<UserControl>
+					<StackPanel>
+						<TextBlock Text="Title" />
+						<TextBox Text="{Binding Title, Mode=TwoWay}" />
+					</StackPanel>
+				</UserControl>
+			</DataTemplate>
+		</uer:FeedView>
+		<StackPanel Orientation="Horizontal"
+					Grid.Row="2">
+			<Button Content="Add"
+					Command="{Binding Save}" />
+			<Button Content="Delete Task"
+					Command="{Binding Delete}" />
+		</StackPanel>
+	</Grid>
 </Page>
