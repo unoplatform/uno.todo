@@ -56,19 +56,13 @@
 		</uer:FeedView>
 		<StackPanel Orientation="Horizontal"
 					Grid.Row="2">
+			<!-- TODO: Remove this button - only required atm because the task list isn't loading, so no way to nav to task page -->
 			<Button Content="Task"
-					uen:Navigation.Request="Task"
-					/>
+					uen:Navigation.Request="Task" />
 			<Button Content="Add"
-					Click="CreateTaskClick" />
-			<!-- TODO: Replace Click handler with the following Command binding - this
-				doens't currently work due to some threading issues with commands and navigation -->
-			<!--Command="{Binding CreateTask}"/>-->
+					Command="{Binding CreateTask}" />
 			<Button Content="Delete List"
-					Click="DeleteListClick" />
-			<!-- TODO: Replace Click handler with the following Command binding - this
-				doens't currently work due to some threading issues with commands and navigation -->
-			<!--Command="{Binding DeleteList}"/>-->
+					Command="{Binding DeleteList}" />
 		</StackPanel>
 	</Grid>
 </Page>

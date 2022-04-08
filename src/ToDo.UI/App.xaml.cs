@@ -107,7 +107,7 @@ public sealed partial class App : Application
 			notif.RouteChanged += RouteUpdated;
 		}
 
-		_window.Content = Host.Services.NavigationHost();
+		_window.AttachNavigationHost(Host.Services);
 		_window.Activate();
 
 		await System.Threading.Tasks.Task.Run(async () =>
@@ -177,7 +177,7 @@ public sealed partial class App : Application
 									View: views.FindByViewModel<WelcomeViewModel>()
 									),
 							new ("TaskLists",
-									View: views.FindByViewModel<TaskListsViewModel.BindableTaskListsViewModel>()												
+									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()												
 									),
 							new("TaskList",
 									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
