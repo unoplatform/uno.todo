@@ -1,0 +1,19 @@
+// README: Copy this file to App.xaml.token.cs and change the _accessToken to match your access token
+
+// ***** Do NOT commit App.xaml.token.cs file into the repo ****
+// (App.xaml.token.cs has intentionally been ignored by .gitignore - don't manually add it!!)
+
+// To get a temporary access token for development, go to https://developer.microsoft.com/en-us/graph/graph-explorer
+// Sign in and select "get To Do task lists" from the sample queries
+// Run the query, and then select the Access token tab. Paste the access token here for development ONLY
+// The access token will expire periodically, so if you start to get errors, you may need to update the access token
+
+namespace ToDo;
+
+public partial class App 
+{
+	private partial void UpdateAccessToken()
+	{
+		_accessToken = "Put Access Token here - DO NOT commit changes to this file";
+	}
+}

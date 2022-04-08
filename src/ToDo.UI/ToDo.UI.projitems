@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.nocommit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskDialog.xaml.cs">
       <DependentUpon>AddTaskDialog.xaml</DependentUpon>
     </Compile>
