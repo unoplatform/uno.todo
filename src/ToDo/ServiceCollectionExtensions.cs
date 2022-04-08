@@ -13,14 +13,14 @@ public static class ServiceCollectionExtensions
 		return services
 			.AddNativeHandler()
 			.AddContentSerializer()
-			.AddRefitClient<IToDoTaskEndpoint>(context, nameof(IToDoTaskEndpoint), settingsBuilder: authSettingsBuilder)
-			.AddRefitClient<IToDoTaskListEndpoint>(context, nameof(IToDoTaskEndpoint), settingsBuilder: authSettingsBuilder);
+			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder)
+			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder);
 	}
 
 	public static IServiceCollection AddServices(this IServiceCollection services)
 		=> services
-			.AddSingleton<IToDoTaskService, ToDoTaskService>()
-			.AddSingleton<IToDoTaskListService, ToDoTaskListService>()
+			.AddSingleton<ITaskService, TaskService>()
+			.AddSingleton<ITaskListService, TaskListService>()
 			.AddSingleton< CommunityToolkit.Mvvm.Messaging.IMessenger, CommunityToolkit.Mvvm.Messaging.WeakReferenceMessenger>();
 
 

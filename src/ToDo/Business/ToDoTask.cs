@@ -10,14 +10,14 @@ public record ToDoTask
 
 	// This ctor should be used only by business and should remain internal
 	// To update a ToDoTask, use the "with" operator.
-	internal ToDoTask(ToDoTaskList list, ToDoTaskData data)
+	internal ToDoTask(TaskList list, TaskData data)
 		: this(list.Id, data)
 	{
 	}
 
 	// This ctor should be used only by business and should remain internal.
 	// To update a ToDoTask, use the "with" operator.
-	internal ToDoTask(string listId, ToDoTaskData data)
+	internal ToDoTask(string listId, TaskData data)
 	{
 		ListId = listId;
 
@@ -51,7 +51,7 @@ public record ToDoTask
 
 	public DateTime LastModifiedDateTime { get; init; }
 
-	public ToDoTaskBodyData? Body { get; init; }
+	public TaskBodyData? Body { get; init; }
 
 	public DateTimeData? DueDateTime { get; init; }
 
@@ -63,7 +63,7 @@ public record ToDoTask
 
 	// This ctor should be used only by business and should remain internal.
 	[Pure]
-	internal ToDoTaskData ToData()
+	internal TaskData ToData()
 		=> new()
 		{
 			Id = Id,

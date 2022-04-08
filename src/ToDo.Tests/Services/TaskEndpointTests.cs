@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Uno.Extensions.Hosting;
 using Uno.Extensions.Serialization;
 
 namespace ToDo.Tests.Services;
@@ -43,7 +41,7 @@ internal class BaseEndpointTests<T> where T : notnull
     }
 }
 
-internal class TaskEndpointTests : BaseEndpointTests<IToDoTaskEndpoint>
+internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
 {
 
     [SetUp]
@@ -54,12 +52,12 @@ internal class TaskEndpointTests : BaseEndpointTests<IToDoTaskEndpoint>
     {
         //Arrange
         var listId = "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AACzQA1BAAA=";
-        var newTask = new ToDoTaskData{ Title = "new task" };
+        var newTask = new TaskData{ Title = "new task" };
         //Act
         var result = await service.CreateAsync(listId, newTask, CancellationToken.None);
 
         //Assert
-        Assert.IsInstanceOf<ToDoTaskData>(result);
+        Assert.IsInstanceOf<TaskData>(result);
     }
 
     [Test]
@@ -73,6 +71,6 @@ internal class TaskEndpointTests : BaseEndpointTests<IToDoTaskEndpoint>
         var result = await service.GetAsync(listId, taskId, CancellationToken.None);
 
         //Assert
-        Assert.IsInstanceOf<ToDoTaskData>(result);
+        Assert.IsInstanceOf<TaskData>(result);
     }
 }

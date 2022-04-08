@@ -1,6 +1,6 @@
 ﻿namespace ToDo;
 
-public class ToDoTaskReponseData<T>
+public class TaskReponseData<T>
 {
 	[JsonPropertyName("@odata.context")]
 	public string? OdataContext { get; set; }

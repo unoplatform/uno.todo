@@ -1,10 +1,10 @@
 ﻿namespace ToDo.Business;
 
-public interface IToDoTaskService
+public interface ITaskService
 {
 	Task<ToDoTask> GetAsync(string listId, string taskId, CancellationToken ct);
 
-	Task CreateAsync(ToDoTaskList list, ToDoTask newTask, CancellationToken ct);
+	Task CreateAsync(TaskList list, ToDoTask newTask, CancellationToken ct);
 
 	Task UpdateAsync(ToDoTask task, CancellationToken ct);
 

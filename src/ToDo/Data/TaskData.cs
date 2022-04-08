@@ -1,5 +1,5 @@
 ﻿namespace ToDo;
-public class ToDoTaskData
+public class TaskData
 {
 	[JsonPropertyName("id")]
 	public string? Id { get; set; }
@@ -23,7 +23,7 @@ public class ToDoTaskData
 	public DateTime LastModifiedDateTime { get; set; }
 
 	[JsonPropertyName("body")]
-	public ToDoTaskBodyData? Body { get; set; }
+	public TaskBodyData? Body { get; set; }
 
 	[JsonPropertyName("dueDateTime")]
 	public DateTimeData? DueDateTime { get; set; }

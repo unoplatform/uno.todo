@@ -1,23 +1,23 @@
 ﻿namespace ToDo;
 
 [Headers("Content-Type: application/json")]
-public interface IToDoTaskListEndpoint
+public interface ITaskListEndpoint
 {
 	[Get("/todo/lists")]
 	[Headers("Authorization: Bearer")]
-	Task<ToDoTaskReponseData<ToDoTaskListData>> GetAllAsync(CancellationToken ct);
+	Task<TaskReponseData<TaskListData>> GetAllAsync(CancellationToken ct);
 
 	[Get("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]
-	Task<ToDoTaskListData> GetAsync(string todoTaskListId, CancellationToken ct);
+	Task<TaskListData> GetAsync(string todoTaskListId, CancellationToken ct);
 
 	[Post("/todo/lists")]
 	[Headers("Authorization: Bearer")]
-	Task<ToDoTaskListData> CreateAsync([Body] ToDoTaskListRequestData todoList, CancellationToken ct);
+	Task<TaskListData> CreateAsync([Body] TaskListRequestData todoList, CancellationToken ct);
 
 	[Patch("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]
-	Task<ToDoTaskListData> UpdateAsync(string todoTaskListId, [Body] ToDoTaskListRequestData todoList, CancellationToken ct);
+	Task<TaskListData> UpdateAsync(string todoTaskListId, [Body] TaskListRequestData todoList, CancellationToken ct);
 
 	[Delete("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]
@@ -25,5 +25,5 @@ public interface IToDoTaskListEndpoint
 
 	[Get("/todo/lists/{todoTaskListId}/tasks")]
 	[Headers("Authorization: Bearer")]
-	Task<ToDoTaskReponseData<ToDoTaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct);
+	Task<TaskReponseData<TaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct);
 }

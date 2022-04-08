@@ -1,8 +1,8 @@
 ﻿namespace ToDo.Business;
 
-public record ToDoTaskList
+public record TaskList
 {
-	internal ToDoTaskList(ToDoTaskListData data)
+	internal TaskList(TaskListData data)
 	{
 		Id = data.Id ?? throw new ArgumentNullException("data.Id", "List must have a valid ID.");
 		Odata = data.Odata;
