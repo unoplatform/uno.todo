@@ -25,9 +25,9 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		_taskSvc = taskSvc;
 		_entity = entity;
 
-		createTask.Given(entity).Execute(CreateTask);
-		navigateToTask.Execute(NavigateToTask);
-		deleteList.Given(entity).Execute(DeleteList);
+		createTask.Given(entity).Then(CreateTask);
+		navigateToTask.Then(NavigateToTask);
+		deleteList.Given(entity).Then(DeleteList);
 
 		// TODO: Unsubscribe
 		messenger.Register(this);
