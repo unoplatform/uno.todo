@@ -57,6 +57,7 @@ public sealed partial class App : Application
 				// Register services for the application
 				.ConfigureServices((context,services)=>
 				{
+					//todo: instantiate authService
 					services
 						.AddEndpoints(context, GetAccessToken)
 						.AddServices();
@@ -79,12 +80,20 @@ public sealed partial class App : Application
 #endif
 	}
 
+	//TODO: protected here
+	AuthenticationService auth;
+
 	private async Task<string> GetAccessToken()
 	{
 		//TODO:There is a IAuthenticationService already to use it with injection
-		var auth = new AuthenticationService(context);
+
+		//TODO: check if is null
+		if (auth is null)
+			throw new Exception();
 		return await auth.LoginAsync();
 	}
+
+	private async 
 
 	/// <summary>
 	/// Invoked when the application is launched normally by the end user.  Other entry points
