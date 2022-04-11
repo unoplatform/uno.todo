@@ -19,6 +19,7 @@ public sealed partial class App : Application
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 	private Window? _window;
 	public new Window? Window => _window;
+	private AuthenticationService? _auth;
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
 	private IHost Host { get; }
@@ -58,6 +59,7 @@ public sealed partial class App : Application
 				.ConfigureServices((context,services)=>
 				{
 					//todo: instantiate authService
+					_auth = new AuthenticationService(context);
 					services
 						.AddEndpoints(context, GetAccessToken)
 						.AddServices();
@@ -80,20 +82,15 @@ public sealed partial class App : Application
 #endif
 	}
 
-	//TODO: protected here
-	AuthenticationService auth;
-
 	private async Task<string> GetAccessToken()
 	{
 		//TODO:There is a IAuthenticationService already to use it with injection
 
 		//TODO: check if is null
-		if (auth is null)
+		if (_auth is null)
 			throw new Exception();
-		return await auth.LoginAsync();
+		return await _auth.LoginAsync();
 	}
-
-	private async 
 
 	/// <summary>
 	/// Invoked when the application is launched normally by the end user.  Other entry points

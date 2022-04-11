@@ -13,7 +13,13 @@ namespace ToDo.Business.Services
 		private readonly OAuthSettings _settings;
 		public AuthenticationService(HostBuilderContext context)
 		{
-			_settings = Microsoft.Extensions.Configuration.ConfigurationBinder.Get<OAuthSettings>(context.Configuration.GetSection("OAuthSettings"));
+			//_settings = Microsoft.Extensions.Configuration.ConfigurationBinder.Get<OAuthSettings>(context.Configuration.GetSection("OAuthSettings"));
+			_settings = new OAuthSettings
+				(
+					context.Configuration["OAuthSettings:ApplicationId"],
+					context.Configuration["OAuthSettings:Scopes"],
+					context.Configuration["OAuthSettings:RedirectUri"]
+				);
 
 			_pca = PublicClientApplicationBuilder
 					.Create(_settings.ApplicationId)
