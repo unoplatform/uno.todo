@@ -58,7 +58,6 @@ public sealed partial class App : Application
 				// Register services for the application
 				.ConfigureServices((context,services)=>
 				{
-					//todo: instantiate authService
 					_auth = new AuthenticationService(context);
 					services
 						.AddEndpoints(context, GetAccessToken)
@@ -88,7 +87,7 @@ public sealed partial class App : Application
 
 		//TODO: check if is null
 		if (_auth is null)
-			throw new Exception();
+			throw new Exception("_auth is null");
 		return await _auth.LoginAsync();
 	}
 
