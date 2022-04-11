@@ -8,8 +8,8 @@ using System.Net.Http;
 using ToDo.Business;
 using Uno.Extensions.Serialization.Refit;
 using ToDo.Presentation;
-using Microsoft.Identity.Client;
 using Uno.UI.MSAL;
+using Microsoft.Extensions.Logging;
 using ToDo.Business.Services;
 
 namespace ToDo;
@@ -40,9 +40,9 @@ public sealed partial class App : Application
 				.ConfigureLogging(logBuilder =>
 				{
 					logBuilder
-							.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information)
-							.XamlLogLevel(Microsoft.Extensions.Logging.LogLevel.Information)
-							.XamlLayoutLogLevel(Microsoft.Extensions.Logging.LogLevel.Information);
+							.SetMinimumLevel(LogLevel.Information)
+							.XamlLogLevel(LogLevel.Information)
+							.XamlLayoutLogLevel(LogLevel.Information);
 				})
 
 				// Load configuration information from appsettings.json
@@ -82,7 +82,7 @@ public sealed partial class App : Application
 	private async Task<string> GetAccessToken()
 	{
 		//TODO:There is a IAuthenticationService already to use it with injection
-		var auth = new AuthenticationService();
+		var auth = new AuthenticationService(context);
 		return await auth.LoginAsync();
 	}
 

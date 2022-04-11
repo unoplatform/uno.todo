@@ -1,7 +1,8 @@
-﻿using System.Text.Json;
+﻿
 using Microsoft.Identity.Client;
 using ToDo.Business.Entities;
 using Uno.UI.MSAL;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ToDo.Business.Services
 {
@@ -9,11 +10,14 @@ namespace ToDo.Business.Services
 	{
 		//public UserContext _userContext;
 		private readonly IPublicClientApplication _pca;
-		public AuthenticationService()
+		private readonly OAuthSettings _settings;
+		public AuthenticationService(HostBuilderContext context)
 		{
+			_settings = Microsoft.Extensions.Configuration.ConfigurationBinder.Get<OAuthSettings>(context.Configuration.GetSection("OAuthSettings"));
+
 			_pca = PublicClientApplicationBuilder
-					.Create(OAuthSettings.ApplicationId)
-					.WithRedirectUri(OAuthSettings.RedirectUri)
+					.Create(_settings.ApplicationId)
+					.WithRedirectUri(_settings.RedirectUri)
 					.WithUnoHelpers()
 #if __IOS__
                 .WithIosKeychainSecurityGroup("9TB54R6A6V.com.horus.unoplatform.todoapp")
@@ -25,7 +29,7 @@ namespace ToDo.Business.Services
 		{
 			try
 			{
-				var authResult = await _pca.AcquireTokenInteractive(OAuthSettings.Scopes.Split(' '))
+				var authResult = await _pca.AcquireTokenInteractive(_settings.Scopes.Split(' '))
 					.WithUnoHelpers()
 					.ExecuteAsync();
 				//TODO:We need to store UserContext in order to use it in the HomeViewModel
@@ -46,31 +50,12 @@ namespace ToDo.Business.Services
 
 		private UserContext CreateContextFromAuthResult(AuthenticationResult authResult)
 		{
-			return ParseToken(authResult.IdToken);
-		}
-
-		UserContext ParseToken(string idToken)
-		{
-			var data = idToken.Split('.')[1];
-			idToken = Base64UrlDecode(data);
-			var deserializeData = JsonSerializer.Deserialize<UserContext>(idToken);
-			if (deserializeData != null)
+			var token = new JwtSecurityTokenHandler().ReadJwtToken(authResult.IdToken);
+			return new UserContext
 			{
-				return deserializeData;
-			}
-			else
-			{
-				throw new ArgumentNullException("AccessToken.IdToken", "UserContext must not be a null");
-			}
-		}
-
-		private string Base64UrlDecode(string s)
-		{
-			s = s.Replace('-', '+').Replace('_', '/');
-			s = s.PadRight(s.Length + (4 - s.Length % 4) % 4, '=');
-			var byteArray = Convert.FromBase64String(s);
-			var decoded = Encoding.UTF8.GetString(byteArray, 0, byteArray.Count());
-			return decoded;
+				Name = token.Claims.First(c => c.Type == "name").Value,
+				Email = token.Claims.First(c => c.Type == "preferred_username").Value
+			};
 		}
 	}
 }

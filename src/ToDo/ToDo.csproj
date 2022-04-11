@@ -12,6 +12,7 @@
 		<PackageReference Include="Microsoft.Identity.Client" Version="4.15.0" />
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
 		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.362" />
 		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.362" />
 		<PackageReference Include="Uno.Extensions.Http.Refit" Version="1.2.0-dev.362" />

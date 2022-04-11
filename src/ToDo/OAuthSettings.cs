@@ -1,10 +1,18 @@
 ﻿
 namespace ToDo
 {
-	public class OAuthSettings
+	public record OAuthSettings
 	{
-		public const string ApplicationId = "980ca8cd-56ec-47dc-972f-a28ccb78e232";
-		public const string Scopes = "Tasks.Read User.Read Tasks.ReadWrite";
-		public const string RedirectUri = "msal980ca8cd-56ec-47dc-972f-a28ccb78e232://auth";
+		public OAuthSettings(string applicationId, string scopes, string redirectUri)
+		{
+			ApplicationId = applicationId;
+			Scopes = scopes;
+			RedirectUri = redirectUri;
+		}
+
+		public string ApplicationId { get; init; }
+		public string Scopes { get; init; }
+		public string RedirectUri { get; init; }
+
 	}
 }
