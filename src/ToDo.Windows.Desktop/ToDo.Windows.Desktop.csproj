@@ -33,7 +33,7 @@
 		<PackageReference Include="Uno.WinUI" Version="4.2.0-dev.543" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
 		<PackageReference Include="Uno.Material.WinUI" Version="1.4.0-dev.30" />
-		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.3" />
+		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.4" />
 		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.3" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
 		<PackageReference Include="System.Net.Http.WinHttpHandler" Version="6.0.0" />
