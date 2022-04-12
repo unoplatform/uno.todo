@@ -10,6 +10,7 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 		ILogger<TaskListViewModel> logger,
 		INavigator navigator,
 		ITaskService svc,
+		IMessenger messenger,
 		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
 		ICommandBuilder save)
