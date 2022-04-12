@@ -9,6 +9,7 @@ using ToDo.Business;
 using Uno.Extensions.Serialization.Refit;
 using ToDo.Presentation;
 using ToDo.Views.Dialogs;
+using Uno.Extensions.Configuration;
 
 namespace ToDo;
 
@@ -49,14 +50,16 @@ public sealed partial class App : Application
 				// Load AppInfo section
 				.UseConfiguration<AppInfo>()
 
+				.UseSettings<ToDoSettings>()
+
 				// Register Json serializers (ISerializer and IStreamSerializer)
-				.UseSerialization()!
+				.UseSerialization()
 
 				// Register services for the application
-				.ConfigureServices((context,services)=>
+				.ConfigureServices((context, services) =>
 				{
 					services
-						.AddEndpoints(context, GetAccessToken)
+						.AddEndpoints(context, AcquireToken)
 						.AddServices();
 				})
 
@@ -75,6 +78,40 @@ public sealed partial class App : Application
 #if HAS_UNO || NETFX_CORE
 		this.Suspending += OnSuspending;
 #endif
+	}
+
+	private async Task<string> AcquireToken(IServiceProvider services)
+	{
+		var settings = services.GetService<IWritableOptions<ToDoSettings>>();
+
+		if (settings?.Value is not null)
+		{
+			if (
+				!string.IsNullOrWhiteSpace(settings.Value.CachedAccessToken) &&
+
+				(settings.Value.CachedAccessTokenTimeStamp ?? DateTime.MinValue) > DateTime.Now.AddHours(-1))
+			{
+				return settings.Value.CachedAccessToken ?? string.Empty;
+			}
+		}
+
+		var nav = (_window?.Content as FrameworkElement)?.Navigator();
+		if (nav is null)
+		{
+			return string.Empty;
+		}
+		var response = await nav.NavigateViewModelForResultAsync<AuthTokenViewModel, string>(this, Qualifiers.Dialog);
+		if (response?.Result is null)
+		{
+			return string.Empty;
+		}
+		var result = await response.Result;
+		var accessToken = result.SomeOrDefault() ?? string.Empty;
+		if (settings is not null)
+		{
+			await settings.Update(todo => todo with { CachedAccessToken = accessToken, CachedAccessTokenTimeStamp = DateTime.Now });
+		}
+		return accessToken;
 	}
 
 	/// <summary>
@@ -180,6 +217,7 @@ public sealed partial class App : Application
 			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
 			new ViewMap<AddTaskDialog>(),
 			new ViewMap<AddListDialog, AddListViewModel>(),
+			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDialog
 			);
 
@@ -193,7 +231,7 @@ public sealed partial class App : Application
 									View: views.FindByViewModel<WelcomeViewModel>()
 									),
 							new ("TaskLists",
-									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()												
+									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
 									),
 							new("TaskList",
 									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
@@ -205,6 +243,8 @@ public sealed partial class App : Application
 								View: views.FindByView<AddTaskDialog>()),
 							new("AddList",
 								View: views.FindByViewModel<AddListViewModel>()),
+							new("AuthToken",
+								View: views.FindByViewModel<AuthTokenViewModel>()),
 							new ("Confirm", confirmDialog)
 						}));
 	}

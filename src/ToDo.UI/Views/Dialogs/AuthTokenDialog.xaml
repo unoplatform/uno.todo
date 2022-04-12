@@ -1,0 +1,19 @@
+﻿<ContentDialog
+    x:Class="ToDo.Views.Dialogs.AuthTokenDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ToDo.Views.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			   Title="Auth Token"
+			   PrimaryButtonText="Ok"
+			   CloseButtonText="Cancel"
+			   DefaultButton="Primary"
+			   PrimaryButtonCommand="{Binding OkCommand}">
+
+	<StackPanel>
+		<TextBlock Text="Enter your access token:" />
+		<HyperlinkButton Content="Graph Explorer"
+						 NavigateUri="https://developer.microsoft.com/en-us/graph/graph-explorer" />
+		<TextBox Text="{Binding AccessToken, Mode=TwoWay}" />
+	</StackPanel>
+</ContentDialog>

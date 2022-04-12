@@ -16,7 +16,7 @@ global using Refit;
 global using ToDo.Business;
 global using Uno.Extensions;
 global using Uno.Extensions.Http;
+global using Uno.Extensions.Http.Refit;
 global using Uno.Extensions.Navigation;
 global using Uno.Extensions.Reactive;
 global using Uno.Extensions.Serialization.Refit;
-

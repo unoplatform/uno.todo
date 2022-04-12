@@ -25,6 +25,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskDialog.xaml.cs">
       <DependentUpon>AddTaskDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml.cs">
+      <DependentUpon>AuthTokenDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\TaskListPage.xaml.cs">
       <DependentUpon>TaskListPage.xaml</DependentUpon>
     </Compile>
@@ -48,6 +51,10 @@
 		 without manipulating the projitem file.
 	-->
     <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
