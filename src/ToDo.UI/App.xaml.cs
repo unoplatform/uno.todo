@@ -56,7 +56,7 @@ public sealed partial class App : Application
 				.UseSerialization()
 
 				// Register services for the application
-				.ConfigureServices((context,services)=>
+				.ConfigureServices((context, services) =>
 				{
 					services
 						.AddEndpoints(context, AcquireToken)
@@ -84,29 +84,29 @@ public sealed partial class App : Application
 	{
 		var settings = services.GetService<IWritableOptions<ToDoSettings>>();
 
-		if(settings?.Value is not null)
+		if (settings?.Value is not null)
 		{
-			if(
+			if (
 				!string.IsNullOrWhiteSpace(settings.Value.CachedAccessToken) &&
 
-				(settings.Value.CachedAccessTokenTimeStamp??DateTime.MinValue)>DateTime.Now.AddHours(-1))
+				(settings.Value.CachedAccessTokenTimeStamp ?? DateTime.MinValue) > DateTime.Now.AddHours(-1))
 			{
-				return settings.Value.CachedAccessToken;
+				return settings.Value.CachedAccessToken ?? string.Empty;
 			}
 		}
 
 		var nav = (_window?.Content as FrameworkElement)?.Navigator();
-		if(nav is null)
+		if (nav is null)
 		{
 			return string.Empty;
 		}
 		var response = await nav.NavigateViewModelForResultAsync<AuthTokenViewModel, string>(this, Qualifiers.Dialog);
-		if(response?.Result is null)
+		if (response?.Result is null)
 		{
 			return string.Empty;
 		}
 		var result = await response.Result;
-		var accessToken= result.SomeOrDefault()??string.Empty;
+		var accessToken = result.SomeOrDefault() ?? string.Empty;
 		if (settings is not null)
 		{
 			await settings.Update(todo => todo with { CachedAccessToken = accessToken, CachedAccessTokenTimeStamp = DateTime.Now });
@@ -231,7 +231,7 @@ public sealed partial class App : Application
 									View: views.FindByViewModel<WelcomeViewModel>()
 									),
 							new ("TaskLists",
-									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()												
+									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
 									),
 							new("TaskList",
 									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
