@@ -9,8 +9,13 @@
     <Import_RootNamespace>ToDo</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="*.json" />
-    <EmbeddedResource Include="*.json" />
+    <Content Include="$(MSBuildThisFileDirectory)*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="$(MSBuildThisFileDirectory)appsettings*.json" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)appsettings*.json" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">

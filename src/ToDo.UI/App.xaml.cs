@@ -60,6 +60,11 @@ public sealed partial class App : Application
 				{
 					services
 						.AddEndpoints(context, AcquireToken)
+#if DEBUG
+						// TODO: Still need a way to dynamically toggle between mock and live endpoints
+						.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
+						.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
+#endif
 						.AddServices();
 				})
 
