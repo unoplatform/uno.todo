@@ -15,8 +15,8 @@ public partial class TaskViewModel
 		_navigator = navigator;
 		_svc = svc;
 
-		delete.Given(entity).Execute(Delete);
-		save.Given(entity).Execute(Save);
+		delete.Given(entity).Then(Delete);
+		save.Given(entity).Then(Save);
 	}
 
 	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
