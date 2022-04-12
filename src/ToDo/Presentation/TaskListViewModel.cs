@@ -29,7 +29,7 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		navigateToTask.Then(NavigateToTask);
 		deleteList.Given(entity).Then(DeleteList);
 
-		// TODO: Unsubscribe
+		// TODO: Update this to register with token = list.Id
 		messenger.Register(this);
 	}
 
