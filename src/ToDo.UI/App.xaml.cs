@@ -197,10 +197,13 @@ public sealed partial class App : Application
 			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
 			new ViewMap<SettingsPage, SettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
-			new ViewMap<TaskNotePage, TaskNoteViewModel>(),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel>(),
+			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
+			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data:new DataMap<TaskList>()),
+			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(Data: new DataMap<ToDoTask>()),
+			new ViewMap<AddTaskDialog>(),
+			new ViewMap<AddListDialog, AddListViewModel>(),
+			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDialog
 			);
 
