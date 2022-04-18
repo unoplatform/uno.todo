@@ -154,7 +154,7 @@
     <PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.392" />
-    <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.392" />
+    <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.409" />
     <PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.392" />
