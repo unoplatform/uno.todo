@@ -92,6 +92,6 @@ internal class TaskBetaEndpointTests : BaseEndpointTests<ITaskBetaEndpoint>
 		var result = await service.GetAllAsync(CancellationToken.None);
 
 		//Assert
-		Assert.IsInstanceOf<TaskData>(result);
+		Assert.IsInstanceOf<TaskReponseData<TaskData>>(result);
 	}
 }
