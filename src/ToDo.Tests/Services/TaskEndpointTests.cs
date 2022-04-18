@@ -37,7 +37,7 @@ internal class BaseEndpointTests<T> where T : notnull
 	}
 	private Task<string> GetAccessToken()
 	{
-		return Task.FromResult("**AcessToken**");
+		return Task.FromResult("**AccessToken**");
 	}
 }
 
