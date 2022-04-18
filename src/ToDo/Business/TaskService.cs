@@ -3,11 +3,14 @@
 public class TaskService : ITaskService
 {
 	private readonly ITaskEndpoint _client;
+	private readonly ITaskBetaEndpoint _betaClient;
 	private readonly IMessenger _messenger;
 
-	public TaskService(ITaskEndpoint client, IMessenger messenger)
+	public TaskService(ITaskEndpoint client,
+		ITaskBetaEndpoint betaClient, IMessenger messenger)
 	{
 		_client = client;
+		_betaClient = betaClient;
 		_messenger = messenger;
 	}
 
@@ -40,4 +43,14 @@ public class TaskService : ITaskService
 
 		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task), task.ListId);
 	}
+
+	public async ValueTask<IImmutableList<ToDoTask>> GetByFilterAsync(string displayName, CancellationToken ct)
+		=> ((await _betaClient.GetByFilterAsync(displayName, ct)).Value ?? Enumerable.Empty<TaskData>())
+			.Select(data => new ToDoTask(data))
+			.ToImmutableList();
+	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(CancellationToken ct)
+		=> ((await _betaClient.GetAllAsync(ct)).Value ?? Enumerable.Empty<TaskData>())
+			.Select(data => new ToDoTask(data))
+			.ToImmutableList();
+
 }

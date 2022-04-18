@@ -15,6 +15,11 @@ public record ToDoTask
 	{
 	}
 
+	internal ToDoTask(TaskData data)
+	: this(data?.ParentList?.Id!, data!)
+	{
+	}
+
 	// This ctor should be used only by business and should remain internal.
 	// To update a ToDoTask, use the "with" operator.
 	internal ToDoTask(string listId, TaskData data)
@@ -33,6 +38,7 @@ public record ToDoTask
 		LinkedResourcesOdataContext = data.LinkedResourcesOdataContext;
 		LinkedResources = data.LinkedResources?.ToImmutableList();
 		OdataEtag = data.OdataEtag;
+		DisplayName = data.DisplayName;
 	}
 
 	public string ListId { get; } // No public init: this can be set only from a data
@@ -46,6 +52,7 @@ public record ToDoTask
 	public string? Status { get; init; }
 
 	public string? Title { get; init; }
+	public string? DisplayName { get; init; }
 
 	public DateTime CreatedDateTime { get; init; }
 
@@ -71,12 +78,13 @@ public record ToDoTask
 			IsReminderOn = IsReminderOn,
 			Status = Status,
 			Title = Title,
+			DisplayName = DisplayName,
 			CreatedDateTime = CreatedDateTime,
 			LastModifiedDateTime = LastModifiedDateTime,
 			Body = Body,
 			DueDateTime = DueDateTime,
 			LinkedResourcesOdataContext = LinkedResourcesOdataContext,
 			LinkedResources = LinkedResources?.ToList(),
-			OdataEtag = OdataEtag,
+			OdataEtag = OdataEtag
 		};
 }

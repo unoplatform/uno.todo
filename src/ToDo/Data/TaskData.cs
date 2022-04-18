@@ -16,6 +16,10 @@ public class TaskData
 	[JsonPropertyName("title")]
 	public string? Title { get; set; }
 
+
+	[JsonPropertyName("displayName")]
+	public string? DisplayName { get; set; }
+
 	[JsonPropertyName("createdDateTime")]
 	public DateTime CreatedDateTime { get; set; }
 
@@ -36,4 +40,7 @@ public class TaskData
 
 	[JsonPropertyName("@odata.etag")]
 	public string? OdataEtag { get; set; }
+
+	[JsonPropertyName("parentList")]
+	public ParentListTaskData? ParentList { get; set; }
 }

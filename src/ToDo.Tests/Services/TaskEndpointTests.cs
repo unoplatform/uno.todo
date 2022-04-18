@@ -37,7 +37,7 @@ internal class BaseEndpointTests<T> where T : notnull
 	}
 	private Task<string> GetAccessToken()
 	{
-		return Task.FromResult("**AccessToken**");
+		return Task.FromResult("**AcessToken**");
 	}
 }
 
@@ -69,6 +69,27 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
 
 		//Act
 		var result = await service.GetAsync(listId, taskId, CancellationToken.None);
+
+		//Assert
+		Assert.IsInstanceOf<TaskData>(result);
+	}
+}
+
+internal class TaskBetaEndpointTests : BaseEndpointTests<ITaskBetaEndpoint>
+{
+
+	[SetUp]
+	public void Setup() { }
+
+
+
+	[Test]
+	public async System.Threading.Tasks.Task Get_AllTasks_ShouldReturnTasks()
+	{
+		//Arrange
+
+		//Act
+		var result = await service.GetAllAsync(CancellationToken.None);
 
 		//Assert
 		Assert.IsInstanceOf<TaskData>(result);
