@@ -9,4 +9,7 @@ public interface ITaskService
 	Task UpdateAsync(ToDoTask task, CancellationToken ct);
 
 	Task DeleteAsync(ToDoTask task, CancellationToken ct);
+
+	ValueTask<IImmutableList<ToDoTask>> GetByFilterAsync(string displayName, CancellationToken ct);
+	ValueTask<IImmutableList<ToDoTask>> GetAllAsync(CancellationToken ct);
 }
