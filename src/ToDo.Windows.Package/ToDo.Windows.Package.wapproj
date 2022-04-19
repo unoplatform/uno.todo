@@ -70,7 +70,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.15.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.1">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
@@ -78,7 +77,7 @@
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Refit" Version="6.3.2" />
-    <PackageReference Include="Uno.WinUI.MSAL" Version="3.11.9" />
+    <PackageReference Include="Uno.WinUI.MSAL" Version="4.1.9" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
 </Project>

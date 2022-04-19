@@ -11,6 +11,7 @@ using ToDo.Presentation;
 using Uno.UI.MSAL;
 using Microsoft.Extensions.Logging;
 using ToDo.Business.Services;
+using ToDo.Business.Entities;
 
 namespace ToDo;
 
@@ -84,11 +85,11 @@ public sealed partial class App : Application
 	private async Task<string> GetAccessToken()
 	{
 		//TODO:There is a IAuthenticationService already to use it with injection
-
-		//TODO: check if is null
 		if (_auth is null)
 			throw new Exception("_auth is null");
-		return await _auth.LoginAsync();
+		//We need to save authResult in order to consume it from HomeViewModel and show User's email and name
+		var authResult = await _auth.ReturnAuthResultContext();
+		return authResult.AccessToken;
 	}
 
 	/// <summary>

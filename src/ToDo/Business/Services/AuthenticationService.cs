@@ -27,7 +27,7 @@ namespace ToDo.Business.Services
 					.Build();
 		}
 
-		public async Task<string> LoginAsync()
+		public async Task<UserContext> ReturnAuthResultContext()
 		{
 			try
 			{
@@ -35,8 +35,7 @@ namespace ToDo.Business.Services
 					.WithUnoHelpers()
 					.ExecuteAsync();
 				//TODO:We need to store UserContext in order to use it in the HomeViewModel
-				var userContext = CreateContextFromAuthResult(authResult);
-				return authResult.AccessToken;
+				return CreateContextFromAuthResult(authResult);
 			}
 			catch (MsalClientException ex)
 			{
@@ -47,7 +46,6 @@ namespace ToDo.Business.Services
 			{
 				throw new Exception(ex.Message);
 			}
-			
 		}
 
 		private UserContext CreateContextFromAuthResult(AuthenticationResult authResult)
@@ -55,8 +53,9 @@ namespace ToDo.Business.Services
 			var token = new JwtSecurityTokenHandler().ReadJwtToken(authResult.IdToken);
 			return new UserContext
 			{
-				Name = token.Claims.First(c => c.Type == "name").Value,
-				Email = token.Claims.First(c => c.Type == "preferred_username").Value
+				Name = token.Claims.First(c => c.Type.Equals("name")).Value,
+				Email = token.Claims.First(c => c.Type.Equals("preferred_username")).Value,
+				AccessToken = authResult.AccessToken
 			};
 		}
 	}
