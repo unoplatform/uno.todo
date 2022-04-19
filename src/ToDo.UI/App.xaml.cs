@@ -91,15 +91,15 @@ public sealed partial class App : Application
 #endif
 	}
 
-	private async Task<string> GetAccessToken()
-	{
-		//TODO:There is a IAuthenticationService already to use it with injection
-		if (_auth is null)
-			throw new Exception("_auth is null");
-		//We need to save authResult in order to consume it from HomeViewModel and show User's email and name
-		var authResult = await _auth.ReturnAuthResultContext();
-		return authResult.AccessToken;
-	}
+	//private async Task<string> GetAccessToken()
+	//{
+	//	//TODO:There is a IAuthenticationService already to use it with injection
+	//	if (_auth is null)
+	//		throw new Exception("_auth is null");
+	//	//We need to save authResult in order to consume it from HomeViewModel and show User's email and name
+	//	var authResult = await _auth.ReturnAuthResultContext();
+	//	return authResult.AccessToken;
+	//}
 	
 	private async Task<string> AcquireToken(IServiceProvider services)
 	{
@@ -177,7 +177,7 @@ public sealed partial class App : Application
 
 
 	private string _accessToken = string.Empty;
-	private Task<string> GetAccessToken()
+	private async Task<string> GetAccessToken()
 	{
 		UpdateAccessToken();
 		// TODO: This needs to be connected to the authentication process to return the current Access Token
@@ -186,7 +186,21 @@ public sealed partial class App : Application
 		// Sign in and select "get To Do task lists" from the sample queries
 		// Run the query, and then select the Access token tab. Paste the access token here for development ONLY
 		// The access token will expire periodically, so if you start to get errors, you may need to update the access token
-		return Task.FromResult(_accessToken);
+		//TODO:There is a IAuthenticationService already to use it with injection
+		if (_auth is null)
+		{
+			throw new Exception("_auth is null");
+		}
+		//TODO:We need to save authResult in order to consume it from HomeViewModel and show User's email and name
+		var authResult = await _auth.ReturnAuthResultContext();
+		if (authResult.AccessToken is not null)
+		{
+			return authResult.AccessToken;
+		}
+		else
+		{
+			throw new Exception("Access token is null");
+		}
 	}
 
 	partial void UpdateAccessToken();
