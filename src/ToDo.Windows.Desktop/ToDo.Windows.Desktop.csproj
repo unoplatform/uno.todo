@@ -11,6 +11,12 @@
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="appsettings.platform.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.platform.json" />
+	</ItemGroup>
+	<ItemGroup>
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 	<ItemGroup>
@@ -59,4 +65,7 @@
 		<ProjectReference Include="..\ToDo\ToDo.csproj" />
 	</ItemGroup>
 	<Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
+	<ItemGroup>
+	  <_Globbed_Embedded_Resource Remove="appsettings.platform.json" />
+	</ItemGroup>
 </Project>
