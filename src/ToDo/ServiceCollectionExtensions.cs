@@ -18,7 +18,6 @@ public static class ServiceCollectionExtensions
 			.AddNativeHandler()
 			.AddContentSerializer()
 			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder)
-			.AddRefitClient<ITaskBetaEndpoint>(context, nameof(ITaskBetaEndpoint), settingsBuilder: authSettingsBuilder)
 			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder: authSettingsBuilder);
 	}
 

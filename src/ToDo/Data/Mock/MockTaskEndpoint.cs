@@ -21,12 +21,18 @@ public class MockTaskEndpoint : ITaskEndpoint
 	{
 		await _listEndpoint.DeleteTaskFromList(listId, taskId);
 	}
+
+	public Task<TaskReponseData<TaskData>> GetAllAsync(CancellationToken ct) => throw new NotImplementedException();
+
 	public async Task<TaskData> GetAsync(string listId, string taskId, CancellationToken ct)
 	{
 		var tasks = await _listEndpoint.GetTasksAsync(listId, ct);
 
 		return tasks.Value.First(x => x.Id == taskId);
 	}
+
+	public Task<TaskReponseData<TaskData>> GetByFilterAsync(string displayName, CancellationToken ct) => throw new NotImplementedException();
+
 	public async Task<TaskData> UpdateAsync(string listId, string taskId, [Body] TaskData updatedTask, CancellationToken ct)
 	{
 		await _listEndpoint.UpdateTaskInList(listId, updatedTask);
