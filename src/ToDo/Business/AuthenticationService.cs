@@ -3,7 +3,7 @@
 
 namespace ToDo.Business.Services;
 
-public class AuthenticationService: IAuthenticationService
+public class AuthenticationService : IAuthenticationService
 {
 	private readonly IPublicClientApplication _pca;
 	private readonly OAuthSettings _settings;
@@ -11,14 +11,15 @@ public class AuthenticationService: IAuthenticationService
 	{
 		_settings = settings.Value;
 
-		_pca = PublicClientApplicationBuilder
+		var builder = PublicClientApplicationBuilder
 				.Create(_settings.ApplicationId)
 				.WithRedirectUri(_settings.RedirectUri)
-				.WithUnoHelpers()
-#if __IOS__
-                .WithIosKeychainSecurityGroup("9TB54R6A6V.com.horus.unoplatform.todoapp")
-#endif
-				.Build();
+				.WithUnoHelpers();
+		if (!string.IsNullOrWhiteSpace(_settings.KeychainSecurityGroup))
+		{
+			builder = builder.WithIosKeychainSecurityGroup(_settings.KeychainSecurityGroup);
+		}
+		_pca = builder.Build();
 	}
 
 	public async Task<UserContext> ReturnAuthResultContext()

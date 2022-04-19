@@ -101,6 +101,7 @@ public sealed partial class App : Application
 			return authResult.AccessToken;
 		}
 
+		return string.Empty;
 	
 	}
 
