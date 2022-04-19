@@ -15,7 +15,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
         <utu:NavigationBar
@@ -31,8 +32,14 @@
                 </AppBarButton>
             </utu:NavigationBar.MainCommand>
         </utu:NavigationBar>
+		<StackPanel Orientation="Horizontal" Grid.Row="1">
+			<Button Content="Settings"
+					uen:Navigation.Request="Settings" />
+			<Button Content="Search"
+					uen:Navigation.Request="Search" />
+		</StackPanel>
         <uer:FeedView
-            Grid.Row="1"
+            Grid.Row="2"
             Source="{Binding CustomLists}"
             Style="{StaticResource CompositeFeedViewStyle}">
             <DataTemplate>
@@ -59,6 +66,6 @@
             </DataTemplate>
         </uer:FeedView>
 		<Button Content="Add"
-				Command="{Binding CreateTaskList}" Grid.Row="2" />
+				Command="{Binding CreateTaskList}" Grid.Row="3" />
 	</Grid>
 </Page>
