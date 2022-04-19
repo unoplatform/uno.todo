@@ -18,4 +18,12 @@ public interface ITaskEndpoint
 	[Delete("/todo/lists/{listId}/tasks/{taskId}")]
 	[Headers("Authorization: Bearer")]
 	Task DeleteAsync(string listId, string taskId, CancellationToken ct);
+
+	[Get("/tasks/allTasks?filter=contains(displayName,'{displayName}')")]
+	[Headers("Authorization: Bearer")]
+	Task<TaskReponseData<TaskData>> GetByFilterAsync(string displayName, CancellationToken ct);
+
+	[Get("/tasks/allTasks")]
+	[Headers("Authorization: Bearer")]
+	Task<TaskReponseData<TaskData>> GetAllAsync(CancellationToken ct);
 }
