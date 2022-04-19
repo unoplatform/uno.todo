@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.Options;
-using Task = System.Threading.Tasks.Task;
+﻿using Task = System.Threading.Tasks.Task;
 using NUnit.Framework;
 
 namespace ToDo.Tests.Services
 {
-    internal class TaskListEndpointTests: BaseEndpointTests<IToDoTaskListEndpoint>
+	internal class TaskListEndpointTests: BaseEndpointTests<ITaskListEndpoint>
     {
 
         [SetUp]
@@ -16,7 +15,7 @@ namespace ToDo.Tests.Services
         public async Task Create_TodoList_ShouldReturn_Created()
         {
             //Arrange
-            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData()
+            TaskListRequestData todoList = new TaskListRequestData()
             {
                 DisplayName = "New Todo List"
             };
@@ -32,7 +31,7 @@ namespace ToDo.Tests.Services
         public async Task Create_TodoList_ShouldReturn_BadRequest()
         {
             //Arrange
-            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData();
+            TaskListRequestData todoList = new TaskListRequestData();
             //Act
             var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
@@ -106,7 +105,7 @@ namespace ToDo.Tests.Services
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y4u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
-            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData()
+            TaskListRequestData todoList = new TaskListRequestData()
             {
                 DisplayName = "New Todo List Updated"
             };
@@ -123,7 +122,7 @@ namespace ToDo.Tests.Services
         {
             //Arrange
             string idTodoList = "AAMkAGM0ZTZiY2IwLTliZWEtNDM5Zi1iMDBlLTUxZDQxNWNmY2IxNgAuAAAAAAAC8Egk03A8QrAy_y5u1QQAAQD-PT2STVFATpxIXsYfLHGvAADWiFSuAAA=";
-            ToDoTaskListRequestData todoList = new ToDoTaskListRequestData()
+            TaskListRequestData todoList = new TaskListRequestData()
             {
                 DisplayName = "New Todo List Updated"
             };

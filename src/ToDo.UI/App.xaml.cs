@@ -12,6 +12,8 @@ using Uno.UI.MSAL;
 using Microsoft.Extensions.Logging;
 using ToDo.Business.Services;
 using ToDo.Business.Entities;
+using ToDo.Views.Dialogs;
+using Uno.Extensions.Configuration;
 
 namespace ToDo;
 
@@ -53,15 +55,22 @@ public sealed partial class App : Application
 				// Load AppInfo section
 				.UseConfiguration<AppInfo>()
 
+				.UseSettings<ToDoSettings>()
+
 				// Register Json serializers (ISerializer and IStreamSerializer)
-				.UseSerialization()!
+				.UseSerialization()
 
 				// Register services for the application
-				.ConfigureServices((context,services)=>
+				.ConfigureServices((context, services) =>
 				{
 					_auth = new AuthenticationService(context);
 					services
-						.AddEndpoints(context, GetAccessToken)
+						.AddEndpoints(context, AcquireToken)
+#if DEBUG
+						// TODO: Still need a way to dynamically toggle between mock and live endpoints
+						.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
+						.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
+#endif
 						.AddServices();
 				})
 
@@ -90,6 +99,40 @@ public sealed partial class App : Application
 		//We need to save authResult in order to consume it from HomeViewModel and show User's email and name
 		var authResult = await _auth.ReturnAuthResultContext();
 		return authResult.AccessToken;
+	}
+	
+	private async Task<string> AcquireToken(IServiceProvider services)
+	{
+		var settings = services.GetService<IWritableOptions<ToDoSettings>>();
+
+		if (settings?.Value is not null)
+		{
+			if (
+				!string.IsNullOrWhiteSpace(settings.Value.CachedAccessToken) &&
+
+				(settings.Value.CachedAccessTokenTimeStamp ?? DateTime.MinValue) > DateTime.Now.AddHours(-1))
+			{
+				return settings.Value.CachedAccessToken ?? string.Empty;
+			}
+		}
+
+		var nav = (_window?.Content as FrameworkElement)?.Navigator();
+		if (nav is null)
+		{
+			return string.Empty;
+		}
+		var response = await nav.NavigateViewModelForResultAsync<AuthTokenViewModel, string>(this, Qualifiers.Dialog);
+		if (response?.Result is null)
+		{
+			return string.Empty;
+		}
+		var result = await response.Result;
+		var accessToken = result.SomeOrDefault() ?? string.Empty;
+		if (settings is not null)
+		{
+			await settings.Update(todo => todo with { CachedAccessToken = accessToken, CachedAccessTokenTimeStamp = DateTime.Now });
+		}
+		return accessToken;
 	}
 
 	/// <summary>
@@ -122,7 +165,7 @@ public sealed partial class App : Application
 			notif.RouteChanged += RouteUpdated;
 		}
 
-		_window.Content = Host.Services.NavigationHost();
+		_window.AttachNavigation(Host.Services);
 		_window.Activate();
 
 		await System.Threading.Tasks.Task.Run(async () =>
@@ -131,6 +174,22 @@ public sealed partial class App : Application
 		});
 
 	}
+
+
+	private string _accessToken = string.Empty;
+	private Task<string> GetAccessToken()
+	{
+		UpdateAccessToken();
+		// TODO: This needs to be connected to the authentication process to return the current Access Token
+		// In the meantime do NOT commit an actual access token into the repo
+		// To get a temporary access token for development, go to https://developer.microsoft.com/en-us/graph/graph-explorer
+		// Sign in and select "get To Do task lists" from the sample queries
+		// Run the query, and then select the Access token tab. Paste the access token here for development ONLY
+		// The access token will expire periodically, so if you start to get errors, you may need to update the access token
+		return Task.FromResult(_accessToken);
+	}
+
+	partial void UpdateAccessToken();
 
 	/// <summary>
 	/// Invoked when Navigation to a certain page fails
@@ -158,12 +217,29 @@ public sealed partial class App : Application
 
 	private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
 	{
+		var confirmDialog = new MessageDialogViewMap(
+		Content: "Are you sure you want to delete?",
+		Title: "Confirm delete?",
+		DelayUserInput: true,
+		DefaultButtonIndex: 1,
+		Buttons: new DialogAction[]
+		{
+						new(Label: "Yeh!",Id:"Y"),
+						new(Label: "Nah", Id:"N")
+		}
+	);
+
+
 		views.Register(
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel>(),
-			new ViewMap<TaskListsPage, TaskListsViewModel.BindableTaskListsViewModel>(),
+			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>()
+			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
+			new ViewMap<AddTaskDialog>(),
+			new ViewMap<AddListDialog, AddListViewModel>(),
+			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
+			confirmDialog
 			);
 
 		routes
@@ -172,18 +248,25 @@ public sealed partial class App : Application
 				new("", View: views.FindByViewModel<ShellViewModel>(),
 						Nested: new RouteMap[]
 						{
-										new ("Welcome",
-												View: views.FindByViewModel<WelcomeViewModel>()
-												),
-										new ("TaskLists",
-												View: views.FindByViewModel<TaskListsViewModel.BindableTaskListsViewModel>()
-												),
-										new("TaskList",
-												View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
-												DependsOn:"TaskLists"),
-										new("Task",
-												View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
-												DependsOn:"TaskLists")
+							new ("Welcome",
+									View: views.FindByViewModel<WelcomeViewModel>()
+									),
+							new ("TaskLists",
+									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
+									),
+							new("TaskList",
+									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
+									DependsOn:"TaskLists"),
+							new("Task",
+									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
+									DependsOn:"TaskLists"),
+							new("AddTask",
+								View: views.FindByView<AddTaskDialog>()),
+							new("AddList",
+								View: views.FindByViewModel<AddListViewModel>()),
+							new("AuthToken",
+								View: views.FindByViewModel<AuthTokenViewModel>()),
+							new ("Confirm", confirmDialog)
 						}));
 	}
 

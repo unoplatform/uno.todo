@@ -10,16 +10,5 @@
   <PropertyGroup />
   <Import Project="ToDo.UI.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
-  <ItemGroup>
-    <_Globbed_Compile Remove="Views\TaskListPage.xaml.cs" />
-    <_Globbed_Compile Remove="Views\TaskListsPage.xaml.cs" />
-    <_Globbed_Compile Remove="Views\TaskPage.xaml.cs" />
-    <_Globbed_Compile Remove="Views\WelcomePage.xaml.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <_Globbled_Page Remove="Views\TaskListPage.xaml" />
-    <_Globbled_Page Remove="Views\TaskListsPage.xaml" />
-    <_Globbled_Page Remove="Views\TaskPage.xaml" />
-    <_Globbled_Page Remove="Views\WelcomePage.xaml" />
-  </ItemGroup>
+
 </Project>

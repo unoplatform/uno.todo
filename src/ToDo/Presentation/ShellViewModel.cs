@@ -18,6 +18,6 @@ public class ShellViewModel
 	public async Task Start()
 	{
 		// Change the viewmodel to specify the first page of the application to navigate to
-		await Navigator.NavigateViewModelAsync<TaskListsViewModel.BindableTaskListsViewModel>(this);
+		await Navigator.NavigateViewModelAsync<HomeViewModel.BindableHomeViewModel>(this);
 	}
 }

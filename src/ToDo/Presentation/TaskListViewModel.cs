@@ -3,18 +3,18 @@
 public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 {
 	private readonly INavigator _navigator;
-	private readonly IToDoTaskListService _listSvc;
-	private readonly IToDoTaskService _taskSvc;
-	private readonly IState<ToDoTaskList> _entity;
+	private readonly ITaskListService _listSvc;
+	private readonly ITaskService _taskSvc;
+	private readonly IState<TaskList> _entity;
 	private readonly ILogger _logger;
 
 	private TaskListViewModel(
 		ILogger<TaskListViewModel> logger,
 		INavigator navigator,
-		IToDoTaskListService listSvc,
-		IToDoTaskService taskSvc,
+		ITaskListService listSvc,
+		ITaskService taskSvc,
 		IMessenger messenger,
-		IInput<ToDoTaskList> entity,
+		IInput<TaskList> entity,
 		ICommandBuilder createTask,
 		ICommandBuilder<ToDoTask> navigateToTask,
 		ICommandBuilder deleteList)
@@ -25,22 +25,35 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		_taskSvc = taskSvc;
 		_entity = entity;
 
-		createTask.Given(entity).Execute(CreateTask);
-		navigateToTask.Execute(NavigateToTask);
-		deleteList.Given(entity).Execute(DeleteList);
+		createTask.Given(entity).Then(CreateTask);
+		navigateToTask.Then(NavigateToTask);
+		deleteList.Given(entity).Then(DeleteList);
 
 		// TODO: Unsubscribe
 		messenger.Register(this);
 	}
 
 	// TODO: Feed - This should be a ListFeed / This should listen for Task creation/update/deletion
-	public IFeed<IImmutableList<ToDoTask>> Tasks => _entity.SelectAsync(async (list, ct) => await _listSvc.GetTasksAsync(list!, ct));
+	public IFeed<IImmutableList<ToDoTask>> Tasks => _entity.SelectAsync(async (list, ct) => list is not null ? await _listSvc.GetTasksAsync(list, ct): default);
 
-	private async ValueTask CreateTask(ToDoTaskList list, CancellationToken ct)
+	private async ValueTask CreateTask(TaskList list, CancellationToken ct)
 	{
-		// TODO: Configure properties of TaskData
-		var newTask = new ToDoTask {Title = "Hello world"};
-		await _taskSvc.CreateAsync(list, newTask, ct);
+		var response = await _navigator!.NavigateViewModelForResultAsync<AddTaskViewModel, TaskData>(this, qualifier: Qualifiers.Dialog);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+
+		var taskName = result.SomeOrDefault()?.Title;
+		if (taskName is not null)
+		{
+
+			// TODO: Configure properties of TaskData
+			var newTask = new ToDoTask { Title = taskName };
+			await _taskSvc.CreateAsync(list, newTask, ct);
+		}
 	}
 
 	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)
@@ -49,10 +62,21 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		await _navigator.NavigateViewModelAsync<TaskViewModel>(this, data: task, cancellation: ct);
 	}
 
-	private async ValueTask DeleteList(ToDoTaskList list, CancellationToken ct)
+	private async ValueTask DeleteList(TaskList list, CancellationToken ct)
 	{
-		await _listSvc.DeleteAsync(list, ct);
-		await _navigator.NavigateBackAsync(this, cancellation: ct);
+		var response = await _navigator!.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+		if (result.SomeOrDefault()?.Id?.ToString() == "Y")
+		{
+
+			await _listSvc.DeleteAsync(list, ct);
+			await _navigator.NavigateBackAsync(this, cancellation: ct);
+		}
 	}
 
 	public void Receive(EntityMessage<ToDoTask> msg)

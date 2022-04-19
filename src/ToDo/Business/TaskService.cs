@@ -1,11 +1,11 @@
 ﻿namespace ToDo.Business;
 
-public class ToDoTaskService : IToDoTaskService
+public class TaskService : ITaskService
 {
-	private readonly IToDoTaskEndpoint _client;
+	private readonly ITaskEndpoint _client;
 	private readonly IMessenger _messenger;
 
-	public ToDoTaskService(IToDoTaskEndpoint client, IMessenger messenger)
+	public TaskService(ITaskEndpoint client, IMessenger messenger)
 	{
 		_client = client;
 		_messenger = messenger;
@@ -16,7 +16,7 @@ public class ToDoTaskService : IToDoTaskService
 		=> new (listId, await _client.GetAsync(listId, taskId, ct) ?? throw new InvalidOperationException($"Cannot get task with id {taskId} (list: {listId})"));
 
 	/// <inheritdoc />
-	public async Task CreateAsync(ToDoTaskList list, ToDoTask newTask, CancellationToken ct)
+	public async Task CreateAsync(TaskList list, ToDoTask newTask, CancellationToken ct)
 	{
 		var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
 
