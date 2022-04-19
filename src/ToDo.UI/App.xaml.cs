@@ -220,8 +220,8 @@ public sealed partial class App : Application
 			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
 			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
-			new ViewMap<AddTaskDialog>(),
-			new ViewMap<AddListDialog, AddListViewModel>(),
+			new ViewMap<AddTaskFlyout>(),
+			new ViewMap<AddListFlyout, AddListViewModel>(),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDialog
 			);
@@ -245,7 +245,7 @@ public sealed partial class App : Application
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
 									DependsOn:"TaskLists"),
 							new("AddTask",
-								View: views.FindByView<AddTaskDialog>()),
+								View: views.FindByView<AddTaskViewModel>()),
 							new("AddList",
 								View: views.FindByViewModel<AddListViewModel>()),
 							new("AuthToken",
