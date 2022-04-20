@@ -95,6 +95,9 @@
     <PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.4" />
     <PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.4" />
     <PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
+    <PackageReference Include="Uno.WinUI.MSAL">
+      <Version>4.1.9</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.392" />
@@ -109,7 +112,7 @@
     <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.392" />
-    <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.392" />
+    <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.411" />
     <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.392" />
   </ItemGroup>
   <Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
