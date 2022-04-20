@@ -1,8 +1,7 @@
 using Android.App;
-using Android.Widget;
-using Android.OS;
-using Android.Content.PM;
 using Android.Views;
+using Android.Content;
+using Microsoft.Identity.Client;
 
 namespace ToDo.Droid
 {
@@ -13,6 +12,12 @@ namespace ToDo.Droid
 		)]
 	public class MainActivity : Microsoft.UI.Xaml.ApplicationActivity
 	{
+		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+			AuthenticationContinuationHelper
+				.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
+		}
 	}
 }
 
