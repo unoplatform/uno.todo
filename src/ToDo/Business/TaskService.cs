@@ -41,12 +41,13 @@ public class TaskService : ITaskService
 		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task), task.ListId);
 	}
 
-	public async ValueTask<IImmutableList<ToDoTask>> GetByFilterAsync(string displayName, CancellationToken ct)
-		=> ((await _client.GetByFilterAsync(displayName, ct)).Value ?? Enumerable.Empty<TaskData>())
+	/// <inheritdoc />
+	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
+		=> String.IsNullOrWhiteSpace(displayName) ? ((await _client.GetAllAsync(ct)).Value ?? Enumerable.Empty<TaskData>())
 			.Select(data => new ToDoTask(data))
-			.ToImmutableList();
-	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(CancellationToken ct)
-		=> ((await _client.GetAllAsync(ct)).Value ?? Enumerable.Empty<TaskData>())
+			.ToImmutableList()
+			:
+			((await _client.GetByFilterAsync(displayName, ct)).Value ?? Enumerable.Empty<TaskData>())
 			.Select(data => new ToDoTask(data))
 			.ToImmutableList();
 

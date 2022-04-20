@@ -6,8 +6,10 @@ public class MockTaskEndpoint : ITaskEndpoint
 {
 
 	private readonly MockTaskListEndpoint _listEndpoint;
+
 	public MockTaskEndpoint(
-		ITaskListEndpoint listEndpoint)
+		ITaskListEndpoint listEndpoint
+		, ITaskEndpoint taskEndpoint)
 	{
 		_listEndpoint = (listEndpoint as MockTaskListEndpoint)!;
 	}
@@ -22,7 +24,7 @@ public class MockTaskEndpoint : ITaskEndpoint
 		await _listEndpoint.DeleteTaskFromList(listId, taskId);
 	}
 
-	public Task<TaskReponseData<TaskData>> GetAllAsync(CancellationToken ct) => throw new NotImplementedException();
+	public async Task<TaskReponseData<TaskData>> GetAllAsync(CancellationToken ct) => await _listEndpoint.GetAllTasksAsync( ct: ct);
 
 	public async Task<TaskData> GetAsync(string listId, string taskId, CancellationToken ct)
 	{
@@ -31,7 +33,7 @@ public class MockTaskEndpoint : ITaskEndpoint
 		return tasks.Value.First(x => x.Id == taskId);
 	}
 
-	public Task<TaskReponseData<TaskData>> GetByFilterAsync(string displayName, CancellationToken ct) => throw new NotImplementedException();
+	public async Task<TaskReponseData<TaskData>> GetByFilterAsync(string displayName, CancellationToken ct) => await _listEndpoint.GetAllTasksAsync(displayName, ct);
 
 	public async Task<TaskData> UpdateAsync(string listId, string taskId, [Body] TaskData updatedTask, CancellationToken ct)
 	{

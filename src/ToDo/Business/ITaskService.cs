@@ -10,6 +10,5 @@ public interface ITaskService
 
 	Task DeleteAsync(ToDoTask task, CancellationToken ct);
 
-	ValueTask<IImmutableList<ToDoTask>> GetByFilterAsync(string displayName, CancellationToken ct);
-	ValueTask<IImmutableList<ToDoTask>> GetAllAsync(CancellationToken ct);
+	ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default);
 }
