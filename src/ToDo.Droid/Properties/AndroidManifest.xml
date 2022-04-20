@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="ToDo" android:versionCode="1" android:versionName="1.0">
   <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="30" />
-  <application android:label="ToDo"></application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <application android:label="ToDo">
+	  <activity android:name="microsoft.identity.client.BrowserTabActivity" android:configChanges="orientation|screenSize">
+		  <intent-filter>
+			  <action android:name="android.intent.action.VIEW" />
+			  <category android:name="android.intent.category.DEFAULT" />
+			  <category android:name="android.intent.category.BROWSABLE" />
+			  <data android:scheme="msal980ca8cd-56ec-47dc-972f-a28ccb78e232" android:host="auth" />
+		  </intent-filter>
+	  </activity>
+  </application>
+	<queries>
+		<!-- Required for API Level 30 to make sure we can detect browsers
+        (that don't support custom tabs) -->
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="https" />
+		</intent>
+		<!-- Required for API Level 30 to make sure we can detect browsers that support custom tabs -->
+		<!-- https://developers.google.com/web/updates/2020/07/custom-tabs-android-11#detecting_browsers_that_support_custom_tabs -->
+		<intent>
+			<action android:name="android.support.customtabs.action.CustomTabsService" />
+		</intent>
+	</queries>
 </manifest>
