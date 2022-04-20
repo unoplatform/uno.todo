@@ -11,6 +11,12 @@
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="appsettings.platform.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.platform.json" />
+	</ItemGroup>
+	<ItemGroup>
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 	<ItemGroup>
@@ -24,6 +30,7 @@
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 		<PackageReference Include="Uno.Core.Extensions.Logging.Singleton" Version="4.0.1" />
+		<PackageReference Include="Uno.WinUI.MSAL" Version="4.1.9" />
 	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22000.24" />
@@ -58,4 +65,7 @@
 		<ProjectReference Include="..\ToDo\ToDo.csproj" />
 	</ItemGroup>
 	<Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
+	<ItemGroup>
+	  <_Globbed_Embedded_Resource Remove="appsettings.platform.json" />
+	</ItemGroup>
 </Project>
