@@ -134,6 +134,9 @@
     <PackageReference Include="Refit.HttpClientFactory">
       <Version>6.3.2</Version>
     </PackageReference>
+    <PackageReference Include="Uno.WinUI.MSAL">
+      <Version>4.1.9</Version>
+    </PackageReference>
     <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.2.0-dev.605" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.WinUI" Version="4.2.0-dev.605" />
     <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.9" />
@@ -142,7 +145,6 @@
     <PackageReference Include="Uno.Core" Version="4.0.1" />
     <PackageReference Include="Uno.Material.WinUI" Version="1.4.0-dev.30" />
     <PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.4" />
-
     <PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.4" />
     <PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
   </ItemGroup>
@@ -153,7 +155,7 @@
     <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.392" />
-    <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.392" />
+    <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.411" />
     <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.392" />
     <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.392" />
@@ -210,6 +212,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="appsettings.platform.json" />
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <BundleResource Include="Resources\Fonts\Roboto-Light.ttf" />
