@@ -14,6 +14,7 @@
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 		<PackageReference Include="Uno.UITest.Helpers" Version="1.1.0-dev.32" />
+		<PackageReference Include="Uno.WinUI.MSAL" Version="4.1.9" />
 		<PackageReference Include="Xamarin.UITest" Version="3.2.6" />
 	</ItemGroup>
 
