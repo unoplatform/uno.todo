@@ -140,7 +140,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 		if(string.IsNullOrWhiteSpace(displayName))
 			return new TaskReponseData<TaskData> { Value = tasks.ToList() };
 
-		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.DisplayName != null && x.DisplayName.Contains(displayName)).ToList() };
+		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.Title != null && x.Title.Contains(displayName)).ToList() };
 	}
 
 
