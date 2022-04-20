@@ -30,7 +30,7 @@ public record ToDoTask
 		Importance = data.Importance;
 		IsReminderOn = data.IsReminderOn;
 		Status = data.Status;
-		Title = data.Title;
+		Title = data.Title ?? data.DisplayName;
 		CreatedDateTime = data.CreatedDateTime;
 		LastModifiedDateTime = data.LastModifiedDateTime;
 		Body = data.Body;
@@ -38,7 +38,6 @@ public record ToDoTask
 		LinkedResourcesOdataContext = data.LinkedResourcesOdataContext;
 		LinkedResources = data.LinkedResources?.ToImmutableList();
 		OdataEtag = data.OdataEtag;
-		DisplayName = data.DisplayName;
 	}
 
 	public string ListId { get; } // No public init: this can be set only from a data
@@ -52,7 +51,6 @@ public record ToDoTask
 	public string? Status { get; init; }
 
 	public string? Title { get; init; }
-	public string? DisplayName { get; init; }
 
 	public DateTime CreatedDateTime { get; init; }
 
@@ -78,7 +76,7 @@ public record ToDoTask
 			IsReminderOn = IsReminderOn,
 			Status = Status,
 			Title = Title,
-			DisplayName = DisplayName,
+			DisplayName = Title,
 			CreatedDateTime = CreatedDateTime,
 			LastModifiedDateTime = LastModifiedDateTime,
 			Body = Body,
