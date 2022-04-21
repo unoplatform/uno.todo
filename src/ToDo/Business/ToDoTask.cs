@@ -16,7 +16,7 @@ public record ToDoTask
 	}
 
 	internal ToDoTask(TaskData data)
-	: this(data.ParentList?.Id, data!)
+	: this(data.ParentList?.Id!, data!)
 	{
 	}
 
