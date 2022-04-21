@@ -5,10 +5,21 @@
     xmlns:local="using:ToDo.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
+	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
+	  xmlns:um="using:Uno.Material"
+	  xmlns:utu="using:Uno.Toolkit.UI"
+	  mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <TextBlock Text="Welcome" FontSize="32"/>
-    </Grid>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"> 
+        <TextBlock Text="Welcome to Uno To Do!" FontSize="32" HorizontalTextAlignment="Center"/>
+			<TextBlock Text="Start using the best to-do app"
+					   HorizontalTextAlignment="Center" />
+		</StackPanel>
+
+		<Button Content="Get Started"
+				uen:Navigation.Request="Home" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20" />
+	</Grid>
 </Page>
