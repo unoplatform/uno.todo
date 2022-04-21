@@ -47,14 +47,16 @@ public class TaskService : ITaskService
 		return String.IsNullOrWhiteSpace(displayName)
 			? ((await _client.GetAllAsync(ct)).Value ?? Enumerable.Empty<TaskData>())
 			.Select(data => {
-				var taskListId = data.ParentList?.Id ?? throw new InvalidOperationException("The API did not provide list information.");
+				var taskListId = data.ParentList?.Id ??
+						throw new InvalidOperationException("The API did not provide list information.");
 				return new ToDoTask(taskListId, data);
 			})
 			.ToImmutableList()
 			:
 			((await _client.GetByFilterAsync(displayName, ct)).Value ?? Enumerable.Empty<TaskData>())
 			.Select(data => {
-				var taskListId = data.ParentList?.Id ?? throw new InvalidOperationException("The API did not provide list information.");
+				var taskListId = data.ParentList?.Id ??
+					throw new InvalidOperationException("The API did not provide list information.");
 				return new ToDoTask(taskListId, data);
 			})
 			.ToImmutableList();
