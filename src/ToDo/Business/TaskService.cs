@@ -41,12 +41,22 @@ public class TaskService : ITaskService
 
 	/// <inheritdoc />
 	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
-		=> String.IsNullOrWhiteSpace(displayName) ? ((await _client.GetAllAsync(ct)).Value ?? Enumerable.Empty<TaskData>())
-			.Select(data => new ToDoTask(data))
+	{
+		return String.IsNullOrWhiteSpace(displayName)
+			? ((await _client.GetAllAsync(ct)).Value ?? Enumerable.Empty<TaskData>())
+			.Select(data => {
+				var taskListId = data.ParentList?.Id ?? throw new InvalidOperationException("The API did not provide list information.");
+				return new ToDoTask(taskListId, data);
+			})
 			.ToImmutableList()
 			:
 			((await _client.GetByFilterAsync(displayName, ct)).Value ?? Enumerable.Empty<TaskData>())
-			.Select(data => new ToDoTask(data))
+			.Select(data => {
+				var taskListId = data.ParentList?.Id ?? throw new InvalidOperationException("The API did not provide list information.");
+				return new ToDoTask(taskListId, data);
+			})
 			.ToImmutableList();
+	}
+		
 
 }
