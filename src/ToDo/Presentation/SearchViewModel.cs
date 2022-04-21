@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Text;
-using ToDo.Business;
-using Uno.Extensions.Reactive;
-
-namespace ToDo.Presentation;
+﻿namespace ToDo.Presentation;
 
 public partial class SearchViewModel
 {

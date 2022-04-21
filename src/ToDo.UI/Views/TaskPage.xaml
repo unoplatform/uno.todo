@@ -11,36 +11,130 @@
 	  xmlns:um="using:Uno.Material"
 	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<utu:NavigationBar Content="Task List"
-						   utu:AutoLayout.CounterAlignment="Stretch"
+	<Page.Resources>
+		<x:String x:Key="Icon_Close">F1 M 14 1.4099998474121094 L 12.59000015258789 0 L 7 5.590000152587891 L 1.4099998474121094 0 L 0 1.4099998474121094 L 5.590000152587891 7 L 0 12.59000015258789 L 1.4099998474121094 14 L 7 8.40999984741211 L 12.59000015258789 14 L 14 12.59000015258789 L 8.40999984741211 7 L 14 1.4099998474121094 Z</x:String>
+		<x:String x:Key="Icon_Delete_Outline">F1 M 1 16 C 1 17.100000023841858 1.899999976158142 18 3 18 L 11 18 C 12.100000023841858 18 13 17.100000023841858 13 16 L 13 4 L 1 4 L 1 16 Z M 3 6 L 11 6 L 11 16 L 3 16 L 3 6 Z M 10.5 1 L 9.5 0 L 4.5 0 L 3.5 1 L 0 1 L 0 3 L 14 3 L 14 1 L 10.5 1 Z</x:String>
+		<x:String x:Key="Icon_Today">F1 M 16 2 L 15 2 L 15 0 L 13 0 L 13 2 L 5 2 L 5 0 L 3 0 L 3 2 L 2 2 C 0.8899999856948853 2 0.009999990463256836 2.899999976158142 0.009999990463256836 4 L 0 18 C 0 19.100000023841858 0.8899999856948853 20 2 20 L 16 20 C 17.100000023841858 20 18 19.100000023841858 18 18 L 18 4 C 18 2.899999976158142 17.100000023841858 2 16 2 Z M 16 18 L 2 18 L 2 7 L 16 7 L 16 18 Z M 4 9 L 9 9 L 9 14 L 4 14 L 4 9 Z</x:String>
+	</Page.Resources>
+
+
+
+
+
+	<utu:AutoLayout>
+		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+			<utu:NavigationBar Content="Task List"
 						   Style="{StaticResource MaterialNavigationBarStyle}">
-			<!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
-			<utu:NavigationBar.MainCommand>
-				<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
-					</AppBarButton.Icon>
-				</AppBarButton>
-			</utu:NavigationBar.MainCommand>
-		</utu:NavigationBar>
-		<uer:FeedView Style="{StaticResource CompositeFeedViewStyle}"
-					  Source="{Binding Entity}"
-					  Grid.Row="1">
-			<DataTemplate>
-				<UserControl>
-					<StackPanel>
-						<TextBlock Text="Title" />
-						<TextBox Text="{Binding Title, Mode=TwoWay}" />
-					</StackPanel>
-				</UserControl>
-			</DataTemplate>
-		</uer:FeedView>
+				<!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
+				<utu:NavigationBar.MainCommand>
+					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+						<AppBarButton.Icon>
+							<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
+						</AppBarButton.Icon>
+					</AppBarButton>
+				</utu:NavigationBar.MainCommand>
+			</utu:NavigationBar>
+			<uer:FeedView Style="{StaticResource CompositeFeedViewStyle}"
+					  Source="{Binding Entity}">
+				<DataTemplate>
+					<!--<UserControl>
+						<StackPanel>
+							<TextBlock Text="Title" />
+							<TextBox Text="{Binding Title, Mode=TwoWay}" />
+						</StackPanel>
+					</UserControl>-->
+					<utu:AutoLayout Spacing="10" Padding="0,10,0,0" DataContext="{Binding Data}">
+						<utu:AutoLayout Spacing="10" Padding="12,0,20,0" Orientation="Horizontal">
+							<utu:AutoLayout>
+								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" />
+								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+							</utu:AutoLayout>
+							<utu:AutoLayout Padding="0,4,0,0" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
+								<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}" TextWrapping="Wrap" Text="{Binding Title}" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialHeadline5}" x:Uid="Body_Task_Name" />
+							</utu:AutoLayout>
+							<utu:AutoLayout>
+								<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" />
+								<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" />
+							</utu:AutoLayout>
+						</utu:AutoLayout>
+						<utu:AutoLayout Spacing="12" Padding="20,10,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
+							<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+							<utu:AutoLayout PrimaryAxisAlignment="Center">
+								<utu:AutoLayout Spacing="16" Orientation="Horizontal">
+									<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center">
+										<utu:AutoLayout Spacing="16" Orientation="Horizontal" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryLength="24" utu:AutoLayout.CounterLength="24">
+											<PathIcon Data="{StaticResource Icon_Today}" utu:AutoLayout.CounterAlignment="Start" />
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+									<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center" utu:AutoLayout.PrimaryAlignment="Stretch">
+										<utu:AutoLayout PrimaryAxisAlignment="Center">
+											<utu:AutoLayout PrimaryAxisAlignment="Center">
+												<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}" TextWrapping="Wrap" Text="Due Sun, 10 April" Style="{StaticResource MaterialSubtitle1}" x:Uid="Body_Subtitle" />
+											</utu:AutoLayout>
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+									<utu:AutoLayout Orientation="Horizontal" utu:AutoLayout.CounterAlignment="Center">
+										<utu:AutoLayout PrimaryAxisAlignment="End" Orientation="Horizontal">
+											<Button utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialButtonIconStyle}" x:Uid="Body_IconButton">
+												<PathIcon Data="{StaticResource Icon_Close}" />
+											</Button>
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+								</utu:AutoLayout>
+							</utu:AutoLayout>
+							<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+							<utu:AutoLayout>
+								<utu:AutoLayout Spacing="16" Padding="0,8,0,0" Orientation="Horizontal">
+									<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
+										<utu:AutoLayout PrimaryAxisAlignment="Center">
+											<utu:AutoLayout PrimaryAxisAlignment="Center">
+												<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}" TextWrapping="Wrap" Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when..." Style="{StaticResource MaterialSubtitle1}" x:Uid="Body_Subtitle" />
+											</utu:AutoLayout>
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+								</utu:AutoLayout>
+							</utu:AutoLayout>
+							<utu:AutoLayout>
+								<utu:AutoLayout Spacing="16" Orientation="Horizontal">
+									<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center" utu:AutoLayout.PrimaryAlignment="Stretch">
+										<utu:AutoLayout PrimaryAxisAlignment="Center">
+											<utu:AutoLayout PrimaryAxisAlignment="Center">
+												<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}" TextWrapping="Wrap" Style="{StaticResource MaterialBody2}" />
+											</utu:AutoLayout>
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+									<utu:AutoLayout Orientation="Horizontal" utu:AutoLayout.CounterAlignment="Center">
+										<utu:AutoLayout PrimaryAxisAlignment="End" Orientation="Horizontal">
+											<Button Content="Open" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialTextButtonStyle}" x:Uid="Body_Button" />
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+								</utu:AutoLayout>
+							</utu:AutoLayout>
+							<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+						</utu:AutoLayout>
+						<utu:AutoLayout Padding="20,0,10,0">
+							<utu:AutoLayout Spacing="16" Orientation="Horizontal">
+								<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center" utu:AutoLayout.PrimaryAlignment="Stretch">
+									<utu:AutoLayout PrimaryAxisAlignment="Center">
+										<utu:AutoLayout PrimaryAxisAlignment="Center">
+											<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}" TextWrapping="Wrap" Text="Completed today" Style="{StaticResource MaterialBody2}" x:Uid="Body_Subtitle" />
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+								</utu:AutoLayout>
+								<utu:AutoLayout Orientation="Horizontal" utu:AutoLayout.CounterAlignment="Center">
+									<utu:AutoLayout PrimaryAxisAlignment="End" Orientation="Horizontal">
+										<Button utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialButtonIconStyle}" x:Uid="Body_IconButton">
+											<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
+										</Button>
+									</utu:AutoLayout>
+								</utu:AutoLayout>
+							</utu:AutoLayout>
+						</utu:AutoLayout>
+					</utu:AutoLayout>
+				</DataTemplate>
+			</uer:FeedView>
+		</utu:AutoLayout>
 		<StackPanel Orientation="Horizontal"
 					Grid.Row="2">
 			<Button Content="Add"
@@ -48,5 +142,6 @@
 			<Button Content="Delete Task"
 					Command="{Binding Delete}" />
 		</StackPanel>
-	</Grid>
+	</utu:AutoLayout>
+
 </Page>

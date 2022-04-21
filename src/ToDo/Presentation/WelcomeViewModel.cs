@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Presentation;
 
-public  class WelcomeViewModel
+public partial class WelcomeViewModel
 {
     public WelcomeViewModel()
     {

@@ -7,6 +7,8 @@ global using System.Text;
 global using System.Text.Json.Serialization;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using System.Windows.Input;
+global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
