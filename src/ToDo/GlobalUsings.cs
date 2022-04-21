@@ -23,3 +23,8 @@ global using Uno.Extensions.Navigation;
 global using Uno.Extensions.Reactive;
 global using Uno.Extensions.Serialization;
 global using Uno.Extensions.Serialization.Refit;
+global using Microsoft.Identity.Client;
+global using ToDo.Business.Entities;
+global using Uno.UI.MSAL;
+global using System.IdentityModel.Tokens.Jwt;
+global using Microsoft.Extensions.Options;
