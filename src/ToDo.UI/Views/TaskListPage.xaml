@@ -46,6 +46,7 @@
 
 		<utu:AutoLayout Spacing="10" Padding="20,10,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
 			<uer:FeedView Source="{Binding Tasks}" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
+				<!-- Temporary until bug with SwipeControl content is fixed on Figma -->
 				<!--<DataTemplate>
 					<ListView ItemsSource="{Binding Data}"
 							  uen:Navigation.Request="Task"
