@@ -17,7 +17,8 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		IInput<TaskList> entity,
 		ICommandBuilder createTask,
 		ICommandBuilder<ToDoTask> navigateToTask,
-		ICommandBuilder deleteList)
+		ICommandBuilder deleteList,
+		ICommandBuilder renameList)
 	{
 		_logger = logger;
 		_navigator = navigator;
@@ -28,6 +29,7 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		createTask.Given(entity).Then(CreateTask);
 		navigateToTask.Then(NavigateToTask);
 		deleteList.Given(entity).Then(DeleteList);
+		renameList.Given(entity).Then(RenameList);
 
 		// TODO: Update this to register with token = list.Id
 		messenger.Register(this);
@@ -77,6 +79,19 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 			await _listSvc.DeleteAsync(list, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}
+	}
+
+	private async ValueTask RenameList(TaskList list, CancellationToken ct)
+	{
+		var response = await _navigator!.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog);
+		if (response is null)
+		{
+			return;
+		}
+
+		var newListName = await response.Result;
+		// TODO: Rename the list
+
 	}
 
 	public void Receive(EntityMessage<ToDoTask> msg)

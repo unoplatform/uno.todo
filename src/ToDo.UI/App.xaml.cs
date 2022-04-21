@@ -1,5 +1,6 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
+using ToDo.Business;
 using ToDo.Business.Services;
 using ToDo.Views.Dialogs;
 
@@ -198,11 +199,8 @@ public sealed partial class App : Application
 			new ViewMap<SettingsPage, SettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel>(),
-			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data:new DataMap<TaskList>()),
 			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(Data: new DataMap<ToDoTask>()),
-			new ViewMap<AddTaskDialog>(),
-			new ViewMap<AddListDialog, AddListViewModel>(),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDialog
 			);
