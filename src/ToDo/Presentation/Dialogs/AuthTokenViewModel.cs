@@ -1,10 +1,6 @@
-
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-
 namespace ToDo.Presentation;
 
-public class AuthTokenViewModel
+public partial class AuthTokenViewModel
 {
 	private INavigator Navigator { get; }
 

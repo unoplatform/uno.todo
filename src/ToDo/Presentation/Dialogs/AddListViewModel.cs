@@ -1,10 +1,6 @@
-
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-
 namespace ToDo.Presentation;
 
-public class AddListViewModel
+public partial class AddListViewModel
 {
 	private INavigator Navigator { get; }
 

@@ -185,14 +185,22 @@ public sealed partial class App : Application
 
 
 		views.Register(
-			new ViewMap<ShellControl, ShellViewModel>(),
-			new ViewMap<WelcomePage, WelcomeViewModel>(),
-			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
-			new ViewMap<AddTaskDialog>(),
-			new ViewMap<AddListDialog, AddListViewModel>(),
+			/// Dialogs and Flyouts
+			new ViewMap<AddTaskFlyout, AddTaskViewModel>(),
+			new ViewMap<AddListFlyout, AddListViewModel>(),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
+			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(),
+			new ViewMap<RenameListFlyout, RenameListViewModel>(),
+
+			// Views
+			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
+			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
+			new ViewMap<SettingsPage, SettingsViewModel>(),
+			new ViewMap<ShellControl, ShellViewModel>(),
+			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
+			new ViewMap<TaskNotePage, TaskNoteViewModel>(),
+			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
+			new ViewMap<WelcomePage, WelcomeViewModel>(),
 			confirmDialog
 			);
 
@@ -205,7 +213,7 @@ public sealed partial class App : Application
 							new ("Welcome",
 									View: views.FindByViewModel<WelcomeViewModel>()
 									),
-							new ("TaskLists",
+							new ("Home",
 									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
 									),
 							new("TaskList",
@@ -214,12 +222,25 @@ public sealed partial class App : Application
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
 									DependsOn:"TaskLists"),
+							new("Search",
+									View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
+									DependsOn:"TaskLists"),
+							new("Settings",
+									View: views.FindByViewModel<SettingsViewModel>(),
+									DependsOn:"TaskLists"),
+							new("TaskNote",
+									View: views.FindByViewModel<TaskNoteViewModel>(),
+									DependsOn:"TaskNote"),
 							new("AddTask",
-								View: views.FindByView<AddTaskDialog>()),
+								View: views.FindByView<AddTaskViewModel>()),
 							new("AddList",
 								View: views.FindByViewModel<AddListViewModel>()),
 							new("AuthToken",
 								View: views.FindByViewModel<AuthTokenViewModel>()),
+							new("ExpirationDate",
+								View: views.FindByViewModel<ExpirationDateViewModel>()),
+							new("RenameList",
+								View: views.FindByViewModel<RenameListViewModel>()),
 							new ("Confirm", confirmDialog)
 						}));
 	}
