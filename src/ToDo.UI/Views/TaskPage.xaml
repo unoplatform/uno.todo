@@ -34,16 +34,16 @@
 					</AppBarButton>
 				</utu:NavigationBar.MainCommand>
 			</utu:NavigationBar>
-			<uer:FeedView Style="{StaticResource CompositeFeedViewStyle}"
+			<!--<uer:FeedView Style="{StaticResource CompositeFeedViewStyle}"
 					  Source="{Binding Entity}">
-				<DataTemplate>
+				<DataTemplate>-->
 					<!--<UserControl>
 						<StackPanel>
 							<TextBlock Text="Title" />
 							<TextBox Text="{Binding Title, Mode=TwoWay}" />
 						</StackPanel>
 					</UserControl>-->
-					<utu:AutoLayout Spacing="10" Padding="0,10,0,0" DataContext="{Binding Data}">
+					<utu:AutoLayout Spacing="10" Padding="0,10,0,0" DataContext="{Binding Entity}">
 						<utu:AutoLayout Spacing="10" Padding="12,0,20,0" Orientation="Horizontal">
 							<utu:AutoLayout>
 								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
@@ -132,8 +132,8 @@
 							</utu:AutoLayout>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-				</DataTemplate>
-			</uer:FeedView>
+				<!--</DataTemplate>
+			</uer:FeedView>-->
 		</utu:AutoLayout>
 		<StackPanel Orientation="Horizontal"
 					Grid.Row="2">
