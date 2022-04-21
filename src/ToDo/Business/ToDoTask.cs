@@ -16,7 +16,7 @@ public record ToDoTask
 	}
 
 	internal ToDoTask(TaskData data)
-	: this(data.ParentList?.Id!, data!)
+	: this(data.ParentList?.Id!, data)
 	{
 	}
 
@@ -26,7 +26,7 @@ public record ToDoTask
 	{
 		ListId = listId;
 
-		Id = data.Id ?? throw new ArgumentNullException("data.Id", "Task must have a valid ID."); ;
+		Id = data.Id ?? throw new ArgumentNullException("data.Id", "Task must have a valid ID.");
 		Importance = data.Importance;
 		IsReminderOn = data.IsReminderOn;
 		Status = data.Status;

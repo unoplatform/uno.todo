@@ -1,7 +1,6 @@
-﻿
-namespace ToDo;
+﻿namespace ToDo;
 
-public  class ParentListTaskData
+public class ParentListTaskData
 {
 	[JsonPropertyName("id")]
 	public string? Id { get; set; }
