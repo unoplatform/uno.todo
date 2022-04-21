@@ -15,11 +15,6 @@ public record ToDoTask
 	{
 	}
 
-	internal ToDoTask(TaskData data)
-	: this(data.ParentList?.Id!, data)
-	{
-	}
-
 	// This ctor should be used only by business and should remain internal.
 	// To update a ToDoTask, use the "with" operator.
 	internal ToDoTask(string listId, TaskData data)
