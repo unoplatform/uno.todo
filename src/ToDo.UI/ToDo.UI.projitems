@@ -33,6 +33,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskFlyout.xaml.cs">
       <DependentUpon>AddTaskFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskNote.xaml.cs">
+      <DependentUpon>AddTaskNote.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml.cs">
       <DependentUpon>AuthTokenDialog.xaml</DependentUpon>
     </Compile>
@@ -78,6 +81,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskNote.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
