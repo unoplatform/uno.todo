@@ -20,7 +20,7 @@ public class TaskService : ITaskService
 	{
 		var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new (list, createdTask)));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new (list, createdTask)), list.Id);
 	}
 
 	/// <inheritdoc />
@@ -28,7 +28,9 @@ public class TaskService : ITaskService
 	{
 		var updatedTask = await _client.UpdateAsync(task.ListId, task.Id, task.ToData(), ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new (task.ListId, updatedTask)));
+		// Send updates to listeners of both the list and the individual task (in case the task page is open)
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new(task.ListId, updatedTask)), task.ListId);
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new (task.ListId, updatedTask)), task.Id);
 	}
 
 	/// <inheritdoc />
@@ -36,6 +38,6 @@ public class TaskService : ITaskService
 	{
 		await _client.DeleteAsync(task.ListId, task.Id, ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task), task.ListId);
 	}
 }

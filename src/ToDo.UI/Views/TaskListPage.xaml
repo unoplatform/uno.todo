@@ -19,7 +19,7 @@
 
 	<utu:AutoLayout>
 
-		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+		<utu:AutoLayout >
 			<utu:NavigationBar Content="Task List" Style="{StaticResource MaterialNavigationBarStyle}" x:Uid="Body_NavigationBar">
 				<utu:NavigationBar.MainCommand>
 					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
@@ -29,14 +29,15 @@
 					</AppBarButton>
 				</utu:NavigationBar.MainCommand>
 				<utu:NavigationBar.PrimaryCommands>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}" Command="{Binding RenameList}">
 						<AppBarButton.Icon>
-							<PathIcon Data="{StaticResource BitmapIcon_Drive_File_Rename_Outline}" />
+							<!-- TODO: This is the wrong icon -->
+							<PathIcon Data="{StaticResource IconSource_Favorite}" />
 						</AppBarButton.Icon>
 					</AppBarButton>
 					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}" Command="{Binding DeleteList}">
 						<AppBarButton.Icon>
-							<PathIcon Data="{StaticResource BitmapIcon_Delete_Outline}" />
+							<PathIcon Data="{StaticResource IconSource_Delete_Outline}" />
 						</AppBarButton.Icon>
 					</AppBarButton>
 				</utu:NavigationBar.PrimaryCommands>
@@ -119,12 +120,5 @@
 				</um:ControlExtensions.Icon>
 			</Button>
 		</utu:AutoLayout>
-
-		<StackPanel Orientation="Horizontal"
-					Grid.Row="2">
-			<!-- TODO: Remove this button - only required atm because the task list isn't loading, so no way to nav to task page -->
-			<Button Content="Task"
-					uen:Navigation.Request="Task" />
-		</StackPanel>
 	</utu:AutoLayout>
 </Page>

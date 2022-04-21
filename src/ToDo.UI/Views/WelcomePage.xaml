@@ -20,6 +20,9 @@
 			<TextBlock Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to&#xA;Uno To Do!" Style="{StaticResource MaterialHeadline4}" x:Uid="Body_Welcome_To_Uno_To_Do_" />
 			<TextBlock Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}" TextAlignment="Center" TextWrapping="Wrap" Text="Start using the best to-do app" Style="{StaticResource MaterialSubtitle2}" x:Uid="Body_Start_Using_The_Best_To_Do_App" />
 		</utu:AutoLayout>
-		<Button Content="Get started" Style="{StaticResource MaterialContainedButtonStyle}" x:Uid="Body_Button" uen:Navigation.Request="Home" />
+		<Button Content="Get started"
+				Style="{StaticResource MaterialContainedButtonStyle}"
+				x:Uid="Body_Button"
+				Command="{Binding GetStarted}" />
 	</utu:AutoLayout>
 </Page>

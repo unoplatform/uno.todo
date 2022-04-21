@@ -11,7 +11,8 @@
 		<Setter Property="ProgressTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<not_skia:Grid>
+					<!-- MaterialProgressRingStyle not being resolve on WinUI -->
+					<!--<not_skia:Grid>
 						<winui:ProgressRing
 							Style="{StaticResource MaterialProgressRingStyle}"
 							IsActive="{Binding}"
@@ -19,7 +20,7 @@
 							Height="50"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center" />
-					</not_skia:Grid>
+					</not_skia:Grid>-->
 					<skia:Grid>
 						<TextBlock
 							Text="Loading"
@@ -35,7 +36,9 @@
 		<Setter Property="ProgressTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<not_skia:Grid>
+					<!-- MaterialProgressRingStyle not being resolve on WinUI -->
+
+					<!--<not_skia:Grid>
 						<winui:ProgressRing
 							Style="{StaticResource MaterialProgressRingStyle}"
 							IsActive="{Binding}"
@@ -43,7 +46,7 @@
 							Height="50"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center" />
-					</not_skia:Grid>
+					</not_skia:Grid>-->
 					<skia:Grid>
 						<TextBlock
 							Text="Loading"

@@ -29,7 +29,7 @@ internal class BaseEndpointTests<T> where T : notnull
 			})
 			.ConfigureServices((context, services) =>
 			{
-				services.AddEndpoints(context, sp => GetAccessToken());
+				services.AddEndpoints(context, (sp, settings) => settings.AuthorizationHeaderValueGetter = GetAccessToken);
 			})
 			.Build();
 

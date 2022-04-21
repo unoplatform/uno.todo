@@ -25,16 +25,17 @@
 
 		<StackPanel Grid.Row="1">
 			<TextBlock Text="List Name" />
-			<TextBox Text="{Binding ListName, Mode=TwoWay}" />
+			<TextBox x:Name="ListNameText" Text="{Binding ListName, Mode=TwoWay}" />
 		</StackPanel>
 
 		<StackPanel HorizontalAlignment="Right"
 					Orientation="Horizontal"
 					Grid.Row="2">
 			<Button Content="Cancel"
-					uen:Navigation.Request="-" />
+					uen:Navigation.Request="-"/>
 			<Button Content="Create"
-					Command="{Binding RenameCommand}" />
+					uen:Navigation.Request="-"
+					uen:Navigation.Data="{Binding Text, ElementName=ListNameText}"/>
 		</StackPanel>
 	</Grid>
 </Page>
