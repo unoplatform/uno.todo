@@ -42,31 +42,15 @@ public class TaskService : ITaskService
 	}
 
 	/// <inheritdoc />
-	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
+	public async ValueTask<IEnumerable<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
 	{
-		Task<TaskReponseData<TaskData>> getMethod = string.IsNullOrWhiteSpace(displayName) ? _client.GetAllAsync(ct) : _client.GetByFilterAsync(displayName, ct);
+		Task<TaskReponseData<TaskData>> getMethod = string.IsNullOrWhiteSpace(displayName) ?
+			_client.GetAllAsync(ct) : _client.GetByFilterAsync(displayName, ct);
 		return ((await getMethod).Value ?? Enumerable.Empty<TaskData>())
 		.Where(data => data.ParentList?.Id is not null)
 		.Select(data =>
 		{
 			return new ToDoTask(data.ParentList?.Id ?? string.Empty, data);
-		}).ToImmutableList();
-	}
-
-	/// <inheritdoc />
-	public async ValueTask<IEnumerable<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
-	{
-		var todoTasksList = (await _client.GetAllAsync(ct)).Value;
-
-		if (String.IsNullOrWhiteSpace(displayName))
-			todoTasksList = (await _client.GetAllAsync(ct)).Value;
-
-		return (todoTasksList ?? Enumerable.Empty<TaskData>())
-				.Select(data => {
-					var taskListId = data.ParentList?.Id ??
-						throw new InvalidOperationException("The API did not provide list information.");
-					return new ToDoTask(taskListId, data);
-				})
-				.ToList();
+		}).ToList();
 	}
 }
