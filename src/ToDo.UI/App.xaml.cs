@@ -1,9 +1,5 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-using ToDo.Business;
-using ToDo.Business.Services;
-using ToDo.Views.Dialogs;
-using Uno.Extensions.Http;
 
 namespace ToDo;
 
@@ -57,6 +53,7 @@ public sealed partial class App : Application
 				.ConfigureServices((context, services) =>
 				{
 					services
+						.AddScoped<IDispatcher, Dispatcher>()
 						.AddEndpoints(context)
 						.AddServices();
 				})
