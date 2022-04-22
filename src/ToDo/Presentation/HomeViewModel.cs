@@ -6,7 +6,7 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _svc;
 	private readonly ILogger _logger;
-	private readonly ITaskService taskEndpoint;
+
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
 		INavigator navigator,
