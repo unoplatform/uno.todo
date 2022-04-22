@@ -2,18 +2,18 @@
 
 public partial class SearchViewModel
 {
-	private readonly ITaskListService _svc;
+	private readonly ITaskService _svc;
 	private readonly IInput<string> _term;
 
 	public SearchViewModel(
-		ITaskListService svc,
+		ITaskService svc,
 		IInput<string> term)
 	{
 		_svc = svc;
 		_term = term;
 	}
 
-	private IFeed<IImmutableList<ToDoTask>> AllTasks => Feed.Async(async ct => await _svc.GetAllTasksAsync(ct));
+	public IFeed<IImmutableList<ToDoTask>> AllTasks => Feed.Async(async ct => await _svc.GetAllAsync(string.Empty, ct));
 
 	public IFeed<IImmutableList<ToDoTask>> Results => Feed.Combine(_term, AllTasks).Select(Filter);
 
