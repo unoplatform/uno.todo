@@ -1,7 +1,5 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-using ToDo.Business.Services;
-using ToDo.Views.Dialogs;
 
 namespace ToDo;
 
@@ -55,13 +53,8 @@ public sealed partial class App : Application
 				.ConfigureServices((context, services) =>
 				{
 					services
-						.AddSingleton<IAuthenticationService, AuthenticationService>()
-						.AddEndpoints(context, AcquireToken)
-#if DEBUG // Comment these out if you want to use actual data from ToDo (requires auth)
-						// TODO: Still need a way to dynamically toggle between mock and live endpoints
-						.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
-						.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
-#endif
+						.AddScoped<IDispatcher, Dispatcher>()
+						.AddEndpoints(context)
 						.AddServices();
 				})
 
@@ -80,29 +73,6 @@ public sealed partial class App : Application
 #if HAS_UNO || NETFX_CORE
 		this.Suspending += OnSuspending;
 #endif
-	}
-
-	//private async Task<string> GetAccessToken()
-	//{
-	//	//TODO:There is a IAuthenticationService already to use it with injection
-	//	if (_auth is null)
-	//		throw new Exception("_auth is null");
-	//	//We need to save authResult in order to consume it from HomeViewModel and show User's email and name
-	//	var authResult = await _auth.ReturnAuthResultContext();
-	//	return authResult.AccessToken;
-	//}
-	
-	private async Task<string> AcquireToken(IServiceProvider services)
-	{
-		var auth = services.GetRequiredService<IAuthenticationService>();
-		var authResult = await auth.ReturnAuthResultContext();
-		if (authResult.AccessToken is not null)
-		{
-			return authResult.AccessToken;
-		}
-
-		return string.Empty;
-	
 	}
 
 	/// <summary>
@@ -195,12 +165,12 @@ public sealed partial class App : Application
 			// Views
 			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
-			new ViewMap<SettingsPage, SettingsViewModel>(),
+			new ViewMap<SettingsPage, SettingsViewModel.BindableSettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(),
-			new ViewMap<TaskNotePage, TaskNoteViewModel>(),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(),
-			new ViewMap<WelcomePage, WelcomeViewModel>(),
+			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
+			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data:new DataMap<TaskList>()),
+			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(Data: new DataMap<ToDoTask>()),
+			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDialog
 			);
 
@@ -211,26 +181,26 @@ public sealed partial class App : Application
 						Nested: new RouteMap[]
 						{
 							new ("Welcome",
-									View: views.FindByViewModel<WelcomeViewModel>()
+									View: views.FindByViewModel<WelcomeViewModel.BindableWelcomeViewModel>()
 									),
 							new ("Home",
 									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
 									),
 							new("TaskList",
 									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
-									DependsOn:"TaskLists"),
+									DependsOn:"Home"),
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
-									DependsOn:"TaskLists"),
+									DependsOn:"Home"),
 							new("Search",
 									View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
-									DependsOn:"TaskLists"),
+									DependsOn:"Home"),
 							new("Settings",
-									View: views.FindByViewModel<SettingsViewModel>(),
-									DependsOn:"TaskLists"),
+									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>(),
+									DependsOn:"Home"),
 							new("TaskNote",
 									View: views.FindByViewModel<TaskNoteViewModel>(),
-									DependsOn:"TaskNote"),
+									DependsOn:"Home"),
 							new("AddTask",
 								View: views.FindByView<AddTaskViewModel>()),
 							new("AddList",

@@ -1,5 +1,7 @@
 ﻿
 
+using Uno.Extensions.Storage;
+
 namespace ToDo.Data.Mock;
 
 public class MockTaskListEndpoint : ITaskListEndpoint
@@ -7,16 +9,17 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 	private const string ListDataFile = "lists.json";
 	private const string TasksDataFile = "tasks.json";
 
-	private readonly IJsonDataService<TaskListData> _listsDataService;
-	private readonly IJsonDataService<TaskData> _tasksDataService;
+	private readonly ISerializer<TaskListData> _listSerializer;
+	private readonly ISerializer<TaskData> _taskSerializer;
+	private readonly IStorage _dataService;
 	public MockTaskListEndpoint(
-		IJsonDataService<TaskListData> listsDataService,
-		IJsonDataService<TaskData> tasksDataService)
+		ISerializer<TaskListData> listSerializer,
+		ISerializer<TaskData> taskSerializer,
+		IStorage dataService)
 	{
-		_listsDataService = listsDataService;
-		_listsDataService.DataFile = ListDataFile;
-		_tasksDataService = tasksDataService;
-		_tasksDataService.DataFile = TasksDataFile;
+		_listSerializer = listSerializer;
+		_taskSerializer = taskSerializer;
+		_dataService = dataService;
 	}
 
 	private IList<TaskListData>? data;
@@ -26,7 +29,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 	{
 		if (data is null)
 		{
-			data = (await _listsDataService.GetEntities()).ToList();
+			data = (await _dataService.ReadFileAsync<TaskListData[]>(_listSerializer, ListDataFile)).ToList();
 		}
 	}
 
@@ -37,7 +40,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 			return existingTasks;
 		}
 
-		var tasks = (await _tasksDataService.GetEntities()).ToList();
+		var tasks = (await _dataService.ReadFileAsync<TaskData[]>(_taskSerializer, TasksDataFile)).ToList();
 		taskData[listId] = tasks;
 		return tasks;
 	}

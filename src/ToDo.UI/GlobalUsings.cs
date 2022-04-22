@@ -22,9 +22,13 @@ global using Uno.Extensions.Navigation.Toolkit;
 global using Uno.Extensions.Navigation.Regions;
 global using ToDo.Presentation;
 global using ToDo.Views;
+global using ToDo.Business;
+global using ToDo.Views.Dialogs;
+global using ToDo;
+
 
 #if WINUI
-	global using Microsoft.UI.Dispatching;
+global using Microsoft.UI.Dispatching;
 	global using Microsoft.UI.Xaml;
 	global using Microsoft.UI.Xaml.Controls;
 	global using Microsoft.UI.Xaml.Controls.Primitives;

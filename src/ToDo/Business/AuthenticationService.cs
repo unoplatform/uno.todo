@@ -1,23 +1,30 @@
 ﻿
 
 
+using System.Text.Json;
+
 namespace ToDo.Business.Services;
 
 public class AuthenticationService : IAuthenticationService
 {
 	private readonly IPublicClientApplication _pca;
-	private readonly OAuthSettings _settings;
-	public AuthenticationService(IOptions<OAuthSettings> settings)
+	private readonly string[] _scopes;
+	private readonly ILogger _logger;
+	public AuthenticationService(
+		ILogger<AuthenticationService> logger,
+		IOptions<OAuthSettings> settings)
 	{
-		_settings = settings.Value;
+		_logger = logger;
+		var authSettings = settings.Value;
+		_scopes = authSettings.Scopes ?? new string[] { };
 
 		var builder = PublicClientApplicationBuilder
-				.Create(_settings.ApplicationId)
-				.WithRedirectUri(_settings.RedirectUri)
+				.Create(authSettings.ApplicationId)
+				.WithRedirectUri(authSettings.RedirectUri)
 				.WithUnoHelpers();
-		if (!string.IsNullOrWhiteSpace(_settings.KeychainSecurityGroup))
+		if (!string.IsNullOrWhiteSpace(authSettings.KeychainSecurityGroup))
 		{
-			builder = builder.WithIosKeychainSecurityGroup(_settings.KeychainSecurityGroup);
+			builder = builder.WithIosKeychainSecurityGroup(authSettings.KeychainSecurityGroup);
 		}
 		_pca = builder.Build();
 	}
@@ -26,7 +33,7 @@ public class AuthenticationService : IAuthenticationService
 	{
 		try
 		{
-			var authResult = await _pca.AcquireTokenInteractive(_settings.Scopes)
+			var authResult = await _pca.AcquireTokenInteractive(_scopes)
 				.WithUnoHelpers()
 				.ExecuteAsync();
 			//TODO:We need to store UserContext in order to use it in the HomeViewModel
@@ -53,4 +60,92 @@ public class AuthenticationService : IAuthenticationService
 			AccessToken = authResult.AccessToken
 		};
 	}
+
+
+	public async Task<AuthenticationResult?> AcquireTokenAsync()
+	{
+		var authentication = await AcquireSilentTokenAsync();
+
+		if (string.IsNullOrEmpty(authentication?.AccessToken))
+		{
+			authentication = await AcquireInteractiveTokenAsync();
+		}
+
+		return authentication;
+	}
+
+	public async Task SignOutAsync()
+	{
+		var accounts = await _pca.GetAccountsAsync();
+		var firstAccount = accounts.FirstOrDefault();
+		if (firstAccount == null)
+		{
+			_logger.LogInformation(
+			  "Unable to find any accounts to log out of.");
+			return;
+		}
+
+		await _pca.RemoveAsync(firstAccount);
+		_logger.LogInformation($"Removed account: {firstAccount.Username}, user succesfully logged out.");
+	}
+
+	async Task<AuthenticationResult> AcquireInteractiveTokenAsync()
+	{
+		return await _pca
+		  .AcquireTokenInteractive(_scopes)
+		  .WithUnoHelpers()
+		  .ExecuteAsync();
+	}
+
+
+	async Task<AuthenticationResult?> AcquireSilentTokenAsync()
+	{
+		var accounts = await _pca.GetAccountsAsync();
+		var firstAccount = accounts.FirstOrDefault();
+
+		if (firstAccount == null)
+		{
+			_logger.LogInformation("Unable to find Account in MSAL.NET cache");
+			return default;
+		}
+
+		if (accounts.Any())
+		{
+			_logger.LogInformation($"Number of Accounts: {accounts.Count()}");
+		}
+
+		try
+		{
+			_logger.LogInformation("Attempting to perform silent sign in . . .");
+			_logger.LogInformation($"Authentication Scopes: {JsonSerializer.Serialize(_scopes)}");
+
+			_logger.LogInformation($"Account Name: {firstAccount.Username}");
+
+			return await _pca
+			  .AcquireTokenSilent(_scopes, firstAccount)
+			  //.WaitForRefresh(false)
+			  .ExecuteAsync();
+		}
+		catch (MsalUiRequiredException ex)
+		{
+			_logger.LogWarning(ex, ex.Message);
+			_logger.LogWarning(
+			  "Unable to retrieve silent sign in Access Token");
+		}
+		catch (Exception ex)
+		{
+			_logger.LogWarning(ex, ex.Message);
+			_logger.LogWarning("Unable to retrieve silent sign in details");
+		}
+
+		return default;
+	}
+
+	public async Task<string> GetAccessToken()
+	{
+
+		var result = await AcquireSilentTokenAsync();
+		return result?.AccessToken ?? string.Empty;
+	}
 }
+

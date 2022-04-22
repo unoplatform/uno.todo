@@ -3,21 +3,30 @@ namespace ToDo.Presentation;
 
 public class ShellViewModel
 {
-	private INavigator Navigator { get; }
-
+	private readonly INavigator _navigator;
+	private readonly IAuthenticationTokenProvider _auth;
 
 	public ShellViewModel(
-		INavigator navigator)
+		INavigator navigator,
+		IAuthenticationTokenProvider authentication)
 	{
 
-		Navigator = navigator;
+		_navigator = navigator;
+		_auth= authentication;
 
 		_ = Start();
 	}
 
 	public async Task Start()
 	{
-		// Change the viewmodel to specify the first page of the application to navigate to
-		await Navigator.NavigateViewModelAsync<WelcomeViewModel>(this);
+		var token = await _auth.GetAccessToken();
+		if (string.IsNullOrWhiteSpace(token))
+		{
+			await _navigator.NavigateViewModelAsync<WelcomeViewModel.BindableWelcomeViewModel>(this);
+		}
+		else
+		{
+			await _navigator.NavigateViewModelAsync<HomeViewModel.BindableHomeViewModel>(this);
+		}
 	}
 }
