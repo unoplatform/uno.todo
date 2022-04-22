@@ -1,6 +1,6 @@
 ﻿// Only define mocks in debug as we don't have a way to dynamically switch them
 #if DEBUG
-//#define USE_MOCKS
+#define USE_MOCKS
 #endif
 
 using ToDo.Business.Services;
