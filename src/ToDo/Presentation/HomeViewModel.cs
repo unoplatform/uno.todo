@@ -6,17 +6,20 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _svc;
 	private readonly ILogger _logger;
+	private readonly ITaskService taskEndpoint;
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
 		INavigator navigator,
 		ITaskListService svc,
 		IMessenger messenger,
 		ICommandBuilder createTaskList,
+		ITaskService taskEndpoint,
 		ICommandBuilder<TaskListData> navigateToTaskList)
 	{
 		_navigator = navigator;
 		_logger = logger;
 		_svc = svc;
+		this.taskEndpoint = taskEndpoint;
 
 		createTaskList.Execute(CreateTaskList);
 		navigateToTaskList.Execute(NavigateToTaskList);
@@ -35,6 +38,8 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
+		var task = await taskEndpoint.GetAllAsync(ct: ct);
+		Console.WriteLine(task.Count());
 
 		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
 		if(response is null)
