@@ -42,7 +42,7 @@ public class TaskService : ITaskService
 	}
 
 	/// <inheritdoc />
-	public async ValueTask<IEnumerable<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
+	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
 	{
 		Task<TaskReponseData<TaskData>> getMethod = string.IsNullOrWhiteSpace(displayName) ?
 			_client.GetAllAsync(ct) : _client.GetByFilterAsync(displayName, ct);
@@ -52,6 +52,6 @@ public class TaskService : ITaskService
 		.Select(data =>
 		{
 			return new ToDoTask(data.ParentList?.Id ?? string.Empty, data);
-		}).ToList();
+		}).ToImmutableList();
 	}
 }

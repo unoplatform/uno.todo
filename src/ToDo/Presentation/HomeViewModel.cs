@@ -38,9 +38,6 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
-		var task = await taskEndpoint.GetAllAsync(ct: ct);
-		Console.WriteLine(task.Count());
-
 		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
 		if(response is null)
 		{

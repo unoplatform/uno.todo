@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
 			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
 			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
 
-// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
+			// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
 #if USE_MOCKS
 			.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
 			.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
