@@ -47,8 +47,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 
 	private async Task<IList<TaskData>> LoadAllTasks()
 	{
-		var tasks = (await _tasksDataService.GetEntities()).ToList();
-		return tasks;
+		return await LoadListTasks("tasks");
 	}
 
 	public async Task<TaskListData> CreateAsync(TaskListRequestData todoList, CancellationToken ct)

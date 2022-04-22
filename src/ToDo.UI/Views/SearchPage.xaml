@@ -52,7 +52,7 @@
 
 		<utu:AutoLayout Spacing="10"
 						Padding="20,10,20,0"
-						utu:AutoLayout.PrimaryAlignment="Stretch">
+						utu:AutoLayout.PrimaryAlignment="Stretch"> 
 			<uer:FeedView Source="{Binding AllTasks}"
 						  utu:AutoLayout.CounterAlignment="Start"
 						  utu:AutoLayout.PrimaryAlignment="Stretch">
