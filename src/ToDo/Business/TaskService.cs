@@ -46,6 +46,7 @@ public class TaskService : ITaskService
 	{
 		Task<TaskReponseData<TaskData>> getMethod = string.IsNullOrWhiteSpace(displayName) ?
 			_client.GetAllAsync(ct) : _client.GetByFilterAsync(displayName, ct);
+
 		return ((await getMethod).Value ?? Enumerable.Empty<TaskData>())
 		.Where(data => data.ParentList?.Id is not null)
 		.Select(data =>
