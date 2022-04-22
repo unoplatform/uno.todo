@@ -13,13 +13,11 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 		ITaskListService svc,
 		IMessenger messenger,
 		ICommandBuilder createTaskList,
-		ITaskService taskEndpoint,
 		ICommandBuilder<TaskListData> navigateToTaskList)
 	{
 		_navigator = navigator;
 		_logger = logger;
 		_svc = svc;
-		this.taskEndpoint = taskEndpoint;
 
 		createTaskList.Execute(CreateTaskList);
 		navigateToTaskList.Execute(NavigateToTaskList);

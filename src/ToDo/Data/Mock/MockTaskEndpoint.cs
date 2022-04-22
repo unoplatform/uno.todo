@@ -8,8 +8,7 @@ public class MockTaskEndpoint : ITaskEndpoint
 	private readonly MockTaskListEndpoint _listEndpoint;
 
 	public MockTaskEndpoint(
-		ITaskListEndpoint listEndpoint
-		, ITaskEndpoint taskEndpoint)
+		ITaskListEndpoint listEndpoint)
 	{
 		_listEndpoint = (listEndpoint as MockTaskListEndpoint)!;
 	}
