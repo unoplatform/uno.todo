@@ -1,10 +1,10 @@
 ﻿<Page
-    x:Class="ToDo.Views.SearchPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ToDo.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	x:Class="ToDo.Views.SearchPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:ToDo.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
 	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:utu="using:Uno.Toolkit.UI"
@@ -13,74 +13,58 @@
 	  Background="{ThemeResource MaterialBackgroundBrush}">
 
 	<Page.Resources>
-		<x:String x:Key="Icon_Add">F1 M 14 8 L 8 8 L 8 14 L 6 14 L 6 8 L 0 8 L 0 6 L 6 6 L 6 0 L 8 0 L 8 6 L 14 6 L 14 8 Z</x:String>
+		<x:String x:Key="Icon_Arrow_Back">F1 M 16 7 L 3.8299999237060547 7 L 9.420000076293945 1.4099998474121094 L 8 0 L 0 8 L 8 16 L 9.40999984741211 14.59000015258789 L 3.8299999237060547 9 L 16 9 L 16 7 Z</x:String>
 		<x:String x:Key="IconSource_Delete_Outline">F1 M 1 16 C 1 17.100000023841858 1.899999976158142 18 3 18 L 11 18 C 12.100000023841858 18 13 17.100000023841858 13 16 L 13 4 L 1 4 L 1 16 Z M 3 6 L 11 6 L 11 16 L 3 16 L 3 6 Z M 10.5 1 L 9.5 0 L 4.5 0 L 3.5 1 L 0 1 L 0 3 L 14 3 L 14 1 L 10.5 1 Z</x:String>
 		<x:String x:Key="IconSource_Favorite">F1 M 10 18.350000381469727 L 8.550000190734863 17.030000686645508 C 3.4000000953674316 12.360000610351562 0 9.27999997138977 0 5.5 C 0 2.4200000762939453 2.4200000762939453 0 5.5 0 C 7.240000009536743 0 8.909999966621399 0.8100001811981201 10 2.0900001525878906 C 11.090000033378601 0.8100001811981201 12.759999990463257 0 14.5 0 C 17.579999923706055 0 20 2.4200000762939453 20 5.5 C 20 9.27999997138977 16.59999990463257 12.36000108718872 11.449999809265137 17.040000915527344 L 10 18.350000381469727 Z</x:String>
+		<x:String x:Key="Icon_Star_Rate">F1 M 12.430000305175781 8 L 10 0 L 7.569999694824219 8 L 0 8 L 6.180000305175781 12.40999984741211 L 3.8299999237060547 20 L 10 15.309999465942383 L 16.18000030517578 20 L 13.829999923706055 12.40999984741211 L 20 8 L 12.430000305175781 8 Z</x:String>
 	</Page.Resources>
 
-	<utu:AutoLayout>
-
-		<utu:AutoLayout>
-			<utu:NavigationBar Content="Search"
-							   Style="{StaticResource MaterialNavigationBarStyle}"
-							   x:Uid="Body_NavigationBar">
-				<utu:NavigationBar.MainCommand>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-						<AppBarButton.Icon>
-							<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
-						</AppBarButton.Icon>
-					</AppBarButton>
-				</utu:NavigationBar.MainCommand>
-				<utu:NavigationBar.PrimaryCommands>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}"
-								  Command="{Binding RenameList}">
-						<AppBarButton.Icon>
-							<!-- TODO: This is the wrong icon -->
-							<PathIcon Data="{StaticResource IconSource_Favorite}" />
-						</AppBarButton.Icon>
-					</AppBarButton>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}"
-								  Command="{Binding DeleteList}">
-						<AppBarButton.Icon>
-							<PathIcon Data="{StaticResource IconSource_Delete_Outline}" />
-						</AppBarButton.Icon>
-					</AppBarButton>
-				</utu:NavigationBar.PrimaryCommands>
-			</utu:NavigationBar>
-			<!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
-		</utu:AutoLayout>
-
-		<utu:AutoLayout Spacing="10"
-						Padding="20,10,20,0"
-						utu:AutoLayout.PrimaryAlignment="Stretch"> 
-			<uer:FeedView Source="{Binding AllTasks}"
-						  utu:AutoLayout.CounterAlignment="Start"
-						  utu:AutoLayout.PrimaryAlignment="Stretch">
-
-				<DataTemplate>
-					<UserControl>
-						<Grid>
-							<ListView 	  ItemsSource="{Binding Data}"
-										  SelectionMode="None"
-										  IsItemClickEnabled="True"
-										  uen:Navigation.Request="Task">
-								<ListView.ItemsPanel>
-									<ItemsPanelTemplate>
-										<ItemsStackPanel Orientation="Vertical" />
-									</ItemsPanelTemplate>
-								</ListView.ItemsPanel>
-								<ListView.ItemTemplate>
-									<DataTemplate>
+	<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+			<utu:AutoLayout Spacing="10" Padding="10,0,20,10" Orientation="Horizontal" Background="{ThemeResource MaterialSurfaceBrush}">
+				<Button utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialButtonIconStyle}" x:Uid="Body_IconButton">
+					<PathIcon Data="{StaticResource Icon_Arrow_Back}" />
+				</Button>
+				<TextBox x:Name="Term"  PlaceholderText="Search" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" Style="{StaticResource MaterialFilledTextBoxStyle}" x:Uid="Body_TextBox" />
+			</utu:AutoLayout>
+			<utu:AutoLayout Padding="20,20,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
+				<uer:FeedView Source="{Binding Results}" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
+					<DataTemplate>
+						<ListView ItemsSource="{Binding Data}" uen:Navigation.Request="SwipeControl" Style="{StaticResource MaterialListViewStyle}">
+							<ListView.ItemsPanel>
+								<ItemsPanelTemplate>
+									<ItemsStackPanel Orientation="Vertical" />
+								</ItemsPanelTemplate>
+							</ListView.ItemsPanel>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<SwipeControl>
+										<SwipeControl.LeftItems>
+											<SwipeItems Mode="Reveal">
+												<SwipeItem Foreground="{ThemeResource MaterialOnPrimaryBrush}" Text="Item">
+													<SwipeItem.IconSource>
+														<PathIconSource Data="{StaticResource IconSource_Favorite}" />
+													</SwipeItem.IconSource>
+												</SwipeItem>
+											</SwipeItems>
+										</SwipeControl.LeftItems>
+										<SwipeControl.RightItems>
+											<SwipeItems Mode="Reveal">
+												<SwipeItem>
+													<SwipeItem.IconSource>
+														<PathIconSource Data="{StaticResource IconSource_Delete_Outline}" />
+													</SwipeItem.IconSource>
+												</SwipeItem>
+											</SwipeItems>
+										</SwipeControl.RightItems>
 										<TextBlock Text="{Binding Title}" />
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-						</Grid>
-					</UserControl>
-				</DataTemplate>
-			</uer:FeedView>
+									</SwipeControl>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</DataTemplate>
+				</uer:FeedView>
+			</utu:AutoLayout>
 		</utu:AutoLayout>
-
-	
 	</utu:AutoLayout>
 </Page>

@@ -20,6 +20,6 @@ public partial class SearchViewModel
 	private static IImmutableList<ToDoTask> Filter((string term, IImmutableList<ToDoTask> tasks) inputs)
 		=> inputs
 			.tasks
-			.Where(task => task.Body?.Content?.IndexOf(inputs.term, StringComparison.OrdinalIgnoreCase) is >= 0)
+			.Where(task => !string.IsNullOrWhiteSpace(inputs.term) && task.Body?.Content?.IndexOf(inputs.term, StringComparison.OrdinalIgnoreCase) is >= 0)
 			.ToImmutableList();
 }
