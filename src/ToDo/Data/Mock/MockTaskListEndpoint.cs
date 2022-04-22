@@ -45,6 +45,11 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 		return tasks;
 	}
 
+	private async Task<IList<TaskData>> LoadAllTasks()
+	{
+		return await LoadListTasks("tasks");
+	}
+
 	public async Task<TaskListData> CreateAsync(TaskListRequestData todoList, CancellationToken ct)
 	{
 		await Load();
@@ -126,4 +131,16 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 		await DeleteTaskFromList(todoTaskListId, task.Id!);
 		await AddTaskToList(todoTaskListId, task);
 	}
+
+	public async Task<TaskReponseData<TaskData>> GetAllTasksAsync(string displayName = "", CancellationToken ct = default)
+	{
+		var tasks = await LoadAllTasks();
+
+		if(string.IsNullOrWhiteSpace(displayName))
+			return new TaskReponseData<TaskData> { Value = tasks.ToList() };
+
+		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.Title != null && x.Title.Contains(displayName)).ToList() };
+	}
+
+
 }

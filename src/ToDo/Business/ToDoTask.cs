@@ -21,11 +21,11 @@ public record ToDoTask
 	{
 		ListId = listId;
 
-		Id = data.Id ?? throw new ArgumentNullException("data.Id", "Task must have a valid ID."); ;
+		Id = data.Id ?? throw new ArgumentNullException("data.Id", "Task must have a valid ID.");
 		Importance = data.Importance;
 		IsReminderOn = data.IsReminderOn;
 		Status = data.Status;
-		Title = data.Title;
+		Title = data.Title ?? data.DisplayName;
 		CreatedDateTime = data.CreatedDateTime;
 		LastModifiedDateTime = data.LastModifiedDateTime;
 		Body = data.Body;
@@ -71,12 +71,13 @@ public record ToDoTask
 			IsReminderOn = IsReminderOn,
 			Status = Status,
 			Title = Title,
+			DisplayName = Title,
 			CreatedDateTime = CreatedDateTime,
 			LastModifiedDateTime = LastModifiedDateTime,
 			Body = Body,
 			DueDateTime = DueDateTime,
 			LinkedResourcesOdataContext = LinkedResourcesOdataContext,
 			LinkedResources = LinkedResources?.ToList(),
-			OdataEtag = OdataEtag,
+			OdataEtag = OdataEtag
 		};
 }

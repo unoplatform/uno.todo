@@ -21,7 +21,7 @@ internal class BaseEndpointTests<T> where T : notnull
 			{
 				var appsettingsPrefix = new Dictionary<string, string>
 						{
-							{ "ITaskEndpoint:Url", "https://graph.microsoft.com/v1.0/me" },
+							{ "ITaskEndpoint:Url", "https://graph.microsoft.com/beta/me" },
 							{ "ITaskEndpoint:UseNativeHandler","true" }
 						};
 				builder.AddInMemoryCollection(appsettingsPrefix);
@@ -51,8 +51,8 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
 	public async System.Threading.Tasks.Task Create_TodoTask_ShouldReturn_NewTask()
 	{
 		//Arrange
-		var listId = "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AACzQA1BAAA=";
-		var newTask = new TaskData { Title = "new task" };
+		var listId = "AQMkADAwATNiZmYAZC00YjBmLWQzOTItMDACLTAwCgAuAAADIptfVB-VcUaFb7L0jgOsSQEAcYiQalobw0a8Voz8RAJUmAAAAjxiAAAA";
+		var newTask = new TaskData { Title = "new task created from unit test" };
 		//Act
 		var result = await service.CreateAsync(listId, newTask, CancellationToken.None);
 
@@ -64,8 +64,8 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
 	public async System.Threading.Tasks.Task Get_TodoTask_ShouldReturnTask()
 	{
 		//Arrange
-		var listId = "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AACzQA1BAAA=";
-		var taskId = "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgBGAAAAAABxiwJ7rbfvTL0IfGDSJ4lUBwAstIhkSEopRrR__AvQNI34AACzQA1BAAAstIhkSEopRrR__AvQNI34AACzQBkEAAA=";
+		var listId = "AQMkADAwATNiZmYAZC00YjBmLWQzOTItMDACLTAwCgAuAAADIptfVB-VcUaFb7L0jgOsSQEAcYiQalobw0a8Voz8RAJUmAAAAjxiAAAA";
+		var taskId = "AQMkADAwATNiZmYAZC00YjBmLWQzOTItMDACLTAwCgBGAAADIptfVB-VcUaFb7L0jgOsSQcAcYiQalobw0a8Voz8RAJUmAAAAjxiAAAAcYiQalobw0a8Voz8RAJUmAAAAo0oAAAA";
 
 		//Act
 		var result = await service.GetAsync(listId, taskId, CancellationToken.None);

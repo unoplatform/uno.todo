@@ -6,6 +6,7 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _svc;
 	private readonly ILogger _logger;
+
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
 		INavigator navigator,
@@ -35,7 +36,6 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
-
 		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
 		if(response is null)
 		{
