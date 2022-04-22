@@ -13,13 +13,13 @@ public partial class SearchViewModel
 		_term = term;
 	}
 
-	public IFeed<IImmutableList<ToDoTask>> AllTasks => Feed.Async(async ct => await _svc.GetAllAsync(string.Empty, ct));
+	public IFeed<IEnumerable<ToDoTask>> AllTasks => Feed.Async(async ct => await _svc.GetAllAsync(string.Empty, ct));
 
-	public IFeed<IImmutableList<ToDoTask>> Results => Feed.Combine(_term, AllTasks).Select(Filter);
+	public IFeed<IEnumerable<ToDoTask>> Results => Feed.Combine(_term, AllTasks).Select(Filter);
 
-	private static IImmutableList<ToDoTask> Filter((string term, IImmutableList<ToDoTask> tasks) inputs)
+	private static IEnumerable<ToDoTask> Filter((string term, IEnumerable<ToDoTask> tasks) inputs)
 		=> inputs
 			.tasks
 			.Where(task => task.Body?.Content?.IndexOf(inputs.term, StringComparison.OrdinalIgnoreCase) is >= 0)
-			.ToImmutableList();
+			.ToList();
 }
