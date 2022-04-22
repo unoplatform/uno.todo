@@ -56,5 +56,18 @@
 	<string>{320, 568}</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>MSAL</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msal980ca8cd-56ec-47dc-972f-a28ccb78e232</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+		</dict>
+	</array>
 </dict>
 </plist>

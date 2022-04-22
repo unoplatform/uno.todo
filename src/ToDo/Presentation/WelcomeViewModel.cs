@@ -6,20 +6,27 @@ public partial class WelcomeViewModel
 {
 	private readonly IAuthenticationService _authService;
 	private readonly INavigator _navigator;
-
+	private readonly IDispatcher _dispatcher;
 	private WelcomeViewModel(
+		IDispatcher dispatcher,
 		INavigator navigator,
 		ICommandBuilder getStarted,
 		IAuthenticationService authService)
     {
-		_navigator=navigator;
+		_dispatcher = dispatcher;
+		_navigator =navigator;
 		_authService = authService;
 		getStarted.Execute(GetStarted);
 	}
 
 	private async ValueTask GetStarted(CancellationToken ct)
 	{
-		var token = await _authService.AcquireTokenAsync();
+		var token =
+			await _dispatcher.Run(async () =>
+			{
+				return await _authService.AcquireTokenAsync();
+			});
+
 
 		if(!string.IsNullOrWhiteSpace(token?.AccessToken))
 		{
