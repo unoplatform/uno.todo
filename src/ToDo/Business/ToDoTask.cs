@@ -61,6 +61,8 @@ public record ToDoTask
 
 	public string? OdataEtag { get; init; }
 
+	public bool IsImportant => Importance is "high";
+
 	// This ctor should be used only by business and should remain internal.
 	[Pure]
 	internal TaskData ToData()

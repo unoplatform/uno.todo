@@ -12,5 +12,5 @@ public interface ITaskListService
 
 	Task DeleteAsync(TaskList list, CancellationToken ct);
 
-	Task<IImmutableList<ToDoTask>> GetTasksAsync(string listId, CancellationToken ct);
+	ValueTask<IImmutableList<ToDoTask>> GetTasksAsync(TaskList list, CancellationToken ct);
 }

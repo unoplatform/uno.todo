@@ -2,6 +2,14 @@
 
 public record TaskList
 {
+	public static TaskList Important { get; } = new("Important");
+
+	internal TaskList(string wellknownListName)
+	{
+		WellknownListName = wellknownListName;
+		Id = wellknownListName;
+	}
+
 	internal TaskList(TaskListData data)
 	{
 		Id = data.Id ?? throw new ArgumentNullException("data.Id", "List must have a valid ID.");

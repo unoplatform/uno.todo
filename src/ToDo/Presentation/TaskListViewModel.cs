@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Presentation;
 
-public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
+public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _listSvc;
@@ -35,8 +35,7 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		messenger.Register(this);
 	}
 
-	// TODO: Feed - This should be a ListFeed / This should listen for Task creation/update/deletion
-	public IFeed<IImmutableList<ToDoTask>> Tasks => _entity.SelectAsync(async (list, ct) => list is not null ? await _listSvc.GetTasksAsync(list, ct): default);
+	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_listSvc.GetTasksAsync, ct)); 
 
 	private async ValueTask CreateTask(TaskList list, CancellationToken ct)
 	{
@@ -51,7 +50,6 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 		var taskName = result.SomeOrDefault()?.Title;
 		if (taskName is not null)
 		{
-
 			// TODO: Configure properties of TaskData
 			var newTask = new ToDoTask { Title = taskName };
 			await _taskSvc.CreateAsync(list, newTask, ct);
@@ -94,24 +92,27 @@ public partial class TaskListViewModel: IRecipient<EntityMessage<ToDoTask>>
 
 	}
 
-	public void Receive(EntityMessage<ToDoTask> msg)
+	public async void Receive(EntityMessage<ToDoTask> msg)
 	{
+		var ct = CancellationToken.None;
 		try
 		{
-			// TODO: Feed
-			//var listOpt = await _entity;
-			//if (listOpt.IsSome(out var list) && msg.Value.ListId == list.Id)
-			//{
-			//	await Tasks.Update(tasks =>
-			//	{
-			//		return msg.Change switch
-			//		{
-			//			EntityChange.Create => tasks.Add(msg.Value),
-			//			EntityChange.Update => tasks.Replace(msg.Value),
-			//			EntityChange.Delete => tasks.Remove(msg.Value),
-			//		};
-			//	});
-			//}
+			var list = (await _entity).SomeOrDefault();
+			if (list?.Id != msg.Value.ListId)
+			{
+				return;
+			}
+
+			switch (msg.Change)
+			{
+				case EntityChange.Create:
+					await Tasks.AddAsync(msg.Value, ct);
+					break;
+
+				// TODO Feed
+				//EntityChange.Update => tasks.Replace(msg.Value),
+				//EntityChange.Delete => tasks.Remove(msg.Value),
+			}
 		}
 		catch (Exception e)
 		{

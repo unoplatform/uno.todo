@@ -1,23 +1,23 @@
 ﻿
 namespace ToDo.Presentation;
 
-public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
+public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 {
 	private readonly INavigator _navigator;
-	private readonly ITaskListService _svc;
+	private readonly ITaskListService _listSvc;
 	private readonly ILogger _logger;
 
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
 		INavigator navigator,
-		ITaskListService svc,
+		ITaskListService listSvc,
 		IMessenger messenger,
 		ICommandBuilder createTaskList,
 		ICommandBuilder<TaskListData> navigateToTaskList)
 	{
 		_navigator = navigator;
 		_logger = logger;
-		_svc = svc;
+		_listSvc = listSvc;
 
 		createTaskList.Execute(CreateTaskList);
 		navigateToTaskList.Execute(NavigateToTaskList);
@@ -25,14 +25,13 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 		messenger.Register(this);
 	}
 
-	// TODO: Feed - This should be a ListFeed / This should listen for List creation/update/deletion
-	private IFeed<IImmutableList<TaskList>> Lists => Feed.Async(_svc.GetAllAsync);
+	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
-	// TODO: Feed - This should a ListFeed
-	public IFeed<TaskList> Important => Lists.Select(allList => allList.Single(list => list is { WellknownListName: "Important" }));
+	public IFeed<TaskList> Tasks => Lists.AsFeed().Select(lists => lists.Single(list => list is { WellknownListName: "tasks" }));
 
-	// TODO: Feed - This should a ListFeed
-	public IFeed<ImmutableList<TaskList>> CustomLists => Lists.Select(allList => allList.Where(list => list is { WellknownListName: null or "none" }).ToImmutableList());
+	public TaskList Important => TaskList.Important;
+
+	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
@@ -45,12 +44,9 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 		var result = await response.Result;
 
 		var listName = result.SomeOrDefault()?.DisplayName;
-		if (listName is not null) {
-			// TODO: Build query parameter to create the task list
-			var newTaskList = _svc.CreateAsync(listName, ct);
-
-			// TODO: Feed - Edit the local state to add the newly created list, so the previous page is updated live.
-			// await Lists.Update(lists => lists.Add(newTaskList));
+		if (listName is not null)
+		{
+			await _listSvc.CreateAsync(listName, ct);
 		}
 	}
 
@@ -60,20 +56,21 @@ public partial class HomeViewModel:IRecipient<EntityMessage<TaskList>>
 		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: list, cancellation: ct);
 	}
 
-	public void Receive(EntityMessage<TaskList> msg)
+	public async void Receive(EntityMessage<TaskList> msg)
 	{
+		var ct = CancellationToken.None;
 		try
 		{
-			// TODO: Feed
-			//await Lists.Update(tasks =>
-			//{
-			//	return msg.Change switch
-			//	{
-			//		EntityChange.Create => tasks.Add(msg.Value),
-			//		EntityChange.Update => tasks.Replace(msg.Value),
-			//		EntityChange.Delete => tasks.Remove(msg.Value),
-			//	};
-			//});
+			switch (msg.Change)
+			{
+				case EntityChange.Create:
+					await Lists.AddAsync(msg.Value, ct);
+					break;
+
+				// TODO Feed
+				//EntityChange.Update => tasks.Replace(msg.Value),
+				//EntityChange.Delete => tasks.Remove(msg.Value),
+			}
 		}
 		catch (Exception e)
 		{

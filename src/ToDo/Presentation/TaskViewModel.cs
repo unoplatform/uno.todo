@@ -4,6 +4,7 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskService _svc;
+	private readonly IInput<ToDoTask> _entity;
 	private readonly ILogger _logger;
 
 	private TaskViewModel(
@@ -18,6 +19,7 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 		_logger = logger;
 		_navigator = navigator;
 		_svc = svc;
+		_entity = entity;
 
 		delete.Given(entity).Then(Delete);
 		save.Given(entity).Then(Save);
@@ -46,11 +48,15 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 	private async ValueTask Save(ToDoTask task, CancellationToken ct)
 		=> await _svc.UpdateAsync(task, ct);
 
-	public void Receive(EntityMessage<ToDoTask> msg)
+	public async void Receive(EntityMessage<ToDoTask> msg)
 	{
+		var ct = CancellationToken.None;
 		try
 		{
-			// TODO: Update the current task based on the message
+			if (msg.Change is EntityChange.Update)
+			{
+				await _entity.UpdateValue(current => current.IsSome(out var task) && task.Id == msg.Value.Id ? msg.Value : current, ct);
+			}
 		}
 		catch (Exception e)
 		{
