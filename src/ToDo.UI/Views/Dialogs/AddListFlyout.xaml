@@ -5,33 +5,51 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
-	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:um="using:Uno.Material"
 	  mc:Ignorable="d"
 	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+	<Page.Resources>
+		<x:String x:Key="Icon_Add">F1 M 14 8 L 8 8 L 8 14 L 6 14 L 6 8 L 0 8 L 0 6 L 6 6 L 6 0 L 8 0 L 8 6 L 14 6 L 14 8 Z</x:String>
+	</Page.Resources>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<utu:NavigationBar Content="New List"
-						   Style="{StaticResource MaterialNavigationBarStyle}">
-		</utu:NavigationBar>
+	<utu:AutoLayout Spacing="20"
+					Padding="20,20,20,20"
+					CornerRadius="8"
+					Background="{ThemeResource MaterialSurfaceBrush}">
 
-		<StackPanel Grid.Row="1">
-			<TextBlock Text="List Name" />
-			<TextBox Text="{Binding ListName, Mode=TwoWay}" />
-		</StackPanel>
+		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+				   TextWrapping="Wrap"
+				   Text="New list"
+				   Style="{StaticResource MaterialHeadline6}" />
 
-		<StackPanel HorizontalAlignment="Right"
-					Orientation="Horizontal" Grid.Row="2">
-			<Button Content="Cancel" uen:Navigation.Request="-"/>
+		<TextBox PlaceholderText="Write the title"
+				 Text="{Binding ListName, Mode=TwoWay}"
+				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
+
+		<utu:AutoLayout Spacing="10"
+						Orientation="Horizontal">
+
+			<utu:AutoLayout Spacing="10"
+							Orientation="Horizontal"
+							utu:AutoLayout.CounterAlignment="Start"
+							utu:AutoLayout.PrimaryAlignment="Stretch" />
+
+			<Button Content="Cancel"
+					uen:Navigation.Request="-"
+					utu:AutoLayout.CounterAlignment="Start"
+					Style="{StaticResource MaterialTextButtonStyle}" />
+
 			<Button Content="Create"
-					Command="{Binding AddCommand}"/>
-		</StackPanel>
-	</Grid>
+					Command="{Binding AddCommand}"
+					utu:AutoLayout.CounterAlignment="Start"
+					Style="{StaticResource MaterialContainedButtonStyle}">
+				<um:ControlExtensions.Icon>
+					<PathIcon Data="{StaticResource Icon_Add}" />
+				</um:ControlExtensions.Icon>
+			</Button>
+
+		</utu:AutoLayout>
+	</utu:AutoLayout>
 </Page>
