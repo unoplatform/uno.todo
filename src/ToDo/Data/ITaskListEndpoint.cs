@@ -22,8 +22,4 @@ public interface ITaskListEndpoint
 	[Delete("/todo/lists/{todoTaskListId}")]
 	[Headers("Authorization: Bearer")]
 	Task<HttpResponseMessage> DeleteAsync(string todoTaskListId, CancellationToken ct);
-
-	[Get("/todo/lists/{todoTaskListId}/tasks")]
-	[Headers("Authorization: Bearer")]
-	Task<TaskReponseData<TaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct);
 }

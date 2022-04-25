@@ -47,10 +47,4 @@ public class TaskListService : ITaskListService
 
 		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Delete, list));
 	}
-
-	/// <inheritdoc />
-	public async Task<IImmutableList<ToDoTask>> GetTasksAsync(string listId, CancellationToken ct)
-		=> ((await _client.GetTasksAsync(listId, ct)).Value ?? Enumerable.Empty<TaskData>())
-			.Select(data => new ToDoTask(listId, data))
-			.ToImmutableList();
 }

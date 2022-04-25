@@ -23,11 +23,18 @@ public class MockTaskEndpoint : ITaskEndpoint
 		await _listEndpoint.DeleteTaskFromList(listId, taskId);
 	}
 
+	public async Task<TaskReponseData<TaskData>> GetAsync(string todoTaskListId, CancellationToken ct)
+	{
+		var tasks = await _listEndpoint.LoadListTasks(todoTaskListId);
+
+		return new TaskReponseData<TaskData> { Value = tasks.ToList() };
+	}
+
 	public async Task<TaskReponseData<TaskData>> GetAllAsync(CancellationToken ct) => await _listEndpoint.GetAllTasksAsync( ct: ct);
 
 	public async Task<TaskData> GetAsync(string listId, string taskId, CancellationToken ct)
 	{
-		var tasks = await _listEndpoint.GetTasksAsync(listId, ct);
+		var tasks = await GetAsync(listId, ct);
 
 		return tasks.Value.First(x => x.Id == taskId);
 	}

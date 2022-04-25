@@ -19,6 +19,10 @@ public interface ITaskEndpoint
 	[Headers("Authorization: Bearer")]
 	Task DeleteAsync(string listId, string taskId, CancellationToken ct);
 
+	[Get("/todo/lists/{todoTaskListId}/tasks")]
+	[Headers("Authorization: Bearer")]
+	Task<TaskReponseData<TaskData>> GetAsync(string todoTaskListId, CancellationToken ct);
+
 	[Get("/tasks/allTasks?filter=contains(displayName,'{displayName}')")]
 	[Headers("Authorization: Bearer")]
 	Task<TaskReponseData<TaskData>> GetByFilterAsync(string displayName, CancellationToken ct);
