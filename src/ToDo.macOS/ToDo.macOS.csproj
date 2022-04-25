@@ -113,7 +113,7 @@
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.429" />
     <PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.429" />
     <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.429" />
-    <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.429" />
+    <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.462" />
   </ItemGroup>
   <Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
   <ItemGroup>
