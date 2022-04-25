@@ -35,7 +35,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		messenger.Register(this);
 	}
 
-	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_listSvc.GetTasksAsync, ct)); 
+	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_taskSvc.GetAsync, ct)); 
 
 	private async ValueTask CreateTask(TaskList list, CancellationToken ct)
 	{

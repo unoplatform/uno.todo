@@ -33,7 +33,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 		}
 	}
 
-	private async Task<IList<TaskData>> LoadListTasks(string listId)
+	internal async Task<IList<TaskData>> LoadListTasks(string listId)
 	{
 		if (taskData.TryGetValue(listId, out var existingTasks))
 		{
@@ -86,13 +86,6 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 		}
 
 		return new TaskListData();
-	}
-
-	public async Task<TaskReponseData<TaskData>> GetTasksAsync(string todoTaskListId, CancellationToken ct)
-	{
-		var tasks = await LoadListTasks(todoTaskListId);
-
-		return new TaskReponseData<TaskData> { Value = tasks.ToList() };
 	}
 
 	public async Task<TaskListData> UpdateAsync(string todoTaskListId, [Body] TaskListRequestData todoList, CancellationToken ct)

@@ -42,6 +42,23 @@ public class TaskService : ITaskService
 	}
 
 	/// <inheritdoc />
+	public async ValueTask<IImmutableList<ToDoTask>> GetAsync(TaskList list, CancellationToken ct)
+	{
+		if (list == TaskList.Important)
+		{
+			return (await GetAllAsync(ct: ct))
+				.Where(task => task.IsImportant)
+				.ToImmutableList();
+		}
+		else
+		{
+			return ((await _client.GetAsync(list.Id, ct)).Value ?? Enumerable.Empty<TaskData>())
+				.Select(data => new ToDoTask(list.Id, data))
+				.ToImmutableList();
+		}
+	}
+
+	/// <inheritdoc />
 	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
 	{
 		var response = await (displayName is { Length: > 0 }

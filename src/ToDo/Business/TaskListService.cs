@@ -4,13 +4,11 @@ namespace ToDo.Business;
 public class TaskListService : ITaskListService
 {
 	private readonly ITaskListEndpoint _client;
-	private readonly ITaskService _taskSvc;
 	private readonly IMessenger _messenger;
 
-	public TaskListService(ITaskListEndpoint client, ITaskService taskSvc, IMessenger messenger)
+	public TaskListService(ITaskListEndpoint client, IMessenger messenger)
 	{
 		_client = client;
-		_taskSvc = taskSvc;
 		_messenger = messenger;
 	}
 
@@ -48,22 +46,5 @@ public class TaskListService : ITaskListService
 		(await _client.DeleteAsync(list.Id, ct)).EnsureSuccessStatusCode();
 
 		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Delete, list));
-	}
-
-	/// <inheritdoc />
-	public async ValueTask<IImmutableList<ToDoTask>> GetTasksAsync(TaskList list, CancellationToken ct)
-	{
-		if (list == TaskList.Important)
-		{
-			return (await _taskSvc.GetAllAsync(ct: ct))
-				.Where(task => task.IsImportant)
-				.ToImmutableList();
-		}
-		else
-		{
-			return ((await _client.GetTasksAsync(list.Id, ct)).Value ?? Enumerable.Empty<TaskData>())
-				.Select(data => new ToDoTask(list.Id, data))
-				.ToImmutableList();
-		}
 	}
 }
