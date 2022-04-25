@@ -25,7 +25,7 @@
 				<Button utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialButtonIconStyle}" x:Uid="Body_IconButton">
 					<PathIcon Data="{StaticResource Icon_Arrow_Back}" />
 				</Button>
-				<TextBox x:Name="Term"  PlaceholderText="Search" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" Style="{StaticResource MaterialFilledTextBoxStyle}" x:Uid="Body_TextBox" />
+				<TextBox Text="{Binding Term, Mode=TwoWay}"  PlaceholderText="Search" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" Style="{StaticResource MaterialFilledTextBoxStyle}" x:Uid="Body_TextBox" />
 			</utu:AutoLayout>
 			<utu:AutoLayout Padding="20,20,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
 				<uer:FeedView Source="{Binding Results}" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
