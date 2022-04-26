@@ -4,6 +4,8 @@ public record TaskList
 {
 	public static TaskList Important { get; } = new("Important");
 
+	public static TaskList Tasks { get; } = new("tasks");
+
 	internal TaskList(string wellknownListName)
 	{
 		WellknownListName = wellknownListName;
