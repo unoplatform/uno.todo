@@ -14,7 +14,7 @@
 
 	<utu:AutoLayout Padding="10,10,10,10">
 		<utu:AutoLayout Padding="20,60,20,60" Orientation="Horizontal" utu:AutoLayout.PrimaryAlignment="Stretch">
-			<Image Source="https://loremflickr.com/360/360/flower" Stretch="Uniform" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" utu:AutoLayout.CounterLength="310" />
+			<Image Source="ms-appx:///Assets/Welcome/welcome_uno.png" Stretch="Uniform" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" utu:AutoLayout.CounterLength="310" />
 		</utu:AutoLayout>
 		<utu:AutoLayout Spacing="20" Padding="0,40,0,40">
 			<TextBlock Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}" TextAlignment="Center" TextWrapping="Wrap" Text="Welcome to&#xA;Uno To Do!" Style="{StaticResource MaterialHeadline4}" x:Uid="Body_Welcome_To_Uno_To_Do_" />
