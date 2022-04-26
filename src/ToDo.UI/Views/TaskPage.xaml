@@ -36,7 +36,7 @@
 								Orientation="Horizontal">
 					<utu:AutoLayout>
 						<CheckBox utu:AutoLayout.CounterAlignment="Start"
-								  Style="{StaticResource MaterialCheckBoxStyle}" />
+								  Style="{StaticResource MaterialCheckBoxStyle}" IsChecked="{Binding IsCompleted}"/>
 					</utu:AutoLayout>
 					<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -45,7 +45,7 @@
 					</utu:AutoLayout>
 					<utu:AutoLayout>
 						<ToggleButton utu:AutoLayout.CounterAlignment="Start"
-									  Style="{StaticResource MaterialToggleButtonIconStyle}">
+									  Style="{StaticResource MaterialToggleButtonIconStyle}" IsChecked="{Binding IsImportant}">
 							<ToggleButton.Content>
 								<PathIcon Data="{StaticResource Icon_Star_Rate}" />
 							</ToggleButton.Content>
@@ -172,14 +172,19 @@
 			</uer:FeedView>-->
 
 		</utu:AutoLayout>
-
 		<!-- TO REMOVE -->
-		<StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Vertical"
 					Grid.Row="2">
 			<Button Content="Add"
 					Command="{Binding Save}" />
 			<Button Content="Delete Task"
 					Command="{Binding Delete}" />
+			<Button Content="Complete Task"
+					Command="{Binding Complete}" />
+			<Button Content="Mark as important"
+					Command="{Binding MarkAsImportant}" />
+			<Button Content="Add note"
+					Command="{Binding AddTaskNote}" />
 		</StackPanel>
 	</utu:AutoLayout>
 
