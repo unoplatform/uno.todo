@@ -30,7 +30,8 @@
 			<utu:AutoLayout Padding="20,20,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
 				<uer:FeedView Source="{Binding Results}" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
 					<DataTemplate>
-						<ListView ItemsSource="{Binding Data}" uen:Navigation.Request="SwipeControl" Style="{StaticResource MaterialListViewStyle}">
+						<ListView ItemsSource="{Binding Data}"
+								  uen:Navigation.Request="Task" Style="{StaticResource MaterialListViewStyle}">
 							<ListView.ItemsPanel>
 								<ItemsPanelTemplate>
 									<ItemsStackPanel Orientation="Vertical" />

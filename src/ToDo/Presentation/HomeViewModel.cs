@@ -41,9 +41,7 @@ public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
-	public IFeed<TaskList> Tasks => Lists.AsFeed().Select(lists => lists.Single(list => list is { WellknownListName: "tasks" }));
-
-	public TaskList Important => TaskList.Important;
+	public TaskList[] WellKnownLists => new[] { TaskList.Important, TaskList.Tasks };
 
 	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
 
