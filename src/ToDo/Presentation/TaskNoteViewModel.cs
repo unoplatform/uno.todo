@@ -2,22 +2,19 @@ namespace ToDo.Presentation;
 
 public partial class TaskNoteViewModel
 {
-	private INavigator Navigator { get; }
-
-	public ICommand AddNoteCommand { get; }
+	private INavigator Navigator;
 
 	public string? Note { get; set; }
 
 	public TaskNoteViewModel(
-		INavigator navigator)
+		INavigator navigator,
+		ICommandBuilder addNote)
 	{
-
 		Navigator = navigator;
-
-		AddNoteCommand = new AsyncRelayCommand(AddNote);
+		addNote.Execute(AddNote);
 	}
 
-	public async Task AddNote()
+	private async ValueTask AddNote(CancellationToken ct)
 	{
 		await Navigator.NavigateBackWithResultAsync(this, data: new TaskBodyData { Content = Note });
 	}
