@@ -53,15 +53,22 @@
 							   ProfilePicture="{Binding CurrentUser.AvatarUrl}"
 							   Width="40"
 							   Height="40"
-							   VerticalAlignment="Center" />
+							   VerticalAlignment="Center"
+							   />
 
 				<TextBlock Grid.Column="1" 
 						   Text="{Binding CurrentUser.DisplayName}"
 						   VerticalAlignment="Center" />
+				
+				<!-- This is a hack to allow both picture and textblock to respond to tap event -->
+				<Border Background="Transparent"
+						uen:Navigation.Request="Settings"
+						Grid.ColumnSpan="2" />
 
 				<PathIcon Grid.Column="2"
 						  Data="{StaticResource Icon_Search}"
-						  VerticalAlignment="Center" />
+						  VerticalAlignment="Center"
+						  uen:Navigation.Request="Search" />
 			</Grid>
 		</muxc:NavigationView.PaneHeader>
 

@@ -1,6 +1,8 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 
+using Uno.Extensions.Navigation.UI;
+
 namespace ToDo;
 
 public sealed partial class App : Application
@@ -64,6 +66,12 @@ public sealed partial class App : Application
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
+
+				.ConfigureServices((context, services) =>
+				{
+					services
+						.AddSingleton<IRequestHandler, TapRequestHandler>();
+				})
 
 
 				.Build(enableUnoLogging: true);
@@ -238,5 +246,27 @@ public sealed partial class App : Application
 		{
 			Console.WriteLine("Error: " + ex.Message);
 		}
+	}
+}
+
+
+
+public class TapRequestHandler : ActionRequestHandlerBase<FrameworkElement>
+{
+	public TapRequestHandler(IRouteResolver routes) : base(routes)
+	{
+	}
+
+	public override IRequestBinding? Bind(FrameworkElement view)
+	{
+		if (view is null)
+		{
+			return null;
+		}
+
+		return BindAction(view,
+			action => new TappedEventHandler((sender, args) => action((FrameworkElement)sender)),
+			(element, handler) => element.Tapped += handler,
+			(element, handler) => element.Tapped -= handler);
 	}
 }
