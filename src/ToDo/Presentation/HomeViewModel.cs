@@ -2,7 +2,7 @@
 
 namespace ToDo.Presentation;
 
-public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
+public partial class HomeViewModel
 {
 	public record class UserProfile(string DisplayName, string? AvatarUrl);
 
@@ -25,7 +25,7 @@ public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 		createTaskList.Execute(CreateTaskList);
 		navigateToTaskList.Execute(NavigateToTaskList);
 
-		messenger.Register(this);
+		Lists.Observe(messenger, list => list.Id);
 	}
 
 	// todo: replace with user data from api
@@ -66,31 +66,5 @@ public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 	{
 		// TODO: Nav - Could this be an implicit nav?
 		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: list, cancellation: ct);
-	}
-
-	public async void Receive(EntityMessage<TaskList> msg)
-	{
-		var ct = CancellationToken.None;
-		try
-		{
-			switch (msg.Change)
-			{
-				case EntityChange.Create:
-					await Lists.AddAsync(msg.Value, ct);
-					break;
-
-				case EntityChange.Delete:
-					await Lists.RemoveAllAsync(list => list.Id == msg.Value.Id, ct);
-					break;
-
-				case EntityChange.Update:
-					await Lists.UpdateAsync(list => list.Id == msg.Value.Id, _ => msg.Value, ct);
-					break;
-			}
-		}
-		catch (Exception e)
-		{
-			_logger.LogError(e,"Failed to apply update message.");
-		}
 	}
 }
