@@ -42,7 +42,7 @@
 					Style="{StaticResource MaterialTextButtonStyle}" />
 
 			<Button Content="Create"
-					Command="{Binding AddNoteCommand}"
+					Command="{Binding AddNote}"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialContainedButtonStyle}">
 			</Button>
