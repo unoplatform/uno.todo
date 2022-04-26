@@ -80,7 +80,9 @@
 
 		<muxc:NavigationView.MenuItemTemplate>
 			<DataTemplate>
-				<muxc:NavigationViewItem Content="{Binding DisplayName}" />
+				<muxc:NavigationViewItem Content="{Binding DisplayName}"
+										 uen:Navigation.Request="./TaskList"
+										 uen:Navigation.Data="{Binding}" />
 			</DataTemplate>
 		</muxc:NavigationView.MenuItemTemplate>
 
@@ -98,13 +100,17 @@
 			</Border>
 		</muxc:NavigationView.PaneFooter>
 
+		<Grid
+uen:Region.Navigator="Visibility"
+			uen:Region.Attached="True" />
+
 		<!-- Content -->
-		<!-- inject navigation here -->
+		<!-- inject navigation here --><!--
 		<Frame>
 			<StackPanel>
 				<Button Content="☰" Click="OpenNavPane" />
 				<TextBlock Text="todo: add content/navigation" />
 			</StackPanel>
-		</Frame>
+		</Frame>-->
 	</muxc:NavigationView>
 </Page>
