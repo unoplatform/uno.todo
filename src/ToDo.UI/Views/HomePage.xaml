@@ -68,7 +68,7 @@
 				<PathIcon Grid.Column="2"
 						  Data="{StaticResource Icon_Search}"
 						  VerticalAlignment="Center"
-						  uen:Navigation.Request="Search" />
+						  uen:Navigation.Request="!TaskSearch" />
 			</Grid>
 		</muxc:NavigationView.PaneHeader>
 

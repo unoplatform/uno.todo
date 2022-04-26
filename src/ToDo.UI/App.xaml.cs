@@ -172,6 +172,7 @@ public sealed partial class App : Application
 
 			// Views
 			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
+			new ViewMap<TaskSearchFlyout>(),
 			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
 			new ViewMap<SettingsPage, SettingsViewModel.BindableSettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
@@ -200,9 +201,13 @@ public sealed partial class App : Application
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
 									DependsOn:"Home"),
-							new("Search",
-									View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
-									DependsOn:"Home"),
+							new("TaskSearch",
+									View: views.FindByView<TaskSearchFlyout>(),
+									Nested: new RouteMap[]{
+									new("Search",
+											View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
+											IsDefault: true)
+									}),
 							new("Settings",
 									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>(),
 									DependsOn:"Home"),
