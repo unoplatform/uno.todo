@@ -10,25 +10,123 @@
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  mc:Ignorable="d"
 	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		<utu:NavigationBar utu:AutoLayout.CounterAlignment="Stretch"
-						   Content="Settings"
-						   Style="{StaticResource MaterialNavigationBarStyle}">
-			<!--  Workaround for crash on UWP when using MaterialNavigationBarStyle  -->
-			<utu:NavigationBar.MainCommand>
-				<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
-					</AppBarButton.Icon>
-				</AppBarButton>
-			</utu:NavigationBar.MainCommand>
-		</utu:NavigationBar>
-		<Button Content="Log out"
-				Command="{Binding SignOut}"
-				Grid.Row="1" />
-	</Grid>
+
+	<utu:AutoLayout>
+		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+			<utu:NavigationBar Content="Settings"
+							   Style="{StaticResource MaterialRootModalNavigationBarStyle}" />
+			<utu:AutoLayout Padding="20,15,20,0">
+				<utu:AutoLayout Spacing="10"
+								Padding="0,0,0,10"
+								Orientation="Horizontal">
+					<utu:AutoLayout Spacing="10"
+									Padding="20,15,20,15"
+									Orientation="Horizontal"
+									utu:AutoLayout.PrimaryAlignment="Stretch" />
+					<PersonPicture ProfilePicture="https://loremflickr.com/360/360/flower"
+								   utu:AutoLayout.CounterAlignment="Start" />
+					<utu:AutoLayout Spacing="10"
+									Padding="20,15,20,15"
+									Orientation="Horizontal"
+									utu:AutoLayout.PrimaryAlignment="Stretch" />
+				</utu:AutoLayout>
+				<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+						   TextAlignment="Center"
+						   TextWrapping="Wrap"
+						   Text="Antonio Bonilla"
+						   Style="{StaticResource MaterialHeadline5}" />
+				<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
+						   TextAlignment="Center"
+						   TextWrapping="Wrap"
+						   Text="antonio.bonilla@horus.com.uy"
+						   Style="{StaticResource MaterialBody2}" />
+				<Button Content="sign out"
+						Command="{Binding SignOut}"
+						Style="{StaticResource MaterialTextButtonStyle}" />
+			</utu:AutoLayout>
+			<utu:AutoLayout Padding="20,0,20,0"
+							utu:AutoLayout.PrimaryAlignment="Stretch">
+				<utu:AutoLayout Spacing="5"
+								utu:AutoLayout.PrimaryAlignment="Stretch">
+					<utu:AutoLayout Spacing="5"
+									Padding="0,10,0,10">
+						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+									 utu:AutoLayout.CounterLength="350"
+									 Style="{StaticResource MaterialDividerStyle}" />
+					</utu:AutoLayout>
+					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+							   TextWrapping="Wrap"
+							   Text="General"
+							   Style="{StaticResource MaterialSubtitle2}" />
+					<utu:AutoLayout Spacing="20">
+						<utu:AutoLayout Spacing="5">
+							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Color palette"
+									   utu:AutoLayout.CounterAlignment="Start"
+									   Style="{StaticResource MaterialSubtitle1}" />
+							<utu:ChipGroup SelectionMode="Single"
+										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
+								<utu:Chip Content="Purple"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+								<utu:Chip Content="Blue"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+								<utu:Chip Content="Yellow"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+							</utu:ChipGroup>
+						</utu:AutoLayout>
+						<utu:AutoLayout Spacing="5">
+							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Language"
+									   utu:AutoLayout.CounterAlignment="Start"
+									   Style="{StaticResource MaterialSubtitle1}" />
+							<utu:ChipGroup SelectionMode="Single"
+										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
+								<utu:Chip Content="English"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+								<utu:Chip Content="French"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+								<utu:Chip Content="Spanish"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+							</utu:ChipGroup>
+						</utu:AutoLayout>
+						<utu:AutoLayout Spacing="5">
+							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Mode"
+									   utu:AutoLayout.CounterAlignment="Start"
+									   Style="{StaticResource MaterialSubtitle1}" />
+							<utu:ChipGroup SelectionMode="Single"
+										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
+								<utu:Chip Content="Light"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+								<utu:Chip Content="Dark"
+										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+							</utu:ChipGroup>
+						</utu:AutoLayout>
+					</utu:AutoLayout>
+					<utu:AutoLayout Spacing="5"
+									Padding="0,10,0,10">
+						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+									 utu:AutoLayout.CounterLength="350"
+									 Style="{StaticResource MaterialDividerStyle}" />
+					</utu:AutoLayout>
+					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+							   TextWrapping="Wrap"
+							   Text="About"
+							   Style="{StaticResource MaterialSubtitle2}" />
+					<utu:AutoLayout Spacing="5"
+									Orientation="Horizontal">
+						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+								   Text="Version"
+								   utu:AutoLayout.PrimaryAlignment="Stretch"
+								   Style="{StaticResource MaterialSubtitle1}" />
+						<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+								   TextAlignment="End"
+								   Text="1.0.0"
+								   utu:AutoLayout.PrimaryAlignment="Stretch"
+								   Style="{StaticResource MaterialSubtitle1}" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
+			</utu:AutoLayout>
+		</utu:AutoLayout>
+	</utu:AutoLayout>
 </Page>
