@@ -63,6 +63,8 @@ public record ToDoTask
 
 	public bool IsImportant => Importance is "high";
 
+	public bool IsCompleted => Status is "completed";
+
 	// This ctor should be used only by business and should remain internal.
 	[Pure]
 	internal TaskData ToData()

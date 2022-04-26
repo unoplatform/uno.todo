@@ -13,13 +13,5 @@ public partial class SearchViewModel
 		_term = term;
 	}
 
-	public IFeed<IImmutableList<ToDoTask>> AllTasks => Feed.Async(async ct => await _svc.GetAllAsync(string.Empty, ct));
-
-	public IFeed<IImmutableList<ToDoTask>> Results => Feed.Combine(_term, AllTasks).Select(Filter);
-
-	private static IImmutableList<ToDoTask> Filter((string term, IImmutableList<ToDoTask> tasks) inputs)
-		=> inputs
-			.tasks
-			.Where(task => !string.IsNullOrWhiteSpace(inputs.term) && task.Body?.Content?.IndexOf(inputs.term, StringComparison.OrdinalIgnoreCase) is >= 0)
-			.ToImmutableList();
+	public IListFeed<ToDoTask> Results => _term.SelectAsync(_svc.GetAllAsync).AsListFeed();
 }

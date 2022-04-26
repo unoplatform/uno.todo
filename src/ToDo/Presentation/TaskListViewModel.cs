@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Presentation;
 
-public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
+public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IRecipient<EntityMessage<TaskList>>
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _listSvc;
@@ -31,11 +31,15 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		deleteList.Given(entity).Then(DeleteList);
 		renameList.Given(entity).Then(RenameList);
 
-		// TODO: Update this to register with token = list.Id
-		messenger.Register(this);
+		messenger.Register<EntityMessage<ToDoTask>>(this);
+		messenger.Register<EntityMessage<TaskList>>(this);
 	}
 
-	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_taskSvc.GetAsync, ct)); 
+	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_taskSvc.GetAsync, ct));
+
+	public IListFeed<ToDoTask> ActiveTasks => Tasks.Where(task => task.IsCompleted);
+
+	public IListFeed<ToDoTask> CompletedTasks => Tasks.Where(task => !task.IsCompleted);
 
 	private async ValueTask CreateTask(TaskList list, CancellationToken ct)
 	{
@@ -109,14 +113,39 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 					await Tasks.AddAsync(msg.Value, ct);
 					break;
 
-				// TODO Feed
-				//EntityChange.Update => tasks.Replace(msg.Value),
-				//EntityChange.Delete => tasks.Remove(msg.Value),
+				case EntityChange.Delete:
+					await Tasks.RemoveAllAsync(task => task.Id == msg.Value.Id, ct);
+					break;
+
+				case EntityChange.Update:
+					await Tasks.UpdateAsync(task => task.Id == msg.Value.Id, _ => msg.Value, ct);
+					break;
 			}
 		}
 		catch (Exception e)
 		{
-			_logger.LogError(e,"Failed to apply update message.");
+			_logger.LogError(e,"Failed to apply task update message.");
+		}
+	}
+
+	/// <inheritdoc />
+	public async void Receive(EntityMessage<TaskList> message)
+	{
+		var ct = CancellationToken.None;
+		try
+		{
+			if (message.Change is not EntityChange.Update)
+			{
+				return;
+			}
+
+			await _entity.UpdateValue(
+				current => current.IsSome(out var list) && list.Id == message.Value.Id ? message.Value : current,
+				ct);
+		}
+		catch (Exception e)
+		{
+			_logger.LogError(e, "Failed to apply list update message.");
 		}
 	}
 }

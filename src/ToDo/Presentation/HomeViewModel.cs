@@ -81,9 +81,13 @@ public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 					await Lists.AddAsync(msg.Value, ct);
 					break;
 
-				// TODO Feed
-				//EntityChange.Update => tasks.Replace(msg.Value),
-				//EntityChange.Delete => tasks.Remove(msg.Value),
+				case EntityChange.Delete:
+					await Lists.RemoveAllAsync(list => list.Id == msg.Value.Id, ct);
+					break;
+
+				case EntityChange.Update:
+					await Lists.UpdateAsync(list => list.Id == msg.Value.Id, _ => msg.Value, ct);
+					break;
 			}
 		}
 		catch (Exception e)
