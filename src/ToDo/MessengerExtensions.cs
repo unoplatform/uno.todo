@@ -161,7 +161,10 @@ public static class MessengerExtensions
 					}
 					catch (Exception error)
 					{
-						this.Log().Error(error, "Got an exception in dispose.");
+						if (this.Log().IsEnabled(LogLevel.Error))
+						{
+							this.Log().LogError(error, "Got an exception in dispose.");
+						}
 					}
 				}
 			}
