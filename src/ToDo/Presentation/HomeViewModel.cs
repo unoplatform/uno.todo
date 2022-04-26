@@ -1,8 +1,11 @@
-﻿
+﻿using System.Collections.ObjectModel;
+
 namespace ToDo.Presentation;
 
 public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 {
+	public record class UserProfile(string DisplayName, string? AvatarUrl);
+
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _listSvc;
 	private readonly ILogger _logger;
@@ -24,6 +27,17 @@ public partial class HomeViewModel : IRecipient<EntityMessage<TaskList>>
 
 		messenger.Register(this);
 	}
+
+	// todo: replace with user data from api
+	public UserProfile CurrentUser { get; } = new ("Xiaoy312", default);
+
+	// the nav-view needs a 2nd dynamic list, or it would brick the static list too
+	// currently CustomList throws TypeLoadException, so we use this to make the nav-view works
+	// todo: replace with CustomLists
+	public ObservableCollection<string> CustomLists2 { get; } = new()
+	{
+		"TODO", "WTB>", "Uno", "Figma", "Themes/Toolkit",
+	};
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
