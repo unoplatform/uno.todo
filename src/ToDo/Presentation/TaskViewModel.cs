@@ -86,6 +86,7 @@ public partial class TaskViewModel
 			return;
 		}
 		var updatedTask = task with { Importance = task.Importance.Equals("normal") ? "high" : "normal" };
+
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
