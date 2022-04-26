@@ -26,22 +26,19 @@
 					<utu:AutoLayout Spacing="10" Padding="0,10,0,0" DataContext="{Binding Data}">
 						<utu:AutoLayout Spacing="10" Padding="12,0,12,0" Orientation="Horizontal">
 							<utu:AutoLayout>
-								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" />
+								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsCompleted}"/>
+								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
 							</utu:AutoLayout>
 							<utu:AutoLayout Padding="0,4,0,0" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
 								<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}" TextWrapping="Wrap" Text="Task Name" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialHeadline5}" />
 							</utu:AutoLayout>
-							<utu:AutoLayout>
-								<ToggleButton utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialToggleButtonIconStyle}">
-									<ToggleButton.Content>
-										<PathIcon Data="{StaticResource Icon_Star_Rate}" />
-									</ToggleButton.Content>
-									<um:ControlExtensions.AlternateContent>
-										<PathIcon Data="{StaticResource Icon_Star_Rate_Empty}" />
-									</um:ControlExtensions.AlternateContent>
-								</ToggleButton>
-							</utu:AutoLayout>
-						</utu:AutoLayout>
+					<utu:AutoLayout>
+						<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+						<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsImportant}"/>
+						<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
 						<utu:AutoLayout Spacing="12" Padding="20,10,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
 							<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
 							<utu:AutoLayout PrimaryAxisAlignment="Center">
@@ -90,7 +87,7 @@
 									</utu:AutoLayout>
 									<utu:AutoLayout Orientation="Horizontal" utu:AutoLayout.CounterAlignment="Center">
 										<utu:AutoLayout PrimaryAxisAlignment="End" Orientation="Horizontal">
-											<Button Content="Open" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialTextButtonStyle}" />
+											<Button Content="Open" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialTextButtonStyle}" x:Uid="Body_Button" Command="{Binding AddTaskNote}" />
 										</utu:AutoLayout>
 									</utu:AutoLayout>
 								</utu:AutoLayout>
@@ -119,14 +116,19 @@
 				<!--</DataTemplate>
 			</uer:FeedView>-->
 		</utu:AutoLayout>
-
 		<!-- TO REMOVE -->
-		<StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Vertical"
 					Grid.Row="2">
 			<Button Content="Add"
 					Command="{Binding Save}" />
 			<Button Content="Delete Task"
 					Command="{Binding Delete}" />
+			<Button Content="Complete Task"
+					Command="{Binding Complete}" />
+			<Button Content="Mark as important"
+					Command="{Binding MarkAsImportant}" />
+			<Button Content="Add note"
+					Command="{Binding AddTaskNote}" />
 		</StackPanel>
 	</utu:AutoLayout>
 
