@@ -24,7 +24,8 @@
 	</Page.Resources>
 
 	<muxc:NavigationView x:Name="NavView"
-						 FooterMenuItemsSource="{Binding CustomLists2}"
+						 MenuItemsSource="{Binding WellKnownLists}"
+						 FooterMenuItemsSource="{Binding CustomLists}"
 						 AlwaysShowHeader="True"
 						 PaneDisplayMode="Auto"
 						 OpenPaneLength="{StaticResource SplitModeSidePaneWidth}"
@@ -53,7 +54,7 @@
 							   Height="40"
 							   VerticalAlignment="Center" />
 
-				<TextBlock Grid.Column="1"
+				<TextBlock Grid.Column="1" 
 						   Text="{Binding CurrentUser.DisplayName}"
 						   VerticalAlignment="Center" />
 
@@ -64,18 +65,15 @@
 		</muxc:NavigationView.PaneHeader>
 
 		<!-- Static Items: Important + Tasks -->
-		<muxc:NavigationView.MenuItems>
-			<muxc:NavigationViewItem Content="Important" />
-			<muxc:NavigationViewItem Content="Tasks" />
-		</muxc:NavigationView.MenuItems>
+		<!-- ^ injected via MenuItemsSource -->
 
 		<!-- Dynamic Items: CustomLists -->
 		<!-- ^ injected via FooterMenuItemsSource -->
+
 		<muxc:NavigationView.MenuItemTemplate>
-			<!-- note: this template is only necessary on uno -->
-			<not_win:DataTemplate>
-				<muxc:NavigationViewItem Content="{Binding}" />
-			</not_win:DataTemplate>
+			<DataTemplate>
+				<muxc:NavigationViewItem Content="{Binding DisplayName}" />
+			</DataTemplate>
 		</muxc:NavigationView.MenuItemTemplate>
 
 		<!-- Footer: New List -->

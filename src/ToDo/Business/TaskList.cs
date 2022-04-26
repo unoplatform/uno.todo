@@ -2,13 +2,14 @@
 
 public record TaskList
 {
-	public static TaskList Important { get; } = new("Important");
+	public static TaskList Important { get; } = new("important", "Important");
 
-	public static TaskList Tasks { get; } = new("tasks");
+	public static TaskList Tasks { get; } = new("tasks", "Tasks");
 
-	internal TaskList(string wellknownListName)
+	internal TaskList(string wellknownListName, string displayName)
 	{
 		WellknownListName = wellknownListName;
+		DisplayName = displayName;
 		Id = wellknownListName;
 	}
 
