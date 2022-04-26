@@ -108,24 +108,9 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 			using var _ = SourceContext.GetOrCreate(this).AsCurrent();
 
 			var list = (await _entity).SomeOrDefault();
-			if (list?.Id != msg.Value.ListId)
+			if (list?.Id == msg.Value.ListId)
 			{
-				return;
-			}
-
-			switch (msg.Change)
-			{
-				case EntityChange.Create:
-					await Tasks.AddAsync(msg.Value, ct);
-					break;
-
-				case EntityChange.Delete:
-					await Tasks.RemoveAllAsync(task => task.Id == msg.Value.Id, ct);
-					break;
-
-				case EntityChange.Update:
-					await Tasks.UpdateAsync(task => task.Id == msg.Value.Id, _ => msg.Value, ct);
-					break;
+				await Tasks.UpdateAsync(msg, task => task.Id, ct);
 			}
 		}
 		catch (Exception e)
