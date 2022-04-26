@@ -88,6 +88,7 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 			return;
 		}
 		var updatedTask = task with { Importance = task.Importance.Equals("normal") ? "high" : "normal" };
+
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
