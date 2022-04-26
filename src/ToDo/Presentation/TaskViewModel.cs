@@ -28,7 +28,7 @@ public partial class TaskViewModel
 		save.Given(entity).Then(Save);
 		complete.Given(entity).Then(Complete);
 		markAsImportant.Given(entity).Then(MarkAsImportant);
-		addTaskNote.Execute(AddTaskNote);
+		addTaskNote.Given(entity).Then(AddTaskNote);
 
 		entity.Observe(messenger, task => task.Id);
 	}
@@ -49,7 +49,7 @@ public partial class TaskViewModel
 		}
 	}
 
-	private async ValueTask AddTaskNote(CancellationToken ct)
+	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
 	{
 		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel,TaskBodyData>(this, cancellation: ct);
 		if (response is null)
@@ -57,13 +57,15 @@ public partial class TaskViewModel
 			return;
 		}
 
-		//var result = await response.Result;
+		var result = await response.Result;
 
-		//var listName = result.SomeOrDefault()?.DisplayName;
-		//if (listName is not null)
-		//{
-		//	await _listSvc.CreateAsync(listName, ct);
-		//}
+		var note = result.SomeOrDefault()?.Content;
+		if (task.Body is not null)
+		{
+			var updatedNote = task.Body with { Content = note };
+			var updatedTask = task with { Body = updatedNote };
+			await _svc.UpdateAsync(updatedTask, ct);
+		}
 	}
 
 	private async ValueTask Complete(ToDoTask task, CancellationToken ct)
@@ -72,28 +74,19 @@ public partial class TaskViewModel
 		{
 			return;
 		}
-		if (task.Status.Equals("notStarted"))
-		{
-			task.Status = "completed";
-		}
-		else
-		{
-			task.Status = "notStarted";
-		}
-		await _svc.UpdateAsync(task, ct);
+
+		var updatedTask = task with { Status =  task.Status.Equals("completed")? "notStarted":"completed" };
+		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
 	private async ValueTask MarkAsImportant(ToDoTask task, CancellationToken ct)
 	{
-		if (!task.IsImportant)
+		if (task.Importance is null)
 		{
-			task.Importance = "high";
+			return;
 		}
-		else
-		{
-			task.Importance = "normal";
-		}
-		await _svc.UpdateAsync(task, ct);
+		var updatedTask = task with { Importance = task.Importance.Equals("normal") ? "high" : "normal" };
+		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
 	private async ValueTask Save(ToDoTask task, CancellationToken ct)
