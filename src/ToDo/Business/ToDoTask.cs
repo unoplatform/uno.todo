@@ -39,11 +39,11 @@ public record ToDoTask
 
 	public string Id { get; } // No public init: this can be set only from a data
 
-	public string? Importance { get; init; }
+	public string? Importance { get; set; }
 
 	public bool IsReminderOn { get; init; }
 
-	public string? Status { get; init; }
+	public string? Status { get; set; }
 
 	public string? Title { get; init; }
 
@@ -62,6 +62,8 @@ public record ToDoTask
 	public string? OdataEtag { get; init; }
 
 	public bool IsImportant => Importance is "high";
+
+	public bool IsCompleted => Status is "completed";
 
 	// This ctor should be used only by business and should remain internal.
 	[Pure]

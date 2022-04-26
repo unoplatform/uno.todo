@@ -14,7 +14,10 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 		IMessenger messenger,
 		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
-		ICommandBuilder save)
+		ICommandBuilder save,
+		ICommandBuilder complete,
+		ICommandBuilder markAsImportant,
+		ICommandBuilder addTaskNote)
 	{
 		_logger = logger;
 		_navigator = navigator;
@@ -23,6 +26,9 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 
 		delete.Given(entity).Then(Delete);
 		save.Given(entity).Then(Save);
+		complete.Given(entity).Then(Complete);
+		markAsImportant.Given(entity).Then(MarkAsImportant);
+		addTaskNote.Execute(AddTaskNote);
 
 		// TODO: Update this to register with token = task.Id
 		messenger.Register(this);
@@ -43,6 +49,53 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 			await _svc.DeleteAsync(task, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}
+	}
+
+	private async ValueTask AddTaskNote(CancellationToken ct)
+	{
+		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel,TaskBodyData>(this, cancellation: ct);
+		if (response is null)
+		{
+			return;
+		}
+
+		//var result = await response.Result;
+
+		//var listName = result.SomeOrDefault()?.DisplayName;
+		//if (listName is not null)
+		//{
+		//	await _listSvc.CreateAsync(listName, ct);
+		//}
+	}
+
+	private async ValueTask Complete(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Status is null)
+		{
+			return;
+		}
+		if (task.Status.Equals("notStarted"))
+		{
+			task.Status = "completed";
+		}
+		else
+		{
+			task.Status = "notStarted";
+		}
+		await _svc.UpdateAsync(task, ct);
+	}
+
+	private async ValueTask MarkAsImportant(ToDoTask task, CancellationToken ct)
+	{
+		if (!task.IsImportant)
+		{
+			task.Importance = "high";
+		}
+		else
+		{
+			task.Importance = "normal";
+		}
+		await _svc.UpdateAsync(task, ct);
 	}
 
 	private async ValueTask Save(ToDoTask task, CancellationToken ct)

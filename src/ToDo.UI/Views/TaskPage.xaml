@@ -47,17 +47,18 @@
 						<utu:AutoLayout Spacing="10" Padding="12,0,20,0" Orientation="Horizontal">
 							<utu:AutoLayout>
 								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
-								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" />
+								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsCompleted}"/>
 								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
 							</utu:AutoLayout>
 							<utu:AutoLayout Padding="0,4,0,0" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
 								<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}" TextWrapping="Wrap" Text="{Binding Title}" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialHeadline5}" x:Uid="Body_Task_Name" />
 							</utu:AutoLayout>
-							<utu:AutoLayout>
-								<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" />
-								<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch" />
-							</utu:AutoLayout>
-						</utu:AutoLayout>
+					<utu:AutoLayout>
+						<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+						<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsImportant}"/>
+						<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
 						<utu:AutoLayout Spacing="12" Padding="20,10,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
 							<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
 							<utu:AutoLayout PrimaryAxisAlignment="Center">
@@ -106,7 +107,7 @@
 									</utu:AutoLayout>
 									<utu:AutoLayout Orientation="Horizontal" utu:AutoLayout.CounterAlignment="Center">
 										<utu:AutoLayout PrimaryAxisAlignment="End" Orientation="Horizontal">
-											<Button Content="Open" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialTextButtonStyle}" x:Uid="Body_Button" />
+											<Button Content="Open" utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialTextButtonStyle}" x:Uid="Body_Button" Command="{Binding AddTaskNote}" />
 										</utu:AutoLayout>
 									</utu:AutoLayout>
 								</utu:AutoLayout>
@@ -135,12 +136,18 @@
 				<!--</DataTemplate>
 			</uer:FeedView>-->
 		</utu:AutoLayout>
-		<StackPanel Orientation="Horizontal"
+		<StackPanel Orientation="Vertical"
 					Grid.Row="2">
 			<Button Content="Add"
 					Command="{Binding Save}" />
 			<Button Content="Delete Task"
 					Command="{Binding Delete}" />
+			<Button Content="Complete Task"
+					Command="{Binding Complete}" />
+			<Button Content="Mark as important"
+					Command="{Binding MarkAsImportant}" />
+			<Button Content="Add note"
+					Command="{Binding AddTaskNote}" />
 		</StackPanel>
 	</utu:AutoLayout>
 
