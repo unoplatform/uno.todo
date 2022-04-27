@@ -1,6 +1,6 @@
 ﻿namespace ToDo;
 
-public record TaskBodyData
+public class TaskBodyData
 {
 	[JsonPropertyName("content")]
 	public string? Content { get; set; }
