@@ -1,6 +1,10 @@
-﻿namespace ToDo.Presentation;
+﻿using System.Runtime.CompilerServices;
+using Windows.ApplicationModel.UserDataTasks;
+using Uno.Extensions.Reactive.Core;
 
-public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IRecipient<EntityMessage<TaskList>>
+namespace ToDo.Presentation;
+
+public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _listSvc;
@@ -32,7 +36,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IR
 		renameList.Given(entity).Then(RenameList);
 
 		messenger.Register<EntityMessage<ToDoTask>>(this);
-		messenger.Register<EntityMessage<TaskList>>(this);
+		entity.Observe(messenger, list => list.Id);
 	}
 
 	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_taskSvc.GetAsync, ct));
@@ -43,7 +47,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IR
 
 	private async ValueTask CreateTask(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator!.NavigateViewModelForResultAsync<AddTaskViewModel, TaskData>(this, qualifier: Qualifiers.Dialog);
+		var response = await _navigator.NavigateViewModelForResultAsync<AddTaskViewModel, TaskData>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
@@ -68,7 +72,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IR
 
 	private async ValueTask DeleteList(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator!.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog);
+		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
@@ -85,7 +89,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IR
 
 	private async ValueTask RenameList(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator!.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog);
+		var response = await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
@@ -101,25 +105,12 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IR
 		var ct = CancellationToken.None;
 		try
 		{
+			using var _ = SourceContext.GetOrCreate(this).AsCurrent();
+
 			var list = (await _entity).SomeOrDefault();
-			if (list?.Id != msg.Value.ListId)
+			if (list?.Id == msg.Value.ListId)
 			{
-				return;
-			}
-
-			switch (msg.Change)
-			{
-				case EntityChange.Create:
-					await Tasks.AddAsync(msg.Value, ct);
-					break;
-
-				case EntityChange.Delete:
-					await Tasks.RemoveAllAsync(task => task.Id == msg.Value.Id, ct);
-					break;
-
-				case EntityChange.Update:
-					await Tasks.UpdateAsync(task => task.Id == msg.Value.Id, _ => msg.Value, ct);
-					break;
+				await Tasks.UpdateAsync(msg, task => task.Id, ct);
 			}
 		}
 		catch (Exception e)
@@ -127,25 +118,5 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>, IR
 			_logger.LogError(e,"Failed to apply task update message.");
 		}
 	}
-
-	/// <inheritdoc />
-	public async void Receive(EntityMessage<TaskList> message)
-	{
-		var ct = CancellationToken.None;
-		try
-		{
-			if (message.Change is not EntityChange.Update)
-			{
-				return;
-			}
-
-			await _entity.UpdateValue(
-				current => current.IsSome(out var list) && list.Id == message.Value.Id ? message.Value : current,
-				ct);
-		}
-		catch (Exception e)
-		{
-			_logger.LogError(e, "Failed to apply list update message.");
-		}
-	}
 }
+
