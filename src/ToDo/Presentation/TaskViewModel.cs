@@ -51,46 +51,6 @@ public partial class TaskViewModel
 
 	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel,TaskBodyData>(this, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
-
-		var result = await response.Result;
-
-		var note = result.SomeOrDefault()?.Content;
-		if (task.Body is not null)
-		{
-			var updatedTask = task with { Body = new TaskBodyData { Content = note, ContentType = task.Body.ContentType } };
-			await _svc.UpdateAsync(updatedTask, ct);
-		}
-	}
-
-	private async ValueTask Complete(ToDoTask task, CancellationToken ct)
-	{
-		if (task.Status is null)
-		{
-			return;
-		}
-
-		var updatedTask = task with { Status =  task.Status.Equals("completed")? "notStarted":"completed" };
-		await _svc.UpdateAsync(updatedTask, ct);
-	}
-
-	private async ValueTask MarkAsImportant(ToDoTask task, CancellationToken ct)
-	{
-		if (task.Importance is null)
-		{
-			return;
-		}
-		var updatedTask = task with { Importance = task.Importance.Equals("normal") ? "high" : "normal" };
-
-		await _svc.UpdateAsync(updatedTask, ct);
-	}
-
-	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
-	{
 		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, cancellation: ct);
 		if (response is null)
 		{
@@ -110,6 +70,14 @@ public partial class TaskViewModel
 			var updatedTask = task with { Body = updatedNote };
 			await _svc.UpdateAsync(updatedTask, ct);
 		}
+	}
+
+	private async ValueTask AddDueDate(ToDoTask task, CancellationToken ct)
+	{
+		var updatedDueDate = task.DueDateTime ?? new DateTimeData();
+		updatedDueDate.DateTime = DateTime.Now;
+		var updatedTask = task with { DueDateTime = updatedDueDate };
+		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
 	private async ValueTask ToggleCompleted(ToDoTask task, CancellationToken ct)
