@@ -1,6 +1,8 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 
+using Uno.Extensions.Navigation.UI;
+
 namespace ToDo;
 
 public sealed partial class App : Application
@@ -53,7 +55,6 @@ public sealed partial class App : Application
 				.ConfigureServices((context, services) =>
 				{
 					services
-						.AddScoped<IDispatcher, Dispatcher>()
 						.AddEndpoints(context)
 						.AddServices();
 				})
@@ -64,6 +65,12 @@ public sealed partial class App : Application
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
+
+				.ConfigureServices((context, services) =>
+				{
+					services
+						.AddSingleton<IRequestHandler, TapRequestHandler>();
+				})
 
 
 				.Build(enableUnoLogging: true);
@@ -164,6 +171,7 @@ public sealed partial class App : Application
 
 			// Views
 			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
+			new ViewMap<TaskSearchFlyout>(),
 			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
 			new ViewMap<SettingsPage, SettingsViewModel.BindableSettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
@@ -192,9 +200,13 @@ public sealed partial class App : Application
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
 									DependsOn:"Home"),
-							new("Search",
-									View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
-									DependsOn:"Home"),
+							new("TaskSearch",
+									View: views.FindByView<TaskSearchFlyout>(),
+									Nested: new RouteMap[]{
+									new("Search",
+											View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
+											IsDefault: true)
+									}),
 							new("Settings",
 									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>(),
 									DependsOn:"Home"),
@@ -238,5 +250,27 @@ public sealed partial class App : Application
 		{
 			Console.WriteLine("Error: " + ex.Message);
 		}
+	}
+}
+
+
+
+public class TapRequestHandler : ActionRequestHandlerBase<FrameworkElement>
+{
+	public TapRequestHandler(IRouteResolver routes) : base(routes)
+	{
+	}
+
+	public override IRequestBinding? Bind(FrameworkElement view)
+	{
+		if (view is null)
+		{
+			return null;
+		}
+
+		return BindAction(view,
+			action => new TappedEventHandler((sender, args) => action((FrameworkElement)sender)),
+			(element, handler) => element.Tapped += handler,
+			(element, handler) => element.Tapped -= handler);
 	}
 }

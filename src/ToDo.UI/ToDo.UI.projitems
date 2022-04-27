@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListIconConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml.cs">
       <DependentUpon>AddListFlyout.xaml</DependentUpon>
     </Compile>
@@ -44,6 +45,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\RenameListFlyout.xaml.cs">
       <DependentUpon>RenameListFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\TaskSearchFlyout.xaml.cs">
+      <DependentUpon>TaskSearchFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
@@ -97,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\RenameListFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\TaskSearchFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

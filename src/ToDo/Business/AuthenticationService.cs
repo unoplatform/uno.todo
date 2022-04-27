@@ -1,7 +1,6 @@
-﻿
-
-
+﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
+using Windows.Security.Authentication.Web;
 
 namespace ToDo.Business.Services;
 
@@ -18,15 +17,27 @@ public class AuthenticationService : IAuthenticationService
 		var authSettings = settings.Value;
 		_scopes = authSettings.Scopes ?? new string[] { };
 
+		var redirectUri = authSettings.RedirectUri;
+		if (redirectUri is "%WAB%")
+		{
+			redirectUri = GetWebRedirectUri();
+		}
+
 		var builder = PublicClientApplicationBuilder
 				.Create(authSettings.ApplicationId)
-				.WithRedirectUri(authSettings.RedirectUri)
+				.WithRedirectUri(redirectUri)
 				.WithUnoHelpers();
 		if (!string.IsNullOrWhiteSpace(authSettings.KeychainSecurityGroup))
 		{
 			builder = builder.WithIosKeychainSecurityGroup(authSettings.KeychainSecurityGroup);
 		}
 		_pca = builder.Build();
+	}
+
+	[MethodImpl(MethodImplOptions.NoInlining)]
+	private string GetWebRedirectUri()
+	{
+		return WebAuthenticationBroker.GetCurrentApplicationCallbackUri().OriginalString;
 	}
 
 	public async Task<UserContext> ReturnAuthResultContext()
@@ -62,13 +73,13 @@ public class AuthenticationService : IAuthenticationService
 	}
 
 
-	public async Task<AuthenticationResult?> AcquireTokenAsync()
+	public async Task<AuthenticationResult?> AcquireTokenAsync(IDispatcher dispatcher)
 	{
 		var authentication = await AcquireSilentTokenAsync();
 
 		if (string.IsNullOrEmpty(authentication?.AccessToken))
 		{
-			authentication = await AcquireInteractiveTokenAsync();
+			authentication = await AcquireInteractiveTokenAsync(dispatcher);
 		}
 
 		return authentication;
@@ -89,12 +100,12 @@ public class AuthenticationService : IAuthenticationService
 		_logger.LogInformation($"Removed account: {firstAccount.Username}, user succesfully logged out.");
 	}
 
-	async Task<AuthenticationResult> AcquireInteractiveTokenAsync()
+	private ValueTask<AuthenticationResult> AcquireInteractiveTokenAsync(IDispatcher dispatcher)
 	{
-		return await _pca
+		return dispatcher.ExecuteAsync(async () => await _pca
 		  .AcquireTokenInteractive(_scopes)
 		  .WithUnoHelpers()
-		  .ExecuteAsync();
+		  .ExecuteAsync());
 	}
 
 

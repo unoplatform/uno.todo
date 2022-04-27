@@ -2,6 +2,18 @@
 
 public record ToDoTask
 {
+	public static class TaskStatus
+	{
+		public static string Completed = "completed";
+		public static string NotStarted = "notstarted";
+	}
+
+	public static class TaskImportance
+	{
+		public static string Normal = "normal";
+		public static string Important = "important";
+	}
+
 	public ToDoTask()
 	{
 		Id = default!;
@@ -61,7 +73,9 @@ public record ToDoTask
 
 	public string? OdataEtag { get; init; }
 
-	public bool IsImportant => Importance is "high";
+	public bool IsImportant => Importance?.Equals(TaskImportance.Important, StringComparison.InvariantCultureIgnoreCase) ?? false;
+
+	public bool IsCompleted => Status?.Equals(TaskStatus.Completed, StringComparison.InvariantCultureIgnoreCase) ?? false;
 
 	public bool IsCompleted => Status is "completed";
 

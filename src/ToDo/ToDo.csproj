@@ -9,18 +9,19 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Identity.Client" Version="4.43.1" />
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
 		<PackageReference Include="Uno.WinUI.MSAL" Version="4.1.9" />
-		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Http.Refit" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="1.2.0-dev.462" />
-		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="1.2.0-dev.462" />
+		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Http.Refit" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="1.2.0-dev.483" />
 	</ItemGroup>
 </Project>

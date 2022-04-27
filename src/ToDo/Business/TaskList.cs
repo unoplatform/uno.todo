@@ -2,11 +2,20 @@
 
 public record TaskList
 {
-	public static TaskList Important { get; } = new("Important");
+	public static class WellknownListNames
+	{
+		public const string Important = "important";
+		public const string Tasks = "tasks";
+	}
 
-	internal TaskList(string wellknownListName)
+	public static TaskList Important { get; } = new (WellknownListNames.Important, "Important");
+
+	public static TaskList Tasks { get; } = new (WellknownListNames.Tasks, "Tasks");
+
+	internal TaskList(string wellknownListName, string displayName)
 	{
 		WellknownListName = wellknownListName;
+		DisplayName = displayName;
 		Id = wellknownListName;
 	}
 

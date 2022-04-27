@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Presentation;
 
-public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
+public partial class TaskViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskService _svc;
@@ -15,8 +15,8 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
 		ICommandBuilder save,
-		ICommandBuilder complete,
-		ICommandBuilder markAsImportant,
+		ICommandBuilder toggleIsComplete,
+		ICommandBuilder toggleIsImportant,
 		ICommandBuilder addTaskNote)
 	{
 		_logger = logger;
@@ -26,18 +26,16 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 
 		delete.Given(entity).Then(Delete);
 		save.Given(entity).Then(Save);
-		complete.Given(entity).Then(Complete);
-		markAsImportant.Given(entity).Then(MarkAsImportant);
+		toggleIsComplete.Given(entity).Then(ToggleCompleted);
+		toggleIsImportant.Given(entity).Then(ToggleIsImportant);
 		addTaskNote.Given(entity).Then(AddTaskNote);
 
-		// TODO: Update this to register with token = task.Id
-		messenger.Register(this);
+		entity.Observe(messenger, task => task.Id);
 	}
-
 
 	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator!.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog);
+		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
@@ -97,17 +95,49 @@ public partial class TaskViewModel : IRecipient<EntityMessage<ToDoTask>>
 
 	public async void Receive(EntityMessage<ToDoTask> msg)
 	{
-		var ct = CancellationToken.None;
-		try
+		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, cancellation: ct);
+		if (response is null)
 		{
-			if (msg.Change is EntityChange.Update)
-			{
-				await _entity.UpdateValue(current => current.IsSome(out var task) && task.Id == msg.Value.Id ? msg.Value : current, ct);
-			}
+			return;
 		}
-		catch (Exception e)
+
+		var result = await response.Result;
+
+		var note = result.SomeOrDefault()?.Content;
+		if (note is not null)
 		{
-			_logger.LogError(e, "Failed to apply update message.");
+			// TODO: Switch to this code when compilation issue is fixed with source generation
+			//var updatedNote = task.Body is not null ? task.Body with { Content = note } : new TaskBodyData { Content = note };
+			var updatedNote = task.Body ?? new TaskBodyData();
+			updatedNote.Content = note;
+
+			var updatedTask = task with { Body = updatedNote };
+			await _svc.UpdateAsync(updatedTask, ct);
 		}
 	}
+
+	private async ValueTask ToggleCompleted(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Status is null)
+		{
+			return;
+		}
+
+		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		await _svc.UpdateAsync(updatedTask, ct);
+	}
+
+	private async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Importance is null)
+		{
+			return;
+		}
+		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+
+		await _svc.UpdateAsync(updatedTask, ct);
+	}
+
+	private async ValueTask Save(ToDoTask task, CancellationToken ct)
+		=> await _svc.UpdateAsync(task, ct);
 }

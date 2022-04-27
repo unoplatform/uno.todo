@@ -4,7 +4,7 @@ public class MockAuthenticationService : IAuthenticationService
 {
 	private string? AccessToken;
 
-	public async Task<AuthenticationResult?> AcquireTokenAsync()
+	public async Task<AuthenticationResult?> AcquireTokenAsync(IDispatcher dispatcher)
 	{
 		AccessToken = "Mock Value that's not empty";
 		return AuthResult;
