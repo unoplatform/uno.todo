@@ -27,7 +27,7 @@
 						<utu:AutoLayout Spacing="10" Padding="12,0,12,0" Orientation="Horizontal">
 							<utu:AutoLayout>
 								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
-								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsCompleted}"/>
+								<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsCompleted}" Command="{Binding ToggleCompleted}"/>
 								<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
 							</utu:AutoLayout>
 							<utu:AutoLayout Padding="0,4,0,0" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -35,7 +35,11 @@
 							</utu:AutoLayout>
 					<utu:AutoLayout>
 						<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
-						<CheckBox utu:AutoLayout.CounterAlignment="Start" Style="{StaticResource MaterialCheckBoxStyle}" x:Uid="Body_CheckBox" IsChecked="{Binding IsImportant}"/>
+						<CheckBox utu:AutoLayout.CounterAlignment="Start"
+								  Style="{StaticResource MaterialCheckBoxStyle}"
+								  x:Uid="Body_CheckBox"
+								  IsChecked="{Binding IsImportant}"
+								  Command="{Binding ToggleIsImportant}" />
 						<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch" />
 					</utu:AutoLayout>
 				</utu:AutoLayout>
