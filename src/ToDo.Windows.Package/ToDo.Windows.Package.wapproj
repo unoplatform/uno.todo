@@ -111,6 +111,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.43.1" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.2">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>

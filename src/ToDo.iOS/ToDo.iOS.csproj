@@ -129,6 +129,9 @@
     <PackageReference Include="Microsoft.Extensions.Http">
       <Version>6.0.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client">
+      <Version>4.43.1</Version>
+    </PackageReference>
     <PackageReference Include="Refit">
       <Version>6.3.2</Version>
     </PackageReference>
@@ -150,20 +153,20 @@
     <PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.471" />
-    <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.471" />
+    <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.483" />
+    <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.483" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="appsettings.platform.json" />

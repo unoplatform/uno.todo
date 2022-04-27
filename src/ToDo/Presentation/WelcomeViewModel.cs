@@ -21,12 +21,7 @@ public partial class WelcomeViewModel
 
 	private async ValueTask GetStarted(CancellationToken ct)
 	{
-		var token =
-			await _dispatcher.Run(async () =>
-			{
-				return await _authService.AcquireTokenAsync();
-			});
-
+		var token = await _authService.AcquireTokenAsync(_dispatcher);
 
 		if(!string.IsNullOrWhiteSpace(token?.AccessToken))
 		{

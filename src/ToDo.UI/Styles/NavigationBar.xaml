@@ -8,7 +8,7 @@
         x:Key="MaterialRootModalMainCommandStyle"
         BasedOn="{StaticResource MaterialModalMainCommandStyle}"
         TargetType="AppBarButton">
-        <Setter Property="Foreground" Value="{ThemeResource MaterialOnPrimaryMediumBrush}" />
+        <Setter Property="Foreground" Value="{ThemeResource MaterialOnSecondaryBrush}" />
         <Setter Property="Icon">
             <Setter.Value>
                 <BitmapIcon UriSource="ms-appx:///Assets/Icons/close.png" />
