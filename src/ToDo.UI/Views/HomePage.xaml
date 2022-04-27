@@ -28,6 +28,11 @@
 										  ImportantValue="{StaticResource Icon_Star_Rate}"
 										  TasksValue="{StaticResource Icon_House_Siding}"
 										  DefaultValue="{StaticResource Icon_List}" />
+
+		<converters:TaskListIconConverter x:Key="TaskListIconForegroundConverter"
+										  ImportantValue="{StaticResource MaterialErrorBrush}"
+										  TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
+										  DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
 	</Page.Resources>
 
 	<muxc:NavigationView x:Name="NavView"
@@ -59,13 +64,12 @@
 							   ProfilePicture="{Binding CurrentUser.AvatarUrl}"
 							   Width="40"
 							   Height="40"
-							   VerticalAlignment="Center"
-							   />
+							   VerticalAlignment="Center" />
 
-				<TextBlock Grid.Column="1" 
+				<TextBlock Grid.Column="1"
 						   Text="{Binding CurrentUser.DisplayName}"
 						   VerticalAlignment="Center" />
-				
+
 				<!-- This is a hack to allow both picture and textblock to respond to tap event -->
 				<Border Background="Transparent"
 						uen:Navigation.Request="Settings"
@@ -85,7 +89,8 @@
 										 uen:Navigation.Request="./TaskList"
 										 uen:Navigation.Data="{Binding}">
 					<muxc:NavigationViewItem.Icon>
-						<PathIcon Data="{Binding Converter={StaticResource TaskListIconConverter}}" />
+						<PathIcon Data="{Binding Converter={StaticResource TaskListIconConverter}}"
+								  Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
 					</muxc:NavigationViewItem.Icon>
 				</muxc:NavigationViewItem>
 			</DataTemplate>
@@ -109,7 +114,8 @@
 			  uen:Region.Attached="True" />
 
 		<!-- Content -->
-		<!-- inject navigation here --><!--
+		<!-- inject navigation here -->
+		<!--
 		<Frame>
 			<StackPanel>
 				<Button Content="☰" Click="OpenNavPane" />

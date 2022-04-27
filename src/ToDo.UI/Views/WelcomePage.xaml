@@ -16,7 +16,7 @@
 			<VisualStateGroup>
 				<VisualState x:Name="Wide">
 					<VisualState.StateTriggers>
-						<AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWindowWidthh}" />
+						<AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWindowWidth}" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
 						<Setter Target="NarrowWelcomeContent.Visibility"
@@ -78,27 +78,35 @@
 						Orientation="Horizontal"
 						Background="{ThemeResource MaterialSurfaceBrush}">
 			<utu:AutoLayout Spacing="100"
-							Padding="60,150,60,200"
+							Padding="16,16,16,16"
+							PrimaryAxisAlignment="Center"
 							utu:AutoLayout.PrimaryLength="450">
-				<Image Source="ms-appx:///Assets/Welcome/uno_platform_logo.png"
-					   Stretch="Uniform"
-					   utu:AutoLayout.CounterAlignment="Start"
-					   utu:AutoLayout.PrimaryLength="30"
-					   utu:AutoLayout.CounterLength="103" />
-				<utu:AutoLayout Spacing="10"
-								Padding="0,0,0,40">
-					<TextBlock Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}"
-							   TextWrapping="Wrap"
-							   Text="Welcome to&#xA;Uno To Do!"
-							   Style="{StaticResource MaterialHeadline2}" />
-					<TextBlock Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
-							   TextWrapping="Wrap"
-							   Text="Start using the best to-do app, you can&#xA;create and manage your to-do lists to improve your organization."
-							   Style="{StaticResource MaterialSubtitle1}" />
+				<utu:AutoLayout Spacing="100"
+								utu:AutoLayout.CounterAlignment="Center">
+					<Image Source="ms-appx:///Assets/Welcome/uno_platform_logo.png"
+						   Stretch="Uniform"
+						   utu:AutoLayout.CounterAlignment="Start"
+						   utu:AutoLayout.PrimaryLength="30"
+						   utu:AutoLayout.CounterLength="103" />
+					<utu:AutoLayout Spacing="10"
+									Padding="0,0,0,40"
+									utu:AutoLayout.CounterAlignment="Start"
+									utu:AutoLayout.CounterLength="330">
+						<TextBlock Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}"
+								   TextWrapping="Wrap"
+								   Text="Welcome to&#xA;Uno To Do!"
+								   Style="{StaticResource MaterialHeadline2}" />
+						<TextBlock Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
+								   TextWrapping="Wrap"
+								   Text="Start using the best to-do app, you can&#xA;create and manage your to-do lists to improve your organization."
+								   Style="{StaticResource MaterialSubtitle1}" />
+					</utu:AutoLayout>
+					<Button Content="Get started"
+							Command="{Binding GetStarted}"
+							utu:AutoLayout.CounterAlignment="Start"
+							utu:AutoLayout.CounterLength="330"
+							Style="{StaticResource MaterialContainedButtonStyle}" />
 				</utu:AutoLayout>
-				<Button Content="Get started"
-						Command="{Binding GetStarted}"
-						Style="{StaticResource MaterialContainedButtonStyle}" />
 			</utu:AutoLayout>
 			<utu:AutoLayout Padding="60,60,60,60"
 							Background="{ThemeResource MaterialPrimarySelectedBrush}"
