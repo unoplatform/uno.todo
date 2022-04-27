@@ -62,13 +62,13 @@ public class AuthenticationService : IAuthenticationService
 	}
 
 
-	public async Task<AuthenticationResult?> AcquireTokenAsync()
+	public async Task<AuthenticationResult?> AcquireTokenAsync(IDispatcher dispatcher)
 	{
 		var authentication = await AcquireSilentTokenAsync();
 
 		if (string.IsNullOrEmpty(authentication?.AccessToken))
 		{
-			authentication = await AcquireInteractiveTokenAsync();
+			authentication = await AcquireInteractiveTokenAsync(dispatcher);
 		}
 
 		return authentication;
@@ -89,12 +89,12 @@ public class AuthenticationService : IAuthenticationService
 		_logger.LogInformation($"Removed account: {firstAccount.Username}, user succesfully logged out.");
 	}
 
-	async Task<AuthenticationResult> AcquireInteractiveTokenAsync()
+	private ValueTask<AuthenticationResult> AcquireInteractiveTokenAsync(IDispatcher dispatcher)
 	{
-		return await _pca
+		return dispatcher.ExecuteAsync(async () => await _pca
 		  .AcquireTokenInteractive(_scopes)
 		  .WithUnoHelpers()
-		  .ExecuteAsync();
+		  .ExecuteAsync());
 	}
 
 

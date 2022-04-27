@@ -55,7 +55,6 @@ public sealed partial class App : Application
 				.ConfigureServices((context, services) =>
 				{
 					services
-						.AddScoped<IDispatcher, Dispatcher>()
 						.AddEndpoints(context)
 						.AddServices();
 				})
