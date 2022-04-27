@@ -77,8 +77,6 @@ public record ToDoTask
 
 	public bool IsCompleted => Status?.Equals(TaskStatus.Completed, StringComparison.InvariantCultureIgnoreCase) ?? false;
 
-	public bool IsCompleted => Status is "completed";
-
 	// This ctor should be used only by business and should remain internal.
 	[Pure]
 	internal TaskData ToData()

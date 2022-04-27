@@ -62,8 +62,7 @@ public partial class TaskViewModel
 		var note = result.SomeOrDefault()?.Content;
 		if (task.Body is not null)
 		{
-			var updatedNote = task.Body with { Content = note };
-			var updatedTask = task with { Body = updatedNote };
+			var updatedTask = task with { Body = new TaskBodyData { Content = note, ContentType = task.Body.ContentType } };
 			await _svc.UpdateAsync(updatedTask, ct);
 		}
 	}
@@ -90,10 +89,7 @@ public partial class TaskViewModel
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
-	private async ValueTask Save(ToDoTask task, CancellationToken ct)
-		=> await _svc.UpdateAsync(task, ct);
-
-	public async void Receive(EntityMessage<ToDoTask> msg)
+	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
 	{
 		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, cancellation: ct);
 		if (response is null)
