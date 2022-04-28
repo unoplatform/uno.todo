@@ -22,8 +22,8 @@ public static class ServiceCollectionExtensions
 
 			// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
 #if USE_MOCKS
-			//.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
-			//.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
+			.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
+			.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
 #endif
 			;
 	}
@@ -38,7 +38,7 @@ public static class ServiceCollectionExtensions
 
 		// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
 #if USE_MOCKS
-		//.AddSingleton<IAuthenticationService, MockAuthenticationService>()
+		.AddSingleton<IAuthenticationService, MockAuthenticationService>()
 #endif
 		;
 }

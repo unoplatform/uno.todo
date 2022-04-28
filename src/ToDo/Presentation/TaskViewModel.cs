@@ -72,15 +72,6 @@ public partial class TaskViewModel
 		}
 	}
 
-	private async ValueTask AddDueDate(ToDoTask task, CancellationToken ct)
-	{
-		var updatedDueDate = task.DueDateTime ?? new DateTimeData();
-		updatedDueDate.DateTime = DateTime.Now;
-		var updatedTask = task with { DueDateTime = updatedDueDate };
-		await _svc.UpdateAsync(updatedTask, ct);
-	}
-
-	private async ValueTask ToggleCompleted(ToDoTask task, CancellationToken ct)
 	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Status is null)
