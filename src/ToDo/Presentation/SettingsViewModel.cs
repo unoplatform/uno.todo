@@ -19,8 +19,18 @@ public partial class SettingsViewModel
 
 	private async ValueTask SignOut(CancellationToken ct)
 	{
-		await _authService.SignOutAsync();
+		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmSignOut", qualifier: Qualifiers.Dialog, cancellation: ct);
+		if (response is null)
+		{
+			return;
+		}
 
-		await _navigator.NavigateRouteAsync(this, string.Empty);
+		var result = await response.Result;
+		if (result.SomeOrDefault()?.Id?.ToString() == "SO")
+		{
+			await _authService.SignOutAsync();
+
+			await _navigator.NavigateRouteAsync(this, string.Empty);
+		}
 	}
 }
