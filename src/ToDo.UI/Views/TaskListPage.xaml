@@ -9,20 +9,21 @@
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:um="using:Uno.Material"
 	  mc:Ignorable="d"
-	  Background="{ThemeResource MaterialBackgroundBrush}">
+	  Background="{ThemeResource MaterialPrimaryVariantLightBrush}">
 
 	<Page.Resources>
 		<x:String x:Key="Icon_Add">F1 M 14 8 L 8 8 L 8 14 L 6 14 L 6 8 L 0 8 L 0 6 L 6 6 L 6 0 L 8 0 L 8 6 L 14 6 L 14 8 Z</x:String>
 		<x:String x:Key="Icon_Delete_Outline">F1 M 1 16 C 1 17.100000023841858 1.899999976158142 18 3 18 L 11 18 C 12.100000023841858 18 13 17.100000023841858 13 16 L 13 4 L 1 4 L 1 16 Z M 3 6 L 11 6 L 11 16 L 3 16 L 3 6 Z M 10.5 1 L 9.5 0 L 4.5 0 L 3.5 1 L 0 1 L 0 3 L 14 3 L 14 1 L 10.5 1 Z</x:String>
 		<x:String x:Key="Icon_Drive_File_Rename_Outline">F1 M 15.40999984741211 1.7950000762939453 L 14.200000762939453 0.5849999785423279 C 13.420000791549683 -0.19499999284744263 12.149999856948853 -0.19499999284744263 11.369999885559082 0.5849999785423279 L 8.6899995803833 3.2649998664855957 L 0 11.954999923706055 L 0 15.994999885559082 L 4.039999961853027 15.994999885559082 L 12.779999732971191 7.255000114440918 L 15.40999984741211 4.625 C 16.19999986886978 3.8450000286102295 16.19999986886978 2.575000047683716 15.40999984741211 1.7950000762939453 L 15.40999984741211 1.7950000762939453 Z M 3.2100000381469727 13.994999885559082 L 2 13.994999885559082 L 2 12.785000801086426 L 10.65999984741211 4.125 L 11.869999885559082 5.335000038146973 L 3.2100000381469727 13.994999885559082 Z M 8 15.994999885559082 L 12 11.994999885559082 L 18 11.994999885559082 L 18 15.994999885559082 L 8 15.994999885559082 Z</x:String>
-		<x:String x:Key="IconSource_Favorite">F1 M 10 18.350000381469727 L 8.550000190734863 17.030000686645508 C 3.4000000953674316 12.360000610351562 0 9.27999997138977 0 5.5 C 0 2.4200000762939453 2.4200000762939453 0 5.5 0 C 7.240000009536743 0 8.909999966621399 0.8100001811981201 10 2.0900001525878906 C 11.090000033378601 0.8100001811981201 12.759999990463257 0 14.5 0 C 17.579999923706055 0 20 2.4200000762939453 20 5.5 C 20 9.27999997138977 16.59999990463257 12.36000108718872 11.449999809265137 17.040000915527344 L 10 18.350000381469727 Z</x:String>
 		<x:String x:Key="Icon_Star_Rate">F1 M 12.430000305175781 8 L 10 0 L 7.569999694824219 8 L 0 8 L 6.180000305175781 12.40999984741211 L 3.8299999237060547 20 L 10 15.309999465942383 L 16.18000030517578 20 L 13.829999923706055 12.40999984741211 L 20 8 L 12.430000305175781 8 Z</x:String>
 	</Page.Resources>
 
 	<utu:AutoLayout>
-
-		<utu:AutoLayout >
-			<utu:NavigationBar Content="Task List" Style="{StaticResource MaterialNavigationBarStyle}" x:Uid="Body_NavigationBar">
+		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+			<utu:NavigationBar Content="Task List"
+							   x:Uid="Body_NavigationBar"
+							   Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
+							   Style="{StaticResource MaterialNavigationBarStyle}">
 				<utu:NavigationBar.MainCommand>
 					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
 						<AppBarButton.Icon>
@@ -31,95 +32,130 @@
 					</AppBarButton>
 				</utu:NavigationBar.MainCommand>
 				<utu:NavigationBar.PrimaryCommands>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}" Command="{Binding RenameList}">
+					<AppBarButton Command="{Binding RenameList}"
+								  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
 						<AppBarButton.Icon>
 							<PathIcon Data="{StaticResource Icon_Drive_File_Rename_Outline}" />
 						</AppBarButton.Icon>
 					</AppBarButton>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}" Command="{Binding DeleteList}">
+					<AppBarButton Command="{Binding DeleteList}"
+								  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
 						<AppBarButton.Icon>
 							<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
 						</AppBarButton.Icon>
 					</AppBarButton>
 				</utu:NavigationBar.PrimaryCommands>
 			</utu:NavigationBar>
-			<!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
-		</utu:AutoLayout>
+			<utu:TabBar Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
+						Style="{StaticResource MaterialTopTabBarStyle}">
+				<utu:TabBarItem Content="To Do"
+								utu:AutoLayout.PrimaryAlignment="Stretch" />
+				<utu:TabBarItem Content="Completed"
+								utu:AutoLayout.PrimaryAlignment="Stretch" />
+			</utu:TabBar>
+			<utu:AutoLayout Spacing="10"
+							Padding="20,10,20,0"
+							utu:AutoLayout.PrimaryAlignment="Stretch">
+				<uer:FeedView Source="{Binding Tasks}"
+							  utu:AutoLayout.CounterAlignment="Start"
+							  utu:AutoLayout.PrimaryAlignment="Stretch">
+					<DataTemplate>
+						<ListView ItemsSource="{Binding Data}"
+								  uen:Navigation.Request="Task"
+								  SelectionMode="None"
+								  IsItemClickEnabled="True"
+								  Style="{StaticResource MaterialListViewStyle}">
+							<ListView.ItemsPanel>
+								<ItemsPanelTemplate>
+									<ItemsStackPanel Orientation="Vertical" />
+								</ItemsPanelTemplate>
+							</ListView.ItemsPanel>
+							<ListView.ItemTemplate>
+								<DataTemplate>
+									<SwipeControl Margin="0,5">
+										<SwipeControl.RightItems>
+											<SwipeItems Mode="Reveal">
+												<SwipeItem Foreground="{ThemeResource MaterialSurfaceBrush}"
+														   Background="{ThemeResource MaterialErrorBrush}">
+													<SwipeItem.IconSource>
+														<PathIconSource Data="{StaticResource Icon_Delete_Outline}" />
+													</SwipeItem.IconSource>
+												</SwipeItem>
+											</SwipeItems>
+										</SwipeControl.RightItems>
+										<SwipeControl.Content>
+											<utu:AutoLayout PrimaryAxisAlignment="Center"
+															Background="{ThemeResource MaterialOnPrimaryBrush}">
+												<utu:AutoLayout Spacing="5"
+																Orientation="Horizontal">
+													<utu:AutoLayout Padding="10,0,0,0"
+																	utu:AutoLayout.CounterAlignment="Center">
+														<utu:AutoLayout Spacing="16"
+																		Orientation="Horizontal"
+																		utu:AutoLayout.CounterAlignment="Start"
+																		utu:AutoLayout.CounterLength="40">
+															<CheckBox utu:AutoLayout.CounterAlignment="Start"
+																	  Style="{StaticResource MaterialCheckBoxStyle}" />
+														</utu:AutoLayout>
+													</utu:AutoLayout>
+													<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
+																	utu:AutoLayout.PrimaryAlignment="Stretch"
+																	utu:AutoLayout.CounterLength="60">
+														<utu:AutoLayout PrimaryAxisAlignment="Center"
+																		utu:AutoLayout.PrimaryLength="60">
+															<utu:AutoLayout PrimaryAxisAlignment="Center"
+																			utu:AutoLayout.CounterAlignment="Start">
+																<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+																		   Text="{Binding Title}"
+																		   utu:AutoLayout.CounterAlignment="Start"
+																		   Style="{StaticResource MaterialSubtitle1}" />
+															</utu:AutoLayout>
+														</utu:AutoLayout>
+													</utu:AutoLayout>
+													<utu:AutoLayout Padding="0,0,10,0"
+																	Orientation="Horizontal"
+																	utu:AutoLayout.CounterAlignment="Center">
+														<utu:AutoLayout PrimaryAxisAlignment="End"
+																		Orientation="Horizontal">
+															<ToggleButton utu:AutoLayout.CounterAlignment="Start"
+																		  Style="{StaticResource MaterialToggleButtonIconStyle}">
+																<ToggleButton.Content>
+																	<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}"
+																			  Data="{StaticResource Icon_Star_Rate}" />
+																</ToggleButton.Content>
+																<um:ControlExtensions.AlternateContent>
+																	<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}"
+																			  Data="{StaticResource Icon_Star_Rate}" />
+																</um:ControlExtensions.AlternateContent>
+															</ToggleButton>
+														</utu:AutoLayout>
+													</utu:AutoLayout>
+												</utu:AutoLayout>
+											</utu:AutoLayout>
+										</SwipeControl.Content>
+									</SwipeControl>
+								</DataTemplate>
+							</ListView.ItemTemplate>
+						</ListView>
+					</DataTemplate>
+				</uer:FeedView>
+			</utu:AutoLayout>
 
-		<utu:AutoLayout Spacing="10" Padding="20,10,20,0" utu:AutoLayout.PrimaryAlignment="Stretch">
-			<uer:FeedView Source="{Binding Tasks}" utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
-				<!-- Temporary until bug with SwipeControl content is fixed on Figma -->
-				<!--<DataTemplate>
-					<ListView ItemsSource="{Binding Data}"
-							  uen:Navigation.Request="Task"
-							  SelectionMode="None"
-							  IsItemClickEnabled="True"
-							  Style="{StaticResource MaterialListViewStyle}">
-						<ListView.ItemsPanel>
-							<ItemsPanelTemplate>
-								<ItemsStackPanel Orientation="Vertical" />
-							</ItemsPanelTemplate>
-						</ListView.ItemsPanel>
-						<ListView.ItemTemplate>
-							<DataTemplate>
-								<SwipeControl>
-									<SwipeControl.LeftItems>
-										<SwipeItems Mode="Reveal">
-											<SwipeItem Foreground="{ThemeResource MaterialOnPrimaryBrush}" Text="Item">
-												<SwipeItem.IconSource>
-													<PathIconSource Data="{StaticResource IconSource_Favorite}" />
-												</SwipeItem.IconSource>
-											</SwipeItem>
-										</SwipeItems>
-									</SwipeControl.LeftItems>
-									<SwipeControl.RightItems>
-										<SwipeItems Mode="Reveal">
-											<SwipeItem>
-												<SwipeItem.IconSource>
-													<PathIconSource Data="{StaticResource IconSource_Delete_Outline}" />
-												</SwipeItem.IconSource>
-											</SwipeItem>
-										</SwipeItems>
-									</SwipeControl.RightItems>
-									<SwipeControl.Content>
-										<TextBlock Text="{Binding Title}" />
-									</SwipeControl.Content>
-								</SwipeControl>
-							</DataTemplate>
-						</ListView.ItemTemplate>
-					</ListView>
-				</DataTemplate>-->
-
-				<DataTemplate>
-					<UserControl>
-						<Grid>
-							<ListView 	  ItemsSource="{Binding Data}"
-										  SelectionMode="None"
-										  IsItemClickEnabled="True"
-										  uen:Navigation.Request="Task">
-								<ListView.ItemsPanel>
-									<ItemsPanelTemplate>
-										<ItemsStackPanel Orientation="Vertical" />
-									</ItemsPanelTemplate>
-								</ListView.ItemsPanel>
-								<ListView.ItemTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" />
-									</DataTemplate>
-								</ListView.ItemTemplate>
-							</ListView>
-						</Grid>
-					</UserControl>
-				</DataTemplate>
-			</uer:FeedView>
-		</utu:AutoLayout>
-
-		<utu:AutoLayout Padding="20,0,20,0" utu:AutoLayout.PrimaryLength="40">
-			<Button Content="Add a task" Style="{StaticResource MaterialTextButtonStyle}" x:Uid="Body_Button" Command="{Binding CreateTask}">
-				<um:ControlExtensions.Icon>
-					<PathIcon Data="{StaticResource Icon_Add}" />
-				</um:ControlExtensions.Icon>
-			</Button>
+			<utu:AutoLayout Margin="0,0,0,20"
+							Padding="20,0,20,0"
+							utu:AutoLayout.PrimaryLength="60">
+				<Button Content="Add a task"
+						x:Uid="Body_Button"
+						Command="{Binding CreateTask}"
+						HorizontalContentAlignment="Left"
+						Foreground="{StaticResource MaterialOnPrimaryBrush}"
+						Background="{StaticResource MaterialOnSurfaceFocusedBrush}"
+						Style="{StaticResource MaterialTextButtonStyle}">
+					<um:ControlExtensions.Icon>
+						<PathIcon Data="{StaticResource Icon_Add}" />
+					</um:ControlExtensions.Icon>
+				</Button>
+			</utu:AutoLayout>
 		</utu:AutoLayout>
 	</utu:AutoLayout>
 </Page>

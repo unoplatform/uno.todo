@@ -15,7 +15,7 @@ public partial class TaskViewModel
 		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
 		ICommandBuilder save,
-		ICommandBuilder toggleIsComplete,
+		ICommandBuilder toggleIsCompleted,
 		ICommandBuilder toggleIsImportant,
 		ICommandBuilder addTaskNote)
 	{
@@ -26,7 +26,7 @@ public partial class TaskViewModel
 
 		delete.Given(entity).Then(Delete);
 		save.Given(entity).Then(Save);
-		toggleIsComplete.Given(entity).Then(ToggleCompleted);
+		toggleIsCompleted.Given(entity).Then(ToggleIsCompleted);
 		toggleIsImportant.Given(entity).Then(ToggleIsImportant);
 		addTaskNote.Given(entity).Then(AddTaskNote);
 
@@ -35,14 +35,14 @@ public partial class TaskViewModel
 
 	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog, cancellation: ct);
+		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmDeleteTask", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
 		}
 
 		var result = await response.Result;
-		if (result.SomeOrDefault()?.Id?.ToString() == "Y")
+		if (result.SomeOrDefault()?.Id?.ToString() == "DT")
 		{
 			await _svc.DeleteAsync(task, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
@@ -81,6 +81,7 @@ public partial class TaskViewModel
 	}
 
 	private async ValueTask ToggleCompleted(ToDoTask task, CancellationToken ct)
+	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Status is null)
 		{
