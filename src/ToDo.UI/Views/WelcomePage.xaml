@@ -9,7 +9,7 @@
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:um="using:Uno.Material"
 	  mc:Ignorable="d"
-	  Background="{ThemeResource MaterialBackgroundBrush}">
+	  Background="{ThemeResource BackgroundBrush}">
 
 	<Grid>
 		<VisualStateManager.VisualStateGroups>
@@ -54,29 +54,29 @@
 			</utu:AutoLayout>
 			<utu:AutoLayout Spacing="20"
 							Padding="0,40,0,40">
-				<TextBlock Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}"
+				<TextBlock Foreground="{ThemeResource OnSecondaryMediumBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
 						   Text="Welcome to&#xA;Uno To Do!"
-						   Style="{StaticResource MaterialHeadline4}"
+						   Style="{StaticResource HeadlineSmall}"
 						   x:Uid="WelcomePage_Welcome" />
-				<TextBlock Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
+				<TextBlock Foreground="{StaticResource PrimaryVariantLightBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
 						   Text="Start using the best to-do app"
-						   Style="{StaticResource MaterialSubtitle2}"
+						   Style="{StaticResource TitleSmall}"
 						   x:Uid="WelcomePage_Line2" />
 			</utu:AutoLayout>
 			<Button Content="Get started"
 					x:Uid="WelcomePage_GetStarted"
 					Command="{Binding GetStarted}"
-					Style="{StaticResource MaterialContainedButtonStyle}" />
+					Style="{StaticResource FilledButtonStyle}" />
 		</utu:AutoLayout>
 
 		<utu:AutoLayout x:Name="WideWelcomeContent"
 						Visibility="Collapsed"
 						Orientation="Horizontal"
-						Background="{ThemeResource MaterialSurfaceBrush}">
+						Background="{ThemeResource SurfaceBrush}">
 			<utu:AutoLayout Spacing="100"
 							Padding="16,16,16,16"
 							PrimaryAxisAlignment="Center"
@@ -93,26 +93,26 @@
 									utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.CounterLength="330">
 						<TextBlock x:Uid="WelcomePage_Welcome"
-								   Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}"
+								   Foreground="{ThemeResource OnSecondaryMediumBrush}"
 								   TextWrapping="Wrap"
 								   Text="Welcome to&#xA;Uno To Do!"
-								   Style="{StaticResource MaterialHeadline2}" />
+								   Style="{StaticResource HeadlineLarge}" />
 						<TextBlock x:Uid="WelcomePage_Line2"
-								   Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
+								   Foreground="{StaticResource PrimaryVariantLightBrush}"
 								   TextWrapping="Wrap"
 								   Text="Start using the best to-do app, you can&#xA;create and manage your to-do lists to improve your organization."
-								   Style="{StaticResource MaterialSubtitle1}" />
+								   Style="{StaticResource TitleMedium}" />
 					</utu:AutoLayout>
 					<Button Content="Get started"
 							Command="{Binding GetStarted}"
 							x:Uid="WelcomePage_GetStarted"
 							utu:AutoLayout.CounterAlignment="Start"
 							utu:AutoLayout.CounterLength="330"
-							Style="{StaticResource MaterialContainedButtonStyle}" />
+							Style="{StaticResource FilledButtonStyle}" />
 				</utu:AutoLayout>
 			</utu:AutoLayout>
 			<utu:AutoLayout Padding="60,60,60,60"
-							Background="{ThemeResource MaterialPrimarySelectedBrush}"
+							Background="{ThemeResource PrimarySelectedBrush}"
 							utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:AutoLayout Padding="0,0,0,50"
 								Orientation="Horizontal"

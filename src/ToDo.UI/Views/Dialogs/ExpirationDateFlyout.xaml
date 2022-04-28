@@ -10,7 +10,7 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  mc:Ignorable="d"
-	  Background="{ThemeResource MaterialBackgroundBrush}">
+	  Background="{ThemeResource BackgroundBrush}">
 
 	<Page.Resources>
 		<x:String x:Key="Icon_Calendar_Today">F1 M 18 2 L 17 2 L 17 0 L 15 0 L 15 2 L 5 2 L 5 0 L 3 0 L 3 2 L 2 2 C 0.8999999761581421 2 0 2.899999976158142 0 4 L 0 20 C 0 21.100000023841858 0.8999999761581421 22 2 22 L 18 22 C 19.100000023841858 22 20 21.100000023841858 20 20 L 20 4 C 20 2.899999976158142 19.100000023841858 2 18 2 Z M 18 20 L 2 20 L 2 7 L 18 7 L 18 20 Z</x:String>
@@ -19,16 +19,16 @@
 
 	<utu:AutoLayout Padding="20,20,20,0"
 					CornerRadius="8"
-					Background="{ThemeResource MaterialSurfaceBrush}">
+					Background="{ThemeResource SurfaceBrush}">
 
-		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+		<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 				   TextAlignment="Center"
 				   TextWrapping="Wrap"
 				   Text="Due"
-				   Style="{StaticResource MaterialHeadline6}"
+				   Style="{StaticResource TitleLarge}"
 				   x:Uid="Task_Details_Add_Due_Date_Title" />
 		<utu:AutoLayout Padding="0,10,0,0">
-			<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+			<utu:Divider Style="{StaticResource DividerStyle}" />
 		</utu:AutoLayout>
 		<utu:AutoLayout Padding="0,8,0,8"
 						CornerRadius="4">
@@ -50,10 +50,10 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.CounterAlignment="Center"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+						<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 								   Text="Today"
 								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
+								   Style="{StaticResource BodyMedium}"
 								   x:Uid="Task_Details_Add_Due_Date_Label" />
 					</utu:AutoLayout>
 				</utu:AutoLayout>
@@ -76,10 +76,10 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.CounterAlignment="Center"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+						<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 								   Text="Tomorrow"
 								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
+								   Style="{StaticResource BodyMedium}"
 								   x:Uid="Task_Details_Add_Due_Date_Label" />
 					</utu:AutoLayout>
 				</utu:AutoLayout>
@@ -102,10 +102,10 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.CounterAlignment="Center"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+						<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 								   Text="Next Week"
 								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
+								   Style="{StaticResource BodyMedium}"
 								   x:Uid="Task_Details_Add_Due_Date_Label" />
 					</utu:AutoLayout>
 				</utu:AutoLayout>
@@ -128,10 +128,10 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.CounterAlignment="Center"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+						<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 								   Text="Pick a Date"
 								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
+								   Style="{StaticResource BodyMedium}"
 								   x:Uid="Task_Details_Add_Due_Date_Label" />
 					</utu:AutoLayout>
 					<utu:AutoLayout Spacing="10"

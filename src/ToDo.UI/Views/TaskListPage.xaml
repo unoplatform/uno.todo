@@ -19,10 +19,10 @@
 		<x:String x:Key="Icon_Drive_File_Rename_Outline">F1 M 15.40999984741211 1.7950000762939453 L 14.200000762939453 0.5849999785423279 C 13.420000791549683 -0.19499999284744263 12.149999856948853 -0.19499999284744263 11.369999885559082 0.5849999785423279 L 8.6899995803833 3.2649998664855957 L 0 11.954999923706055 L 0 15.994999885559082 L 4.039999961853027 15.994999885559082 L 12.779999732971191 7.255000114440918 L 15.40999984741211 4.625 C 16.19999986886978 3.8450000286102295 16.19999986886978 2.575000047683716 15.40999984741211 1.7950000762939453 L 15.40999984741211 1.7950000762939453 Z M 3.2100000381469727 13.994999885559082 L 2 13.994999885559082 L 2 12.785000801086426 L 10.65999984741211 4.125 L 11.869999885559082 5.335000038146973 L 3.2100000381469727 13.994999885559082 Z M 8 15.994999885559082 L 12 11.994999885559082 L 18 11.994999885559082 L 18 15.994999885559082 L 8 15.994999885559082 Z</x:String>
 		<x:String x:Key="Icon_Star_Rate">F1 M 12.430000305175781 8 L 10 0 L 7.569999694824219 8 L 0 8 L 6.180000305175781 12.40999984741211 L 3.8299999237060547 20 L 10 15.309999465942383 L 16.18000030517578 20 L 13.829999923706055 12.40999984741211 L 20 8 L 12.430000305175781 8 Z</x:String>
 
-		<StaticResource x:Key="DefaultTaskListSurfaceBrush" ResourceKey="MaterialPrimaryVariantLightBrush" />
-		<StaticResource x:Key="DefaultTaskListOnSurfaceBrush" ResourceKey="MaterialPrimaryVariantLightBrush" />
-		<StaticResource x:Key="ImportantTaskListSurfaceBrush" ResourceKey="MaterialErrorBrush" />
-		<StaticResource x:Key="ImportantTaskListOnSurfaceBrush" ResourceKey="MaterialOnErrorBrush" />
+		<StaticResource x:Key="DefaultTaskListSurfaceBrush" ResourceKey="PrimaryVariantLightBrush" />
+		<StaticResource x:Key="DefaultTaskListOnSurfaceBrush" ResourceKey="PrimaryVariantLightBrush" />
+		<StaticResource x:Key="ImportantTaskListSurfaceBrush" ResourceKey="ErrorBrush" />
+		<StaticResource x:Key="ImportantTaskListOnSurfaceBrush" ResourceKey="OnErrorBrush" />
 
 		<!-- note: in order to use converter in Page.Background, that resource needs to be declared globally. -->
 		<converters:TaskListToValueConverter x:Key="TaskListSurfaceBrushConverter"
@@ -44,7 +44,7 @@
 
 		<Style x:Key="TaskListViewStyle"
 			   TargetType="ListView"
-			   BasedOn="{StaticResource MaterialListViewStyle}">
+			   BasedOn="{StaticResource ListViewStyle}">
 			<Setter Property="ItemsPanel">
 				<Setter.Value>
 					<ItemsPanelTemplate>
@@ -58,7 +58,7 @@
 						<SwipeControl Margin="0,5">
 							<SwipeControl.RightItems>
 								<SwipeItems Mode="Reveal">
-									<SwipeItem Foreground="{ThemeResource MaterialSurfaceBrush}" Background="{ThemeResource MaterialErrorBrush}">
+									<SwipeItem Foreground="{ThemeResource SurfaceBrush}" Background="{ThemeResource ErrorBrush}">
 										<SwipeItem.IconSource>
 											<PathIconSource Data="{StaticResource Icon_Delete_Outline}" />
 										</SwipeItem.IconSource>
@@ -66,7 +66,7 @@
 								</SwipeItems>
 							</SwipeControl.RightItems>
 							<SwipeControl.Content>
-								<utu:AutoLayout PrimaryAxisAlignment="Center" Background="{ThemeResource MaterialOnPrimaryBrush}">
+								<utu:AutoLayout PrimaryAxisAlignment="Center" Background="{ThemeResource OnPrimaryBrush}">
 									<utu:AutoLayout Spacing="5" Orientation="Horizontal">
 										<utu:AutoLayout Padding="10,0,0,0" utu:AutoLayout.CounterAlignment="Center">
 											<utu:AutoLayout Spacing="16"
@@ -78,7 +78,7 @@
 																							  AncestorType=uer:FeedView}"
 														  CommandParameter="{Binding}"
 														  utu:AutoLayout.CounterAlignment="Start"
-														  Style="{StaticResource MaterialCheckBoxStyle}" />
+														  Style="{StaticResource CheckBoxStyle}" />
 											</utu:AutoLayout>
 										</utu:AutoLayout>
 										<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
@@ -86,14 +86,14 @@
 														utu:AutoLayout.CounterLength="60">
 											<utu:AutoLayout PrimaryAxisAlignment="Center" utu:AutoLayout.PrimaryLength="60">
 												<utu:AutoLayout PrimaryAxisAlignment="Center" utu:AutoLayout.CounterAlignment="Start">
-													<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+													<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 															   Text="{Binding Title}"
 															   utu:AutoLayout.CounterAlignment="Start"
-															   Style="{StaticResource MaterialSubtitle1}" />
-													<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+															   Style="{StaticResource TitleMedium}" />
+													<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 															   Text="{Binding DueDateTime.DateTime, Converter={StaticResource TaskDueDateFormatter}}"
 															   utu:AutoLayout.CounterAlignment="Start"
-															   Style="{StaticResource MaterialBody2}" />
+															   Style="{StaticResource BodyMedium}" />
 												</utu:AutoLayout>
 											</utu:AutoLayout>
 										</utu:AutoLayout>
@@ -106,12 +106,12 @@
 															  Command="{controls:AncestralBinding Path=ToggleIsImportant,
 																								  AncestorType=uer:FeedView}"
 															  CommandParameter="{Binding}"
-															  Style="{StaticResource MaterialToggleButtonIconStyle}">
+															  Style="{StaticResource IconToggleButtonStyle}">
 													<ToggleButton.Content>
-														<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}" Data="{StaticResource Icon_Star_Rate}" />
+														<PathIcon Foreground="{StaticResource OnSurfaceLowBrush}" Data="{StaticResource Icon_Star_Rate}" />
 													</ToggleButton.Content>
 													<um:ControlExtensions.AlternateContent>
-														<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}" Data="{StaticResource Icon_Star_Rate}" />
+														<PathIcon Foreground="{StaticResource PrimaryVariantLightBrush}" Data="{StaticResource Icon_Star_Rate}" />
 													</um:ControlExtensions.AlternateContent>
 												</ToggleButton>
 											</utu:AutoLayout>
@@ -175,9 +175,9 @@
 			<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:NavigationBar Content="{Binding Entity.DisplayName}"
 								   Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
-								   Style="{StaticResource MaterialNavigationBarStyle}">
+								   Style="{StaticResource NavigationBarStyle}">
 					<utu:NavigationBar.MainCommand>
-						<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+						<AppBarButton Foreground="{ThemeResource OnPrimaryMediumBrush}">
 							<AppBarButton.Icon>
 								<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
 							</AppBarButton.Icon>
@@ -185,14 +185,14 @@
 					</utu:NavigationBar.MainCommand>
 					<utu:NavigationBar.PrimaryCommands>
 						<AppBarButton Command="{Binding RenameList}"
-									  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}"
+									  Foreground="{ThemeResource OnPrimaryMediumBrush}"
 									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
 								<PathIcon Data="{StaticResource Icon_Drive_File_Rename_Outline}" />
 							</AppBarButton.Icon>
 						</AppBarButton>
 						<AppBarButton Command="{Binding DeleteList}"
-									  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}"
+									  Foreground="{ThemeResource OnPrimaryMediumBrush}"
 									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
 								<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
@@ -207,7 +207,7 @@
 					<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 						<utu:TabBar uen:Region.Attached="True"
 									Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
-									Style="{StaticResource MaterialTopTabBarStyle}">
+									Style="{StaticResource TopTabBarStyle}">
 							<utu:TabBarItem x:Uid="TaskListPage_TodoTab"
 											Content="To Do"
 											uen:Region.Name="ToDo"
@@ -268,7 +268,7 @@
 										-->
 										<Border VerticalAlignment="Stretch"
 												HorizontalAlignment="Stretch"
-												Background="{ThemeResource MaterialPrimaryVariantLightBrush}">
+												Background="{StaticResource PrimaryVariantLightBrush}">
 											<ListView ItemsSource="{Binding Data}"
 													  uen:Navigation.Request="Task"
 													  SelectionMode="None"
@@ -290,9 +290,9 @@
 							Content="Add a task"
 							Command="{Binding CreateTask}"
 							HorizontalContentAlignment="Left"
-							Foreground="{StaticResource MaterialOnPrimaryBrush}"
-							Background="{StaticResource MaterialOnSurfaceFocusedBrush}"
-							Style="{StaticResource MaterialTextButtonStyle}">
+							Foreground="{StaticResource OnPrimaryBrush}"
+							Background="{StaticResource OnSurfaceFocusedBrush}"
+							Style="{StaticResource TextButtonStyle}">
 						<um:ControlExtensions.Icon>
 							<PathIcon Data="{StaticResource Icon_Add}" />
 						</um:ControlExtensions.Icon>
