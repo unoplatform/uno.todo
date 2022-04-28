@@ -148,18 +148,53 @@ public sealed partial class App : Application
 
 	private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
 	{
-		var confirmDialog = new MessageDialogViewMap(
-		Content: "Are you sure you want to delete?",
-		Title: "Confirm delete?",
+		var confirmDeleteListDialog = new MessageDialogViewMap(
+		Content: "List will be permanently deleted",
+		Title: "Are you sure?",
 		DelayUserInput: true,
-		DefaultButtonIndex: 1,
+		DefaultButtonIndex: 0,
 		Buttons: new DialogAction[]
-		{
-						new(Label: "Yeh!",Id:"Y"),
-						new(Label: "Nah", Id:"N")
-		}
-	);
+			{
+				new(Label: "Delete",Id:"DL"),
+				new(Label: "Cancel", Id:"CDL")
+			}
+		);
 
+		var confirmDeleteTaskDialog = new MessageDialogViewMap(
+		Content: "Task will be permanently deleted",
+		Title: "Are you sure?",
+		DelayUserInput: true,
+		DefaultButtonIndex: 0,
+		Buttons: new DialogAction[]
+			{
+				new(Label: "Delete",Id:"DT"),
+				new(Label: "Cancel", Id:"CDT")
+			}
+		);
+
+		var confirmDeleteNoteDialog = new MessageDialogViewMap(
+		Content: "Note will be permanently deleted",
+		Title: "Are you sure?",
+		DelayUserInput: true,
+		DefaultButtonIndex: 0,
+		Buttons: new DialogAction[]
+			{
+				new(Label: "Delete",Id:"DN"),
+				new(Label: "Cancel", Id:"CDN")
+			}
+		);
+
+		var confirmSignOutDialog = new MessageDialogViewMap(
+		Content: "Are you sure you would like to sign out?",
+		Title: "Sign Out",
+		DelayUserInput: true,
+		DefaultButtonIndex: 0,
+		Buttons: new DialogAction[]
+			{
+				new(Label: "Sign Out",Id:"SO"),
+				new(Label: "Cancel", Id:"CSO")
+			}
+		);
 
 		views.Register(
 			/// Dialogs and Flyouts
@@ -179,7 +214,10 @@ public sealed partial class App : Application
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data:new DataMap<TaskList>()),
 			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
-			confirmDialog
+			confirmDeleteListDialog,
+			confirmDeleteTaskDialog,
+			confirmDeleteNoteDialog,
+			confirmSignOutDialog
 			);
 
 		routes
@@ -223,7 +261,10 @@ public sealed partial class App : Application
 								View: views.FindByViewModel<ExpirationDateViewModel>()),
 							new("RenameList",
 								View: views.FindByViewModel<RenameListViewModel>()),
-							new ("Confirm", confirmDialog)
+							new ("ConfirmDeleteList", confirmDeleteListDialog),
+							new ("ConfirmDeleteTask", confirmDeleteTaskDialog),
+							new ("ConfirmDeleteNote", confirmDeleteNoteDialog),
+							new ("ConfirmSignOut", confirmSignOutDialog)
 						}));
 	}
 

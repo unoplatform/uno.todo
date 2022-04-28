@@ -29,14 +29,14 @@ public partial class TaskViewModel
 
 	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog, cancellation: ct);
+		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmDeleteTask", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
 		}
 
 		var result = await response.Result;
-		if (result.SomeOrDefault()?.Id?.ToString() == "Y")
+		if (result.SomeOrDefault()?.Id?.ToString() == "DT")
 		{
 			await _svc.DeleteAsync(task, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
