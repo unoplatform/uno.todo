@@ -29,23 +29,26 @@
 
 			<utu:AutoLayout Spacing="10"
 							Padding="0,10,0,0"
-							DataContext="{Binding Data}"
 							utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:AutoLayout Spacing="10"
 								Padding="12,0,12,0"
 								Orientation="Horizontal">
 					<utu:AutoLayout>
 						<CheckBox utu:AutoLayout.CounterAlignment="Start"
-								  Style="{StaticResource MaterialCheckBoxStyle}" IsChecked="{Binding IsCompleted}" Command="{Binding ToggleCompleted}"/>
+								  Style="{StaticResource MaterialCheckBoxStyle}"
+								  IsChecked="{Binding Entity.IsCompleted}"
+								  Command="{Binding ToggleIsCompleted}" />
 					</utu:AutoLayout>
 					<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBox PlaceholderText="Task Name"
+						<TextBox PlaceholderText="{Binding Entity.Title}"
 								 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 					</utu:AutoLayout>
 					<utu:AutoLayout>
 						<ToggleButton utu:AutoLayout.CounterAlignment="Start"
-									  Style="{StaticResource MaterialToggleButtonIconStyle}" IsChecked="{Binding IsImportant}"  Command="{Binding ToggleIsImportant}">
+									  Style="{StaticResource MaterialToggleButtonIconStyle}"
+									  IsChecked="{Binding Entity.IsImportant}"
+									  Command="{Binding ToggleIsImportant}">
 							<ToggleButton.Content>
 								<PathIcon Data="{StaticResource Icon_Star_Rate}" />
 							</ToggleButton.Content>
@@ -107,7 +110,7 @@
 									<utu:AutoLayout PrimaryAxisAlignment="Center">
 										<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
 												   TextWrapping="Wrap"
-												   Text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when..."
+												   Text="{Binding Entity.Body.Content}"
 												   Style="{StaticResource MaterialSubtitle1}" />
 									</utu:AutoLayout>
 								</utu:AutoLayout>
@@ -173,7 +176,7 @@
 
 		</utu:AutoLayout>
 		<!-- TO REMOVE -->
-        <StackPanel Orientation="Vertical"
+		<!--<StackPanel Orientation="Vertical"
 					Grid.Row="2">
 			<Button Content="Add"
 					Command="{Binding Save}" />
@@ -185,7 +188,7 @@
 					Command="{Binding MarkAsImportant}" />
 			<Button Content="Add note"
 					Command="{Binding AddTaskNote}" />
-		</StackPanel>
+		</StackPanel>-->
 	</utu:AutoLayout>
 
 </Page>
