@@ -252,6 +252,7 @@
 	<Style x:Key="HomeNavigationViewStyle" TargetType="muxc:NavigationView">
 		<Setter Property="IsBackButtonVisible" Value="Collapsed" />
 		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Background" Value="{ThemeResource MaterialSurfaceBrush}" />
 
 		<Setter Property="Template">
 			<Setter.Value>
@@ -265,7 +266,7 @@
 								   IsTabStop="{TemplateBinding IsTabStop}"
 								   Style="{StaticResource HomeNavigationViewSplitViewStyle}">
 							<SplitView.Pane>
-								<Grid>
+								<Grid Background="{TemplateBinding Background}">
 									<Grid.RowDefinitions>
 										<!-- 0: Header, 1: MenuItems, 2: Separator, 3: FooterMenuItems, 4: Footer -->
 										<!-- note: visually, we want MenuItems+FooterMenuItems to stay on top -->

@@ -25,7 +25,7 @@ public sealed partial class TaskListPage : Page, IInjectable<INavigator>
 	public async void DeleteListClick(object sender, RoutedEventArgs args)
 	{
 
-		var response = await Navigator!.NavigateRouteForResultAsync< DialogAction>(this, "Confirm", qualifier: Qualifiers.Dialog);
+		var response = await Navigator!.NavigateRouteForResultAsync< DialogAction>(this, "ConfirmDeleteList", qualifier: Qualifiers.Dialog);
 		if (response is null)
 		{
 			return;
