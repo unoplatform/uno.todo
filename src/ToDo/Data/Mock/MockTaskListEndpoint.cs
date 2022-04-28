@@ -23,14 +23,16 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 	}
 
 	private IList<TaskListData>? data;
+	private IList<TaskData>? allTasks;
 	private IDictionary<string, IList<TaskData>> taskData = new Dictionary<string, IList<TaskData>>();
 
-	private async Task Load()
+	private async Task<IList<TaskListData>> Load()
 	{
 		if (data is null)
 		{
 			data = (await _dataService.ReadFileAsync<TaskListData[]>(_listSerializer, ListDataFile)).ToList();
 		}
+		return data;
 	}
 
 	internal async Task<IList<TaskData>> LoadListTasks(string listId)
@@ -40,19 +42,24 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 			return existingTasks;
 		}
 
-		var tasks = (await _dataService.ReadFileAsync<TaskData[]>(_taskSerializer, TasksDataFile)).ToList();
-		taskData[listId] = tasks;
-		return tasks;
+		_ = await LoadAllTasks();
+
+		taskData[listId] = allTasks.Where(x=>x.ParentList?.Id==listId).ToList();
+		return taskData[listId];
 	}
 
 	private async Task<IList<TaskData>> LoadAllTasks()
 	{
-		return await LoadListTasks("tasks");
+		if (allTasks is null)
+		{
+			allTasks = (await _dataService.ReadFileAsync<TaskData[]>(_taskSerializer, TasksDataFile)).ToList();
+		}
+		return allTasks;
 	}
 
 	public async Task<TaskListData> CreateAsync(TaskListRequestData todoList, CancellationToken ct)
 	{
-		await Load();
+		_ = await Load();
 
 		var list = new TaskListData { Id = Guid.NewGuid().ToString(), DisplayName = todoList.DisplayName };
 		data?.Add(list);
@@ -61,7 +68,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 
 	public async Task<HttpResponseMessage> DeleteAsync(string todoTaskListId, CancellationToken ct)
 	{
-		await Load();
+		_ = await Load();
 		var list = data.FirstOrDefault(x => x.Id == todoTaskListId);
 		if (list is not null)
 		{
@@ -72,13 +79,13 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 
 	public async Task<TaskReponseData<TaskListData>> GetAllAsync(CancellationToken ct)
 	{
-		await Load();
+		_ = await Load();
 		return new TaskReponseData<TaskListData> { Value = data.ToList() };
 	}
 
 	public async Task<TaskListData> GetAsync(string todoTaskListId, CancellationToken ct)
 	{
-		await Load();
+		_ = await Load();
 		var list = data.FirstOrDefault(x => x.Id == todoTaskListId);
 		if (list is not null)
 		{
@@ -90,7 +97,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 
 	public async Task<TaskListData> UpdateAsync(string todoTaskListId, [Body] TaskListRequestData todoList, CancellationToken ct)
 	{
-		await Load();
+		_ = await Load();
 
 		var list = data.FirstOrDefault(x => x.Id == todoTaskListId);
 		if (list is not null)

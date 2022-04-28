@@ -222,8 +222,7 @@ public sealed partial class App : Application
 
 		routes
 			.Register(
-			views =>
-				new("", View: views.FindByViewModel<ShellViewModel>(),
+				new RouteMap("", View: views.FindByViewModel<ShellViewModel>(),
 						Nested: new RouteMap[]
 						{
 							new ("Welcome",
@@ -233,11 +232,10 @@ public sealed partial class App : Application
 									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
 									),
 							new("TaskList",
-									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
-									DependsOn:"Home"),
+									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>()),
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
-									DependsOn:"Home"),
+									DependsOn:"TaskList"),
 							new("TaskSearch",
 									View: views.FindByView<TaskSearchFlyout>(),
 									Nested: new RouteMap[]{
@@ -246,11 +244,10 @@ public sealed partial class App : Application
 											IsDefault: true)
 									}),
 							new("Settings",
-									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>(),
-									DependsOn:"Home"),
+									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
 							new("TaskNote",
 									View: views.FindByViewModel<TaskNoteViewModel>(),
-									DependsOn:"Home"),
+									DependsOn:"Task"),
 							new("AddTask",
 								View: views.FindByView<AddTaskViewModel>()),
 							new("AddList",
