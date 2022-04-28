@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using Windows.ApplicationModel.UserDataTasks;
 using Uno.Extensions.Reactive.Core;
 
 namespace ToDo.Presentation;
@@ -20,6 +19,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		IMessenger messenger,
 		IInput<TaskList> entity,
 		ICommandBuilder createTask,
+		ICommandBuilder<ToDoTask> starTask,
 		ICommandBuilder<ToDoTask> navigateToTask,
 		ICommandBuilder deleteList,
 		ICommandBuilder renameList)
@@ -31,6 +31,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		_entity = entity;
 
 		createTask.Given(entity).Then(CreateTask);
+		starTask.Then(StarTask);
 		navigateToTask.Then(NavigateToTask);
 		deleteList.Given(entity).Then(DeleteList);
 		renameList.Given(entity).Then(RenameList);
@@ -62,6 +63,11 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 			var newTask = new ToDoTask { Title = taskName };
 			await _taskSvc.CreateAsync(list, newTask, ct);
 		}
+	}
+
+	private async ValueTask StarTask(ToDoTask task, CancellationToken ct)
+	{
+		await Task.CompletedTask;
 	}
 
 	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)
