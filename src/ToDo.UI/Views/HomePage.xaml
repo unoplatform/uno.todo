@@ -102,6 +102,8 @@
 				<Button Content="Add a list"
 						Command="{Binding CreateTaskList}"
 						x:Uid="Body_Button"
+						HorizontalAlignment="Stretch"
+						HorizontalContentAlignment="Left"
 						Style="{StaticResource MaterialTextButtonStyle}">
 					<um:ControlExtensions.Icon>
 						<PathIcon Data="{StaticResource Icon_Add}" />

@@ -1,14 +1,148 @@
-﻿<Page
-    x:Class="ToDo.Views.Dialogs.ExpirationDateFlyout"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ToDo.Views.Dialogs"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+﻿<Page x:Class="ToDo.Views.Dialogs.ExpirationDateFlyout"
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:local="using:ToDo.Views.Dialogs"
+	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
+	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
+	  xmlns:utu="using:Uno.Toolkit.UI"
+	  xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+	  xmlns:um="using:Uno.Material"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	  mc:Ignorable="d"
+	  Background="{ThemeResource MaterialBackgroundBrush}">
 
-    <Grid>
+	<Page.Resources>
+		<x:String x:Key="Icon_Calendar_Today">F1 M 18 2 L 17 2 L 17 0 L 15 0 L 15 2 L 5 2 L 5 0 L 3 0 L 3 2 L 2 2 C 0.8999999761581421 2 0 2.899999976158142 0 4 L 0 20 C 0 21.100000023841858 0.8999999761581421 22 2 22 L 18 22 C 19.100000023841858 22 20 21.100000023841858 20 20 L 20 4 C 20 2.899999976158142 19.100000023841858 2 18 2 Z M 18 20 L 2 20 L 2 7 L 18 7 L 18 20 Z</x:String>
+		<x:String x:Key="Icon_Chevron_Right">F1 M 1.4099998474121094 0 L 0 1.4099998474121094 L 4.579999923706055 6 L 0 10.59000015258789 L 1.4099998474121094 12 L 7.409999847412109 6 L 1.4099998474121094 0 Z</x:String>
+	</Page.Resources>
 
-    </Grid>
+	<utu:AutoLayout Padding="20,20,20,0"
+					CornerRadius="8"
+					Background="{ThemeResource MaterialSurfaceBrush}">
+
+		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+				   TextAlignment="Center"
+				   TextWrapping="Wrap"
+				   Text="Due"
+				   Style="{StaticResource MaterialHeadline6}"
+				   x:Uid="Task_Details_Add_Due_Date_Title" />
+		<utu:AutoLayout Padding="0,10,0,0">
+			<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+		</utu:AutoLayout>
+		<utu:AutoLayout Padding="0,8,0,8"
+						CornerRadius="4">
+			<utu:AutoLayout Orientation="Horizontal">
+				<utu:AutoLayout Padding="8,8,8,8"
+								Justify="SpaceBetween"
+								Orientation="Horizontal"
+								utu:AutoLayout.CounterAlignment="Start"
+								utu:AutoLayout.PrimaryAlignment="Stretch">
+					<utu:AutoLayout Spacing="10"
+									Padding="0,0,16,0"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center">
+						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+								  utu:AutoLayout.CounterAlignment="Start" />
+					</utu:AutoLayout>
+					<utu:AutoLayout Spacing="10"
+									Padding="0,2,0,2"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.PrimaryAlignment="Stretch">
+						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+								   Text="Today"
+								   utu:AutoLayout.CounterAlignment="Center"
+								   Style="{StaticResource MaterialBody2}"
+								   x:Uid="Task_Details_Add_Due_Date_Label" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
+			</utu:AutoLayout>
+			<utu:AutoLayout Orientation="Horizontal">
+				<utu:AutoLayout Padding="8,8,8,8"
+								Justify="SpaceBetween"
+								Orientation="Horizontal"
+								utu:AutoLayout.CounterAlignment="Start"
+								utu:AutoLayout.PrimaryAlignment="Stretch">
+					<utu:AutoLayout Spacing="10"
+									Padding="0,0,16,0"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center">
+						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+								  utu:AutoLayout.CounterAlignment="Start" />
+					</utu:AutoLayout>
+					<utu:AutoLayout Spacing="10"
+									Padding="0,2,0,2"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.PrimaryAlignment="Stretch">
+						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+								   Text="Tomorrow"
+								   utu:AutoLayout.CounterAlignment="Center"
+								   Style="{StaticResource MaterialBody2}"
+								   x:Uid="Task_Details_Add_Due_Date_Label" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
+			</utu:AutoLayout>
+			<utu:AutoLayout Orientation="Horizontal">
+				<utu:AutoLayout Padding="8,8,8,8"
+								Justify="SpaceBetween"
+								Orientation="Horizontal"
+								utu:AutoLayout.CounterAlignment="Start"
+								utu:AutoLayout.PrimaryAlignment="Stretch">
+					<utu:AutoLayout Spacing="10"
+									Padding="0,0,16,0"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center">
+						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+								  utu:AutoLayout.CounterAlignment="Start" />
+					</utu:AutoLayout>
+					<utu:AutoLayout Spacing="10"
+									Padding="0,2,0,2"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.PrimaryAlignment="Stretch">
+						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+								   Text="Next Week"
+								   utu:AutoLayout.CounterAlignment="Center"
+								   Style="{StaticResource MaterialBody2}"
+								   x:Uid="Task_Details_Add_Due_Date_Label" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
+			</utu:AutoLayout>
+			<utu:AutoLayout Orientation="Horizontal">
+				<utu:AutoLayout Padding="8,8,8,8"
+								Justify="SpaceBetween"
+								Orientation="Horizontal"
+								utu:AutoLayout.CounterAlignment="Start"
+								utu:AutoLayout.PrimaryAlignment="Stretch">
+					<utu:AutoLayout Spacing="10"
+									Padding="0,0,16,0"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center">
+						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+								  utu:AutoLayout.CounterAlignment="Start" />
+					</utu:AutoLayout>
+					<utu:AutoLayout Spacing="10"
+									Padding="0,2,0,2"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.PrimaryAlignment="Stretch">
+						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+								   Text="Pick a Date"
+								   utu:AutoLayout.CounterAlignment="Center"
+								   Style="{StaticResource MaterialBody2}"
+								   x:Uid="Task_Details_Add_Due_Date_Label" />
+					</utu:AutoLayout>
+					<utu:AutoLayout Spacing="10"
+									Padding="16,0,0,0"
+									Orientation="Horizontal"
+									utu:AutoLayout.CounterAlignment="Center">
+						<PathIcon Data="{StaticResource Icon_Chevron_Right}"
+								  utu:AutoLayout.CounterAlignment="Start" />
+					</utu:AutoLayout>
+				</utu:AutoLayout>
+			</utu:AutoLayout>
+		</utu:AutoLayout>
+	</utu:AutoLayout>
 </Page>
