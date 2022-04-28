@@ -14,7 +14,10 @@ public partial class TaskViewModel
 		IMessenger messenger,
 		IInput<ToDoTask> entity,
 		ICommandBuilder delete,
-		ICommandBuilder save)
+		ICommandBuilder save,
+		ICommandBuilder toggleIsCompleted,
+		ICommandBuilder toggleIsImportant,
+		ICommandBuilder addTaskNote)
 	{
 		_logger = logger;
 		_navigator = navigator;
@@ -23,6 +26,9 @@ public partial class TaskViewModel
 
 		delete.Given(entity).Then(Delete);
 		save.Given(entity).Then(Save);
+		toggleIsCompleted.Given(entity).Then(ToggleIsCompleted);
+		toggleIsImportant.Given(entity).Then(ToggleIsImportant);
+		addTaskNote.Given(entity).Then(AddTaskNote);
 
 		entity.Observe(messenger, task => task.Id);
 	}
@@ -41,6 +47,51 @@ public partial class TaskViewModel
 			await _svc.DeleteAsync(task, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}
+	}
+
+	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
+	{
+		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, cancellation: ct);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+
+		var note = result.SomeOrDefault()?.Content;
+		if (note is not null)
+		{
+			// TODO: Switch to this code when compilation issue is fixed with source generation
+			//var updatedNote = task.Body is not null ? task.Body with { Content = note } : new TaskBodyData { Content = note };
+			var updatedNote = task.Body ?? new TaskBodyData();
+			updatedNote.Content = note;
+
+			var updatedTask = task with { Body = updatedNote };
+			await _svc.UpdateAsync(updatedTask, ct);
+		}
+	}
+
+	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Status is null)
+		{
+			return;
+		}
+
+		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		await _svc.UpdateAsync(updatedTask, ct);
+	}
+
+	private async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Importance is null)
+		{
+			return;
+		}
+		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+
+		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
 	private async ValueTask Save(ToDoTask task, CancellationToken ct)
