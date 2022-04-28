@@ -135,6 +135,7 @@
 								<utu:AutoLayout PrimaryAxisAlignment="End"
 												Orientation="Horizontal">
 									<Button Content="Open"
+											Command="{Binding AddTaskNote}"
 											utu:AutoLayout.CounterAlignment="Start"
 											Style="{StaticResource MaterialTextButtonStyle}" />
 								</utu:AutoLayout>
@@ -175,20 +176,6 @@
 			</uer:FeedView>-->
 
 		</utu:AutoLayout>
-		<!-- TO REMOVE -->
-		<!--<StackPanel Orientation="Vertical"
-					Grid.Row="2">
-			<Button Content="Add"
-					Command="{Binding Save}" />
-			<Button Content="Delete Task"
-					Command="{Binding Delete}" />
-			<Button Content="Complete Task"
-					Command="{Binding Complete}" />
-			<Button Content="Mark as important"
-					Command="{Binding MarkAsImportant}" />
-			<Button Content="Add note"
-					Command="{Binding AddTaskNote}" />
-		</StackPanel>-->
 	</utu:AutoLayout>
 
 </Page>

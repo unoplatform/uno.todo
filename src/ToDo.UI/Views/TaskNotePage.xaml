@@ -13,64 +13,24 @@
 	<Page.Resources>
 		<x:String x:Key="Icon_Delete_Outline">F1 M 1 16 C 1 17.100000023841858 1.899999976158142 18 3 18 L 11 18 C 12.100000023841858 18 13 17.100000023841858 13 16 L 13 4 L 1 4 L 1 16 Z M 3 6 L 11 6 L 11 16 L 3 16 L 3 6 Z M 10.5 1 L 9.5 0 L 4.5 0 L 3.5 1 L 0 1 L 0 3 L 14 3 L 14 1 L 10.5 1 Z</x:String>
 	</Page.Resources>
-	<utu:AutoLayout Spacing="20"
-					Padding="20,20,20,20"
-					CornerRadius="8"
-					Background="{ThemeResource MaterialSurfaceBrush}">
-
-		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-				   TextWrapping="Wrap"
-				   Text="Task name"
-				   Style="{StaticResource MaterialHeadline6}" />
-
-		<TextBox PlaceholderText="Write a note"
-				 Text="{Binding Note, Mode=TwoWay}"
-				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
-
-		<utu:AutoLayout Spacing="10"
-						Orientation="Horizontal">
-
-			<utu:AutoLayout Spacing="10"
-							Orientation="Horizontal"
-							utu:AutoLayout.CounterAlignment="Start"
-							utu:AutoLayout.PrimaryAlignment="Stretch" />
-
-			<Button Content="Cancel"
-					uen:Navigation.Request="-"
-					utu:AutoLayout.CounterAlignment="Start"
-					Style="{StaticResource MaterialTextButtonStyle}" />
-
-			<Button Content="Create"
-					Command="{Binding AddNote}"
-					utu:AutoLayout.CounterAlignment="Start"
-					Style="{StaticResource MaterialContainedButtonStyle}">
-			</Button>
-
-		</utu:AutoLayout>
-	</utu:AutoLayout>
-	<!--<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
+	<utu:AutoLayout>
 		<utu:NavigationBar Content="Task Note"
-						   Style="{StaticResource MaterialNavigationBarStyle}">
+							   Style="{StaticResource MaterialModalNavigationBarStyle}" >
 			-->
 	<!--Workaround for crash on UWP when using MaterialNavigationBarStyle-->
-	<!--
 			<utu:NavigationBar.MainCommand>
 				<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
 					<AppBarButton.Icon>
-						<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
+						<!--<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />-->
+						<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
 					</AppBarButton.Icon>
 				</AppBarButton>
 			</utu:NavigationBar.MainCommand>
 		</utu:NavigationBar>
-		<utu:AutoLayout grid.Row="2">
+		<utu:AutoLayout>
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-			<uer:FeedView Source="{Binding Entity}" utu:AutoLayout.PrimaryAlignment="Stretch">
-				<DataTemplate>
+			<!--<uer:FeedView Source="{Binding Entity}" utu:AutoLayout.PrimaryAlignment="Stretch">
+				<DataTemplate>-->
 					<utu:AutoLayout Spacing="10" Padding="0,10,0,0" DataContext="{Binding Data}">
 						<TextBox PlaceholderText="Add Note" utu:AutoLayout.PrimaryAlignment="Stretch" Style="{StaticResource MaterialFilledTextBoxStyle}" x:Uid="Body_TextBox" />
 						<utu:AutoLayout Padding="20,0,10,0">
@@ -92,10 +52,11 @@
 							</utu:AutoLayout>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-				</DataTemplate>
-			</uer:FeedView>
+				<Button Content="Save" Command="{Binding AddNote}"/>
+				<!--</DataTemplate>
+			</uer:FeedView>-->
 		</utu:AutoLayout>
 	</utu:AutoLayout>
 
-	</Grid>-->
+	</utu:AutoLayout>
 </Page>

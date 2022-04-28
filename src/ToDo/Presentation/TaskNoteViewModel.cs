@@ -16,6 +16,7 @@ public partial class TaskNoteViewModel
 
 	private async ValueTask AddNote(CancellationToken ct)
 	{
-		await _navigator.NavigateBackWithResultAsync(this, data: new TaskBodyData { Content = Note });
+		//await _navigator.NavigateBackWithResultAsync<TaskBodyData>(this, data: new TaskBodyData { Content = Note});
+		await _navigator.NavigateBackWithResultAsync(this, data: new TaskBodyData { Content = Note});
 	}
 }

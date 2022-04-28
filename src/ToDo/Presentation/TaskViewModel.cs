@@ -51,7 +51,7 @@ public partial class TaskViewModel
 
 	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, cancellation: ct);
+		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, data:task, cancellation: ct) ;
 		if (response is null)
 		{
 			return;
