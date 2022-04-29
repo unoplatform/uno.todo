@@ -33,7 +33,8 @@ public sealed partial class App : Application
 					logBuilder
 							.SetMinimumLevel(LogLevel.Information)
 							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information);
+							.XamlLayoutLogLevel(LogLevel.Information)
+							.AddFilter("Uno.Extensions.Navigation", LogLevel.Trace);
 				})
 
 				// Load configuration information from appsettings.json
@@ -205,7 +206,9 @@ public sealed partial class App : Application
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(Data: new DataMap<ToDoTask>()),
+			new ViewMap(
+				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > 800 ? typeof(TaskControl) : typeof(TaskPage),
+				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,
 			confirmDeleteTaskDialog,
@@ -228,8 +231,13 @@ public sealed partial class App : Application
 									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
 									Nested: new[]
 									{
-										new RouteMap("ToDo", IsDefault:true),
-										new RouteMap("Completed")
+										new RouteMap("MultiTaskLists", IsDefault: true,
+														Nested: new[]
+														{
+
+															new RouteMap("ToDo", IsDefault:true),
+															new RouteMap("Completed")
+														})
 									}),
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),

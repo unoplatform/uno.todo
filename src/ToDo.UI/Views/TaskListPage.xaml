@@ -102,115 +102,158 @@
 
 	</Page.Resources>
 
-	<utu:AutoLayout>
-		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-			<utu:NavigationBar Content="Task List"
-							   x:Uid="Body_NavigationBar"
-							   Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
-							   Style="{StaticResource MaterialNavigationBarStyle}">
-				<utu:NavigationBar.MainCommand>
-					<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-						<AppBarButton.Icon>
-							<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
-						</AppBarButton.Icon>
-					</AppBarButton>
-				</utu:NavigationBar.MainCommand>
-				<utu:NavigationBar.PrimaryCommands>
-					<AppBarButton Command="{Binding RenameList}"
-								  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-						<AppBarButton.Icon>
-							<PathIcon Data="{StaticResource Icon_Drive_File_Rename_Outline}" />
-						</AppBarButton.Icon>
-					</AppBarButton>
-					<AppBarButton Command="{Binding DeleteList}"
-								  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
-						<AppBarButton.Icon>
-							<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
-						</AppBarButton.Icon>
-					</AppBarButton>
-				</utu:NavigationBar.PrimaryCommands>
-			</utu:NavigationBar>
-			<Grid utu:AutoLayout.CounterAlignment="Stretch"
-				  utu:AutoLayout.PrimaryAlignment="Stretch"
-				  uen:Region.Attached="True">
-				<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-					<utu:TabBar Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
-								Style="{StaticResource MaterialTopTabBarStyle}"
-								uen:Region.Attached="True">
-						<utu:TabBarItem Content="To Do"
-										uen:Region.Name="ToDo"
-										utu:AutoLayout.PrimaryAlignment="Stretch" />
-						<utu:TabBarItem Content="Completed"
-										uen:Region.Name="Completed"
-										utu:AutoLayout.PrimaryAlignment="Stretch" />
-					</utu:TabBar>
-					<utu:AutoLayout Spacing="10"
-									Padding="20,10,20,0"
-									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<Grid utu:AutoLayout.CounterAlignment="Stretch"
-							  utu:AutoLayout.PrimaryAlignment="Stretch"
-							  uen:Region.Attached="True"
-							  uen:Region.Navigator="Visibility">
+	<Grid>
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="Narrow" />
+				<VisualState x:Name="Wide">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="{StaticResource ExtraWideMinWindowWidth}" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="TaskListColumn.Width"
+								Value="*" />
+						<Setter Target="TaskListColumn.MinWidth"
+								Value="300" />
+						<Setter Target="TaskColumn.Width"
+								Value="2*" />
+						<Setter Target="TaskDetailsGrid.Visibility"
+								Value="Visible" />
+						<Setter Target="TaskDetails.(uen:Region.Attached)"
+								Value="true" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"
+							  x:Name="TaskListColumn" />
+			<ColumnDefinition Width="0"
+							  x:Name="TaskColumn" />
+		</Grid.ColumnDefinitions>
+		<utu:AutoLayout>
+			<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+				<utu:NavigationBar Content="Task List"
+								   x:Uid="Body_NavigationBar"
+								   Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
+								   Style="{StaticResource MaterialNavigationBarStyle}">
+					<utu:NavigationBar.MainCommand>
+						<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+							<AppBarButton.Icon>
+								<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
+							</AppBarButton.Icon>
+						</AppBarButton>
+					</utu:NavigationBar.MainCommand>
+					<utu:NavigationBar.PrimaryCommands>
+						<AppBarButton Command="{Binding RenameList}"
+									  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+							<AppBarButton.Icon>
+								<PathIcon Data="{StaticResource Icon_Drive_File_Rename_Outline}" />
+							</AppBarButton.Icon>
+						</AppBarButton>
+						<AppBarButton Command="{Binding DeleteList}"
+									  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+							<AppBarButton.Icon>
+								<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
+							</AppBarButton.Icon>
+						</AppBarButton>
+					</utu:NavigationBar.PrimaryCommands>
+				</utu:NavigationBar>
+				<Grid utu:AutoLayout.CounterAlignment="Stretch"
+					  utu:AutoLayout.PrimaryAlignment="Stretch"
+					  uen:Region.Attached="True"
+					  uen:Region.Name="MultiTaskLists">
+					<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+						<utu:TabBar Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
+									Style="{StaticResource MaterialTopTabBarStyle}"
+									uen:Region.Attached="True">
+							<utu:TabBarItem Content="To Do"
+											uen:Region.Name="ToDo"
+											utu:AutoLayout.PrimaryAlignment="Stretch" />
+							<utu:TabBarItem Content="Completed"
+											uen:Region.Name="Completed"
+											utu:AutoLayout.PrimaryAlignment="Stretch" />
+						</utu:TabBar>
+						<utu:AutoLayout Spacing="10"
+										Padding="20,10,20,0"
+										utu:AutoLayout.PrimaryAlignment="Stretch">
+							<Grid utu:AutoLayout.CounterAlignment="Stretch"
+								  utu:AutoLayout.PrimaryAlignment="Stretch"
+								  uen:Region.Attached="True"
+								  uen:Region.Navigator="Visibility">
 
-							<!-- TODO: Both FeedView should be set to collapsed by default
+								<!-- TODO: Both FeedView should be set to collapsed by default
 							However, currently setting them to Collapsed by default results
 							in no data being shown. ActiveTasks is in XAML second, to position
 							it over the top of the CompletedTasks, since they're currently
 							both visible by default -->
-							<uer:FeedView Source="{Binding CompletedTasks}"
-										  utu:AutoLayout.CounterAlignment="Start"
-										  utu:AutoLayout.PrimaryAlignment="Stretch"
-										  uen:Region.Name="Completed"
-										  Visibility="Visible">
-								<DataTemplate>
-									<ListView ItemsSource="{Binding Data}"
-											  uen:Navigation.Request="Task"
-											  SelectionMode="None"
-											  IsItemClickEnabled="True"
-											  Style="{StaticResource TaskListViewStyle}">
+								<uer:FeedView Source="{Binding CompletedTasks}"
+											  utu:AutoLayout.CounterAlignment="Start"
+											  utu:AutoLayout.PrimaryAlignment="Stretch"
+											  uen:Region.Name="Completed"
+											  Visibility="Visible">
+									<DataTemplate>
+										<ListView ItemsSource="{Binding Data}"
+												  uen:Navigation.Request="Task"
+												  SelectionMode="None"
+												  IsItemClickEnabled="True"
+												  Style="{StaticResource TaskListViewStyle}">
 
-									</ListView>
-								</DataTemplate>
-							</uer:FeedView>
+										</ListView>
+									</DataTemplate>
+								</uer:FeedView>
 
-							<uer:FeedView Source="{Binding ActiveTasks}"
-										  utu:AutoLayout.CounterAlignment="Start"
-										  utu:AutoLayout.PrimaryAlignment="Stretch"
-										  uen:Region.Name="ToDo"
-										  Visibility="Visible">
-								<DataTemplate>
-									<ListView ItemsSource="{Binding Data}"
-											  uen:Navigation.Request="Task"
-											  SelectionMode="None"
-											  IsItemClickEnabled="True"
-											  Style="{StaticResource TaskListViewStyle}">
+								<uer:FeedView Source="{Binding ActiveTasks}"
+											  utu:AutoLayout.CounterAlignment="Start"
+											  utu:AutoLayout.PrimaryAlignment="Stretch"
+											  uen:Region.Name="ToDo"
+											  Visibility="Visible">
+									<DataTemplate>
+										<ListView ItemsSource="{Binding Data}"
+												  uen:Navigation.Request="Task"
+												  SelectionMode="None"
+												  IsItemClickEnabled="True"
+												  Style="{StaticResource TaskListViewStyle}">
 
-									</ListView>
-								</DataTemplate>
-							</uer:FeedView>
+										</ListView>
+									</DataTemplate>
+								</uer:FeedView>
 
 
-						</Grid>
+							</Grid>
 
+						</utu:AutoLayout>
 					</utu:AutoLayout>
-				</utu:AutoLayout>
 
-			</Grid>
-			<utu:AutoLayout Margin="0,0,0,20"
-							Padding="20,0,20,0"
-							utu:AutoLayout.PrimaryLength="60">
-				<Button Content="Add a task"
-						x:Uid="Body_Button"
-						Command="{Binding CreateTask}"
-						HorizontalContentAlignment="Left"
-						Foreground="{StaticResource MaterialOnPrimaryBrush}"
-						Background="{StaticResource MaterialOnSurfaceFocusedBrush}"
-						Style="{StaticResource MaterialTextButtonStyle}">
-					<um:ControlExtensions.Icon>
-						<PathIcon Data="{StaticResource Icon_Add}" />
-					</um:ControlExtensions.Icon>
-				</Button>
+				</Grid>
+				<utu:AutoLayout Margin="0,0,0,20"
+								Padding="20,0,20,0"
+								utu:AutoLayout.PrimaryLength="60">
+					<Button Content="Add a task"
+							x:Uid="Body_Button"
+							Command="{Binding CreateTask}"
+							HorizontalContentAlignment="Left"
+							Foreground="{StaticResource MaterialOnPrimaryBrush}"
+							Background="{StaticResource MaterialOnSurfaceFocusedBrush}"
+							Style="{StaticResource MaterialTextButtonStyle}">
+						<um:ControlExtensions.Icon>
+							<PathIcon Data="{StaticResource Icon_Add}" />
+						</um:ControlExtensions.Icon>
+					</Button>
+				</utu:AutoLayout>
 			</utu:AutoLayout>
 		</utu:AutoLayout>
-	</utu:AutoLayout>
+
+		<Grid Grid.Column="1"
+			  x:Name="TaskDetailsGrid"
+			  Visibility="Collapsed">
+			<ContentControl x:Name="TaskDetails"
+							uen:Region.Attached="false"
+							Grid.Column="1"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Stretch" />
+		</Grid>
+	</Grid>
 </Page>
