@@ -41,6 +41,7 @@
 						   Text="{Binding CurrentUser.Email}"
 						   Style="{StaticResource MaterialBody2}" />
 				<Button Content="sign out"
+						x:Uid="SignOutButton"
 						Command="{Binding SignOut}"
 						Style="{StaticResource MaterialTextButtonStyle}" />
 			</utu:AutoLayout>
@@ -64,7 +65,9 @@
 									   Text="Color palette"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource MaterialSubtitle1}" />
-							<utu:ChipGroup SelectionMode="Single"
+							<utu:ChipGroup x:Name="ColorPaletteChipGroup"
+										   SelectionMode="Single"
+										   ItemChecked="{x:Bind UpdateAppColorPalette}"
 										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
 								<utu:Chip Content="Purple"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
@@ -76,16 +79,21 @@
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="5">
 							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-									   Text="Language"
+									   Text="Language - This requires an app restart"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource MaterialSubtitle1}" />
-							<utu:ChipGroup SelectionMode="Single"
+							<utu:ChipGroup x:Name="LanguageChipGroup"
+										   SelectionMode="Single"
+										   ItemChecked="{x:Bind UpdateAppLanguage}"
 										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
 								<utu:Chip Content="English"
+										  Tag="en"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 								<utu:Chip Content="French"
+										  Tag="fr"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 								<utu:Chip Content="Spanish"
+										  Tag="es"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 							</utu:ChipGroup>
 						</utu:AutoLayout>
@@ -107,30 +115,30 @@
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-					<utu:AutoLayout Spacing="5"
-									Padding="0,10,0,10">
-						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
-									 utu:AutoLayout.CounterLength="350"
-									 Style="{StaticResource MaterialDividerStyle}" />
-					</utu:AutoLayout>
+				<utu:AutoLayout Spacing="5"
+								Padding="0,10,0,10">
+					<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+								 utu:AutoLayout.CounterLength="350"
+								 Style="{StaticResource MaterialDividerStyle}" />
+				</utu:AutoLayout>
+				<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+						   TextWrapping="Wrap"
+						   Text="About"
+						   Style="{StaticResource MaterialSubtitle2}" />
+				<utu:AutoLayout Spacing="5"
+								Orientation="Horizontal">
+					<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+							   Text="Version"
+							   utu:AutoLayout.PrimaryAlignment="Stretch"
+							   Style="{StaticResource MaterialSubtitle1}" />
 					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
-							   TextWrapping="Wrap"
-							   Text="About"
-							   Style="{StaticResource MaterialSubtitle2}" />
-					<utu:AutoLayout Spacing="5"
-									Orientation="Horizontal">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-								   Text="Version"
-								   utu:AutoLayout.PrimaryAlignment="Stretch"
-								   Style="{StaticResource MaterialSubtitle1}" />
-						<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
-								   TextAlignment="End"
-								   Text="1.0.0"
-								   utu:AutoLayout.PrimaryAlignment="Stretch"
-								   Style="{StaticResource MaterialSubtitle1}" />
-					</utu:AutoLayout>
+							   TextAlignment="End"
+							   Text="1.0.0"
+							   utu:AutoLayout.PrimaryAlignment="Stretch"
+							   Style="{StaticResource MaterialSubtitle1}" />
 				</utu:AutoLayout>
 			</utu:AutoLayout>
 		</utu:AutoLayout>
+	</utu:AutoLayout>
 	</utu:AutoLayout>
 </Page>

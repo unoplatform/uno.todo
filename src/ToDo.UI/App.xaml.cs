@@ -1,6 +1,7 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 
+using Uno.Extensions.Localization;
 using Uno.Extensions.Navigation.UI;
 
 namespace ToDo;
@@ -16,6 +17,8 @@ public sealed partial class App : Application
 
 	public App()
 	{
+		ChangeStartingLanguage();
+		
 		Host = UnoHost
 				.CreateDefaultBuilder()
 #if DEBUG
@@ -44,7 +47,7 @@ public sealed partial class App : Application
 				// Load AppInfo section
 				.UseConfiguration<AppInfo>()
 				.UseConfiguration<OAuthSettings>()
-
+				
 
 				.UseSettings<ToDoSettings>()
 
@@ -67,6 +70,9 @@ public sealed partial class App : Application
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
 
+				// Add localization support
+				.UseLocalization()
+
 				.Build(enableUnoLogging: true);
 
 		this.InitializeComponent();
@@ -74,6 +80,14 @@ public sealed partial class App : Application
 #if HAS_UNO || NETFX_CORE
 		this.Suspending += OnSuspending;
 #endif
+	}
+
+
+	private void ChangeStartingLanguage()
+	{
+		var culture = new System.Globalization.CultureInfo("fr");
+
+		Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = culture.TwoLetterISOLanguageName;
 	}
 
 	/// <summary>
