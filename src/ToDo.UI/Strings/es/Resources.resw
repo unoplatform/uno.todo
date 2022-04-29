@@ -23,4 +23,16 @@
   <data name="HomePage_CreateTaskList.Content" xml:space="preserve">
     <value>Nueva lista</value>
   </data>
+  <data name="AddListFlyout_PageTitle.Text" xml:space="preserve">
+    <value>Nueva lista</value>
+  </data>
+  <data name="AddListFlyout_ListNameInput.PlaceholderText" xml:space="preserve">
+    <value>Escribe el título de la lista</value>
+  </data>
+  <data name="AddListFlyout_CancelButton.Content" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="AddListFlyout_CreateButton.Content" xml:space="preserve">
+    <value>Crear</value>
+  </data>
 </root>

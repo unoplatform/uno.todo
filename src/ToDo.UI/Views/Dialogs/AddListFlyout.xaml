@@ -19,29 +19,32 @@
 					CornerRadius="8"
 					Background="{ThemeResource MaterialSurfaceBrush}">
 
-		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+		<TextBlock x:Uid="AddListFlyout_PageTitle"
+				   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 				   TextWrapping="Wrap"
 				   Text="New list"
 				   Style="{StaticResource MaterialHeadline6}" />
 
-		<TextBox PlaceholderText="Write the title"
+		<TextBox x:Uid="AddListFlyout_ListNameInput"
+				 PlaceholderText="Write the title"
 				 Text="{Binding ListName, Mode=TwoWay}"
 				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 
-		<utu:AutoLayout Spacing="10"
-						Orientation="Horizontal">
+		<utu:AutoLayout Spacing="10" Orientation="Horizontal">
 
 			<utu:AutoLayout Spacing="10"
 							Orientation="Horizontal"
 							utu:AutoLayout.CounterAlignment="Start"
 							utu:AutoLayout.PrimaryAlignment="Stretch" />
 
-			<Button Content="Cancel"
+			<Button x:Uid="AddListFlyout_CancelButton"
+					Content="Cancel"
 					uen:Navigation.Request="-"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialTextButtonStyle}" />
 
-			<Button Content="Create"
+			<Button x:Uid="AddListFlyout_CreateButton"
+					Content="Create"
 					Command="{Binding AddCommand}"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialContainedButtonStyle}">

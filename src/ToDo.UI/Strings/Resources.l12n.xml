@@ -43,4 +43,26 @@
 			<es>Nueva lista</es>
 		</data>
 	</section>
+	<section prefix="AddListFlyout_">
+		<data name="PageTitle.Text">
+			<en>New list</en>
+			<fr>Nouvelle liste</fr>
+			<es>Nueva lista</es>
+		</data>
+		<data name="ListNameInput.PlaceholderText">
+			<en>Enter list title</en>
+			<fr>Entrer le titre de la liste</fr>
+			<es>Escribe el título de la lista</es>
+		</data>
+		<data name="CancelButton.Content">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<data name="CreateButton.Content">
+			<en>Create</en>
+			<fr>Créer</fr>
+			<es>Crear</es>
+		</data>
+	</section>
 </root>
