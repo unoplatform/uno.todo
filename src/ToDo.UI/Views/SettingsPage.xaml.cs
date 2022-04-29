@@ -7,33 +7,49 @@ using Uno.Toolkit.UI;
 
 public sealed partial class SettingsPage : Page
 {
+	private SettingsViewModel.BindableSettingsViewModel? ViewModel { get; set; }
 	private readonly IWritableOptions<LocalizationSettings> _localizationSettings;
 	private bool isInitializing;
 
-	public SettingsPage(IWritableOptions<LocalizationSettings> localizationSettings)
+	public SettingsPage()
 	{
 		this.InitializeComponent();
 
-		_localizationSettings = localizationSettings;
+		DataContextChanged += (sender, contextArgs) =>
+		{
+			this.ViewModel = DataContext as SettingsViewModel.BindableSettingsViewModel;
+			if (this.IsLoaded)
+			{
+				PageLoaded();
+			}
+		};
+
 
 		this.Loaded += (s, e) =>
 		{
-			isInitializing = true;
+			PageLoaded();
+		};
+	}
+	private void PageLoaded()
+	{ 
+		if(ViewModel is null)
+        {
+			return;
+        }
+
+	isInitializing = true;
 
 			// Set default theme
 			var currentTheme = SystemThemeHelper.IsRootInDarkMode(XamlRoot) ? "Dark" : "Light";
 			SelectChipGroupItem(ThemeChipGroup, x => (string)x.Tag == currentTheme);
 
 			//Set default language
-			var currentCulture = _localizationSettings.Value.CurrentCulture;
+			var currentCulture = ViewModel?.LocalizationSettings.Value.CurrentCulture;
 			SelectChipGroupItem(LanguageChipGroup, x => (string)x.Tag == currentCulture);
 
 			// Set default theme
 			var currentTheme = SystemThemeHelper.IsRootInDarkMode(XamlRoot) ? "Dark" : "Light";
 			SelectChipGroupItem(ThemeChipGroup, x => (string)x.Tag == currentTheme);
-
-			isInitializing = false;
-		};
 	}
 
 	private void UpdateAppLanguage(object sender, ChipItemEventArgs e)
@@ -41,7 +57,7 @@ public sealed partial class SettingsPage : Page
 		if (e.Item is Chip chip)
 		{
 			// This requires an app restart
-			_localizationSettings.Update(settings =>
+			ViewModel?.LocalizationSettings.Update(settings =>
 			{
 				settings.CurrentCulture = (string)chip.Tag;
 			});
