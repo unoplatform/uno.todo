@@ -1,4 +1,4 @@
-using ToDo.Business.Services;
+
 
 namespace ToDo.Presentation;
 
@@ -6,14 +6,17 @@ public partial class SettingsViewModel
 {
 	private readonly IAuthenticationService _authService;
 	private readonly INavigator _navigator;
+	public IWritableOptions<LocalizationSettings> LocalizationSettings { get; }
 
 	private SettingsViewModel(
 		INavigator navigator,
 		ICommandBuilder signOut,
-		IAuthenticationService authService)
+		IAuthenticationService authService,
+		IWritableOptions<LocalizationSettings> localizationSettings)
 	{
 		_navigator = navigator;
 		_authService = authService;
+		LocalizationSettings = localizationSettings;
 		signOut.Execute(SignOut);
 	}
 

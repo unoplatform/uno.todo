@@ -15,6 +15,7 @@
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
 		<PackageReference Include="Uno.WinUI.MSAL" Version="4.1.9" />
 		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.483" />
+		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.483" />
 		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.483" />
 		<PackageReference Include="Uno.Extensions.Http.Refit" Version="1.2.0-dev.483" />
 		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.483" />
