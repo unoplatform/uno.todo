@@ -53,7 +53,10 @@
 															Orientation="Horizontal"
 															utu:AutoLayout.CounterAlignment="Start"
 															utu:AutoLayout.CounterLength="40">
-												<CheckBox utu:AutoLayout.CounterAlignment="Start"
+												<CheckBox IsChecked="{Binding IsCompleted}"
+														  Command="{controls:AncestralBinding Path=ToggleIsCompleted, AncestorType=uer:FeedView}"
+														  CommandParameter="{Binding}"
+														  utu:AutoLayout.CounterAlignment="Start"
 														  Style="{StaticResource MaterialCheckBoxStyle}" />
 											</utu:AutoLayout>
 										</utu:AutoLayout>
