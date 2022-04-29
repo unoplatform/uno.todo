@@ -33,7 +33,8 @@ public sealed partial class App : Application
 					logBuilder
 							.SetMinimumLevel(LogLevel.Information)
 							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information);
+							.XamlLayoutLogLevel(LogLevel.Information)
+							.AddFilter("Uno.Extensions.Navigation", LogLevel.Trace);
 				})
 
 				// Load configuration information from appsettings.json
@@ -65,13 +66,6 @@ public sealed partial class App : Application
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
-
-				.ConfigureServices((context, services) =>
-				{
-					services
-						.AddSingleton<IRequestHandler, TapRequestHandler>();
-				})
-
 
 				.Build(enableUnoLogging: true);
 
@@ -211,8 +205,10 @@ public sealed partial class App : Application
 			new ViewMap<SettingsPage, SettingsViewModel.BindableSettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data:new DataMap<TaskList>()),
-			new ViewMap<TaskPage, TaskViewModel.BindableTaskViewModel>(Data: new DataMap<ToDoTask>()),
+			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
+			new ViewMap(
+				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > 1000 ? typeof(TaskControl) : typeof(TaskPage),
+				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,
 			confirmDeleteTaskDialog,
@@ -222,8 +218,7 @@ public sealed partial class App : Application
 
 		routes
 			.Register(
-			views =>
-				new("", View: views.FindByViewModel<ShellViewModel>(),
+				new RouteMap("", View: views.FindByViewModel<ShellViewModel>(),
 						Nested: new RouteMap[]
 						{
 							new ("Welcome",
@@ -234,10 +229,19 @@ public sealed partial class App : Application
 									),
 							new("TaskList",
 									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
-									DependsOn:"Home"),
+									Nested: new[]
+									{
+										new RouteMap("MultiTaskLists", IsDefault: true,
+														Nested: new[]
+														{
+
+															new RouteMap("ToDo", IsDefault:true),
+															new RouteMap("Completed")
+														})
+									}),
 							new("Task",
 									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
-									DependsOn:"Home"),
+									DependsOn:"TaskList"),
 							new("TaskSearch",
 									View: views.FindByView<TaskSearchFlyout>(),
 									Nested: new RouteMap[]{
@@ -246,11 +250,10 @@ public sealed partial class App : Application
 											IsDefault: true)
 									}),
 							new("Settings",
-									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>(),
-									DependsOn:"Home"),
+									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
 							new("TaskNote",
 									View: views.FindByViewModel<TaskNoteViewModel>(),
-									DependsOn:"Home"),
+									DependsOn:"Task"),
 							new("AddTask",
 								View: views.FindByView<AddTaskViewModel>()),
 							new("AddList",
@@ -291,27 +294,5 @@ public sealed partial class App : Application
 		{
 			Console.WriteLine("Error: " + ex.Message);
 		}
-	}
-}
-
-
-
-public class TapRequestHandler : ActionRequestHandlerBase<FrameworkElement>
-{
-	public TapRequestHandler(IRouteResolver routes) : base(routes)
-	{
-	}
-
-	public override IRequestBinding? Bind(FrameworkElement view)
-	{
-		if (view is null)
-		{
-			return null;
-		}
-
-		return BindAction(view,
-			action => new TappedEventHandler((sender, args) => action((FrameworkElement)sender)),
-			(element, handler) => element.Tapped += handler,
-			(element, handler) => element.Tapped -= handler);
 	}
 }

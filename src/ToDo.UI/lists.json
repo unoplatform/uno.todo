@@ -5,7 +5,7 @@
     "isOwner": true,
     "isShared": false,
     "wellknownListName": "defaultList",
-    "id": "AQMkAGFlMTMyOTVlLTg4ADE2LTRjZGItOWNiNS1iMTY0NzI0M2RlMGYALgAAA3GLAnutt_9MvQh8YNIniVQBACy0iGRISilGtH74C9A0jfgAAAIBEgAAAA=="
+    "id": "List-Tasks"
   },
   {
     "@odata.etag": "W/\"LLSIZEhKKUa0fvgL0DSN+AAAv9rEVg==\"",
@@ -13,6 +13,14 @@
     "isOwner": true,
     "isShared": false,
     "wellknownListName": "none",
-    "id": "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AACzQA1DAAA="
+    "id": "List-Family"
+  },
+  {
+    "@odata.etag": "W/\"LLSIZEhKKUa0fvgL0DSN+AAAv9rEVg==\"",
+    "displayName": "Groceries",
+    "isOwner": true,
+    "isShared": false,
+    "wellknownListName": "none",
+    "id": "List-Groceries"
   }
 ]

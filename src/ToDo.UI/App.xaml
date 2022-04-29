@@ -37,6 +37,7 @@
 			<SolidColorBrush x:Key="FlyoutLightDismissOverlayBackground"
 							 Color="{StaticResource MaterialOverlayColor}" />
 			<x:Double x:Key="WideMinWindowWidth">800</x:Double>
+			<x:Double x:Key="ExtraWideMinWindowWidth">1000</x:Double>
 		</ResourceDictionary>
 	</Application.Resources>
 
