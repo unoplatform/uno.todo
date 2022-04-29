@@ -39,12 +39,12 @@
 						 MenuItemsSource="{Binding WellKnownLists}"
 						 FooterMenuItemsSource="{Binding CustomLists}"
 						 AlwaysShowHeader="True"
-						 PaneDisplayMode="Auto"
+						 PaneDisplayMode="LeftMinimal"
 						 OpenPaneLength="{StaticResource SplitModeSidePaneWidth}"
 						 IsPaneToggleButtonVisible="False"
 						 IsSettingsVisible="False"
 						 CompactPaneLength="0"
-						 CompactModeThresholdWidth="0"
+						 CompactModeThresholdWidth="801"
 						 ExpandedModeThresholdWidth="{StaticResource SplitModeThresholdWidth}"
 						 Style="{StaticResource HomeNavigationViewStyle}">
 
@@ -89,8 +89,7 @@
 										 uen:Navigation.Request="./TaskList"
 										 uen:Navigation.Data="{Binding}">
 					<muxc:NavigationViewItem.Icon>
-						<PathIcon Data="{Binding Converter={StaticResource TaskListIconConverter}}"
-								  Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
+						<PathIcon Data="{Binding Converter={StaticResource TaskListIconConverter}}" Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
 					</muxc:NavigationViewItem.Icon>
 				</muxc:NavigationViewItem>
 			</DataTemplate>
@@ -112,17 +111,7 @@
 			</Border>
 		</muxc:NavigationView.PaneFooter>
 
-		<Grid uen:Region.Navigator="Visibility"
-			  uen:Region.Attached="True" />
-
-		<!-- Content -->
-		<!-- inject navigation here -->
-		<!--
-		<Frame>
-			<StackPanel>
-				<Button Content="☰" Click="OpenNavPane" />
-				<TextBlock Text="todo: add content/navigation" />
-			</StackPanel>
-		</Frame>-->
+		<Grid uen:Region.Navigator="Visibility" uen:Region.Attached="True" />
 	</muxc:NavigationView>
+
 </Page>
