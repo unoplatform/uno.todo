@@ -68,7 +68,7 @@
 						   x:Uid="Body_Start_Using_The_Best_To_Do_App" />
 			</utu:AutoLayout>
 			<Button Content="Get started"
-					x:Uid="Body_Button"
+					x:Uid="Welcome_Body_Button"
 					Command="{Binding GetStarted}"
 					Style="{StaticResource MaterialContainedButtonStyle}" />
 		</utu:AutoLayout>
