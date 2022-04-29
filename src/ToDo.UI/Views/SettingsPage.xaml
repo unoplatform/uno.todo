@@ -94,11 +94,15 @@
 									   Text="Mode"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource MaterialSubtitle1}" />
-							<utu:ChipGroup SelectionMode="Single"
+							<utu:ChipGroup x:Name="ThemeChipGroup"
+										   SelectionMode="Single"
+										   ItemChecked="{x:Bind UpdateAppTheme}"
 										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
 								<utu:Chip Content="Light"
+										  Tag="Light"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 								<utu:Chip Content="Dark"
+										  Tag="Dark"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 							</utu:ChipGroup>
 						</utu:AutoLayout>
