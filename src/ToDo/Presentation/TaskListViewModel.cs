@@ -19,7 +19,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		IMessenger messenger,
 		IInput<TaskList> entity,
 		ICommandBuilder createTask,
-		ICommandBuilder<ToDoTask> starTask,
+		ICommandBuilder<ToDoTask> toggleIsImportant,
 		ICommandBuilder<ToDoTask> navigateToTask,
 		ICommandBuilder<ToDoTask> toggleIsCompleted,
 		ICommandBuilder deleteList,
@@ -32,7 +32,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		_entity = entity;
 
 		createTask.Given(entity).Then(CreateTask);
-		starTask.Then(StarTask);
+		toggleIsImportant.Then(ToggleIsImportant);
 		navigateToTask.Then(NavigateToTask);
 		toggleIsCompleted.Then(ToggleIsCompleted);
 		deleteList.Given(entity).Then(DeleteList);
@@ -67,9 +67,14 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		}
 	}
 
-	private async ValueTask StarTask(ToDoTask task, CancellationToken ct)
+	private async ValueTask ToggleIsImportant (ToDoTask task, CancellationToken ct) 
 	{
-		await Task.CompletedTask;
+		if (task.Importance is null)
+		{
+			return;
+		}
+		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+		await _taskSvc.UpdateAsync(updatedTask, ct);
 	}
 
 	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)

@@ -7,16 +7,41 @@ public partial class SearchViewModel
 
 	public SearchViewModel(
 		ITaskService svc,
-		IInput<string> term)
+		IInput<string> term,
+		ICommandBuilder<ToDoTask> toggleIsCompleted,
+		ICommandBuilder<ToDoTask> toggleIsImportant)
 	{
 		_svc = svc;
 		_term = term;
+
+		toggleIsCompleted.Then(ToggleIsCompleted);
+		toggleIsImportant.Then(ToggleIsImportant);
 	}
 
-	public IListFeed<ToDoTask> Results => _term.SelectAsync(Search).AsListFeed();
+	public IListFeed<ToDoTask> Results => _term
+		.Where(term => term is { Length: > 0 })
+		.SelectAsync(_svc.GetAllAsync)
+		.AsListFeed();
 
-	private ValueTask<IImmutableList<ToDoTask>> Search(string s, CancellationToken ct) =>
-		string.IsNullOrWhiteSpace(s)
-			? new ValueTask<IImmutableList<ToDoTask>>(ImmutableList<ToDoTask>.Empty)
-			: _svc.GetAllAsync(s, ct);
+	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Status is null)
+		{
+			return;
+		}
+
+		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		await _svc.UpdateAsync(updatedTask, ct);
+	}
+
+	private async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Importance is null)
+		{
+			return;
+		}
+		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+
+		await _svc.UpdateAsync(updatedTask, ct);
+	}
 }

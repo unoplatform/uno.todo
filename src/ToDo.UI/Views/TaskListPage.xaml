@@ -80,7 +80,8 @@
 											<utu:AutoLayout PrimaryAxisAlignment="End"
 															Orientation="Horizontal">
 												<ToggleButton utu:AutoLayout.CounterAlignment="Start"
-															  Command="{controls:AncestralBinding Path=StarTask, AncestorType=uer:FeedView}"
+															  IsChecked="{Binding IsImportant}"
+															  Command="{controls:AncestralBinding Path=ToggleIsImportant, AncestorType=uer:FeedView}"
 															  CommandParameter="{Binding}"
 															  Style="{StaticResource MaterialToggleButtonIconStyle}">
 													<ToggleButton.Content>

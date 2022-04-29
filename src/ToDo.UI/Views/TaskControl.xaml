@@ -34,7 +34,8 @@
 						<CheckBox utu:AutoLayout.CounterAlignment="Start"
 								  Style="{StaticResource MaterialCheckBoxStyle}"
 								  IsChecked="{Binding Entity.IsCompleted}"
-								  Command="{Binding ToggleIsCompleted}" />
+								  Command="{Binding ToggleIsCompleted}"
+								  CommandParameter="{Binding}" />
 					</utu:AutoLayout>
 					<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -45,7 +46,8 @@
 						<ToggleButton utu:AutoLayout.CounterAlignment="Start"
 									  Style="{StaticResource MaterialToggleButtonIconStyle}"
 									  IsChecked="{Binding Entity.IsImportant}"
-									  Command="{Binding ToggleIsImportant}">
+									  Command="{Binding ToggleIsImportant}"
+									  CommandParameter="{Binding}">
 							<ToggleButton.Content>
 								<PathIcon Data="{StaticResource Icon_Star_Rate}" />
 							</ToggleButton.Content>
