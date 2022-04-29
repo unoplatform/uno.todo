@@ -207,7 +207,7 @@ public sealed partial class App : Application
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
 			new ViewMap(
-				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > 800 ? typeof(TaskControl) : typeof(TaskPage),
+				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > 1000 ? typeof(TaskControl) : typeof(TaskPage),
 				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,
