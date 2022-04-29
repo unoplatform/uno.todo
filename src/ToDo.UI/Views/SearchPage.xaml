@@ -29,7 +29,7 @@
 						x:Uid="Body_IconButton">
 					<PathIcon Data="{StaticResource Icon_Arrow_Back}" />
 				</Button>
-				<TextBox Text="{Binding Term, Mode=TwoWay}"
+				<TextBox Text="{Binding Term, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 						 PlaceholderText="Search"
 						 utu:AutoLayout.CounterAlignment="Start"
 						 utu:AutoLayout.PrimaryAlignment="Stretch"

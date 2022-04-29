@@ -19,7 +19,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="SplitView">
-					<Grid Background="{TemplateBinding Background}">
+					<Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
 
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition x:Name="ColumnDefinition1" Width="{Binding TemplateSettings.OpenPaneGridLength, FallbackValue=0, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
@@ -79,7 +79,6 @@
 
 						<VisualStateManager.VisualStateGroups>
 							<VisualStateGroup x:Name="DisplayModeStates">
-								<!-- ClosedCompactLeft,OpenCompactOverlayLeft/OpenInlineLeft are the main states used here -->
 								<VisualStateGroup.Transitions>
 									<VisualTransition From="ClosedCompactLeft" To="OpenCompactOverlayLeft">
 										<Storyboard>
@@ -161,31 +160,7 @@
 															 Duration="0:0:0" />
 									</Storyboard>
 								</VisualState>
-								<win:VisualState x:Name="OpenCompactOverlayLeft">
-									<!-- default impl: side-by-side with overlay -->
-									<Storyboard>
-										<void:ObjectAnimationUsingKeyFrames Storyboard.TargetName="ColumnDefinition1" Storyboard.TargetProperty="Width">
-											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{Binding TemplateSettings.CompactPaneGridLength, FallbackValue=0, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-										</void:ObjectAnimationUsingKeyFrames>
-										<void:ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentRoot" Storyboard.TargetProperty="(Grid.Column)">
-											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="1" />
-										</void:ObjectAnimationUsingKeyFrames>
-										<void:ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentRoot" Storyboard.TargetProperty="(Grid.ColumnSpan)">
-											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="1" />
-										</void:ObjectAnimationUsingKeyFrames>
-										<void:ObjectAnimationUsingKeyFrames Storyboard.TargetName="PaneRoot" Storyboard.TargetProperty="Visibility">
-											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
-										</void:ObjectAnimationUsingKeyFrames>
-										<void:ObjectAnimationUsingKeyFrames Storyboard.TargetName="HCPaneBorder" Storyboard.TargetProperty="Visibility">
-											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
-										</void:ObjectAnimationUsingKeyFrames>
-										<void:ObjectAnimationUsingKeyFrames Storyboard.TargetName="LightDismissLayer" Storyboard.TargetProperty="Visibility">
-											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
-										</void:ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</win:VisualState>
-								<xamarin:VisualState x:Name="OpenCompactOverlayLeft">
-									<!-- full screen "flyout" version -->
+								<VisualState x:Name="OpenCompactOverlayLeft">
 									<Storyboard>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ColumnDefinition1" Storyboard.TargetProperty="Width">
 											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="0" />
@@ -215,7 +190,7 @@
 											<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
 										</ObjectAnimationUsingKeyFrames>
 									</Storyboard>
-								</xamarin:VisualState>
+								</VisualState>
 								<VisualState x:Name="OpenInlineLeft">
 									<VisualState.Setters>
 										<Setter Target="PaneTransform.TranslateX" Value="0" />
