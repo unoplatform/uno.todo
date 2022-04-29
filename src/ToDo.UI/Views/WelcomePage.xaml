@@ -59,16 +59,16 @@
 						   TextWrapping="Wrap"
 						   Text="Welcome to&#xA;Uno To Do!"
 						   Style="{StaticResource MaterialHeadline4}"
-						   x:Uid="Body_Welcome_To_Uno_To_Do_" />
+						   x:Uid="WelcomePage_Welcome" />
 				<TextBlock Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
 						   Text="Start using the best to-do app"
 						   Style="{StaticResource MaterialSubtitle2}"
-						   x:Uid="Body_Start_Using_The_Best_To_Do_App" />
+						   x:Uid="WelcomePage_Line2" />
 			</utu:AutoLayout>
 			<Button Content="Get started"
-					x:Uid="Welcome_Body_Button"
+					x:Uid="WelcomePage_GetStarted"
 					Command="{Binding GetStarted}"
 					Style="{StaticResource MaterialContainedButtonStyle}" />
 		</utu:AutoLayout>
@@ -92,17 +92,20 @@
 									Padding="0,0,0,40"
 									utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.CounterLength="330">
-						<TextBlock Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}"
+						<TextBlock x:Uid="WelcomePage_Welcome"
+								   Foreground="{ThemeResource MaterialOnSecondaryMediumBrush}"
 								   TextWrapping="Wrap"
 								   Text="Welcome to&#xA;Uno To Do!"
 								   Style="{StaticResource MaterialHeadline2}" />
-						<TextBlock Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
+						<TextBlock x:Uid="WelcomePage_Line2"
+								   Foreground="{ThemeResource MaterialPrimaryVariantLightBrush}"
 								   TextWrapping="Wrap"
 								   Text="Start using the best to-do app, you can&#xA;create and manage your to-do lists to improve your organization."
 								   Style="{StaticResource MaterialSubtitle1}" />
 					</utu:AutoLayout>
 					<Button Content="Get started"
 							Command="{Binding GetStarted}"
+							x:Uid="WelcomePage_GetStarted"
 							utu:AutoLayout.CounterAlignment="Start"
 							utu:AutoLayout.CounterLength="330"
 							Style="{StaticResource MaterialContainedButtonStyle}" />

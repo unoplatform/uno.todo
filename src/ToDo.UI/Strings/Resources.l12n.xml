@@ -1,0 +1,24 @@
+<root>
+	<data name="ApplicationName">
+		<en>$ext_safeprojectname$</en>
+		<fr>$ext_safeprojectname$</fr>
+		<es>$ext_safeprojectname$</es>
+	</data>
+	<section prefix="WelcomePage_">
+		<data name="Welcome.Text">
+			<en>Welcome to To Do!</en>
+			<fr>Bienvennue à To Do!</fr>
+			<es>¡Bienvenido a To Do!</es>
+		</data>
+		<data name="Line2.Text">
+			<en>Start using the best to-do app</en>
+			<fr>La meilleure appli de gestion de tâches</fr>
+			<es>Comienza a usar la mejor aplicación de tareas pendientes</es>
+		</data>
+		<data name="GetStarted.Content">
+			<en>Get started</en>
+			<fr>Commencer</fr>
+			<es>Empezar</es>
+		</data>
+	</section>
+</root>

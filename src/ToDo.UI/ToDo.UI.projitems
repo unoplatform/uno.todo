@@ -12,6 +12,7 @@
     <Content Include="$(MSBuildThisFileDirectory)*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="$(MSBuildThisFileDirectory)Strings\Resources.l12n.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(MSBuildThisFileDirectory)appsettings*.json" />
