@@ -1,9 +1,6 @@
-﻿namespace ToDo.Views;
-using Uno.Toolkit.UI;
+﻿using Uno.Toolkit.UI;
 
-using System.Globalization;
-using Uno.Extensions.Localization;
-using Uno.Toolkit.UI;
+namespace ToDo.Views;
 
 public sealed partial class SettingsPage : Page
 {
@@ -50,6 +47,7 @@ public sealed partial class SettingsPage : Page
 			// Set default theme
 			var currentTheme = SystemThemeHelper.IsRootInDarkMode(XamlRoot) ? "Dark" : "Light";
 			SelectChipGroupItem(ThemeChipGroup, x => (string)x.Tag == currentTheme);
+		isInitializing = false;
 	}
 
 	private void UpdateAppLanguage(object sender, ChipItemEventArgs e)

@@ -1,6 +1,7 @@
 ﻿global using System;
 global using System.Collections.Generic;
 global using System.Linq;
+global using System.Globalization;
 global using System.Text;
 global using System.Threading;
 global using System.Threading.Tasks;
@@ -17,6 +18,7 @@ global using Uno.Extensions.Configuration;
 global using Uno.Extensions.Hosting;
 global using Uno.Extensions.Navigation;
 global using Uno.Extensions.Logging;
+global using Uno.Extensions.Localization;
 global using Uno.Extensions.Serialization;
 global using Uno.Extensions.Navigation.Toolkit;
 global using Uno.Extensions.Navigation.Regions;
