@@ -2,22 +2,26 @@
 
 public class MockAuthenticationService : IAuthenticationService
 {
-	private string? AccessToken;
+	private UserContext? _user;
 
-	public async Task<AuthenticationResult?> AcquireTokenAsync(IDispatcher dispatcher)
+	public async Task<string> GetAccessToken() => _user?.AccessToken ?? string.Empty;
+
+	public async Task<UserContext?> GetCurrentUserAsync() => _user;
+
+	public async Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher)
 	{
-		AccessToken = "Mock Value that's not empty";
-		return AuthResult;
+		_user = new UserContext
+		{
+			Name = "Foo Bar",
+			Email = "foo.bar@gmail.com",
+			AccessToken = "MOCK_ACCESS_TOKEN"
+		};
+
+		return _user;
 	}
-	public async Task<string> GetAccessToken() => AuthResult?.AccessToken ?? string.Empty;
-
-	private AuthenticationResult? AuthResult => string.IsNullOrWhiteSpace(AccessToken) ? default : new AuthenticationResult(AccessToken, false, string.Empty, DateTimeOffset.MaxValue, DateTimeOffset.MaxValue, string.Empty, null, string.Empty, null, Guid.Empty);
-
-	public Task<UserContext> ReturnAuthResultContext() => throw new NotImplementedException();
 
 	public async Task SignOutAsync()
 	{
-		AccessToken = null;
+		_user = null;
 	}
 }
-

@@ -17,6 +17,8 @@ public partial class SettingsViewModel
 		signOut.Execute(SignOut);
 	}
 
+	public IState<UserContext?> CurrentUser => State<UserContext?>.Async(this, async ct => await _authService.GetCurrentUserAsync());
+
 	private async ValueTask SignOut(CancellationToken ct)
 	{
 		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmSignOut", qualifier: Qualifiers.Dialog, cancellation: ct);

@@ -9,6 +9,9 @@ public class AuthenticationService : IAuthenticationService
 	private readonly IPublicClientApplication _pca;
 	private readonly string[] _scopes;
 	private readonly ILogger _logger;
+
+	private UserContext? _user;
+
 	public AuthenticationService(
 		ILogger<AuthenticationService> logger,
 		IOptions<OAuthSettings> settings)
@@ -40,15 +43,25 @@ public class AuthenticationService : IAuthenticationService
 		return WebAuthenticationBroker.GetCurrentApplicationCallbackUri().OriginalString;
 	}
 
-	public async Task<UserContext> ReturnAuthResultContext()
+	public async Task<string> GetAccessToken()
+	{
+		var result = await AcquireSilentTokenAsync();
+
+		return result?.AccessToken ?? string.Empty;
+	}
+
+	public async Task<UserContext?> GetCurrentUserAsync() => _user;
+
+	public async Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher)
 	{
 		try
 		{
-			var authResult = await _pca.AcquireTokenInteractive(_scopes)
-				.WithUnoHelpers()
-				.ExecuteAsync();
-			//TODO:We need to store UserContext in order to use it in the HomeViewModel
-			return CreateContextFromAuthResult(authResult);
+			var result = await AcquireTokenAsync(dispatcher);
+			_user = !string.IsNullOrEmpty(result?.AccessToken)
+				? CreateContextFromAuthResult(result!)
+				: default;
+
+			return _user;
 		}
 		catch (MsalClientException ex)
 		{
@@ -59,30 +72,6 @@ public class AuthenticationService : IAuthenticationService
 		{
 			throw new Exception(ex.Message);
 		}
-	}
-
-	private UserContext CreateContextFromAuthResult(AuthenticationResult authResult)
-	{
-		var token = new JwtSecurityTokenHandler().ReadJwtToken(authResult.IdToken);
-		return new UserContext
-		{
-			Name = token.Claims.First(c => c.Type.Equals("name")).Value,
-			Email = token.Claims.First(c => c.Type.Equals("preferred_username")).Value,
-			AccessToken = authResult.AccessToken
-		};
-	}
-
-
-	public async Task<AuthenticationResult?> AcquireTokenAsync(IDispatcher dispatcher)
-	{
-		var authentication = await AcquireSilentTokenAsync();
-
-		if (string.IsNullOrEmpty(authentication?.AccessToken))
-		{
-			authentication = await AcquireInteractiveTokenAsync(dispatcher);
-		}
-
-		return authentication;
 	}
 
 	public async Task SignOutAsync()
@@ -100,6 +89,29 @@ public class AuthenticationService : IAuthenticationService
 		_logger.LogInformation($"Removed account: {firstAccount.Username}, user succesfully logged out.");
 	}
 
+	private UserContext CreateContextFromAuthResult(AuthenticationResult authResult)
+	{
+		var token = new JwtSecurityTokenHandler().ReadJwtToken(authResult.IdToken);
+		return new UserContext
+		{
+			Name = token.Claims.First(c => c.Type.Equals("name")).Value,
+			Email = token.Claims.First(c => c.Type.Equals("preferred_username")).Value,
+			AccessToken = authResult.AccessToken
+		};
+	}
+
+	private async Task<AuthenticationResult?> AcquireTokenAsync(IDispatcher dispatcher)
+	{
+		var authentication = await AcquireSilentTokenAsync();
+
+		if (string.IsNullOrEmpty(authentication?.AccessToken))
+		{
+			authentication = await AcquireInteractiveTokenAsync(dispatcher);
+		}
+
+		return authentication;
+	}
+
 	private ValueTask<AuthenticationResult> AcquireInteractiveTokenAsync(IDispatcher dispatcher)
 	{
 		return dispatcher.ExecuteAsync(async () => await _pca
@@ -109,7 +121,7 @@ public class AuthenticationService : IAuthenticationService
 	}
 
 
-	async Task<AuthenticationResult?> AcquireSilentTokenAsync()
+	private async Task<AuthenticationResult?> AcquireSilentTokenAsync()
 	{
 		var accounts = await _pca.GetAccountsAsync();
 		var firstAccount = accounts.FirstOrDefault();
@@ -150,13 +162,6 @@ public class AuthenticationService : IAuthenticationService
 		}
 
 		return default;
-	}
-
-	public async Task<string> GetAccessToken()
-	{
-
-		var result = await AcquireSilentTokenAsync();
-		return result?.AccessToken ?? string.Empty;
 	}
 }
 

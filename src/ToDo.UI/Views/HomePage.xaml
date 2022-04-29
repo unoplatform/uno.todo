@@ -60,14 +60,14 @@
 				</Grid.ColumnDefinitions>
 
 				<PersonPicture Grid.Column="0"
-							   DisplayName="{Binding CurrentUser.DisplayName}"
-							   ProfilePicture="{Binding CurrentUser.AvatarUrl}"
+							   DisplayName="{Binding CurrentUser.Name}"
+							   d:ProfilePicture="{Binding CurrentUser.AvatarUrl}"
 							   Width="40"
 							   Height="40"
 							   VerticalAlignment="Center" />
 
 				<TextBlock Grid.Column="1"
-						   Text="{Binding CurrentUser.DisplayName}"
+						   Text="{Binding CurrentUser.Name}"
 						   VerticalAlignment="Center" />
 
 				<!-- This is a hack to allow both picture and textblock to respond to tap event -->
