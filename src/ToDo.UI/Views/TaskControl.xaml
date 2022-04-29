@@ -8,8 +8,7 @@
 			 xmlns:uen="using:Uno.Extensions.Navigation.UI"
 			 xmlns:uer="using:Uno.Extensions.Reactive.UI"
 			 xmlns:utu="using:Uno.Toolkit.UI"
-			 xmlns:um="using:Uno.Material"
-			 Background="{ThemeResource MaterialSurfaceBrush}">
+			 xmlns:um="using:Uno.Material">
 
 
 	<UserControl.Resources>
@@ -20,9 +19,9 @@
 		<x:String x:Key="Icon_Today">F1 M 16 2 L 15 2 L 15 0 L 13 0 L 13 2 L 5 2 L 5 0 L 3 0 L 3 2 L 2 2 C 0.8899999856948853 2 0.009999990463256836 2.899999976158142 0.009999990463256836 4 L 0 18 C 0 19.100000023841858 0.8899999856948853 20 2 20 L 16 20 C 17.100000023841858 20 18 19.100000023841858 18 18 L 18 4 C 18 2.899999976158142 17.100000023841858 2 16 2 Z M 16 18 L 2 18 L 2 7 L 16 7 L 16 18 Z M 4 9 L 9 9 L 9 14 L 4 14 L 4 9 Z</x:String>
 	</UserControl.Resources>
 
-	<utu:AutoLayout>
+	<utu:AutoLayout Background="{ThemeResource MaterialSurfaceBrush}">
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-			<utu:NavigationBar Content="Task List"
+			<utu:NavigationBar Content="Task"
 							   Style="{StaticResource MaterialModalNavigationBarStyle}" />
 			<utu:AutoLayout Spacing="10"
 							Padding="0,10,0,0"
