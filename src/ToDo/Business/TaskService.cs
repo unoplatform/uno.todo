@@ -29,8 +29,7 @@ public class TaskService : ITaskService
 		var updatedTask = await _client.UpdateAsync(task.ListId, task.Id, task.ToData(), ct);
 
 		// Send updates to listeners of both the list and the individual task (in case the task page is open)
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new(task.ListId, updatedTask)), task.ListId);
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new(task.ListId, updatedTask)), task.Id);
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new(task.ListId, updatedTask)));
 	}
 
 	/// <inheritdoc />

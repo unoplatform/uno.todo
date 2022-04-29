@@ -53,7 +53,10 @@
 															Orientation="Horizontal"
 															utu:AutoLayout.CounterAlignment="Start"
 															utu:AutoLayout.CounterLength="40">
-												<CheckBox utu:AutoLayout.CounterAlignment="Start"
+												<CheckBox IsChecked="{Binding IsCompleted}"
+														  Command="{controls:AncestralBinding Path=ToggleIsCompleted, AncestorType=uer:FeedView}"
+														  CommandParameter="{Binding}"
+														  utu:AutoLayout.CounterAlignment="Start"
 														  Style="{StaticResource MaterialCheckBoxStyle}" />
 											</utu:AutoLayout>
 										</utu:AutoLayout>
@@ -209,13 +212,18 @@
 											  uen:Region.Name="ToDo"
 											  Visibility="Visible">
 									<DataTemplate>
-										<ListView ItemsSource="{Binding Data}"
-												  uen:Navigation.Request="Task"
-												  SelectionMode="None"
-												  IsItemClickEnabled="True"
-												  Style="{StaticResource TaskListViewStyle}">
-
-										</ListView>
+										<!-- Since both FeedView are Visible at the moment we need a background
+										because there are on top of each other -->
+										<Border VerticalAlignment="Stretch"
+												HorizontalAlignment="Stretch"
+												Background="{ThemeResource MaterialPrimaryVariantLightBrush}">
+											<ListView ItemsSource="{Binding Data}"
+													  uen:Navigation.Request="Task"
+													  SelectionMode="None"
+													  IsItemClickEnabled="True"
+													  Style="{StaticResource TaskListViewStyle}">
+											</ListView>
+										</Border>
 									</DataTemplate>
 								</uer:FeedView>
 

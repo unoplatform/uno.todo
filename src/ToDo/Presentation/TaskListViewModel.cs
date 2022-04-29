@@ -21,6 +21,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		ICommandBuilder createTask,
 		ICommandBuilder<ToDoTask> starTask,
 		ICommandBuilder<ToDoTask> navigateToTask,
+		ICommandBuilder<ToDoTask> toggleIsCompleted,
 		ICommandBuilder deleteList,
 		ICommandBuilder renameList)
 	{
@@ -33,6 +34,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		createTask.Given(entity).Then(CreateTask);
 		starTask.Then(StarTask);
 		navigateToTask.Then(NavigateToTask);
+		toggleIsCompleted.Then(ToggleIsCompleted);
 		deleteList.Given(entity).Then(DeleteList);
 		renameList.Given(entity).Then(RenameList);
 
@@ -42,9 +44,9 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 
 	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_taskSvc.GetAsync, ct));
 
-	public IListFeed<ToDoTask> ActiveTasks => Tasks.Where(task => task.IsCompleted);
+	public IListFeed<ToDoTask> ActiveTasks => Tasks.Where(task => !task.IsCompleted);
 
-	public IListFeed<ToDoTask> CompletedTasks => Tasks.Where(task => !task.IsCompleted);
+	public IListFeed<ToDoTask> CompletedTasks => Tasks.Where(task => task.IsCompleted);
 
 	private async ValueTask CreateTask(TaskList list, CancellationToken ct)
 	{
@@ -91,6 +93,17 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 			await _listSvc.DeleteAsync(list, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}
+	}
+	
+	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
+	{
+		if (task.Status is null)
+		{
+			return;
+		}
+
+		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		await _taskSvc.UpdateAsync(updatedTask, ct);
 	}
 
 	private async ValueTask RenameList(TaskList list, CancellationToken ct)
