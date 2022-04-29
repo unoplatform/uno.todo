@@ -26,7 +26,6 @@ public sealed partial class App : Application
 				.UseEnvironment(Environments.Development)
 #endif
 
-
 				// Add platform specific log providers
 				.UseLogging()
 
@@ -80,14 +79,6 @@ public sealed partial class App : Application
 #if HAS_UNO || NETFX_CORE
 		this.Suspending += OnSuspending;
 #endif
-	}
-
-
-	private void ChangeStartingLanguage()
-	{
-		var culture = new System.Globalization.CultureInfo("fr");
-
-		Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = culture.TwoLetterISOLanguageName;
 	}
 
 	/// <summary>

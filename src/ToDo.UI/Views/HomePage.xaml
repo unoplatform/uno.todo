@@ -100,7 +100,7 @@
 			<Border Padding="16">
 				<Button Content="Add a list"
 						Command="{Binding CreateTaskList}"
-						x:Uid="Body_Button"
+						x:Uid="HomePage_CreateTaskList"
 						HorizontalAlignment="Stretch"
 						HorizontalContentAlignment="Left"
 						Style="{StaticResource MaterialTextButtonStyle}">

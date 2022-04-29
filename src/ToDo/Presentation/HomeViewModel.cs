@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using ToDo.Business.Services;
+using Microsoft.Extensions.Localization;
 
 namespace ToDo.Presentation;
 
@@ -9,12 +10,14 @@ public partial class HomeViewModel
 
 	private readonly INavigator _navigator;
 	private readonly IAuthenticationService _authSvc;
+	private readonly IStringLocalizer _localizer;
 	private readonly ITaskListService _listSvc;
 	private readonly ILogger _logger;
 
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
 		INavigator navigator,
+		IStringLocalizer localizer,
 		IAuthenticationService authSvc,
 		ITaskListService listSvc,
 		IMessenger messenger,
@@ -22,6 +25,7 @@ public partial class HomeViewModel
 		ICommandBuilder<TaskListData> navigateToTaskList)
 	{
 		_navigator = navigator;
+		_localizer = localizer;
 		_logger = logger;
 		_navigator = navigator;
 		_authSvc = authSvc;
@@ -31,13 +35,19 @@ public partial class HomeViewModel
 		navigateToTaskList.Execute(NavigateToTaskList);
 
 		Lists.Observe(messenger, list => list.Id);
+
+		WellKnownLists = new TaskList[]
+		{
+			new(TaskList.WellknownListNames.Important, _localizer.GetString("HomePage_ImportantTaskListLabel").Value),
+			new(TaskList.WellknownListNames.Tasks, _localizer.GetString("HomePage_CommonTaskListLabel").Value),
+		};
 	}
 
 	public IState<UserContext?> CurrentUser => State<UserContext?>.Async(this, async ct => await _authSvc.GetCurrentUserAsync());
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
-	public TaskList[] WellKnownLists => new[] { TaskList.Important, TaskList.Tasks };
+	public TaskList[] WellKnownLists { get; }
 
 	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
 

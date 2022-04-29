@@ -43,7 +43,7 @@ public class TaskService : ITaskService
 	/// <inheritdoc />
 	public async ValueTask<IImmutableList<ToDoTask>> GetAsync(TaskList list, CancellationToken ct)
 	{
-		if (list == TaskList.Important)
+		if (list.WellknownListName == TaskList.WellknownListNames.Important)
 		{
 			return (await GetAllAsync(ct: ct))
 				.Where(task => task.IsImportant)

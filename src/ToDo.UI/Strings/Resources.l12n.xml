@@ -21,4 +21,26 @@
 			<es>Empezar</es>
 		</data>
 	</section>
+	<section prefix="HomePage_">
+		<data name="ImportantTaskListLabel">
+			<en>Important</en>
+			<fr>Important</fr>
+			<es>Importante</es>
+		</data>
+		<data name="CommonTaskListLabel">
+			<en>Tasks</en>
+			<fr>Tâches</fr>
+			<es>Tareas</es>
+		</data>
+		<data name="TaskList">
+			<en>Task List</en>
+			<fr>Liste de tâches</fr>
+			<es>Lista de tareas</es>
+		</data>
+		<data name="CreateTaskList.Content">
+			<en>New list</en>
+			<fr>Nouvelle liste</fr>
+			<es>Nueva lista</es>
+		</data>
+	</section>
 </root>

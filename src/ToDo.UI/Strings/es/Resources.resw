@@ -11,4 +11,16 @@
   <data name="WelcomePage_GetStarted.Content" xml:space="preserve">
     <value>Empezar</value>
   </data>
+  <data name="HomePage_ImportantTaskListLabel" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="HomePage_CommonTaskListLabel" xml:space="preserve">
+    <value>Tareas</value>
+  </data>
+  <data name="HomePage_TaskList" xml:space="preserve">
+    <value>Lista de tareas</value>
+  </data>
+  <data name="HomePage_CreateTaskList.Content" xml:space="preserve">
+    <value>Nueva lista</value>
+  </data>
 </root>
