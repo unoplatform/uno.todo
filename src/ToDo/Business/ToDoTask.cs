@@ -11,7 +11,7 @@ public record ToDoTask
 	public static class TaskImportance
 	{
 		public static string Normal = "normal";
-		public static string Important = "important";
+		public static string Important = "high";
 	}
 
 	public ToDoTask()
