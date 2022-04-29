@@ -13,5 +13,10 @@ public partial class SearchViewModel
 		_term = term;
 	}
 
-	public IListFeed<ToDoTask> Results => _term.SelectAsync(_svc.GetAllAsync).AsListFeed();
+	public IListFeed<ToDoTask> Results => _term.SelectAsync(Search).AsListFeed();
+
+	private ValueTask<IImmutableList<ToDoTask>> Search(string s, CancellationToken ct) =>
+		string.IsNullOrWhiteSpace(s)
+			? new ValueTask<IImmutableList<ToDoTask>>(ImmutableList<ToDoTask>.Empty)
+			: _svc.GetAllAsync(s, ct);
 }
