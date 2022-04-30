@@ -62,7 +62,6 @@ public sealed partial class App : Application
 						.AddServices();
 				})
 
-
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(RegisterRoutes)
 
