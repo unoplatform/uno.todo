@@ -31,7 +31,7 @@ public partial class SettingsViewModel
 		}
 
 		var result = await response.Result;
-		if (result.SomeOrDefault()?.Id?.ToString() == "SO")
+		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
 		{
 			await _authService.SignOutAsync();
 

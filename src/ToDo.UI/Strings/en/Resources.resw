@@ -2,6 +2,39 @@
   <data name="ApplicationName" xml:space="preserve">
     <value>$ext_safeprojectname$</value>
   </data>
+  <data name="Dialog_Common_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Dialog_Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Dialog_ConfirmDeleteList_Title" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="Dialog_ConfirmDeleteList_Content" xml:space="preserve">
+    <value>List will be permanently deleted</value>
+  </data>
+  <data name="Dialog_ConfirmDeleteTask_Title" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="Dialog_ConfirmDeleteTask_Content" xml:space="preserve">
+    <value>Task will be permanently deleted</value>
+  </data>
+  <data name="Dialog_ConfirmDeleteNote_Title" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="Dialog_ConfirmDeleteNote_Content" xml:space="preserve">
+    <value>Note will be permanently deleted</value>
+  </data>
+  <data name="Dialog_ConfirmSignOut_Title" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="Dialog_ConfirmSignOut_Content" xml:space="preserve">
+    <value>Are you sure you would like to sign out?</value>
+  </data>
+  <data name="Dialog_ConfirmSignOut_SignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
   <data name="WelcomePage_Welcome.Text" xml:space="preserve">
     <value>Welcome to To Do!</value>
   </data>

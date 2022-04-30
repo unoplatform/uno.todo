@@ -94,9 +94,8 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		}
 
 		var result = await response.Result;
-		if (result.SomeOrDefault()?.Id?.ToString() == "DL")
+		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
 		{
-
 			await _listSvc.DeleteAsync(list, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}

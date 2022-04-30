@@ -4,6 +4,71 @@
 		<fr>$ext_safeprojectname$</fr>
 		<es>$ext_safeprojectname$</es>
 	</data>
+	<section prefix="Dialog_">
+		<data name="Common_Delete">
+			<en>Delete</en>
+			<fr>Supprimer</fr>
+			<es>Eliminar</es>
+		</data>
+		<data name="Common_Cancel">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<section prefix="ConfirmDeleteList_">
+			<data name="Title">
+				<en>Are you sure?</en>
+				<fr>En êtes-vous certain?</fr>
+				<es>¿Estás seguro?</es>
+			</data>
+			<data name="Content">
+				<en>List will be permanently deleted</en>
+				<fr>La liste sera définitivement supprimée</fr>
+				<es>La lista se eliminará permanentemente.</es>
+			</data>
+		</section>
+		<section prefix="ConfirmDeleteTask_">
+			<data name="Title">
+				<en>Are you sure?</en>
+				<fr>En êtes-vous certain?</fr>
+				<es>¿Estás seguro?</es>
+			</data>
+			<data name="Content">
+				<en>Task will be permanently deleted</en>
+				<fr>La tâche sera définitivement supprimée</fr>
+				<es>La tarea se eliminará permanentemente.</es>
+			</data>
+		</section>
+		<section prefix="ConfirmDeleteNote_">
+			<data name="Title">
+				<en>Are you sure?</en>
+				<fr>En êtes-vous certain?</fr>
+				<es>¿Estás seguro?</es>
+			</data>
+			<data name="Content">
+				<en>Note will be permanently deleted</en>
+				<fr>La remarque sera définitivement supprimée</fr>
+				<es>La nota se eliminará permanentemente.</es>
+			</data>
+		</section>
+		<section prefix="ConfirmSignOut_">
+			<data name="Title">
+				<en>Sign out</en>
+				<fr>Déconnexion</fr>
+				<es>Cerrar sesión</es>
+			</data>
+			<data name="Content">
+				<en>Are you sure you would like to sign out?</en>
+				<fr>Voulez-vous vraiment vous déconnecter?</fr>
+				<es>¿Estás seguro de que te gustaría salir?</es>
+			</data>
+			<data name="SignOut">
+				<en>Sign out</en>
+				<fr>Déconnexion</fr>
+				<es>Cerrar sesión</es>
+			</data>
+		</section>
+	</section>
 	<section prefix="WelcomePage_">
 		<data name="Welcome.Text">
 			<en>Welcome to To Do!</en>
