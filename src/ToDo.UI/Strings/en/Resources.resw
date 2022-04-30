@@ -35,4 +35,19 @@
   <data name="AddListFlyout_CreateButton.Content" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="TaskListPage_NavigationBar.Content" xml:space="preserve">
+    <value>Task List</value>
+  </data>
+  <data name="TaskListPage_TodoTab.Content" xml:space="preserve">
+    <value>TO DO</value>
+  </data>
+  <data name="TaskListPage_CompletedTab.Content" xml:space="preserve">
+    <value>COMPLETED</value>
+  </data>
+  <data name="TaskListPage_TaskDueDateFormatter.Format" xml:space="preserve">
+    <value>ddd, d MMM</value>
+  </data>
+  <data name="TaskListPage_CreateTaskButton.Content" xml:space="preserve">
+    <value>Add a task</value>
+  </data>
 </root>

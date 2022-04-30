@@ -35,4 +35,19 @@
   <data name="AddListFlyout_CreateButton.Content" xml:space="preserve">
     <value>Crear</value>
   </data>
+  <data name="TaskListPage_NavigationBar.Content" xml:space="preserve">
+    <value>Lista de tareas</value>
+  </data>
+  <data name="TaskListPage_TodoTab.Content" xml:space="preserve">
+    <value>PENDIENTES</value>
+  </data>
+  <data name="TaskListPage_CompletedTab.Content" xml:space="preserve">
+    <value>COMPLETADAS</value>
+  </data>
+  <data name="TaskListPage_TaskDueDateFormatter.Format" xml:space="preserve">
+    <value>ddd, d' de 'MMM</value>
+  </data>
+  <data name="TaskListPage_CreateTaskButton.Content" xml:space="preserve">
+    <value>Agregar una tarea</value>
+  </data>
 </root>

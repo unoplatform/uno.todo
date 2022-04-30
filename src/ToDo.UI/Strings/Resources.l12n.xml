@@ -65,4 +65,31 @@
 			<es>Crear</es>
 		</data>
 	</section>
+	<section prefix="TaskListPage_">
+		<data name="NavigationBar.Content">
+			<en>Task List</en>
+			<fr>Liste de tâches</fr>
+			<es>Lista de tareas</es>
+		</data>
+		<data name="TodoTab.Content">
+			<en>TO DO</en>
+			<fr>À FAIRE</fr>
+			<es>PENDIENTES</es>
+		</data>
+		<data name="CompletedTab.Content">
+			<en>COMPLETED</en>
+			<fr>TERMINÉES</fr>
+			<es>COMPLETADAS</es>
+		</data>
+		<data name="TaskDueDateFormatter.Format">
+			<en>ddd, d MMM</en>
+			<fr>ddd d MMM</fr>
+			<es>ddd, d' de 'MMM</es>
+		</data>
+		<data name="CreateTaskButton.Content">
+			<en>Add a task</en>
+			<fr>Ajouter une tâche</fr>
+			<es>Agregar una tarea</es>
+		</data>
+	</section>
 </root>
