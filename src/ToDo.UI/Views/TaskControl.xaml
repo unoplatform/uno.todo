@@ -4,12 +4,11 @@
 			 xmlns:local="using:ToDo.Views"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d"
 			 xmlns:uen="using:Uno.Extensions.Navigation.UI"
 			 xmlns:uer="using:Uno.Extensions.Reactive.UI"
 			 xmlns:utu="using:Uno.Toolkit.UI"
-			 xmlns:um="using:Uno.Material">
-
+			 xmlns:um="using:Uno.Material"
+			 mc:Ignorable="d">
 
 	<UserControl.Resources>
 		<x:String x:Key="Icon_Close">F1 M 14 1.4099998474121094 L 12.59000015258789 0 L 7 5.590000152587891 L 1.4099998474121094 0 L 0 1.4099998474121094 L 5.590000152587891 7 L 0 12.59000015258789 L 1.4099998474121094 14 L 7 8.40999984741211 L 12.59000015258789 14 L 14 12.59000015258789 L 8.40999984741211 7 L 14 1.4099998474121094 Z</x:String>
@@ -21,7 +20,7 @@
 
 	<utu:AutoLayout Background="{ThemeResource MaterialSurfaceBrush}">
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-			<utu:NavigationBar Content="Task"
+			<utu:NavigationBar Content="{Binding Entity.Title}"
 							   Style="{StaticResource MaterialModalNavigationBarStyle}" />
 			<utu:AutoLayout Spacing="10"
 							Padding="0,10,0,0"
@@ -38,7 +37,8 @@
 					</utu:AutoLayout>
 					<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBox PlaceholderText="{Binding Entity.Title}"
+						<TextBox PlaceholderText="Task Name"
+								 Text="{Binding Entity.Title}"
 								 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 					</utu:AutoLayout>
 					<utu:AutoLayout>
@@ -48,10 +48,10 @@
 									  Command="{Binding ToggleIsImportant}"
 									  CommandParameter="{Binding}">
 							<ToggleButton.Content>
-								<PathIcon Data="{StaticResource Icon_Star_Rate}" />
+								<PathIcon Data="{StaticResource Icon_Star_Rate_Empty}" />
 							</ToggleButton.Content>
 							<um:ControlExtensions.AlternateContent>
-								<PathIcon Data="{StaticResource Icon_Star_Rate_Empty}" />
+								<PathIcon Data="{StaticResource Icon_Star_Rate}" />
 							</um:ControlExtensions.AlternateContent>
 						</ToggleButton>
 					</utu:AutoLayout>
@@ -133,6 +133,7 @@
 								<utu:AutoLayout PrimaryAxisAlignment="End"
 												Orientation="Horizontal">
 									<Button Content="Open"
+											Command="{Binding AddTaskNote}"
 											utu:AutoLayout.CounterAlignment="Start"
 											Style="{StaticResource MaterialTextButtonStyle}" />
 								</utu:AutoLayout>
@@ -159,7 +160,8 @@
 										utu:AutoLayout.CounterAlignment="Center">
 							<utu:AutoLayout PrimaryAxisAlignment="End"
 											Orientation="Horizontal">
-								<Button utu:AutoLayout.CounterAlignment="Start"
+								<Button Command="{Binding Delete}"
+										utu:AutoLayout.CounterAlignment="Start"
 										Style="{StaticResource MaterialButtonIconStyle}">
 									<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
 								</Button>

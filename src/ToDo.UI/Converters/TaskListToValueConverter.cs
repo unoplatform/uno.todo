@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ToDo.Converters
 {
-	public class TaskListIconConverter : IValueConverter
+	public class TaskListToValueConverter : IValueConverter
 	{
 		public object? ImportantValue { get; set; }
 		public object? TasksValue { get; set; }

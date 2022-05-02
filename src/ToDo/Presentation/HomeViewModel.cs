@@ -33,7 +33,6 @@ public partial class HomeViewModel
 		this.userProfilePictureService = userProfilePictureService;
 
 		createTaskList.Execute(CreateTaskList);
-		navigateToTaskList.Execute(NavigateToTaskList);
 
 		Lists.Observe(messenger, list => list.Id);
 	}
@@ -64,11 +63,5 @@ public partial class HomeViewModel
 		{
 			await _listSvc.CreateAsync(listName, ct);
 		}
-	}
-
-	private async ValueTask NavigateToTaskList(TaskListData list, CancellationToken ct)
-	{
-		// TODO: Nav - Could this be an implicit nav?
-		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: list, cancellation: ct);
 	}
 }
