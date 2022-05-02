@@ -1,0 +1,160 @@
+<root>
+	<data name="ApplicationName">
+		<en>$ext_safeprojectname$</en>
+		<fr>$ext_safeprojectname$</fr>
+		<es>$ext_safeprojectname$</es>
+	</data>
+	<section prefix="Dialog_">
+		<data name="Common_Delete">
+			<en>Delete</en>
+			<fr>Supprimer</fr>
+			<es>Eliminar</es>
+		</data>
+		<data name="Common_Cancel">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<section prefix="ConfirmDeleteList_">
+			<data name="Title">
+				<en>Are you sure?</en>
+				<fr>En êtes-vous certain?</fr>
+				<es>¿Estás seguro?</es>
+			</data>
+			<data name="Content">
+				<en>List will be permanently deleted</en>
+				<fr>La liste sera définitivement supprimée</fr>
+				<es>La lista se eliminará permanentemente.</es>
+			</data>
+		</section>
+		<section prefix="ConfirmDeleteTask_">
+			<data name="Title">
+				<en>Are you sure?</en>
+				<fr>En êtes-vous certain?</fr>
+				<es>¿Estás seguro?</es>
+			</data>
+			<data name="Content">
+				<en>Task will be permanently deleted</en>
+				<fr>La tâche sera définitivement supprimée</fr>
+				<es>La tarea se eliminará permanentemente.</es>
+			</data>
+		</section>
+		<section prefix="ConfirmDeleteNote_">
+			<data name="Title">
+				<en>Are you sure?</en>
+				<fr>En êtes-vous certain?</fr>
+				<es>¿Estás seguro?</es>
+			</data>
+			<data name="Content">
+				<en>Note will be permanently deleted</en>
+				<fr>La remarque sera définitivement supprimée</fr>
+				<es>La nota se eliminará permanentemente.</es>
+			</data>
+		</section>
+		<section prefix="ConfirmSignOut_">
+			<data name="Title">
+				<en>Sign out</en>
+				<fr>Déconnexion</fr>
+				<es>Cerrar sesión</es>
+			</data>
+			<data name="Content">
+				<en>Are you sure you would like to sign out?</en>
+				<fr>Voulez-vous vraiment vous déconnecter?</fr>
+				<es>¿Estás seguro de que te gustaría salir?</es>
+			</data>
+			<data name="SignOut">
+				<en>Sign out</en>
+				<fr>Déconnexion</fr>
+				<es>Cerrar sesión</es>
+			</data>
+		</section>
+	</section>
+	<section prefix="WelcomePage_">
+		<data name="Welcome.Text">
+			<en>Welcome to To Do!</en>
+			<fr>Bienvennue à To Do!</fr>
+			<es>¡Bienvenido a To Do!</es>
+		</data>
+		<data name="Line2.Text">
+			<en>Start using the best to-do app</en>
+			<fr>La meilleure appli de gestion de tâches</fr>
+			<es>Comienza a usar la mejor aplicación de tareas pendientes</es>
+		</data>
+		<data name="GetStarted.Content">
+			<en>Get started</en>
+			<fr>Commencer</fr>
+			<es>Empezar</es>
+		</data>
+	</section>
+	<section prefix="HomePage_">
+		<data name="ImportantTaskListLabel">
+			<en>Important</en>
+			<fr>Important</fr>
+			<es>Importante</es>
+		</data>
+		<data name="CommonTaskListLabel">
+			<en>Tasks</en>
+			<fr>Tâches</fr>
+			<es>Tareas</es>
+		</data>
+		<data name="TaskList">
+			<en>Task List</en>
+			<fr>Liste de tâches</fr>
+			<es>Lista de tareas</es>
+		</data>
+		<data name="CreateTaskList.Content">
+			<en>New list</en>
+			<fr>Nouvelle liste</fr>
+			<es>Nueva lista</es>
+		</data>
+	</section>
+	<section prefix="AddListFlyout_">
+		<data name="PageTitle.Text">
+			<en>New list</en>
+			<fr>Nouvelle liste</fr>
+			<es>Nueva lista</es>
+		</data>
+		<data name="ListNameInput.PlaceholderText">
+			<en>Enter list title</en>
+			<fr>Entrer le titre de la liste</fr>
+			<es>Escribe el título de la lista</es>
+		</data>
+		<data name="CancelButton.Content">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<data name="CreateButton.Content">
+			<en>Create</en>
+			<fr>Créer</fr>
+			<es>Crear</es>
+		</data>
+	</section>
+	<section prefix="TaskListPage_">
+		<data name="NavigationBar.Content">
+			<en>Task List</en>
+			<fr>Liste de tâches</fr>
+			<es>Lista de tareas</es>
+		</data>
+		<data name="TodoTab.Content">
+			<en>TO DO</en>
+			<fr>À FAIRE</fr>
+			<es>PENDIENTES</es>
+		</data>
+		<data name="CompletedTab.Content">
+			<en>COMPLETED</en>
+			<fr>TERMINÉES</fr>
+			<es>COMPLETADAS</es>
+		</data>
+		<data name="TaskDueDateFormatter.Format">
+			<en>ddd, d MMM</en>
+			<fr>ddd d MMM</fr>
+			<es>ddd, d' de 'MMM</es>
+		</data>
+		<data name="CreateTaskButton.Content">
+			<en>Add a task</en>
+			<fr>Ajouter une tâche</fr>
+			<es>Agregar una tarea</es>
+		</data>
+	</section>
+</root>

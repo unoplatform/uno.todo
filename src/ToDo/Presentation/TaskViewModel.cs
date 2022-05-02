@@ -42,7 +42,7 @@ public partial class TaskViewModel
 		}
 
 		var result = await response.Result;
-		if (result.SomeOrDefault()?.Id?.ToString() == "DT")
+		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
 		{
 			await _svc.DeleteAsync(task, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);

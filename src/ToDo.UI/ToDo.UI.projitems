@@ -12,6 +12,7 @@
     <Content Include="$(MSBuildThisFileDirectory)*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="$(MSBuildThisFileDirectory)Strings\Resources.l12n.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(MSBuildThisFileDirectory)appsettings*.json" />
@@ -27,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\FormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml.cs">
       <DependentUpon>AddListFlyout.xaml</DependentUpon>
@@ -76,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\es\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\fr\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <!--

@@ -25,14 +25,13 @@
 		<x:Double x:Key="SplitModeThresholdWidth">800</x:Double>
 
 		<converters:TaskListToValueConverter x:Key="TaskListIconValueConverter"
-											 ImportantValue="{StaticResource Icon_Star_Rate}"
-											 TasksValue="{StaticResource Icon_House_Siding}"
-											 DefaultValue="{StaticResource Icon_List}" />
-
+									  ImportantValue="{StaticResource Icon_Star_Rate}"
+									  TasksValue="{StaticResource Icon_House_Siding}"
+									  DefaultValue="{StaticResource Icon_List}" />
 		<converters:TaskListToValueConverter x:Key="TaskListIconForegroundConverter"
-											 ImportantValue="{StaticResource MaterialErrorBrush}"
-											 TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
-											 DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
+									ImportantValue="{StaticResource MaterialErrorBrush}"
+									TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
+									DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
 	</Page.Resources>
 
 	<muxc:NavigationView x:Name="NavView"
@@ -101,7 +100,7 @@
 			<Border Padding="16">
 				<Button Content="Add a list"
 						Command="{Binding CreateTaskList}"
-						x:Uid="Body_Button"
+						x:Uid="HomePage_CreateTaskList"
 						HorizontalAlignment="Stretch"
 						HorizontalContentAlignment="Left"
 						Style="{StaticResource MaterialTextButtonStyle}">

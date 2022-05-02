@@ -40,6 +40,8 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		entity.Observe(messenger, list => list.Id);
 	}
 
+	public IState<TaskList> TaskList => State<TaskList>.Async(this, async ct => await _entity);
+
 	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await _entity).MapAsync(_taskSvc.GetAsync, ct));
 
 	public IListFeed<ToDoTask> ActiveTasks => Tasks.Where(task => !task.IsCompleted);
@@ -84,9 +86,8 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		}
 
 		var result = await response.Result;
-		if (result.SomeOrDefault()?.Id?.ToString() == "DL")
+		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
 		{
-
 			await _listSvc.DeleteAsync(list, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}
