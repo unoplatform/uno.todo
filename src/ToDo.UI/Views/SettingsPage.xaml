@@ -23,7 +23,7 @@
 									Padding="20,15,20,15"
 									Orientation="Horizontal"
 									utu:AutoLayout.PrimaryAlignment="Stretch" />
-					<PersonPicture ProfilePicture="https://loremflickr.com/360/360/flower"
+					<PersonPicture DisplayName="{Binding CurrentUser.Name}"
 								   utu:AutoLayout.CounterAlignment="Start" />
 					<utu:AutoLayout Spacing="10"
 									Padding="20,15,20,15"
@@ -33,12 +33,12 @@
 				<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
-						   Text="Antonio Bonilla"
+						   Text="{Binding CurrentUser.Name}"
 						   Style="{StaticResource MaterialHeadline5}" />
 				<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
-						   Text="antonio.bonilla@horus.com.uy"
+						   Text="{Binding CurrentUser.Email}"
 						   Style="{StaticResource MaterialBody2}" />
 				<Button Content="sign out"
 						Command="{Binding SignOut}"

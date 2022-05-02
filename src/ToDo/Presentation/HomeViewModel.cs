@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using ToDo.Business.Services;
 
 namespace ToDo.Presentation;
 
@@ -7,12 +8,14 @@ public partial class HomeViewModel
 	public record class UserProfile(string DisplayName, string? AvatarUrl);
 
 	private readonly INavigator _navigator;
+	private readonly IAuthenticationService _authSvc;
 	private readonly ITaskListService _listSvc;
 	private readonly ILogger _logger;
 
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
 		INavigator navigator,
+		IAuthenticationService authSvc,
 		ITaskListService listSvc,
 		IMessenger messenger,
 		ICommandBuilder createTaskList,
@@ -20,6 +23,8 @@ public partial class HomeViewModel
 	{
 		_navigator = navigator;
 		_logger = logger;
+		_navigator = navigator;
+		_authSvc = authSvc;
 		_listSvc = listSvc;
 
 		createTaskList.Execute(CreateTaskList);
@@ -28,16 +33,7 @@ public partial class HomeViewModel
 		Lists.Observe(messenger, list => list.Id);
 	}
 
-	// todo: replace with user data from api
-	public UserProfile CurrentUser { get; } = new ("Xiaoy312", default);
-
-	// the nav-view needs a 2nd dynamic list, or it would brick the static list too
-	// currently CustomList throws TypeLoadException, so we use this to make the nav-view works
-	// todo: replace with CustomLists
-	public ObservableCollection<string> CustomLists2 { get; } = new()
-	{
-		"TODO", "WTB>", "Uno", "Figma", "Themes/Toolkit",
-	};
+	public IState<UserContext?> CurrentUser => State<UserContext?>.Async(this, async ct => await _authSvc.GetCurrentUserAsync());
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
