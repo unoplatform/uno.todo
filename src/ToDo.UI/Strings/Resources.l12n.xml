@@ -157,4 +157,27 @@
 			<es>Agregar una tarea</es>
 		</data>
 	</section>
+	<section prefix="RenameListFlyout_">
+		<data name="Title.Text">
+			<en>Rename list</en>
+			<fr>Renommer la liste</fr>
+			<es>Cambiar el nombre de la lista</es>
+		</data>
+		<data name="InputTextBox.PlaceholderText">
+			<en>Rename list</en>
+			<fr>Renommer la liste</fr>
+			<es>Cambiar el nombre de la lista</es>
+		</data>
+		<data name="CancelButton.Content">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<data name="RenameButton.Content">
+			<en>Rename</en>
+			<fr>Renommer</fr>
+			<es>Renombrar</es>
+		</data>
+	</section>
+	
 </root>
