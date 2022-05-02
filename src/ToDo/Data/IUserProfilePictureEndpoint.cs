@@ -5,5 +5,5 @@ public interface IUserProfilePictureEndpoint
 {
 	[Get("/photo/$value")]
 	[Headers("Authorization: Bearer")]
-	Task<byte[]> Get(CancellationToken ct);
+	Task<byte[]> GetAsync(CancellationToken ct);
 }

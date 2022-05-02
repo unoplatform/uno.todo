@@ -2,15 +2,13 @@
 
 public class UserProfilePictureService : IUserProfilePictureService
 {
-	private readonly IUserProfilePictureService _client;
-	private readonly IMessenger _messenger;
+	private readonly IUserProfilePictureEndpoint _client;
 
-	public UserProfilePictureService(IUserProfilePictureService client,
-		IMessenger messenger)
+	public UserProfilePictureService(IUserProfilePictureEndpoint client)
 	{
 		_client = client;
-		_messenger = messenger;
 	}
+
 	public Task<byte[]> GetAsync(CancellationToken ct)
 		=> _client.GetAsync(ct);
 	
