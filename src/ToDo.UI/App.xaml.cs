@@ -17,8 +17,6 @@ public sealed partial class App : Application
 
 	public App()
 	{
-		ChangeStartingLanguage();
-		
 		Host = UnoHost
 				.CreateDefaultBuilder()
 #if DEBUG
