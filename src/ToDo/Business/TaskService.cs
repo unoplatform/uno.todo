@@ -37,7 +37,7 @@ public class TaskService : ITaskService
 	{
 		await _client.DeleteAsync(task.ListId, task.Id, ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task), task.ListId);
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task));
 	}
 
 	/// <inheritdoc />
