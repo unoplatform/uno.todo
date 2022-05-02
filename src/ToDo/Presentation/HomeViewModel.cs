@@ -12,7 +12,8 @@ public partial class HomeViewModel
 	private readonly ITaskListService _listSvc;
 	private readonly ILogger _logger;
 
-	private readonly IUserProfilePictureService userProfilePictureService;
+	//TODO remove it
+	private readonly IUserProfilePictureService userProfilePictureService; 
 
 
 	private HomeViewModel(
@@ -21,8 +22,9 @@ public partial class HomeViewModel
 		IAuthenticationService authSvc,
 		ITaskListService listSvc,
 		IMessenger messenger,
-		IUserProfilePictureService userProfilePictureService,
 		ICommandBuilder createTaskList,
+		//TODO remove it
+		IUserProfilePictureService userProfilePictureService,
 		ICommandBuilder<TaskListData> navigateToTaskList)
 	{
 		_navigator = navigator;
