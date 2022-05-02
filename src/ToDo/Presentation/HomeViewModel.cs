@@ -13,8 +13,7 @@ public partial class HomeViewModel
 	private readonly ILogger _logger;
 
 	//TODO remove it
-	private readonly IUserProfilePictureService userProfilePictureService; 
-
+	private readonly IUserProfilePictureService _userProfilePictureService; 
 
 	private HomeViewModel(
 		ILogger<HomeViewModel> logger,
@@ -24,15 +23,14 @@ public partial class HomeViewModel
 		IMessenger messenger,
 		ICommandBuilder createTaskList,
 		//TODO remove it
-		IUserProfilePictureService userProfilePictureService,
-		ICommandBuilder<TaskListData> navigateToTaskList)
+		IUserProfilePictureService userProfilePictureService)
 	{
 		_navigator = navigator;
 		_logger = logger;
 		_navigator = navigator;
 		_authSvc = authSvc;
 		_listSvc = listSvc;
-		this.userProfilePictureService = userProfilePictureService;
+		_userProfilePictureService = userProfilePictureService;
 
 		createTaskList.Execute(CreateTaskList);
 
@@ -49,8 +47,8 @@ public partial class HomeViewModel
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
-
-		var res = userProfilePictureService.GetAsync(ct);
+		//TODO: remove
+		var res = await _userProfilePictureService.GetAsync(ct);
 
 		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
 		if(response is null)
