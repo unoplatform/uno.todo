@@ -33,6 +33,10 @@
 											 ImportantValue="{StaticResource ImportantTaskListOnSurfaceBrush}"
 											 TasksValue="{StaticResource DefaultTaskListOnSurfaceBrush}"
 											 DefaultValue="{StaticResource DefaultTaskListOnSurfaceBrush}" />
+		<converters:TaskListToValueConverter x:Key="TaskListVisibilityConverter"
+											 ImportantValue="Collapsed"
+											 TasksValue="Collapsed"
+											 DefaultValue="Visible" />
 
 		<converters:FormatConverter x:Key="TaskDueDateFormatter"
 									x:Uid="TaskListPage_TaskDueDateFormatter"
@@ -159,12 +163,16 @@
 						</AppBarButton>
 					</utu:NavigationBar.MainCommand>
 					<utu:NavigationBar.PrimaryCommands>
-						<AppBarButton Command="{Binding RenameList}" Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+						<AppBarButton Command="{Binding RenameList}"
+									  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}"
+									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
 								<PathIcon Data="{StaticResource Icon_Drive_File_Rename_Outline}" />
 							</AppBarButton.Icon>
 						</AppBarButton>
-						<AppBarButton Command="{Binding DeleteList}" Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
+						<AppBarButton Command="{Binding DeleteList}"
+									  Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}"
+									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
 								<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
 							</AppBarButton.Icon>
