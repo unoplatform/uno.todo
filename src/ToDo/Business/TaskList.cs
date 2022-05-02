@@ -8,10 +8,6 @@ public record TaskList
 		public const string Tasks = "tasks";
 	}
 
-	public static TaskList Important { get; } = new (WellknownListNames.Important, "Important");
-
-	public static TaskList Tasks { get; } = new (WellknownListNames.Tasks, "Tasks");
-
 	internal TaskList(string wellknownListName, string displayName)
 	{
 		WellknownListName = wellknownListName;

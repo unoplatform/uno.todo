@@ -1,7 +1,8 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-
+using Uno.Extensions.Localization;
 using Uno.Extensions.Navigation.UI;
+using Windows.ApplicationModel.Resources;
 
 namespace ToDo;
 
@@ -23,7 +24,6 @@ public sealed partial class App : Application
 				.UseEnvironment(Environments.Development)
 #endif
 
-
 				// Add platform specific log providers
 				.UseLogging()
 
@@ -44,7 +44,7 @@ public sealed partial class App : Application
 				// Load AppInfo section
 				.UseConfiguration<AppInfo>()
 				.UseConfiguration<OAuthSettings>()
-
+				
 
 				.UseSettings<ToDoSettings>()
 
@@ -60,12 +60,14 @@ public sealed partial class App : Application
 						.AddServices();
 				})
 
-
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(RegisterRoutes)
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
+
+				// Add localization support
+				.UseLocalization()
 
 				.Build(enableUnoLogging: true);
 
@@ -142,53 +144,34 @@ public sealed partial class App : Application
 
 	private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
 	{
-		var confirmDeleteListDialog = new MessageDialogViewMap(
-		Content: "List will be permanently deleted",
-		Title: "Are you sure?",
-		DelayUserInput: true,
-		DefaultButtonIndex: 0,
-		Buttons: new DialogAction[]
+		var res = ResourceLoader.GetForViewIndependentUse();
+		
+		MessageDialogViewMap BuildDialogViewMap(string section, bool delayUserInput, int defaultButtonIndex, params (object Id, string labelKeyPath)[] buttons)
+		{
+			return new MessageDialogViewMap
+			(
+				Content: ResLookup("Content"),
+				Title: ResLookup("Title"),
+				DelayUserInput: delayUserInput,
+				DefaultButtonIndex: defaultButtonIndex,
+				Buttons: buttons
+					.Select(x => new DialogAction(Label: ResLookup(x.labelKeyPath), Id: x.Id))
+					.ToArray()
+			);
+			string ResLookup(string keyPath)
 			{
-				new(Label: "Delete",Id:"DL"),
-				new(Label: "Cancel", Id:"CDL")
+				// map absolute/relative path accordingly
+				var key = keyPath.StartsWith("./") ? keyPath.Substring(2) : $"Dialog_{section}_{keyPath}";
+				return res!.GetString(key);
 			}
-		);
+		}
 
-		var confirmDeleteTaskDialog = new MessageDialogViewMap(
-		Content: "Task will be permanently deleted",
-		Title: "Are you sure?",
-		DelayUserInput: true,
-		DefaultButtonIndex: 0,
-		Buttons: new DialogAction[]
-			{
-				new(Label: "Delete",Id:"DT"),
-				new(Label: "Cancel", Id:"CDT")
-			}
-		);
-
-		var confirmDeleteNoteDialog = new MessageDialogViewMap(
-		Content: "Note will be permanently deleted",
-		Title: "Are you sure?",
-		DelayUserInput: true,
-		DefaultButtonIndex: 0,
-		Buttons: new DialogAction[]
-			{
-				new(Label: "Delete",Id:"DN"),
-				new(Label: "Cancel", Id:"CDN")
-			}
-		);
-
-		var confirmSignOutDialog = new MessageDialogViewMap(
-		Content: "Are you sure you would like to sign out?",
-		Title: "Sign Out",
-		DelayUserInput: true,
-		DefaultButtonIndex: 0,
-		Buttons: new DialogAction[]
-			{
-				new(Label: "Sign Out",Id:"SO"),
-				new(Label: "Cancel", Id:"CSO")
-			}
-		);
+		var deleteButton = (DialogResults.Affirmative, "./Dialog_Common_Delete");
+		var cancelButton = (DialogResults.Negative, "./Dialog_Common_Cancel");
+		var confirmDeleteListDialog = BuildDialogViewMap("ConfirmDeleteList", true, 0, deleteButton, cancelButton);
+		var confirmDeleteTaskDialog = BuildDialogViewMap("ConfirmDeleteTask", true, 0, deleteButton, cancelButton);
+		var confirmDeleteNoteDialog = BuildDialogViewMap("ConfirmDeleteNote", true, 0, deleteButton, cancelButton);
+		var confirmSignOutDialog = BuildDialogViewMap("ConfirmSignOut", true, 0, (DialogResults.Affirmative, "SignOut"), cancelButton);
 
 		views.Register(
 			/// Dialogs and Flyouts
@@ -214,61 +197,39 @@ public sealed partial class App : Application
 			confirmDeleteTaskDialog,
 			confirmDeleteNoteDialog,
 			confirmSignOutDialog
-			);
+		);
 
-		routes
-			.Register(
-				new RouteMap("", View: views.FindByViewModel<ShellViewModel>(),
-						Nested: new RouteMap[]
-						{
-							new ("Welcome",
-									View: views.FindByViewModel<WelcomeViewModel.BindableWelcomeViewModel>()
-									),
-							new ("Home",
-									View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()
-									),
-							new("TaskList",
-									View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(),
-									Nested: new[]
-									{
-										new RouteMap("MultiTaskLists", IsDefault: true,
-														Nested: new[]
-														{
-
-															new RouteMap("ToDo", IsDefault:true),
-															new RouteMap("Completed")
-														})
-									}),
-							new("Task",
-									View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(),
-									DependsOn:"TaskList"),
-							new("TaskSearch",
-									View: views.FindByView<TaskSearchFlyout>(),
-									Nested: new RouteMap[]{
-									new("Search",
-											View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(),
-											IsDefault: true)
-									}),
-							new("Settings",
-									View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
-							new("TaskNote",
-									View: views.FindByViewModel<TaskNoteViewModel>(),
-									DependsOn:"Task"),
-							new("AddTask",
-								View: views.FindByView<AddTaskViewModel>()),
-							new("AddList",
-								View: views.FindByViewModel<AddListViewModel>()),
-							new("AuthToken",
-								View: views.FindByViewModel<AuthTokenViewModel>()),
-							new("ExpirationDate",
-								View: views.FindByViewModel<ExpirationDateViewModel>()),
-							new("RenameList",
-								View: views.FindByViewModel<RenameListViewModel>()),
-							new ("ConfirmDeleteList", confirmDeleteListDialog),
-							new ("ConfirmDeleteTask", confirmDeleteTaskDialog),
-							new ("ConfirmDeleteNote", confirmDeleteNoteDialog),
-							new ("ConfirmSignOut", confirmSignOutDialog)
-						}));
+		routes.Register(
+			new RouteMap("", View: views.FindByViewModel<ShellViewModel>(), Nested: new RouteMap[]
+			{
+				new("Welcome", View: views.FindByViewModel<WelcomeViewModel.BindableWelcomeViewModel>()),
+				new("Home", View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()),
+				new("TaskList", View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(), Nested: new[]
+				{
+					new RouteMap("MultiTaskLists", IsDefault: true, Nested: new[]
+					{
+						new RouteMap("ToDo", IsDefault:true),
+						new RouteMap("Completed")
+					})
+				}),
+				new("Task", View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(), DependsOn:"TaskList"),
+				new("TaskSearch", View: views.FindByView<TaskSearchFlyout>(), Nested: new RouteMap[]
+				{
+					new("Search", View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(), IsDefault: true)
+				}),
+				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
+				new("TaskNote", View: views.FindByViewModel<TaskNoteViewModel>(), DependsOn:"Task"),
+				new("AddTask", View: views.FindByView<AddTaskViewModel>()),
+				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
+				new("AuthToken", View: views.FindByViewModel<AuthTokenViewModel>()),
+				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
+				new("RenameList", View: views.FindByViewModel<RenameListViewModel>()),
+				new("ConfirmDeleteList", confirmDeleteListDialog),
+				new("ConfirmDeleteTask", confirmDeleteTaskDialog),
+				new("ConfirmDeleteNote", confirmDeleteNoteDialog),
+				new("ConfirmSignOut", confirmSignOutDialog)
+			})
+		);
 	}
 
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
