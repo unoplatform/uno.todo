@@ -1,5 +1,7 @@
 ﻿using Uno.Toolkit.UI;
 
+using ChipControl = global::Uno.Toolkit.UI.Chip; // aliasing to prevent collision, since `global::Chip` is a namespace on ios/macos...
+
 namespace ToDo.Views;
 
 public sealed partial class SettingsPage : Page
@@ -65,15 +67,15 @@ public sealed partial class SettingsPage : Page
 	{
 		if (isInitializing) return;
 
-		if (e.Item is Chip chip)
+		if (e.Item is ChipControl chip)
 		{
 			SystemThemeHelper.SetRootTheme(XamlRoot, (string)chip.Tag == "Dark");
 		}
 	}
 
-	private void SelectChipGroupItem(ChipGroup group, Func<Chip, bool> predicate)
+	private void SelectChipGroupItem(ChipGroup group, Func<ChipControl, bool> predicate)
 	{
-		if (group.Items.Cast<Chip>().FirstOrDefault(predicate) is { } item)
+		if (group.Items.Cast<ChipControl>().FirstOrDefault(predicate) is { } item)
 		{
 			group.SelectedItem = item;
 		}
