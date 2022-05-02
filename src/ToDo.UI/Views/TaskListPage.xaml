@@ -5,15 +5,20 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:controls="using:ToDo.Controls"
+	  xmlns:converters="using:ToDo.Converters"
 	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
 	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:um="using:Uno.Material"
 	  mc:Ignorable="d"
-	  NavigationCacheMode="Required"
-	  Background="{ThemeResource MaterialPrimaryVariantLightBrush}">
+	  NavigationCacheMode="Required">
 
 	<Page.Resources>
+		<converters:TaskListToValueConverter x:Key="TaskListBackgroundConverter"
+											 ImportantValue="{StaticResource MaterialErrorBrush}"
+											 TasksValue="{StaticResource MaterialPrimaryVariantLightBrush}"
+											 DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
+
 		<x:String x:Key="Icon_Add">F1 M 14 8 L 8 8 L 8 14 L 6 14 L 6 8 L 0 8 L 0 6 L 6 6 L 6 0 L 8 0 L 8 6 L 14 6 L 14 8 Z</x:String>
 		<x:String x:Key="Icon_Delete_Outline">F1 M 1 16 C 1 17.100000023841858 1.899999976158142 18 3 18 L 11 18 C 12.100000023841858 18 13 17.100000023841858 13 16 L 13 4 L 1 4 L 1 16 Z M 3 6 L 11 6 L 11 16 L 3 16 L 3 6 Z M 10.5 1 L 9.5 0 L 4.5 0 L 3.5 1 L 0 1 L 0 3 L 14 3 L 14 1 L 10.5 1 Z</x:String>
 		<x:String x:Key="Icon_Drive_File_Rename_Outline">F1 M 15.40999984741211 1.7950000762939453 L 14.200000762939453 0.5849999785423279 C 13.420000791549683 -0.19499999284744263 12.149999856948853 -0.19499999284744263 11.369999885559082 0.5849999785423279 L 8.6899995803833 3.2649998664855957 L 0 11.954999923706055 L 0 15.994999885559082 L 4.039999961853027 15.994999885559082 L 12.779999732971191 7.255000114440918 L 15.40999984741211 4.625 C 16.19999986886978 3.8450000286102295 16.19999986886978 2.575000047683716 15.40999984741211 1.7950000762939453 L 15.40999984741211 1.7950000762939453 Z M 3.2100000381469727 13.994999885559082 L 2 13.994999885559082 L 2 12.785000801086426 L 10.65999984741211 4.125 L 11.869999885559082 5.335000038146973 L 3.2100000381469727 13.994999885559082 Z M 8 15.994999885559082 L 12 11.994999885559082 L 18 11.994999885559082 L 18 15.994999885559082 L 8 15.994999885559082 Z</x:String>
@@ -85,11 +90,11 @@
 															  CommandParameter="{Binding}"
 															  Style="{StaticResource MaterialToggleButtonIconStyle}">
 													<ToggleButton.Content>
-														<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}"
+														<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}"
 																  Data="{StaticResource Icon_Star_Rate}" />
 													</ToggleButton.Content>
 													<um:ControlExtensions.AlternateContent>
-														<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}"
+														<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}"
 																  Data="{StaticResource Icon_Star_Rate}" />
 													</um:ControlExtensions.AlternateContent>
 												</ToggleButton>
@@ -106,7 +111,7 @@
 
 	</Page.Resources>
 
-	<Grid>
+	<Grid Background="{Binding Entity.Value, Converter={StaticResource TaskListBackgroundConverter}}">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="Narrow" />
@@ -137,9 +142,8 @@
 		</Grid.ColumnDefinitions>
 		<utu:AutoLayout>
 			<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-				<utu:NavigationBar Content="Task List"
-								   x:Uid="Body_NavigationBar"
-								   Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
+				<utu:NavigationBar Content="{Binding Entity.DisplayName}"
+								   Background="{Binding Entity.Value, Converter={StaticResource TaskListBackgroundConverter}}"
 								   Style="{StaticResource MaterialNavigationBarStyle}">
 					<utu:NavigationBar.MainCommand>
 						<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">
@@ -168,7 +172,7 @@
 					  uen:Region.Attached="True"
 					  uen:Region.Name="MultiTaskLists">
 					<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-						<utu:TabBar Background="{ThemeResource MaterialPrimaryVariantLightBrush}"
+						<utu:TabBar Background="{Binding Entity.Value, Converter={StaticResource TaskListBackgroundConverter}}"
 									Style="{StaticResource MaterialTopTabBarStyle}"
 									uen:Region.Attached="True">
 							<utu:TabBarItem Content="To Do"
@@ -207,28 +211,28 @@
 									</DataTemplate>
 								</uer:FeedView>
 
-								<uer:FeedView Source="{Binding ActiveTasks}"
+								<!-- Since both FeedView are Visible at the moment we need a layer 
+								     in between because there are on top of each other -->
+								<Border Visibility="{Binding Path=Visibility, ElementName=ActiveTasks}"
+										VerticalAlignment="Stretch"
+										HorizontalAlignment="Stretch"
+										Background="{Binding Entity.Value, Converter={StaticResource TaskListBackgroundConverter}}" />
+
+								<uer:FeedView x:Name="ActiveTasks"
+											  Source="{Binding ActiveTasks}"
 											  utu:AutoLayout.CounterAlignment="Start"
 											  utu:AutoLayout.PrimaryAlignment="Stretch"
 											  uen:Region.Name="ToDo"
 											  Visibility="Visible">
 									<DataTemplate>
-										<!-- Since both FeedView are Visible at the moment we need a background
-										because there are on top of each other -->
-										<Border VerticalAlignment="Stretch"
-												HorizontalAlignment="Stretch"
-												Background="{ThemeResource MaterialPrimaryVariantLightBrush}">
-											<ListView ItemsSource="{Binding Data}"
-													  uen:Navigation.Request="Task"
-													  SelectionMode="None"
-													  IsItemClickEnabled="True"
-													  Style="{StaticResource TaskListViewStyle}">
-											</ListView>
-										</Border>
+										<ListView ItemsSource="{Binding Data}"
+												  uen:Navigation.Request="Task"
+												  SelectionMode="None"
+												  IsItemClickEnabled="True"
+												  Style="{StaticResource TaskListViewStyle}">
+										</ListView>
 									</DataTemplate>
 								</uer:FeedView>
-
-
 							</Grid>
 
 						</utu:AutoLayout>

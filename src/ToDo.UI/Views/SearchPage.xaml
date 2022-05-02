@@ -108,11 +108,11 @@
 																		  utu:AutoLayout.CounterAlignment="Start"
 																		  Style="{StaticResource MaterialToggleButtonIconStyle}">
 																<ToggleButton.Content>
-																	<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}"
+																	<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}"
 																			  Data="{StaticResource Icon_Star_Rate}" />
 																</ToggleButton.Content>
 																<um:ControlExtensions.AlternateContent>
-																	<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}"
+																	<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}"
 																			  Data="{StaticResource Icon_Star_Rate}" />
 																</um:ControlExtensions.AlternateContent>
 															</ToggleButton>

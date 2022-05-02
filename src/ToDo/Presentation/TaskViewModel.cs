@@ -51,7 +51,7 @@ public partial class TaskViewModel
 
 	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, cancellation: ct);
+		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, data: task, cancellation: ct);
 		if (response is null)
 		{
 			return;
@@ -62,9 +62,7 @@ public partial class TaskViewModel
 		var note = result.SomeOrDefault()?.Content;
 		if (note is not null)
 		{
-			// TODO: Switch to this code when compilation issue is fixed with source generation
-			//var updatedNote = task.Body is not null ? task.Body with { Content = note } : new TaskBodyData { Content = note };
-			var updatedNote = task.Body ?? new TaskBodyData();
+			var updatedNote = task.Body is not null ? task.Body with { Content = note } : new TaskBodyData { Content = note };
 			updatedNote.Content = note;
 
 			var updatedTask = task with { Body = updatedNote };
