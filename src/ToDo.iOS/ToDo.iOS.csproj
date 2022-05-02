@@ -139,7 +139,7 @@
       <Version>6.3.2</Version>
     </PackageReference>
     <PackageReference Include="Uno.WinUI.MSAL">
-      <Version>4.1.9</Version>
+      <Version>4.2.6</Version>
     </PackageReference>
     <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.0-dev.65" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.WinUI" Version="4.3.0-dev.65" />
