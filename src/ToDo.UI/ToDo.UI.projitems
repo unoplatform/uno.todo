@@ -12,6 +12,7 @@
     <Content Include="$(MSBuildThisFileDirectory)*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)profilePicture.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(MSBuildThisFileDirectory)appsettings*.json" />

@@ -8,17 +8,23 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 {
 	private const string ListDataFile = "lists.json";
 	private const string TasksDataFile = "tasks.json";
+	private const string ProfilePictureDataFile = "profilePicture.json";
+
 
 	private readonly ISerializer<TaskListData> _listSerializer;
 	private readonly ISerializer<TaskData> _taskSerializer;
+	private readonly ISerializer<string> _profilePictureSerializer;
+
 	private readonly IStorage _dataService;
 	public MockTaskListEndpoint(
 		ISerializer<TaskListData> listSerializer,
 		ISerializer<TaskData> taskSerializer,
+		ISerializer<string> profilePictureSerializer,
 		IStorage dataService)
 	{
 		_listSerializer = listSerializer;
 		_taskSerializer = taskSerializer;
+		_profilePictureSerializer = profilePictureSerializer;
 		_dataService = dataService;
 	}
 
@@ -142,5 +148,13 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.Title != null && x.Title.Contains(displayName)).ToList() };
 	}
 
-
+	public async Task<byte[]> GetProfilePictureAsync(CancellationToken ct)
+	{
+		var response =
+			await _dataService.ReadFileAsync<string>(_profilePictureSerializer,
+			ProfilePictureDataFile) ?? String.Empty;
+		return !String.IsNullOrWhiteSpace(response) ?
+			Convert.FromBase64String(response)
+			: new byte[0];
+	}
 }

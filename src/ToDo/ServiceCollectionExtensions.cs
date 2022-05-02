@@ -19,11 +19,14 @@ public static class ServiceCollectionExtensions
 			.AddContentSerializer()
 			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
 			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
+			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
+
 
 			// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
 #if USE_MOCKS
 			.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
 			.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>()
+			.AddSingleton<IUserProfilePictureEndpoint, ToDo.Data.Mock.MockUserProfilePictureEndpoint>()
 #endif
 			;
 	}
@@ -32,6 +35,7 @@ public static class ServiceCollectionExtensions
 	=> services
 		.AddSingleton<ITaskService, TaskService>()
 		.AddSingleton<ITaskListService, TaskListService>()
+		.AddSingleton<IUserProfilePictureService, UserProfilePictureService>()
 		.AddSingleton<IAuthenticationService, AuthenticationService>()
 		.AddSingleton<IAuthenticationTokenProvider>(sp => sp.GetRequiredService<IAuthenticationService>())
 		.AddSingleton<IMessenger, WeakReferenceMessenger>()
