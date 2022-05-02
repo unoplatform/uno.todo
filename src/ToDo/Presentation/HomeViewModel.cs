@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 
 namespace ToDo.Presentation;
 
+[ReactiveBindable]
 public partial class HomeViewModel
 {
 	public record class UserProfile(string DisplayName, string? AvatarUrl);
@@ -20,8 +21,7 @@ public partial class HomeViewModel
 		IStringLocalizer localizer,
 		IAuthenticationService authSvc,
 		ITaskListService listSvc,
-		IMessenger messenger,
-		ICommandBuilder createTaskList)
+		IMessenger messenger)
 	{
 		_navigator = navigator;
 		_localizer = localizer;
@@ -29,8 +29,6 @@ public partial class HomeViewModel
 		_navigator = navigator;
 		_authSvc = authSvc;
 		_listSvc = listSvc;
-
-		createTaskList.Execute(CreateTaskList);
 
 		Lists.Observe(messenger, list => list.Id);
 
@@ -49,7 +47,8 @@ public partial class HomeViewModel
 
 	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
 
-	private async ValueTask CreateTaskList(CancellationToken ct)
+	public ICommand CreateTaskList => Command.Async(DoCreateTaskList);
+	private async ValueTask DoCreateTaskList(CancellationToken ct)
 	{
 		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)

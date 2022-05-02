@@ -1,29 +1,24 @@
 ﻿namespace ToDo.Presentation;
 
+[ReactiveBindable]
 public partial class SearchViewModel
 {
 	private readonly ITaskService _svc;
-	private readonly IInput<string> _term;
 
-	public SearchViewModel(
-		ITaskService svc,
-		IInput<string> term,
-		ICommandBuilder<ToDoTask> toggleIsCompleted,
-		ICommandBuilder<ToDoTask> toggleIsImportant)
+	public SearchViewModel(ITaskService svc)
 	{
 		_svc = svc;
-		_term = term;
-
-		toggleIsCompleted.Then(ToggleIsCompleted);
-		toggleIsImportant.Then(ToggleIsImportant);
 	}
 
-	public IListFeed<ToDoTask> Results => _term
+	public IState<string> Term => State.Async(this, async _ => "");
+
+	public IListFeed<ToDoTask> Results => Term
 		.Where(term => term is { Length: > 0 })
 		.SelectAsync(_svc.GetAllAsync)
 		.AsListFeed();
 
-	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
+	public ICommand ToggleIsCompleted => Command.Create<ToDoTask>(c => c.Then(DoToggleIsImportant));
+	private async ValueTask DoToggleIsCompleted(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Status is null)
 		{
@@ -34,7 +29,8 @@ public partial class SearchViewModel
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
-	private async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
+	public ICommand ToggleIsImportant => Command.Create<ToDoTask>(c => c.Then(DoToggleIsImportant));
+	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Importance is null)
 		{

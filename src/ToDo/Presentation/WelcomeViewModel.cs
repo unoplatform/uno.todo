@@ -2,6 +2,7 @@
 
 namespace ToDo.Presentation;
 
+[ReactiveBindable]
 public partial class WelcomeViewModel
 {
 	private readonly IAuthenticationService _authService;
@@ -11,23 +12,21 @@ public partial class WelcomeViewModel
 	private WelcomeViewModel(
 		IDispatcher dispatcher,
 		INavigator navigator,
-		ICommandBuilder getStarted,
 		IAuthenticationService authService)
 	{
 		_dispatcher = dispatcher;
 		_navigator =navigator;
 		_authService = authService;
-
-		getStarted.Execute(GetStarted);
 	}
 
-	private async ValueTask GetStarted(CancellationToken ct)
+	public ICommand GetStarted => Command.Async(DoGetStarted);
+	private async ValueTask DoGetStarted(CancellationToken ct)
 	{
 		var user = await _authService.AuthenticateAsync(_dispatcher);
 
-		if(user != null)
+		if(user is not null)
 		{
-			await _navigator.NavigateRouteAsync(this, string.Empty);
+			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
 		}
 	}
 }
