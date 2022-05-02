@@ -29,7 +29,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FormatConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml.cs">
       <DependentUpon>AddListFlyout.xaml</DependentUpon>
     </Compile>

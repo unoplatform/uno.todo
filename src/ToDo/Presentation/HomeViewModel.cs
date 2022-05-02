@@ -21,8 +21,7 @@ public partial class HomeViewModel
 		IAuthenticationService authSvc,
 		ITaskListService listSvc,
 		IMessenger messenger,
-		ICommandBuilder createTaskList,
-		ICommandBuilder<TaskListData> navigateToTaskList)
+		ICommandBuilder createTaskList)
 	{
 		_navigator = navigator;
 		_localizer = localizer;
@@ -32,7 +31,6 @@ public partial class HomeViewModel
 		_listSvc = listSvc;
 
 		createTaskList.Execute(CreateTaskList);
-		navigateToTaskList.Execute(NavigateToTaskList);
 
 		Lists.Observe(messenger, list => list.Id);
 
@@ -53,8 +51,8 @@ public partial class HomeViewModel
 
 	private async ValueTask CreateTaskList(CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
-		if(response is null)
+		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
+		if (response is null)
 		{
 			return;
 		}
@@ -66,11 +64,5 @@ public partial class HomeViewModel
 		{
 			await _listSvc.CreateAsync(listName, ct);
 		}
-	}
-
-	private async ValueTask NavigateToTaskList(TaskListData list, CancellationToken ct)
-	{
-		// TODO: Nav - Could this be an implicit nav?
-		await _navigator.NavigateViewModelAsync<TaskListViewModel>(this, data: list, cancellation: ct);
 	}
 }

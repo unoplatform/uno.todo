@@ -24,15 +24,14 @@
 		<x:Double x:Key="SplitModeSidePaneWidth">280</x:Double>
 		<x:Double x:Key="SplitModeThresholdWidth">800</x:Double>
 
-		<converters:TaskListConverter x:Key="TaskListIconConverter"
+		<converters:TaskListToValueConverter x:Key="TaskListIconValueConverter"
 									  ImportantValue="{StaticResource Icon_Star_Rate}"
 									  TasksValue="{StaticResource Icon_House_Siding}"
 									  DefaultValue="{StaticResource Icon_List}" />
-
-		<converters:TaskListConverter x:Key="TaskListIconForegroundConverter"
-									  ImportantValue="{StaticResource MaterialErrorBrush}"
-									  TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
-									  DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
+		<converters:TaskListToValueConverter x:Key="TaskListIconForegroundConverter"
+									ImportantValue="{StaticResource MaterialErrorBrush}"
+									TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
+									DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
 	</Page.Resources>
 
 	<muxc:NavigationView x:Name="NavView"
@@ -89,7 +88,8 @@
 										 uen:Navigation.Request="./TaskList"
 										 uen:Navigation.Data="{Binding}">
 					<muxc:NavigationViewItem.Icon>
-						<PathIcon Data="{Binding Converter={StaticResource TaskListIconConverter}}" Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
+						<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"
+								  Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
 					</muxc:NavigationViewItem.Icon>
 				</muxc:NavigationViewItem>
 			</DataTemplate>
@@ -111,7 +111,8 @@
 			</Border>
 		</muxc:NavigationView.PaneFooter>
 
-		<Grid uen:Region.Navigator="Visibility" uen:Region.Attached="True" />
+		<Grid uen:Region.Navigator="Visibility"
+			  uen:Region.Attached="True" />
 	</muxc:NavigationView>
 
 </Page>

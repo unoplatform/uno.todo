@@ -8,7 +8,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _listSvc;
 	private readonly ITaskService _taskSvc;
-	private readonly IState<TaskList> _entity;
+	private readonly IInput<TaskList> _entity;
 	private readonly ILogger _logger;
 
 	private TaskListViewModel(
@@ -20,7 +20,6 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		IInput<TaskList> entity,
 		ICommandBuilder createTask,
 		ICommandBuilder<ToDoTask> toggleIsImportant,
-		ICommandBuilder<ToDoTask> navigateToTask,
 		ICommandBuilder<ToDoTask> toggleIsCompleted,
 		ICommandBuilder deleteList,
 		ICommandBuilder renameList)
@@ -33,7 +32,6 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 
 		createTask.Given(entity).Then(CreateTask);
 		toggleIsImportant.Then(ToggleIsImportant);
-		navigateToTask.Then(NavigateToTask);
 		toggleIsCompleted.Then(ToggleIsCompleted);
 		deleteList.Given(entity).Then(DeleteList);
 		renameList.Given(entity).Then(RenameList);
@@ -59,7 +57,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		}
 
 		var result = await response.Result;
-
+		
 		var taskName = result.SomeOrDefault()?.Title;
 		if (taskName is not null)
 		{
@@ -77,12 +75,6 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		}
 		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
 		await _taskSvc.UpdateAsync(updatedTask, ct);
-	}
-
-	private async ValueTask NavigateToTask(ToDoTask task, CancellationToken ct)
-	{
-		// TODO: Nav - Could this be an implicit nav?
-		await _navigator.NavigateViewModelAsync<TaskViewModel>(this, data: task, cancellation: ct);
 	}
 
 	private async ValueTask DeleteList(TaskList list, CancellationToken ct)
@@ -120,8 +112,12 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 			return;
 		}
 
-		var newListName = await response.Result;
-		// TODO: Rename the list
+		var newListName = (await response.Result).SomeOrDefault();
+		if (!String.IsNullOrWhiteSpace(newListName))
+		{
+			list = list with { DisplayName = newListName };
+			await _listSvc.UpdateAsync(list, ct);
+		}
 
 	}
 

@@ -5,7 +5,7 @@ using Uno.Extensions.Reactive.Bindings;
 
 namespace ToDo.Converters
 {
-	public class TaskListConverter : IValueConverter
+	public class TaskListToValueConverter : IValueConverter
 	{
 		public object? ImportantValue { get; set; }
 		public object? TasksValue { get; set; }
