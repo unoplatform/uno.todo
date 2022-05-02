@@ -179,5 +179,26 @@
 			<es>Renombrar</es>
 		</data>
 	</section>
-	
+	<section prefix="AddTaskFlyout_">
+		<data name="Title.Text">
+			<en>Add a task</en>
+			<fr>Ajouter une tâche</fr>
+			<es>Agregar una tarea</es>
+		</data>
+		<data name="InputTextBox.PlaceholderText">
+			<en>Add a task</en>
+			<fr>Ajouter une tâche</fr>
+			<es>Agregar una tarea</es>
+		</data>
+		<data name="CancelButton.Content">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<data name="CreateButton.Content">
+			<en>Create</en>
+			<fr>Créer</fr>
+			<es>Crear</es>
+		</data>
+	</section>
 </root>

@@ -96,4 +96,16 @@
   <data name="RenameListFlyout_RenameButton.Content" xml:space="preserve">
     <value>Rename</value>
   </data>
+  <data name="AddTaskFlyout_Title.Text" xml:space="preserve">
+    <value>Add a task</value>
+  </data>
+  <data name="AddTaskFlyout_InputTextBox.PlaceholderText" xml:space="preserve">
+    <value>Add a task</value>
+  </data>
+  <data name="AddTaskFlyout_CancelButton.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AddTaskFlyout_CreateButton.Content" xml:space="preserve">
+    <value>Create</value>
+  </data>
 </root>
