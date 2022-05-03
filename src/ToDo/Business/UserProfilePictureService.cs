@@ -11,18 +11,12 @@ public class UserProfilePictureService : IUserProfilePictureService
 
 	public async Task<byte[]> GetAsync(CancellationToken ct)
 	{
-		try
-		{
-			var response
-				= await _client.GetAsync(ct);
+		var content
+			= await _client.GetAsync(ct);
 
-			return new byte[0];
-		}
-		catch (Exception ex)
-		{
+		var response = await content.ReadAsByteArrayAsync();
 
-			throw ex;
-		}
+		return response;
 	}
 		
 	

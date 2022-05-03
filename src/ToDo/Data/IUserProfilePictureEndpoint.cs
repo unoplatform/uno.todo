@@ -4,6 +4,6 @@
 public interface IUserProfilePictureEndpoint
 {
 	[Get("/photo/$value")]
-	[Headers("Content-Type: multipart/form-data")]
-	Task<StreamContent> GetAsync(CancellationToken ct);
+	[Headers("Content-Type: image/jpg")]
+	Task<HttpContent> GetAsync(CancellationToken ct);
 }
