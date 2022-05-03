@@ -10,7 +10,6 @@ public class ShellViewModel
 		INavigator navigator,
 		IAuthenticationTokenProvider authentication)
 	{
-
 		_navigator = navigator;
 		_auth= authentication;
 
