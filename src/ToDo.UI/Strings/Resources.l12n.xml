@@ -235,4 +235,26 @@
 			<es>Buscar tareas</es>
 		</data>
 	</section>
+	<section prefix="TaskNotePage_">
+		<data name="Title.Text">
+			<en>Add Note</en>
+			<fr>Ajouter une remarque</fr>
+			<es>Añadir nota</es>
+		</data>
+		<data name="InputTextBox.PlaceholderText">
+			<en>Add Note</en>
+			<fr>Ajouter une remarque</fr>
+			<es>Añadir nota</es>
+		</data>
+		<data name="CancelButton.Content">
+			<en>Cancel</en>
+			<fr>Annuler</fr>
+			<es>Cancelar</es>
+		</data>
+		<data name="CreateButton.Content">
+			<en>Add</en>
+			<fr>Ajouter</fr>
+			<es>Agregar</es>
+		</data>
+	</section>
 </root>

@@ -126,4 +126,16 @@
   <data name="SearchPage_InputTextBox.PlaceholderText" xml:space="preserve">
     <value>Search for tasks</value>
   </data>
+  <data name="TaskNotePage_Title.Text" xml:space="preserve">
+    <value>Add Note</value>
+  </data>
+  <data name="TaskNotePage_InputTextBox.PlaceholderText" xml:space="preserve">
+    <value>Add Note</value>
+  </data>
+  <data name="TaskNotePage_CancelButton.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="TaskNotePage_CreateButton.Content" xml:space="preserve">
+    <value>Add</value>
+  </data>
 </root>
