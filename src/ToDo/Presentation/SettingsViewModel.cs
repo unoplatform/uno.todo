@@ -35,9 +35,6 @@ public partial class SettingsViewModel
 		LocalizationSettings = localizationSettings;
 
 		(Cultures, _selectedCulture) = GetCultures(localizer);
-
-		changeLanguage.Execute(ChangeLanguage);
-		signOut.Execute(SignOut);
 	}
 
 	(DisplayCulture[] Cultures, DisplayCulture Current) GetCultures(IStringLocalizer localizer)
