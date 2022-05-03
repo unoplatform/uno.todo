@@ -15,30 +15,33 @@
 					CornerRadius="8"
 					Background="{ThemeResource MaterialSurfaceBrush}">
 
-		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+		<TextBlock x:Uid="RenameListFlyout_Title"
+				   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 				   TextWrapping="Wrap"
 				   Text="Rename list"
 				   Style="{StaticResource MaterialHeadline6}" />
 
-		<TextBox x:Name="ListNameText"
+		<TextBox x:Uid="RenameListFlyout_InputTextBox"
+				 x:Name="ListNameText"
 				 PlaceholderText="Rename list"
 				 Text="{Binding ListName, Mode=TwoWay}"
 				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 
-		<utu:AutoLayout Spacing="10"
-						Orientation="Horizontal">
+		<utu:AutoLayout Spacing="10" Orientation="Horizontal">
 
 			<utu:AutoLayout Spacing="10"
 							Orientation="Horizontal"
 							utu:AutoLayout.CounterAlignment="Start"
 							utu:AutoLayout.PrimaryAlignment="Stretch" />
 
-			<Button Content="Cancel"
+			<Button x:Uid="RenameListFlyout_CancelButton"
+					Content="Cancel"
 					uen:Navigation.Request="-"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialTextButtonStyle}" />
 
-			<Button Content="Rename"
+			<Button x:Uid="RenameListFlyout_RenameButton"
+					Content="Rename"
 					uen:Navigation.Request="-"
 					uen:Navigation.Data="{Binding Text, ElementName=ListNameText}"
 					utu:AutoLayout.CounterAlignment="Start"
