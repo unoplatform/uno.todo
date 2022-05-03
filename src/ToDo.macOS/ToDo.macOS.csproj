@@ -90,7 +90,7 @@
     <PackageReference Include="Refit.HttpClientFactory">
       <Version>6.3.2</Version>
     </PackageReference>
-    <PackageReference Include="Uno.WinUI" Version="4.3.0-dev.65" />
+    <PackageReference Include="Uno.WinUI" Version="4.3.0-dev.135" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
     <PackageReference Include="Uno.Core" Version="4.0.1" />
