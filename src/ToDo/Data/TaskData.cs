@@ -16,7 +16,6 @@ public class TaskData
 	[JsonPropertyName("title")]
 	public string? Title { get; set; }
 
-
 	[JsonPropertyName("displayName")]
 	public string? DisplayName { get; set; }
 
@@ -25,6 +24,9 @@ public class TaskData
 
 	[JsonPropertyName("lastModifiedDateTime")]
 	public DateTime LastModifiedDateTime { get; set; }
+
+	[JsonPropertyName("completedDateTime")]
+	public DateTimeData? CompletedDateTime { get; set; }
 
 	[JsonPropertyName("body")]
 	public TaskBodyData? Body { get; set; }

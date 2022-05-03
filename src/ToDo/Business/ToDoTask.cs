@@ -42,6 +42,7 @@ public record ToDoTask
 		LastModifiedDateTime = data.LastModifiedDateTime;
 		Body = data.Body;
 		DueDateTime = data.DueDateTime;
+		CompletedDateTime = data.CompletedDateTime;
 		LinkedResourcesOdataContext = data.LinkedResourcesOdataContext;
 		LinkedResources = data.LinkedResources?.ToImmutableList();
 		OdataEtag = data.OdataEtag;
@@ -66,6 +67,8 @@ public record ToDoTask
 	public TaskBodyData? Body { get; init; }
 
 	public DateTimeData? DueDateTime { get; init; }
+
+	public DateTimeData? CompletedDateTime { get; init; }
 
 	public string? LinkedResourcesOdataContext { get; init; }
 
@@ -92,6 +95,7 @@ public record ToDoTask
 			LastModifiedDateTime = LastModifiedDateTime,
 			Body = Body,
 			DueDateTime = DueDateTime,
+			CompletedDateTime = CompletedDateTime,
 			LinkedResourcesOdataContext = LinkedResourcesOdataContext,
 			LinkedResources = LinkedResources?.ToList(),
 			OdataEtag = OdataEtag
