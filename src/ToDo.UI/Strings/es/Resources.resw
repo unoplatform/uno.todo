@@ -138,4 +138,55 @@
   <data name="TaskNotePage_CreateButton.Content" xml:space="preserve">
     <value>Agregar</value>
   </data>
+  <data name="SettingsPage_NavigationBar.Content" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="SettingsPage_SignOutButton.Content" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="SettingsPage_GeneralSection.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SettingsPage_PaletteSection.Text" xml:space="preserve">
+    <value>Paleta de color</value>
+  </data>
+  <data name="SettingsPage_PalettePurple.Content" xml:space="preserve">
+    <value>Violeta</value>
+  </data>
+  <data name="SettingsPage_PaletteBlue.Content" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="SettingsPage_PaletteYellow.Content" xml:space="preserve">
+    <value>Amarilla</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel.Text" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel_en" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel_fr" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel_es" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="SettingsPage_NoteToRestart.Text" xml:space="preserve">
+    <value>Reinicia la aplicación para aplicar el cambio</value>
+  </data>
+  <data name="SettingsPage_ThemeLabel.Text" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="SettingsPage_ThemeLight.Content" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="SettingsPage_ThemeDark.Content" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="SettingsPage_AboutSection.Text" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="SettingsPage_VersionLabel.Text" xml:space="preserve">
+    <value>Versión</value>
+  </data>
 </root>

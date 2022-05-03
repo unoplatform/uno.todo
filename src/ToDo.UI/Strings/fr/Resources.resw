@@ -138,4 +138,55 @@
   <data name="TaskNotePage_CreateButton.Content" xml:space="preserve">
     <value>Ajouter</value>
   </data>
+  <data name="SettingsPage_NavigationBar.Content" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="SettingsPage_SignOutButton.Content" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="SettingsPage_GeneralSection.Text" xml:space="preserve">
+    <value>Généraux</value>
+  </data>
+  <data name="SettingsPage_PaletteSection.Text" xml:space="preserve">
+    <value>Palette de couleurs</value>
+  </data>
+  <data name="SettingsPage_PalettePurple.Content" xml:space="preserve">
+    <value>Violette</value>
+  </data>
+  <data name="SettingsPage_PaletteBlue.Content" xml:space="preserve">
+    <value>Bleue</value>
+  </data>
+  <data name="SettingsPage_PaletteYellow.Content" xml:space="preserve">
+    <value>Jaune</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel.Text" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel_en" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel_fr" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="SettingsPage_LanguageLabel_es" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="SettingsPage_NoteToRestart.Text" xml:space="preserve">
+    <value>Appliqué au redémarrage de l'appli</value>
+  </data>
+  <data name="SettingsPage_ThemeLabel.Text" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="SettingsPage_ThemeLight.Content" xml:space="preserve">
+    <value>Clair</value>
+  </data>
+  <data name="SettingsPage_ThemeDark.Content" xml:space="preserve">
+    <value>Sombre</value>
+  </data>
+  <data name="SettingsPage_AboutSection.Text" xml:space="preserve">
+    <value>À propos</value>
+  </data>
+  <data name="SettingsPage_VersionLabel.Text" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>
