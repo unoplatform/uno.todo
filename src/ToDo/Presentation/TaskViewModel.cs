@@ -1,10 +1,10 @@
 ﻿namespace ToDo.Presentation;
 
+[ReactiveBindable]
 public partial class TaskViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskService _svc;
-	private readonly IInput<ToDoTask> _entity;
 	private readonly ILogger _logger;
 
 	private TaskViewModel(
@@ -12,28 +12,24 @@ public partial class TaskViewModel
 		INavigator navigator,
 		ITaskService svc,
 		IMessenger messenger,
-		IInput<ToDoTask> entity,
-		ICommandBuilder delete,
-		ICommandBuilder save,
-		ICommandBuilder toggleIsCompleted,
-		ICommandBuilder toggleIsImportant,
-		ICommandBuilder addTaskNote)
+		ToDoTask entity)
 	{
 		_logger = logger;
 		_navigator = navigator;
 		_svc = svc;
-		_entity = entity;
 
-		delete.Given(entity).Then(Delete);
-		save.Given(entity).Then(Save);
-		toggleIsCompleted.Given(entity).Then(ToggleIsCompleted);
-		toggleIsImportant.Given(entity).Then(ToggleIsImportant);
-		addTaskNote.Given(entity).Then(AddTaskNote);
-
-		entity.Observe(messenger, task => task.Id);
+		Entity = State<ToDoTask>.Async(this, async _ => entity);
+		Entity.Observe(messenger, task => task.Id);
 	}
 
-	private async ValueTask Delete(ToDoTask task, CancellationToken ct)
+	public IState<ToDoTask> Entity { get; }
+
+	public ICommand Save => Command.Create(b => b.Given(Entity).Then(DoSave));
+	private async ValueTask DoSave(ToDoTask task, CancellationToken ct)
+		=> await _svc.UpdateAsync(task, ct);
+
+	public ICommand Delete => Command.Create(b => b.Given(Entity).Then(DoDelete));
+	private async ValueTask DoDelete(ToDoTask task, CancellationToken ct)
 	{
 		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmDeleteTask", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
@@ -49,7 +45,8 @@ public partial class TaskViewModel
 		}
 	}
 
-	private async ValueTask AddTaskNote(ToDoTask task, CancellationToken ct)
+	public ICommand AddTaskNote => Command.Create(b => b.Given(Entity).Then(DoAddTaskNote));
+	private async ValueTask DoAddTaskNote(ToDoTask task, CancellationToken ct)
 	{
 		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, data: task, cancellation: ct);
 		if (response is null)
@@ -62,15 +59,14 @@ public partial class TaskViewModel
 		var note = result.SomeOrDefault()?.Content;
 		if (note is not null)
 		{
-			var updatedNote = task.Body is not null ? task.Body with { Content = note } : new TaskBodyData { Content = note };
-			updatedNote.Content = note;
+			var updated = task with { Body = (task.Body ?? new()) with { Content = note } };
 
-			var updatedTask = task with { Body = updatedNote };
-			await _svc.UpdateAsync(updatedTask, ct);
+			await _svc.UpdateAsync(updated, ct);
 		}
 	}
 
-	private async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
+	public ICommand ToggleIsCompleted => Command.Create(b => b.Given(Entity).Then(DoToggleIsCompleted));
+	private async ValueTask DoToggleIsCompleted(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Status is null)
 		{
@@ -80,8 +76,9 @@ public partial class TaskViewModel
 		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
-
-	private async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
+	
+	public ICommand ToggleIsImportant => Command.Create(b => b.Given(Entity).Then(DoToggleIsImportant));
+	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Importance is null)
 		{
@@ -91,7 +88,4 @@ public partial class TaskViewModel
 
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
-
-	private async ValueTask Save(ToDoTask task, CancellationToken ct)
-		=> await _svc.UpdateAsync(task, ct);
 }

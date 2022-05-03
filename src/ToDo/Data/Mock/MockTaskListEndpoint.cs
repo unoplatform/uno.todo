@@ -147,14 +147,18 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 
 		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.Title != null && x.Title.Contains(displayName)).ToList() };
 	}
-
-	public async Task<byte[]> GetProfilePictureAsync(CancellationToken ct)
+	
+	public async Task<StreamContent> GetProfilePictureAsync(CancellationToken ct)
 	{
-		var response =
+		var base64 =
 			await _dataService.ReadFileAsync<string>(_profilePictureSerializer,
 			ProfilePictureDataFile) ?? String.Empty;
-		return !String.IsNullOrWhiteSpace(response) ?
-			Convert.FromBase64String(response)
-			: new byte[0];
+
+		var bytes = Convert.FromBase64String(base64);
+		var contents = new StreamContent(new MemoryStream(bytes));
+		return contents;
+		//return !String.IsNullOrWhiteSpace(response) ?
+		//	Convert.FromBase64String(response)
+		//	: new byte[0];
 	}
 }

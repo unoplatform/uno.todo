@@ -134,10 +134,24 @@
 
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
-				<VisualState x:Name="Narrow" />
-				<VisualState x:Name="Wide">
+				<VisualState x:Name="ExtraWide">
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="{StaticResource ExtraWideMinWindowWidth}" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="TaskListColumn.Width"
+								Value="2*" />
+						<Setter Target="TaskColumn.Width"
+								Value="*" />
+						<Setter Target="TaskDetailsGrid.Visibility"
+								Value="Visible" />
+						<Setter Target="TaskDetails.(uen:Region.Attached)"
+								Value="true" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="Wide">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWindowWidth}" />
 					</VisualState.StateTriggers>
 					<VisualState.Setters>
 						<Setter Target="TaskListColumn.Width" Value="*" />
@@ -145,7 +159,14 @@
 						<Setter Target="TaskColumn.Width" Value="2*" />
 						<Setter Target="TaskDetailsGrid.Visibility" Value="Visible" />
 						<Setter Target="TaskDetails.(uen:Region.Attached)" Value="true" />
+						<Setter Target="TaskDetails.(uen:Region.Attached)"
+								Value="true" />
 					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="Narrow">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
@@ -153,7 +174,7 @@
 		<utu:AutoLayout Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}">
 			<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:NavigationBar Content="{Binding Entity.DisplayName}"
-								   Background="{Binding TaskList, Converter={StaticResource TaskListSurfaceBrushConverter}}"
+								   Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
 								   Style="{StaticResource MaterialNavigationBarStyle}">
 					<utu:NavigationBar.MainCommand>
 						<AppBarButton Foreground="{ThemeResource MaterialOnPrimaryMediumBrush}">

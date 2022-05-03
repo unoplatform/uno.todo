@@ -9,7 +9,21 @@ public class UserProfilePictureService : IUserProfilePictureService
 		_client = client;
 	}
 
-	public Task<byte[]> GetAsync(CancellationToken ct)
-		=> _client.GetAsync(ct);
+	public async Task<byte[]> GetAsync(CancellationToken ct)
+	{
+		try
+		{
+			var response
+				= await _client.GetAsync(ct);
+
+			return new byte[0];
+		}
+		catch (Exception ex)
+		{
+
+			throw ex;
+		}
+	}
+		
 	
 }

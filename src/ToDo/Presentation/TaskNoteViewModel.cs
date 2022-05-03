@@ -6,16 +6,14 @@ public partial class TaskNoteViewModel
 
 	public string? Note { get; set; }
 
-	public TaskNoteViewModel(
-		INavigator navigator,
-		ICommandBuilder addNote)
+	public TaskNoteViewModel(INavigator navigator)
 	{
 		_navigator = navigator;
-		addNote.Execute(AddNote);
 	}
 
-	private async ValueTask AddNote(CancellationToken ct)
+	public ICommand AddNote => Command.Async(DoAddNote);
+	private async ValueTask DoAddNote(CancellationToken ct)
 	{
-		await _navigator.NavigateBackWithResultAsync(this, data: new TaskBodyData { Content = Note });
+		await _navigator.NavigateBackWithResultAsync(this, data: new TaskBodyData { Content = Note }, cancellation: ct);
 	}
 }

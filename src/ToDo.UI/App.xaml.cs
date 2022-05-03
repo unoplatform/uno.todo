@@ -1,3 +1,8 @@
+// Only define mocks in debug as we don't have a way to dynamically switch them
+//#if DEBUG
+//#define USE_MOCKS
+//#endif
+
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 using Uno.Extensions.Localization;
@@ -56,8 +61,16 @@ public sealed partial class App : Application
 				.ConfigureServices((context, services) =>
 				{
 					services
-						.AddEndpoints(context)
-						.AddServices();
+						.AddEndpoints(context
+#if USE_MOCKS
+						, useMocks: true
+#endif
+						)
+						.AddServices(
+#if USE_MOCKS
+						useMocks: true
+#endif
+						);
 				})
 
 				// Enable navigation, including registering views and viewmodels
@@ -68,6 +81,8 @@ public sealed partial class App : Application
 
 				// Add localization support
 				.UseLocalization()
+
+				.ConfigureServices(services=>services.AddSingleton<IRequestHandler, NavigationViewRequestHandler>())
 
 				.Build(enableUnoLogging: true);
 
@@ -190,7 +205,7 @@ public sealed partial class App : Application
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
 			new ViewMap(
-				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > 1000 ? typeof(TaskControl) : typeof(TaskPage),
+				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
 				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,

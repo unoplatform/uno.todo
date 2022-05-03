@@ -10,6 +10,6 @@ internal class MockUserProfilePictureEndpoint : IUserProfilePictureEndpoint
 		_listEndpoint = (listEndpoint as MockTaskListEndpoint)!;
 	}
 
-	public Task<byte[]> GetAsync(CancellationToken ct)
-		=> _listEndpoint.GetProfilePictureAsync(ct);
+	public async Task<StreamContent> GetAsync(CancellationToken ct)
+		=> await _listEndpoint.GetProfilePictureAsync(ct);
 }

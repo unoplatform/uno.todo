@@ -1,9 +1,9 @@
 ﻿namespace ToDo;
 
-[Headers("Content-Type: image/jpg")]
+[Headers("Authorization: Bearer")]
 public interface IUserProfilePictureEndpoint
 {
 	[Get("/photo/$value")]
-	[Headers("Authorization: Bearer")]
-	Task<byte[]> GetAsync(CancellationToken ct);
+	[Headers("Content-Type: multipart/form-data")]
+	Task<StreamContent> GetAsync(CancellationToken ct);
 }
