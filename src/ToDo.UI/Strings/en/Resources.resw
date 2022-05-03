@@ -123,4 +123,7 @@
   <data name="TaskControl_CompletedDateFormatter.Format" xml:space="preserve">
     <value>Created on {0:ddd, d MMMM}</value>
   </data>
+  <data name="SearchPage_InputTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search for tasks</value>
+  </data>
 </root>

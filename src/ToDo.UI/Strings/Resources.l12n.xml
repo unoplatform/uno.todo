@@ -228,4 +228,11 @@
 			<es>Completó el {0:ddd, d' de 'MMM}</es>
 		</data>
 	</section>
+	<section prefix="SearchPage_">
+		<data name="InputTextBox.PlaceholderText">
+			<en>Search for tasks</en>
+			<fr>Rechercher des tâches</fr>
+			<es>Buscar tareas</es>
+		</data>
+	</section>
 </root>

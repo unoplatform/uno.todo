@@ -123,4 +123,7 @@
   <data name="TaskControl_CompletedDateFormatter.Format" xml:space="preserve">
     <value>Completó el {0:ddd, d' de 'MMM}</value>
   </data>
+  <data name="SearchPage_InputTextBox.PlaceholderText" xml:space="preserve">
+    <value>Buscar tareas</value>
+  </data>
 </root>
