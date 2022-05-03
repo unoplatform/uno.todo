@@ -86,9 +86,7 @@
       <Version>6.3.2</Version>
     </PackageReference>
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.35" />
-    <PackageReference Include="Uno.WinUI.MSAL">
-      <Version>4.1.9</Version>
-    </PackageReference>
+    <PackageReference Include="Uno.WinUI.MSAL" Version="4.2.6" />
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources" Version="1.2.0.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
     <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.0-dev.65" Condition="'$(Configuration)'=='Debug'" />
