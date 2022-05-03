@@ -1,3 +1,8 @@
+// Only define mocks in debug as we don't have a way to dynamically switch them
+#if DEBUG
+#define USE_MOCKS
+#endif
+
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 using Uno.Extensions.Localization;
@@ -56,8 +61,16 @@ public sealed partial class App : Application
 				.ConfigureServices((context, services) =>
 				{
 					services
-						.AddEndpoints(context)
-						.AddServices();
+						.AddEndpoints(context
+#if USE_MOCKS
+						, useMocks: true
+#endif
+						)
+						.AddServices(
+#if USE_MOCKS
+						useMocks: true
+#endif
+						);
 				})
 
 				// Enable navigation, including registering views and viewmodels
