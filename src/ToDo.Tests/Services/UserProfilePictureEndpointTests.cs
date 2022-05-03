@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Net.Http;
 using System.Threading;
 
 namespace ToDo.Tests.Services;
@@ -17,7 +18,7 @@ internal class UserProfilePictureEndpointTests : BaseEndpointTests<IUserProfileP
 		var result = await service.GetAsync(CancellationToken.None);
 
 		//Assert
-		Assert.IsInstanceOf<byte[]>(result);
+		Assert.IsInstanceOf<HttpContent>(result);
 	}
 
 }
