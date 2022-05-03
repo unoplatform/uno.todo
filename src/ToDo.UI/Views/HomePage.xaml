@@ -33,59 +33,75 @@
 									TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
 									DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
 	</Page.Resources>
+	<Grid>
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="Wide">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWindowWidth}" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="NavView.(uen:Navigation.Request)"
+								Value="./TaskList" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="Narrow">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+		<muxc:NavigationView x:Name="NavView"
+							 MenuItemsSource="{Binding WellKnownLists}"
+							 FooterMenuItemsSource="{Binding CustomLists}"
+							 AlwaysShowHeader="True"
+							 PaneDisplayMode="Left"
+							 OpenPaneLength="{StaticResource SplitModeSidePaneWidth}"
+							 IsPaneToggleButtonVisible="False"
+							 IsSettingsVisible="False"
+							 Style="{StaticResource HomeNavigationViewStyle}"
+							 CompactModeThresholdWidth="0"
+							 ExpandedModeThresholdWidth="0">
 
-	<muxc:NavigationView x:Name="NavView"
-						 MenuItemsSource="{Binding WellKnownLists}"
-						 FooterMenuItemsSource="{Binding CustomLists}"
-						 AlwaysShowHeader="True"
-						 PaneDisplayMode="LeftMinimal"
-						 OpenPaneLength="{StaticResource SplitModeSidePaneWidth}"
-						 IsPaneToggleButtonVisible="False"
-						 IsSettingsVisible="False"
-						 CompactPaneLength="0"
-						 CompactModeThresholdWidth="801"
-						 ExpandedModeThresholdWidth="{StaticResource SplitModeThresholdWidth}"
-						 Style="{StaticResource HomeNavigationViewStyle}">
+			<!-- Header: Profile (Setting button) + Search button -->
+			<muxc:NavigationView.PaneHeader>
+				<Grid Grid.Row="0"
+					  Padding="16,8"
+					  ColumnSpacing="8">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
 
-		<!-- Header: Profile (Setting button) + Search button -->
-		<muxc:NavigationView.PaneHeader>
-			<Grid Grid.Row="0"
-				  Padding="16,8"
-				  ColumnSpacing="8">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
-				</Grid.ColumnDefinitions>
+					<PersonPicture Grid.Column="0"
+								   DisplayName="{Binding CurrentUser.Name}"
+								   d:ProfilePicture="{Binding CurrentUser.AvatarUrl}"
+								   Width="40"
+								   Height="40"
+								   VerticalAlignment="Center" />
 
-				<PersonPicture Grid.Column="0"
-							   DisplayName="{Binding CurrentUser.Name}"
-							   d:ProfilePicture="{Binding CurrentUser.AvatarUrl}"
-							   Width="40"
-							   Height="40"
+					<TextBlock Grid.Column="1"
+							   Text="{Binding CurrentUser.Name}"
 							   VerticalAlignment="Center" />
 
-				<TextBlock Grid.Column="1"
-						   Text="{Binding CurrentUser.Name}"
-						   VerticalAlignment="Center" />
+					<!-- This is a hack to allow both picture and textblock to respond to tap event -->
+					<Border Background="Transparent"
+							uen:Navigation.Request="Settings"
+							Grid.ColumnSpan="2" />
 
-				<!-- This is a hack to allow both picture and textblock to respond to tap event -->
-				<Border Background="Transparent"
-						uen:Navigation.Request="Settings"
-						Grid.ColumnSpan="2" />
-
-				<PathIcon Grid.Column="2"
-						  Data="{StaticResource Icon_Search}"
-						  VerticalAlignment="Center"
-						  uen:Navigation.Request="!TaskSearch" />
-			</Grid>
-		</muxc:NavigationView.PaneHeader>
+					<PathIcon Grid.Column="2"
+							  Data="{StaticResource Icon_Search}"
+							  VerticalAlignment="Center"
+							  uen:Navigation.Request="!TaskSearch" />
+				</Grid>
+			</muxc:NavigationView.PaneHeader>
 
 		<!-- Task Lists: template for WellKnownLists & CustomLists -->
 		<muxc:NavigationView.MenuItemTemplate>
 			<DataTemplate>
 				<muxc:NavigationViewItem Content="{Binding DisplayName}"
-										 uen:Navigation.Request="./TaskList"
 										 uen:Navigation.Data="{Binding}">
 					<muxc:NavigationViewItem.Icon>
 						<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"
@@ -114,5 +130,5 @@
 		<Grid uen:Region.Navigator="Visibility"
 			  uen:Region.Attached="True" />
 	</muxc:NavigationView>
-
+</Grid>
 </Page>
