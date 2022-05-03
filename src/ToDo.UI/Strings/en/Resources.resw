@@ -108,4 +108,19 @@
   <data name="AddTaskFlyout_CreateButton.Content" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="TaskControl_TaskNameTextBox.PlaceholderText" xml:space="preserve">
+    <value>Task Name</value>
+  </data>
+  <data name="TaskControl_AddTaskButton.Content" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="TaskControl_DueDateFormatter.Format" xml:space="preserve">
+    <value>Due {0:ddd, d MMMM}</value>
+  </data>
+  <data name="TaskControl_CreatedDateFormatter.Format" xml:space="preserve">
+    <value>Created on {0:ddd, d MMMM}</value>
+  </data>
+  <data name="TaskControl_CompletedDateFormatter.Format" xml:space="preserve">
+    <value>Created on {0:ddd, d MMMM}</value>
+  </data>
 </root>

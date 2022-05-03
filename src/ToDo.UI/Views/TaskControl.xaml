@@ -4,6 +4,7 @@
 			 xmlns:local="using:ToDo.Views"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:converters="using:ToDo.Converters"
 			 xmlns:uen="using:Uno.Extensions.Navigation.UI"
 			 xmlns:uer="using:Uno.Extensions.Reactive.UI"
 			 xmlns:utu="using:Uno.Toolkit.UI"
@@ -16,6 +17,16 @@
 		<x:String x:Key="Icon_Star_Rate">F1 M 12.430000305175781 8 L 10 0 L 7.569999694824219 8 L 0 8 L 6.180000305175781 12.40999984741211 L 3.8299999237060547 20 L 10 15.309999465942383 L 16.18000030517578 20 L 13.829999923706055 12.40999984741211 L 20 8 L 12.430000305175781 8 Z</x:String>
 		<x:String x:Key="Icon_Star_Rate_Empty">F0 M 11.68863582611084 9 L 10 3.440704822540283 L 8.31136417388916 9 L 3.1229331493377686 9 L 7.348935604095459 12.015642166137695 L 5.707651615142822 17.31663703918457 L 9.999509811401367 14.054267883300781 L 14.303584098815918 17.320627212524414 L 12.661236763000488 12.016199111938477 L 16.881179809570312 9 L 11.68863582611084 9 Z M 20 8 L 13.829999923706055 12.40999984741211 L 16.18000030517578 20 L 10 15.309999465942383 L 3.8299999237060547 20 L 6.180000305175781 12.40999984741211 L 0 8 L 7.569999694824219 8 L 10 0 L 12.430000305175781 8 L 20 8 Z</x:String>
 		<x:String x:Key="Icon_Today">F1 M 16 2 L 15 2 L 15 0 L 13 0 L 13 2 L 5 2 L 5 0 L 3 0 L 3 2 L 2 2 C 0.8899999856948853 2 0.009999990463256836 2.899999976158142 0.009999990463256836 4 L 0 18 C 0 19.100000023841858 0.8899999856948853 20 2 20 L 16 20 C 17.100000023841858 20 18 19.100000023841858 18 18 L 18 4 C 18 2.899999976158142 17.100000023841858 2 16 2 Z M 16 18 L 2 18 L 2 7 L 16 7 L 16 18 Z M 4 9 L 9 9 L 9 14 L 4 14 L 4 9 Z</x:String>
+
+		<converters:StringFormatter x:Uid="TaskControl_DueDateFormatter"
+									x:Key="DueDateFormatter"
+									Format="{}Due {0:ddd, d MMMM}" />
+		<converters:StringFormatter x:Uid="TaskControl_CreatedDateFormatter"
+									x:Key="CreatedDateFormatter"
+									Format="{}Created on {0:ddd, d MMMM}" />
+		<converters:StringFormatter x:Uid="TaskControl_CompletedDateFormatter"
+									x:Key="CompletedDateFormatter"
+									Format="{}Completed on {0:ddd, d MMMM}" />
 	</UserControl.Resources>
 
 	<utu:AutoLayout Background="{ThemeResource MaterialSurfaceBrush}">
@@ -37,7 +48,8 @@
 					</utu:AutoLayout>
 					<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBox PlaceholderText="Task Name"
+						<TextBox x:Uid="TaskControl_TaskNameTextBox"
+								 PlaceholderText="Task Name"
 								 Text="{Binding Entity.Title}"
 								 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 					</utu:AutoLayout>
@@ -80,7 +92,7 @@
 									<utu:AutoLayout PrimaryAxisAlignment="Center">
 										<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
 												   TextWrapping="Wrap"
-												   Text="Due Sun, 10 April"
+												   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}"
 												   Style="{StaticResource MaterialSubtitle1}" />
 									</utu:AutoLayout>
 								</utu:AutoLayout>
@@ -132,7 +144,8 @@
 											utu:AutoLayout.CounterAlignment="Center">
 								<utu:AutoLayout PrimaryAxisAlignment="End"
 												Orientation="Horizontal">
-									<Button Content="Open"
+									<Button x:Uid="TaskControl_AddTaskButton"
+											Content="Open"
 											Command="{Binding AddTaskNote}"
 											utu:AutoLayout.CounterAlignment="Start"
 											Style="{StaticResource MaterialTextButtonStyle}" />
@@ -151,7 +164,13 @@
 								<utu:AutoLayout PrimaryAxisAlignment="Center">
 									<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
 											   TextWrapping="Wrap"
-											   Text="Completed today"
+											   Text="{Binding Entity.CreatedDateTime, Converter={StaticResource CreatedDateFormatter}, TargetNullValue=''}"
+											   Visibility="{Binding Entity.CompletedDateTime, Converter={StaticResource IsNull}}"
+											   Style="{StaticResource MaterialBody2}" />
+									<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
+											   TextWrapping="Wrap"
+											   Text="{Binding Entity.CompletedDateTime.DateTime, Converter={StaticResource CompletedDateFormatter}}"
+											   Visibility="{Binding Entity.CompletedDateTime, Converter={StaticResource IsNotNull}}"
 											   Style="{StaticResource MaterialBody2}" />
 								</utu:AutoLayout>
 							</utu:AutoLayout>

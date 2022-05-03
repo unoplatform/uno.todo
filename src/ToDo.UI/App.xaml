@@ -41,6 +41,10 @@
 			<x:Double x:Key="ExtraWideMinWindowWidth">1000</x:Double>
 
 			<converters:FormatConverter x:Key="FormatConverter" />
+			<converters:StringFormatter x:Key="StringFormatter" />
+			<converters:ReferenceConverter x:Key="IsNull" ConversionMode="IsNull" />
+			<converters:ReferenceConverter x:Key="IsNotNull" ConversionMode="IsNotNull" />
+
 		</ResourceDictionary>
 	</Application.Resources>
 

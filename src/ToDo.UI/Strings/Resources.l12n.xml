@@ -201,4 +201,31 @@
 			<es>Crear</es>
 		</data>
 	</section>
+	<section prefix="TaskControl_">
+		<data name="TaskNameTextBox.PlaceholderText">
+			<en>Task Name</en>
+			<fr>Nom de la tâche</fr>
+			<es>Nombre de la tarea</es>
+		</data>
+		<data name="AddTaskButton.Content">
+			<en>Open</en>
+			<fr>Ouvrir</fr>
+			<es>Abierto</es>
+		</data>
+		<data name="DueDateFormatter.Format">
+			<en>Due {0:ddd, d MMMM}</en>
+			<fr>Due pour le {0:ddd d MMM}</fr>
+			<es>Para el {0:ddd, d' de 'MMM}</es>
+		</data>
+		<data name="CreatedDateFormatter.Format">
+			<en>Created on {0:ddd, d MMMM}</en>
+			<fr>Créée le {0:ddd d MMM}</fr>
+			<es>Creada el {0:ddd, d' de 'MMM}</es>
+		</data>
+		<data name="CompletedDateFormatter.Format">
+			<en>Created on {0:ddd, d MMMM}</en>
+			<fr>Achevée le {0:ddd d MMM}</fr>
+			<es>Completó el {0:ddd, d' de 'MMM}</es>
+		</data>
+	</section>
 </root>
