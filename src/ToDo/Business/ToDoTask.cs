@@ -85,14 +85,14 @@ public record ToDoTask
 	internal TaskData ToData()
 		=> new()
 		{
-			Id = Id,
+			Id = Id ?? String.Empty,
 			Importance = Importance,
 			IsReminderOn = IsReminderOn,
 			Status = Status,
 			Title = Title,
 			DisplayName = Title,
-			CreatedDateTime = CreatedDateTime,
-			LastModifiedDateTime = LastModifiedDateTime,
+			//CreatedDateTime = CreatedDateTime,
+			//LastModifiedDateTime = LastModifiedDateTime,
 			Body = Body,
 			DueDateTime = DueDateTime,
 			CompletedDateTime = CompletedDateTime,

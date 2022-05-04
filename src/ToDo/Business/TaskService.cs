@@ -18,9 +18,20 @@ public class TaskService : ITaskService
 	/// <inheritdoc />
 	public async Task CreateAsync(TaskList list, ToDoTask newTask, CancellationToken ct)
 	{
-		var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
+		try
+		{
+			var todoTaskData = newTask.ToData();
+			todoTaskData.CreatedDateTime = DateTime.Now;
+			todoTaskData.LastModifiedDateTime = null;
+			var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
+			_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new(list, createdTask)), list.Id);
+		}
+		catch (Exception ex)
+		{
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new(list, createdTask)), list.Id);
+			throw ex;
+		}
+
 	}
 
 	/// <inheritdoc />
