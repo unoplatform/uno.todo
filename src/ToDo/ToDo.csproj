@@ -17,7 +17,7 @@
 		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.534" />
 		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.534" />
 		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.534" />
-		<PackageReference Include="Uno.Extensions.Http.Refit" Version="1.2.0-dev.534" />
+		<PackageReference Include="Uno.Extensions.Http.Refit" Version="1.2.0-dev.538" />
 		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.534" />
 		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.534" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.534" />
