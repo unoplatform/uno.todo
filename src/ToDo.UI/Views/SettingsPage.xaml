@@ -13,7 +13,8 @@
 
 	<utu:AutoLayout>
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
-			<utu:NavigationBar Content="Settings"
+			<utu:NavigationBar x:Uid="SettingsPage_NavigationBar"
+							   Content="Settings"
 							   Style="{StaticResource MaterialRootModalNavigationBarStyle}" />
 			<utu:AutoLayout Padding="20,15,20,0">
 				<utu:AutoLayout Spacing="10"
@@ -40,8 +41,8 @@
 						   TextWrapping="Wrap"
 						   Text="{Binding CurrentUser.Email}"
 						   Style="{StaticResource MaterialBody2}" />
-				<Button Content="sign out"
-						x:Uid="SignOutButton"
+				<Button x:Uid="SettingsPage_SignOutButton"
+						Content="sign out"
 						Command="{Binding SignOut}"
 						Style="{StaticResource MaterialTextButtonStyle}" />
 			</utu:AutoLayout>
@@ -55,31 +56,33 @@
 									 utu:AutoLayout.CounterLength="350"
 									 Style="{StaticResource MaterialDividerStyle}" />
 					</utu:AutoLayout>
-					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
-							   TextWrapping="Wrap"
+					<TextBlock x:Uid="SettingsPage_GeneralSection"
 							   Text="General"
+							   TextWrapping="Wrap"
+							   Foreground="{ThemeResource MaterialPrimaryBrush}"
 							   Style="{StaticResource MaterialSubtitle2}" />
 					<utu:AutoLayout Spacing="20">
 						<utu:AutoLayout Spacing="5">
-							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+							<TextBlock x:Uid="SettingsPage_PaletteSection"
 									   Text="Color palette"
+									   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource MaterialSubtitle1}" />
 							<utu:ChipGroup x:Name="ColorPaletteChipGroup"
 										   SelectionMode="Single"
 										   ItemChecked="{x:Bind UpdateAppColorPalette}"
 										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
-								<utu:Chip Content="Purple"
+								<utu:Chip x:Uid="SettingsPage_PalettePurple" Content="Purple"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
-								<utu:Chip Content="Blue"
+								<utu:Chip x:Uid="SettingsPage_PaletteBlue" Content="Blue"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
-								<utu:Chip Content="Yellow"
+								<utu:Chip x:Uid="SettingsPage_PaletteYellow" Content="Yellow"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="5">
-							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-									   Text="Language - This requires an app restart"
+							<TextBlock x:Uid="SettingsPage_LanguageLabel" Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Language"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource MaterialSubtitle1}" />
 							<utu:ChipGroup x:Name="LanguageChipGroup"
@@ -93,9 +96,14 @@
 									</DataTemplate>
 								</utu:ChipGroup.ItemTemplate>
 							</utu:ChipGroup>
+							<TextBlock x:Uid="SettingsPage_NoteToRestart"
+									   Foreground="{ThemeResource MaterialOnSurfaceLowBrush}"
+									   Text="Change will be applied at next app restart"
+									   utu:AutoLayout.CounterAlignment="Start"
+									   Style="{StaticResource MaterialCaption}" />
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="5">
-							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+							<TextBlock x:Uid="SettingsPage_ThemeLabel" Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 									   Text="Mode"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource MaterialSubtitle1}" />
@@ -103,10 +111,12 @@
 										   SelectionMode="Single"
 										   ItemChecked="{x:Bind UpdateAppTheme}"
 										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
-								<utu:Chip Content="Light"
+								<utu:Chip x:Uid="SettingsPage_ThemeLight"
+										  Content="Light"
 										  Tag="Light"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
-								<utu:Chip Content="Dark"
+								<utu:Chip x:Uid="SettingsPage_ThemeDark"
+										  Content="Dark"
 										  Tag="Dark"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 							</utu:ChipGroup>
@@ -118,14 +128,15 @@
 								 utu:AutoLayout.CounterLength="350"
 								 Style="{StaticResource MaterialDividerStyle}" />
 				</utu:AutoLayout>
-				<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+					<TextBlock x:Uid="SettingsPage_AboutSection" Foreground="{ThemeResource MaterialPrimaryBrush}"
 						   TextWrapping="Wrap"
 						   Text="About"
 						   Style="{StaticResource MaterialSubtitle2}" />
 				<utu:AutoLayout Spacing="5"
 								Orientation="Horizontal">
-					<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+					<TextBlock x:Uid="SettingsPage_VersionLabel"
 							   Text="Version"
+							   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"
 							   Style="{StaticResource MaterialSubtitle1}" />
 					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"

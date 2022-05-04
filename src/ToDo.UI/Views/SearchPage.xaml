@@ -30,13 +30,13 @@
 						x:Uid="Body_IconButton">
 					<PathIcon Data="{StaticResource Icon_Arrow_Back}" />
 				</Button>
-				<TextBox Text="{Binding Term, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				<TextBox x:Uid="SearchPage_InputTextBox"
+						 Text="{Binding Term, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 						 PlaceholderText="Search"
 						 utu:AutoLayout.CounterAlignment="Start"
 						 utu:AutoLayout.PrimaryAlignment="Stretch"
 						 Background="{ThemeResource MaterialSurfaceBrush}"
-						 Style="{StaticResource MaterialFilledTextBoxStyle}"
-						 x:Uid="Body_TextBox" />
+						 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 			</utu:AutoLayout>
 			<utu:AutoLayout Padding="20,20,20,0"
 							utu:AutoLayout.PrimaryAlignment="Stretch">

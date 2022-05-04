@@ -15,13 +15,15 @@
 					Padding="20,20,20,20"
 					CornerRadius="8"
 					Background="{ThemeResource MaterialSurfaceBrush}">
-		
-		<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+
+		<TextBlock x:Uid="AddTaskFlyout_Title"
+				   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 				   TextWrapping="Wrap"
 				   Text="Add a task"
 				   Style="{StaticResource MaterialHeadline6}" />
 
-		<TextBox PlaceholderText="Add a task"
+		<TextBox x:Uid="AddTaskFlyout_InputTextBox"
+				 PlaceholderText="Add a task"
 				 Text="{Binding Title, Mode=TwoWay}"
 				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 
@@ -32,12 +34,14 @@
 							utu:AutoLayout.CounterAlignment="Start"
 							utu:AutoLayout.PrimaryAlignment="Stretch" />
 
-			<Button Content="Cancel"
+			<Button x:Uid="AddTaskFlyout_CancelButton"
+					Content="Cancel"
 					uen:Navigation.Request="-"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialTextButtonStyle}" />
 
-			<Button Content="Create"
+			<Button x:Uid="AddTaskFlyout_CreateButton"
+					Content="Create"
 					Command="{Binding AddCommand}"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialContainedButtonStyle}" />
