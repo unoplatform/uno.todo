@@ -18,11 +18,24 @@ public sealed partial class App : Application
 	public new Window? Window => _window;
 #pragma warning restore CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.
 
-	private IHost Host { get; }
-
 	public App()
 	{
-		Host = UnoHost
+		this.InitializeComponent();
+
+#if HAS_UNO || NETFX_CORE
+		this.Suspending += OnSuspending;
+#endif
+	}
+
+	private static IHost BuildAppHost()
+	{
+#if USE_MOCKS
+		var useMocks = true;
+#else
+		var useMocks = false;
+#endif
+
+		return UnoHost
 				.CreateDefaultBuilder()
 #if DEBUG
 				// Switch to Development environment when running in DEBUG
@@ -49,29 +62,17 @@ public sealed partial class App : Application
 				// Load AppInfo section
 				.UseConfiguration<AppInfo>()
 				.UseConfiguration<OAuthSettings>()
-				
 
 				.UseSettings<ToDoSettings>()
-
 
 				// Register Json serializers (ISerializer and IStreamSerializer)
 				.UseSerialization()
 
 				// Register services for the application
-				.ConfigureServices((context, services) =>
-				{
-					services
-						.AddEndpoints(context
-#if USE_MOCKS
-						, useMocks: true
-#endif
+			.ConfigureServices((context, services) => services
+				.AddEndpoints(context, useMocks: useMocks)
+				.AddServices(useMocks: useMocks)
 						)
-						.AddServices(
-#if USE_MOCKS
-						useMocks: true
-#endif
-						);
-				})
 
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(RegisterRoutes)
@@ -82,15 +83,9 @@ public sealed partial class App : Application
 				// Add localization support
 				.UseLocalization()
 
-				.ConfigureServices(services=>services.AddSingleton<IRequestHandler, NavigationViewRequestHandler>())
+			.ConfigureServices(services => services.AddSingleton<IRequestHandler, NavigationViewRequestHandler>())
 
 				.Build(enableUnoLogging: true);
-
-		this.InitializeComponent();
-
-#if HAS_UNO || NETFX_CORE
-		this.Suspending += OnSuspending;
-#endif
 	}
 
 	/// <summary>
@@ -118,19 +113,19 @@ public sealed partial class App : Application
 #endif
 #endif
 
-		if (Host.Services.GetService<IRouteNotifier>() is { } notif)
+		var host = BuildAppHost();
+		if (host.Services.GetService<IRouteNotifier>() is { } notif)
 		{
 			notif.RouteChanged += RouteUpdated;
 		}
 
-		_window.AttachNavigation(Host.Services);
+		_window.AttachNavigation(host.Services);
 		_window.Activate();
 
 		await System.Threading.Tasks.Task.Run(async () =>
 		{
-			await Host.StartAsync();
+			await host.StartAsync();
 		});
-
 	}
 
 	/// <summary>
@@ -160,7 +155,7 @@ public sealed partial class App : Application
 	private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
 	{
 		var res = ResourceLoader.GetForViewIndependentUse();
-		
+
 		MessageDialogViewMap BuildDialogViewMap(string section, bool delayUserInput, int defaultButtonIndex, params (object Id, string labelKeyPath)[] buttons)
 		{
 			return new MessageDialogViewMap
