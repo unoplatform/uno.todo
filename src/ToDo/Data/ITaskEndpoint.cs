@@ -9,7 +9,7 @@ public interface ITaskEndpoint
 
 	[Post("/todo/lists/{listId}/tasks")]
 	[Headers("Authorization: Bearer")]
-	Task<TaskData> CreateAsync(string listId, [Body] TaskData newTask, CancellationToken ct);
+	Task<TaskData> CreateAsync(string listId, [Body] CreateTaskData newTask, CancellationToken ct);
 
 	[Patch("/todo/lists/{listId}/tasks/{taskId}")]
 	[Headers("Authorization: Bearer")]

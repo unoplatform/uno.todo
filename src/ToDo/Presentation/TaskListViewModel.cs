@@ -114,7 +114,6 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 			list = list with { DisplayName = newListName };
 			await _listSvc.UpdateAsync(list, ct);
 		}
-
 	}
 
 	public async void Receive(EntityMessage<ToDoTask> msg)

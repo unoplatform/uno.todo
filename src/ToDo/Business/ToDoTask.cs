@@ -85,7 +85,7 @@ public record ToDoTask
 	internal TaskData ToData()
 		=> new()
 		{
-			Id = Id ?? String.Empty,
+			Id = Id,
 			Importance = Importance,
 			IsReminderOn = IsReminderOn,
 			Status = Status,
@@ -99,5 +99,18 @@ public record ToDoTask
 			LinkedResourcesOdataContext = LinkedResourcesOdataContext,
 			LinkedResources = LinkedResources?.ToList(),
 			OdataEtag = OdataEtag
+		};
+
+	// This ctor should be used only by business and should remain internal.
+	[Pure]
+	internal CreateTaskData ToCreateTaskData()
+		=> new()
+		{
+			Importance = Importance,
+			IsReminderOn = IsReminderOn,
+			Status = Status,
+			Title = Title,
+			Body = Body,
+			DueDateTime = DueDateTime
 		};
 }

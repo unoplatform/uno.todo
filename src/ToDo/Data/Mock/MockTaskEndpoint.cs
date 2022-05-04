@@ -13,10 +13,21 @@ public class MockTaskEndpoint : ITaskEndpoint
 		_listEndpoint = (listEndpoint as MockTaskListEndpoint)!;
 	}
 
-	public async Task<TaskData> CreateAsync(string listId, [Body] TaskData newTask, CancellationToken ct)
+	public async Task<TaskData> CreateAsync(string listId, [Body] CreateTaskData newTask, CancellationToken ct)
 	{
-		await _listEndpoint.AddTaskToList(listId, newTask);
-		return newTask;
+		var createdTask = new TaskData()
+		{
+			Id = Guid.NewGuid().ToString("N"),
+			Importance = newTask.Importance,
+			CreatedDateTime = DateTime.Now,
+			Body = newTask.Body,
+			Title = newTask.Title,
+			DueDateTime = newTask.DueDateTime,
+			IsReminderOn = newTask.IsReminderOn,
+			Status = newTask.Status
+		};
+		await _listEndpoint.AddTaskToList(listId, createdTask);
+		return createdTask;
 	}
 	public async Task DeleteAsync(string listId, string taskId, CancellationToken ct)
 	{
