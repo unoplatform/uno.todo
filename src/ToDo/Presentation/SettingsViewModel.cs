@@ -34,16 +34,31 @@ public partial class SettingsViewModel
 		_authService = authService;
 		LocalizationSettings = localizationSettings;
 
-		if (LocalizationSettings.Value?.Cultures?.Any() ?? false)
+		(Cultures, _selectedCulture) = GetCultures(localizer);
+	}
+
+	(DisplayCulture[] Cultures, DisplayCulture Current) GetCultures(IStringLocalizer localizer)
+	{
+		// LocalizationSettings is defined in: appsettings.json
+		if (LocalizationSettings.Value?.Cultures is { Length: > 0} cultures)
 		{
-			Cultures = LocalizationSettings.Value!.Cultures!.Select(culture => new DisplayCulture(localizer[culture], culture)).ToArray();
-			_selectedCulture = (string.IsNullOrWhiteSpace(LocalizationSettings.Value?.CurrentCulture) ? Cultures[0] : Cultures.FirstOrDefault(x => x.Culture == LocalizationSettings.Value?.CurrentCulture)) ?? Cultures[0];
+			var results = cultures
+				.Select(culture => new DisplayCulture(GetLabelFor(culture), culture))
+				.ToArray();
+			var current =
+				results.FirstOrDefault(x => x.Culture == LocalizationSettings.Value?.CurrentCulture) ??
+				results.FirstOrDefault();
+
+			return (results, current);
 		}
 		else
 		{
-			Cultures = new[] { new DisplayCulture(localizer["en"], "en") };
-			_selectedCulture = Cultures[0];
+			var results = new[] { new DisplayCulture(GetLabelFor("en"), "en") };
+
+			return (results, results[0]);
 		}
+
+		string GetLabelFor(string culture) => localizer[$"SettingsPage_LanguageLabel_{culture}"];
 	}
 
 	public IState<UserContext?> CurrentUser => State<UserContext?>.Async(this, async ct => await _authService.GetCurrentUserAsync());
@@ -73,8 +88,5 @@ public partial class SettingsViewModel
 		await LocalizationSettings.Update(settings => settings.CurrentCulture = culture.Culture);
 	}
 
-	public record DisplayCulture(string Display, string Culture)
-	{
-
-	}
+	public record DisplayCulture(string Display, string Culture);
 }
