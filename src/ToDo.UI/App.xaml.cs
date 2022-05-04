@@ -75,7 +75,14 @@ public sealed partial class App : Application
 						)
 
 				// Enable navigation, including registering views and viewmodels
-				.UseNavigation(RegisterRoutes)
+				.UseNavigation(
+						RegisterRoutes,
+						createViewRegistry: sc => new ReactiveViewRegistry(sc, ReactiveViewModelMappings.ViewModelMappings))
+					.ConfigureServices(services =>
+					{
+						services
+							.AddSingleton<IRouteResolver, ReactiveRouteResolver>();
+					})
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
