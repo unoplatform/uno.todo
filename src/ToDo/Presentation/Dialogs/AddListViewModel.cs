@@ -4,7 +4,7 @@ public partial class AddListViewModel
 {
 	private INavigator Navigator { get; }
 
-	public ICommand AddCommand { get; }
+	//public ICommand AddCommand { get; }
 
 	public string? ListName { get; set; }
 
@@ -14,7 +14,7 @@ public partial class AddListViewModel
 
 		Navigator = navigator;
 
-		AddCommand = new AsyncRelayCommand(Add);
+		//AddCommand = new AsyncRelayCommand(Add);
 	}
 
 	public async Task Add()
