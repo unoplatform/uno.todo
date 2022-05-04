@@ -20,7 +20,7 @@ public class TaskService : ITaskService
 	{
 		var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new(list, createdTask)), list.Id);
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new(list, createdTask)));
 	}
 
 	/// <inheritdoc />
