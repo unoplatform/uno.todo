@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <NoWarn>NU1701</NoWarn>
     <DefineConstants>$(DefineConstants);WINUI</DefineConstants>
+    <WasmShellILLinkerEnabled>false</WasmShellILLinkerEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
     <MonoRuntimeDebuggerEnabled>true</MonoRuntimeDebuggerEnabled>
@@ -82,7 +83,7 @@
     <PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.534" />
     <PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.534" />
     <PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.534" />
-    <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.534" />
+    <PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.538" />
     <PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.534" />
   </ItemGroup>
   <ItemGroup>
