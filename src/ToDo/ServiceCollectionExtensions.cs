@@ -12,12 +12,14 @@ public static class ServiceCollectionExtensions
 			.AddNativeHandler()
 			.AddContentSerializer()
 			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
-			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder);
+			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
+			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder);
 
 		if (useMocks)
 		{
 			services.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
-			.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>();
+				.AddSingleton<IUserProfilePictureEndpoint, ToDo.Data.Mock.MockUserProfilePictureEndpoint>()
+				.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>();
 		}
 		return services;
 	}
@@ -29,9 +31,11 @@ public static class ServiceCollectionExtensions
 		_ = services
 		   .AddSingleton<ITaskService, TaskService>()
 		   .AddSingleton<ITaskListService, TaskListService>()
+		   .AddSingleton<IUserProfilePictureService, UserProfilePictureService>()
 		   .AddSingleton<IAuthenticationService, AuthenticationService>()
 		   .AddSingleton<IAuthenticationTokenProvider>(sp => sp.GetRequiredService<IAuthenticationService>())
 		   .AddSingleton<IMessenger, WeakReferenceMessenger>();
+
 		if (useMocks)
 		{
 			// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
