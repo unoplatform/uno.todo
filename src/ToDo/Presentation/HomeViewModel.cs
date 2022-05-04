@@ -50,8 +50,8 @@ public partial class HomeViewModel
 	public ICommand CreateTaskList => Command.Async(DoCreateTaskList);
 	private async ValueTask DoCreateTaskList(CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this,qualifier: Qualifiers.Dialog, cancellation: ct);
-		if(response is null)
+		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
+		if (response is null)
 		{
 			return;
 		}

@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 		this IServiceCollection services,
 		HostBuilderContext context,
 		Action<IServiceProvider, RefitSettings>? settingsBuilder = null,
-		bool useMocks = false)
+		bool useMocks=false)
 	{
 		_ = services
 			.AddNativeHandler()
