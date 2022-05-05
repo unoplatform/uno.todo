@@ -278,7 +278,7 @@ public sealed partial class App : Application
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
 			new ViewMap(
-				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
+				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
 				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,
@@ -307,7 +307,7 @@ public sealed partial class App : Application
 				}),
 				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
 				new("TaskNote", View: views.FindByViewModel<TaskNoteViewModel>(), DependsOn:"Task"),
-				new("AddTask", View: views.FindByView<AddTaskViewModel>()),
+				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
 				new("AuthToken", View: views.FindByViewModel<AuthTokenViewModel>()),
 				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
