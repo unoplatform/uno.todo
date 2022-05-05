@@ -27,7 +27,7 @@
 
 		<TextBox x:Uid="AddListFlyout_ListNameInput"
 				 PlaceholderText="Write the title"
-				 Text="{Binding ListName, Mode=TwoWay}"
+				 x:Name="ListNameText"
 				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 
 		<utu:AutoLayout Spacing="10" Orientation="Horizontal">
@@ -45,7 +45,8 @@
 
 			<Button x:Uid="AddListFlyout_CreateButton"
 					Content="Create"
-					Command="{Binding AddCommand}"
+					uen:Navigation.Request="-"
+					uen:Navigation.Data="{Binding Text, ElementName=ListNameText}"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialContainedButtonStyle}">
 				<um:ControlExtensions.Icon>
