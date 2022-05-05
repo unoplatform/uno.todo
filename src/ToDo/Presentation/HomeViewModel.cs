@@ -34,8 +34,8 @@ public partial class HomeViewModel
 
 		WellKnownLists = new TaskList[]
 		{
-			new(TaskList.WellknownListNames.Important, _localizer.GetString("HomePage_ImportantTaskListLabel").Value),
-			new(TaskList.WellknownListNames.Tasks, _localizer.GetString("HomePage_CommonTaskListLabel").Value),
+			new(TaskList.WellknownListNames.Important, _localizer["HomePage_ImportantTaskListLabel"]),
+			new(TaskList.WellknownListNames.Tasks, _localizer["HomePage_CommonTaskListLabel"]),
 		};
 	}
 
