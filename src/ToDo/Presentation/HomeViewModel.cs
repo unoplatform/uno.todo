@@ -1,22 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using ToDo.Business.Services;
-using Microsoft.Extensions.Localization;
-
-namespace ToDo.Presentation;
+﻿namespace ToDo.Presentation;
 
 [ReactiveBindable]
 public partial class HomeViewModel
 {
-	public record class UserProfile(string DisplayName, string? AvatarUrl);
-
 	private readonly INavigator _navigator;
 	private readonly IAuthenticationService _authSvc;
 	private readonly IStringLocalizer _localizer;
 	private readonly ITaskListService _listSvc;
-	private readonly ILogger _logger;
 
 	private HomeViewModel(
-		ILogger<HomeViewModel> logger,
 		INavigator navigator,
 		IStringLocalizer localizer,
 		IAuthenticationService authSvc,
@@ -25,7 +17,6 @@ public partial class HomeViewModel
 	{
 		_navigator = navigator;
 		_localizer = localizer;
-		_logger = logger;
 		_navigator = navigator;
 		_authSvc = authSvc;
 		_listSvc = listSvc;
@@ -39,7 +30,7 @@ public partial class HomeViewModel
 		};
 	}
 
-	public IState<UserContext?> CurrentUser => State<UserContext?>.Async(this, async ct => await _authSvc.GetCurrentUserAsync());
+	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authSvc.GetCurrentUserAsync());
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
@@ -50,18 +41,22 @@ public partial class HomeViewModel
 	public ICommand CreateTaskList => Command.Async(DoCreateTaskList);
 	private async ValueTask DoCreateTaskList(CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<AddListViewModel, TaskListRequestData>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
+		var listName = await _navigator.GetDataAsync<AddListViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 
-		var result = await response.Result;
-
-		var listName = result.SomeOrDefault()?.DisplayName;
 		if (listName is not null)
 		{
 			await _listSvc.CreateAsync(listName, ct);
 		}
+	}
+}
+
+// TEMP - this needs to be added to Extensions
+public static class NavExt
+{
+
+	public static async Task<TResult?> GetDataAsync<TViewModel,TResult>(this INavigator service, object sender, string qualifier = Qualifiers.None, CancellationToken cancellation = default)
+	{
+		var result = await service.NavigateViewModelForResultAsync<TViewModel,TResult>(sender, qualifier, cancellation: cancellation).AsResult();
+		return result.SomeOrDefault();
 	}
 }

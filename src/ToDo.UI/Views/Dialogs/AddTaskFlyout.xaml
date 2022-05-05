@@ -24,6 +24,7 @@
 
 		<TextBox x:Uid="AddTaskFlyout_InputTextBox"
 				 PlaceholderText="Add a task"
+				 x:Name="TaskText"
 				 Text="{Binding Title, Mode=TwoWay}"
 				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 
@@ -42,7 +43,8 @@
 
 			<Button x:Uid="AddTaskFlyout_CreateButton"
 					Content="Create"
-					Command="{Binding AddCommand}"
+					uen:Navigation.Request="-"
+					uen:Navigation.Data="{Binding Text, ElementName=TaskText}"
 					utu:AutoLayout.CounterAlignment="Start"
 					Style="{StaticResource MaterialContainedButtonStyle}" />
 		</utu:AutoLayout>
