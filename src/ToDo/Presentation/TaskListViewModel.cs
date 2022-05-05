@@ -41,15 +41,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 	public ICommand CreateTask => Command.Create(c => c.Given(Entity).Then(DoCreateTask));
 	private async ValueTask DoCreateTask(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<AddTaskViewModel, TaskData>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
-
-		var result = await response.Result;
-
-		var taskName = result.SomeOrDefault()?.Title;
+		var taskName = await _navigator.GetDataAsync<AddTaskViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (taskName is not null)
 		{
 			// TODO: Configure properties of TaskData
