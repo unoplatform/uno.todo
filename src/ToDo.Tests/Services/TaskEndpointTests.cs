@@ -15,6 +15,7 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
 		//Arrange
 		var listId = "AQMkADAwATNiZmYAZC00YjBmLWQzOTItMDACLTAwCgAuAAADIptfVB-VcUaFb7L0jgOsSQEAcYiQalobw0a8Voz8RAJUmAAAAjxiAAAA";
 		var newTask = new TaskData { Title = "new task created from unit test" };
+
 		//Act
 		var result = await service.CreateAsync(listId, newTask, CancellationToken.None);
 
