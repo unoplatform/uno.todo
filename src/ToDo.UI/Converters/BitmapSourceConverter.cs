@@ -14,5 +14,6 @@ public class BitmapSourceConverter : IValueConverter
 		bitmap.SetSource(buffer.AsRandomAccessStream());
 		return bitmap;
 	}
-	public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();
+	public object ConvertBack(object value, Type targetType, object parameter, string language)
+		=> throw new NotImplementedException("Only one-way conversion is supported.");
 }

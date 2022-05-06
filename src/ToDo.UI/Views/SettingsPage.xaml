@@ -8,8 +8,8 @@
 	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:um="using:Uno.Material"
 	  xmlns:utu="using:Uno.Toolkit.UI"
-	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-	  mc:Ignorable="d">
+	  mc:Ignorable="d"
+	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<utu:AutoLayout>
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -25,7 +25,7 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.PrimaryAlignment="Stretch" />
 					<PersonPicture DisplayName="{Binding CurrentUser.Name}"
-								   ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
+								    ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
 								   utu:AutoLayout.CounterAlignment="Start" />
 					<utu:AutoLayout Spacing="10"
 									Padding="20,15,20,15"

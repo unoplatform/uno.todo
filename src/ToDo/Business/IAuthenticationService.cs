@@ -4,9 +4,7 @@ public interface IAuthenticationService: IAuthenticationTokenProvider
 {
 	Task<UserContext?> GetCurrentUserAsync();
 
-	Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher);
+	Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher, IUserProfilePictureService userProfilePictureService, CancellationToken cancellation);
 
 	Task SignOutAsync();
-
-	Task SetProfilePicture(IUserProfilePictureService userProfilePictureService, CancellationToken cancellation);
 }
