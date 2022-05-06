@@ -37,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ReferenceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListToValueConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ThemeService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReactiveClasses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml.cs">
       <DependentUpon>AddListFlyout.xaml</DependentUpon>
@@ -92,6 +93,10 @@
 		 explicitly included in the projitem, so files can be added from vscode
 		 without manipulating the projitem file.
 	-->
+    <Page Include="$(MSBuildThisFileDirectory)Styles\ColorPaletteOverride.Purple.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

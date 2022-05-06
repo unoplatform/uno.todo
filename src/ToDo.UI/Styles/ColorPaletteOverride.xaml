@@ -4,48 +4,36 @@
 	<ResourceDictionary.ThemeDictionaries>
 		<!-- Light Theme -->
 		<ResourceDictionary x:Key="Light">
-
+			<!-- Primary -->
 			<Color x:Key="MaterialPrimaryColor">#5B4CF5</Color>
 			<Color x:Key="MaterialPrimaryVariantDarkColor">#353FE5</Color>
 			<Color x:Key="MaterialPrimaryVariantLightColor">#B6A8FB</Color>
-			<Color x:Key="MaterialSecondaryColor">#67E5AD</Color>
-			<Color x:Key="MaterialSecondaryVariantDarkColor">#2BB27E</Color>
-			<Color x:Key="MaterialSecondaryVariantLightColor">#9CFFDF</Color>
-			<Color x:Key="MaterialBackgroundColor">#F4F4F4</Color>
-			<Color x:Key="MaterialSurfaceColor">#FFFFFF</Color>
-			<Color x:Key="MaterialOnSurfaceColor">#000000</Color>
-			<Color x:Key="MaterialErrorColor">#F85977</Color>
-
-			<!-- Primary -->
-			<!--<Color x:Key="MaterialPrimaryColor">#086AD1</Color>
-			<Color x:Key="MaterialPrimaryVariantDarkColor">#04488C</Color>
-			<Color x:Key="MaterialPrimaryVariantLightColor">#E3EFFB</Color>-->
 
 			<!-- OnPrimary -->
 			<Color x:Key="MaterialOnPrimaryColor">#FFFFFF</Color>
 
 			<!-- Secondary -->
-			<!--<Color x:Key="MaterialSecondaryColor">#FEB839</Color>
-			<Color x:Key="MaterialSecondaryVariantDarkColor">#FFA502</Color>
-			<Color x:Key="MaterialSecondaryVariantLightColor">#FFD487</Color>-->
+			<Color x:Key="MaterialSecondaryColor">#67E5AD</Color>
+			<Color x:Key="MaterialSecondaryVariantDarkColor">#2BB27E</Color>
+			<Color x:Key="MaterialSecondaryVariantLightColor">#9CFFDF</Color>
 
 			<!-- OnSecondary -->
 			<Color x:Key="MaterialOnSecondaryColor">#000000</Color>
 
 			<!-- Background -->
-			<!--<Color x:Key="MaterialBackgroundColor">#F0F0F0</Color>-->
+			<Color x:Key="MaterialBackgroundColor">#F4F4F4</Color>
 
 			<!-- OnBackground -->
 			<Color x:Key="MaterialOnBackgroundColor">#000000</Color>
 
 			<!-- Surface -->
-			<!--<Color x:Key="MaterialSurfaceColor">#FFFFFF</Color>-->
+			<Color x:Key="MaterialSurfaceColor">#FFFFFF</Color>
 
 			<!-- OnSurface -->
-			<!--<Color x:Key="MaterialOnSurfaceColor">#000000</Color>-->
+			<Color x:Key="MaterialOnSurfaceColor">#000000</Color>
 
 			<!-- Error -->
-			<!--<Color x:Key="MaterialErrorColor">#B00020</Color>-->
+			<Color x:Key="MaterialErrorColor">#F85977</Color>
 
 			<!-- OnError -->
 			<Color x:Key="MaterialOnErrorColor">#FFFFFF</Color>

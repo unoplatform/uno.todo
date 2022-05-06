@@ -72,11 +72,17 @@
 										   SelectionMode="Single"
 										   ItemChecked="{x:Bind UpdateAppColorPalette}"
 										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
-								<utu:Chip x:Uid="SettingsPage_PalettePurple" Content="Purple"
+								<utu:Chip x:Uid="SettingsPage_PalettePurple"
+										  Content="Purple"
+										  Tag="ms-appx:///Styles/ColorPaletteOverride.Purple.xaml"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
-								<utu:Chip x:Uid="SettingsPage_PaletteBlue" Content="Blue"
+								<utu:Chip x:Uid="SettingsPage_PaletteBlue"
+										  Content="Blue"
+										  Tag="ms-appx:///Styles/ColorPaletteOverride.xaml"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
-								<utu:Chip x:Uid="SettingsPage_PaletteYellow" Content="Yellow"
+								<utu:Chip x:Uid="SettingsPage_PaletteYellow"
+										  Content="Yellow"
+										  Tag="ms-appx:///Styles/ColorPaletteOverride.xaml"
 										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
 							</utu:ChipGroup>
 						</utu:AutoLayout>

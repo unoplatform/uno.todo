@@ -1,4 +1,5 @@
-﻿using Uno.Toolkit.UI;
+﻿using ToDo.Helpers;
+using Uno.Toolkit.UI;
 
 using ChipControl = global::Uno.Toolkit.UI.Chip; // aliasing to prevent collision, since `global::Chip` is a namespace on ios/macos...
 
@@ -46,21 +47,44 @@ public sealed partial class SettingsPage : Page
 		isInitializing = false;
 	}
 
-	private void UpdateAppColorPalette(object sender, ChipItemEventArgs e)
+	private async void UpdateAppColorPalette(object sender, ChipItemEventArgs e)
 	{
-		//if (e.Item is Chip chip && GetX((string)chip.Tag) is { } something)
-		//{
-		//	// do stuff with something
-		//}
+		ResourceDictionary? GetPalette(string? tag) =>
+			tag?.StartsWith("ms-appx:///Styles/") == true
+				? new ResourceDictionary() { Source = new Uri(tag) }
+				: throw new ArgumentOutOfRangeException();
 
-		//object GetX(string tag) => tag switch
-		//{
-		//	"Purple" => "palette1.xaml",
-		//	"Blue" => "palette1.xaml",
-		//	"Yellow" => "palette1.xaml",
+		if (e.Item is Chip chip && GetPalette(chip.Tag as string) is { } newPalette)
+		{
+			//await FigmaService.Instance.YieldToFigma();
+			//await Task.Yield();
 
-		//	_ => throw new ArgumentOutOfRangeException(),
-		//}
+			// update the underlying theme resources
+			var changed = false;
+			if (newPalette.ThemeDictionaries is { Count: > 0 } themeDictionaries)
+			{
+				foreach (var x in themeDictionaries)
+				{
+					if (x.Value is ResourceDictionary themeDictionary && x.Key is string theme)
+					{
+						var c = ThemeService.ApplyThemeResources(XamlRoot, themeDictionary, theme);
+						changed = changed || c;
+					}
+				}
+			}
+			else
+			{
+				changed = ThemeService.ApplyThemeResources(XamlRoot, newPalette);
+			}
+
+			// force app to refresh (uno:style reload, win: toggle dark/light and then toggle back)
+			if (changed)
+			{
+				//await FigmaService.Instance.YieldToFigma();
+				//await Task.Yield();
+				await ThemeService.ReapplyCurrentTheme(XamlRoot);
+			}
+		}
 	}
 
 	private void UpdateAppTheme(object sender, ChipItemEventArgs e)
