@@ -1,7 +1,7 @@
 // Only define mocks in debug as we don't have a way to dynamically switch them
-#if DEBUG
-#define USE_MOCKS
-#endif
+//#if DEBUG
+//#define USE_MOCKS
+//#endif
 
 #pragma warning disable 109 // Remove warning for Window property on iOS
 

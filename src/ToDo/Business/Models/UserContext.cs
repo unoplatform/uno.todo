@@ -7,4 +7,5 @@ public record UserContext
 	public string? Email { get; init; }
 
 	public string? AccessToken { get; init; }
+	public byte[]? ProfilePicture { get; init; }
 }
