@@ -1,6 +1,4 @@
-﻿
-
-using Uno.Extensions.Storage;
+﻿using Uno.Extensions.Storage;
 
 namespace ToDo.Data.Mock;
 
@@ -8,6 +6,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 {
 	private const string ListDataFile = "lists.json";
 	private const string TasksDataFile = "tasks.json";
+	private const string StepsDataFile = "steps.json";
 	private const string ProfilePictureDataFile = "profilePicture.json";
 
 
@@ -15,16 +14,20 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 	private readonly ISerializer<TaskData> _taskSerializer;
 	private readonly ISerializer<string> _profilePictureSerializer;
 
+	private readonly ISerializer<CheckListItemData> _stepsSerializer;
+
 	private readonly IStorage _dataService;
 	public MockTaskListEndpoint(
 		ISerializer<TaskListData> listSerializer,
 		ISerializer<TaskData> taskSerializer,
+		ISerializer<CheckListItemData> stepsSerializer,
 		ISerializer<string> profilePictureSerializer,
 		IStorage dataService)
 	{
 		_listSerializer = listSerializer;
 		_taskSerializer = taskSerializer;
 		_profilePictureSerializer = profilePictureSerializer;
+		_stepsSerializer = stepsSerializer;
 		_dataService = dataService;
 	}
 
@@ -147,6 +150,58 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 
 		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.Title != null && x.Title.Contains(displayName)).ToList() };
 	}
+
+	public async Task<CheckListItemData> AddStepAsync(string baseTaskListId, string baseTaskId,
+		CheckListItemData checkListItem, CancellationToken ct)
+	{
+		var list = await LoadListTasks(baseTaskListId);
+		if (list.FirstOrDefault(t => t.Id == baseTaskId) is TaskData task)
+		{
+			if(task.ChecklistItems is null)
+			{
+				task.ChecklistItems = new List<CheckListItemData>();
+			}
+
+			task.ChecklistItems.Add(checkListItem);
+			return checkListItem;
+		}
+		return new CheckListItemData();
+	}
+
+	public async Task<TaskReponseData<CheckListItemData>> GetStepsAsync(string baseTaskListId, string baseTaskId, CancellationToken ct)
+	{
+		var list = await LoadListTasks(baseTaskListId);
+		if (list.FirstOrDefault(t => t.Id == baseTaskId) is TaskData task)
+		{
+			return new TaskReponseData<CheckListItemData> { Value = task.ChecklistItems };
+		}
+		
+		return new TaskReponseData<CheckListItemData> { Value = Enumerable.Empty<CheckListItemData>().ToList() };
+	}
+
+	public async Task DeleteStepAsync(string baseTaskListId, string baseTaskId,
+		string checklistItemId, CancellationToken ct)
+	{
+		var list = await LoadListTasks(baseTaskListId);
+		if (list.FirstOrDefault(t => t.Id == baseTaskId) is TaskData task
+			&& task.ChecklistItems != null)
+		{
+			var step = task.ChecklistItems.FirstOrDefault(x => x.Id == checklistItemId);
+			if(step is not null)
+			{
+				task.ChecklistItems.Remove(step);
+			}
+		}
+	}
+
+	public async Task<CheckListItemData> UpdateStepAsync(string baseTaskListId, string baseTaskId,
+		string checklistItemId, CheckListItemData checkListItem, CancellationToken ct)
+	{
+		await DeleteStepAsync(baseTaskListId, baseTaskId, checklistItemId, ct);
+		await AddStepAsync(baseTaskListId, baseTaskId, checkListItem, ct);
+		return checkListItem;
+	}
+
 	
 	public async Task<HttpContent> GetProfilePictureAsync(CancellationToken ct)
 	{

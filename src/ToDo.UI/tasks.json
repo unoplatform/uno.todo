@@ -141,6 +141,62 @@
     },
     "parentList": {
       "id": "List-Groceries"
-    }
+    },
+    "checklistItems@odata.context": "https://graph.microsoft.com/beta/$metadata#users('unotodoapp_testuser%40outlook.com')/tasks/alltasks('AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgBGAAAAAABxiwJ7rbfvTL0IfGDSJ4lUBwAstIhkSEopRrR__AvQNI34AAC3NeuaAAAstIhkSEopRrR__AvQNI34AADBLK0vAAA%3D')/microsoft.graph.task/checklistItems",
+    "checklistItems": [
+      {
+        "displayName": "Final sign-off from the team",
+        "createdDateTime": "2022-04-25T14:23:29Z",
+        "isChecked": false,
+        "id": "5cf0e1f8-8a6a-4c03-9ef7-b10d00ddecc0"
+      },
+      {
+        "displayName": "Test checkListItem functionality",
+        "createdDateTime": "2022-04-25T14:24:30.436679Z",
+        "isChecked": false,
+        "id": "bfe65b25-6792-4547-9923-161913e9c976"
+      }
+    ]
+  },
+  {
+    "@odata.context": "https://graph.microsoft.com/v1.0/$metadata#users('0e2dba8f-d2c1-4ab2-a20a-7be1975f311f')/todo/lists('AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgAuAAAAAABxiwJ7rbfvTL0IfGDSJ4lUAQAstIhkSEopRrR__AvQNI34AAC3NeuaAAA%3D')/tasks/$entity",
+    "@odata.etag": "W/\"LLSIZEhKKUa0fvgL0DSN+AAAwRKNBQ==\"",
+    "importance": "normal",
+    "isReminderOn": false,
+    "status": "completed",
+    "title": "Organise activities with checklists",
+    "createdDateTime": "2022-04-12T14:48:19.7510547Z",
+    "lastModifiedDateTime": "2022-04-12T15:13:14.559476Z",
+    "id": "AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgBGAAAAAABxiwJ7rbfvTL0IfGDSJ4lUBwAstIhkSEopRrR__AvQNI34AAC3NeuaAAAstIhkSEopRrR__AvQNI34AADBLK0vAAA=",
+    "body": {
+      "content": "this is a test",
+      "contentType": "text"
+    },
+    "completedDateTime": {
+      "dateTime": "2022-04-12T00:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "dueDateTime": {
+      "dateTime": "2022-04-13T00:00:00.0000000",
+      "timeZone": "UTC"
+    },
+    "parentList": {
+      "id": "List-Family"
+    },
+    "checklistItems@odata.context": "https://graph.microsoft.com/beta/$metadata#users('unotodoapp_testuser%40outlook.com')/tasks/alltasks('AAMkAGFlMTMyOTVlLTg4MTYtNGNkYi05Y2I1LWIxNjQ3MjQzZGUwZgBGAAAAAABxiwJ7rbfvTL0IfGDSJ4lUBwAstIhkSEopRrR__AvQNI34AAC3NeuaAAAstIhkSEopRrR__AvQNI34AADBLK0vAAA%3D')/microsoft.graph.task/checklistItems",
+    "checklistItems": [
+      {
+        "displayName": "Final sign-off from the team",
+        "createdDateTime": "2022-04-25T14:23:29Z",
+        "isChecked": false,
+        "id": "5cf0e1f8-8a6a-4c03-9ef7-b10d00ddecc0"
+      },
+      {
+        "displayName": "Test checkListItem functionality",
+        "createdDateTime": "2022-04-25T14:24:30.436679Z",
+        "isChecked": false,
+        "id": "bfe65b25-6792-4547-9923-161913e9c976"
+      }
+    ]
   }
 ]

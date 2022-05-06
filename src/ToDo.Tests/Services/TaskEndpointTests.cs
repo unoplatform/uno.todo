@@ -36,4 +36,23 @@ internal class TaskEndpointTests : BaseEndpointTests<ITaskEndpoint>
 		//Assert
 		Assert.IsInstanceOf<TaskData>(result);
 	}
+
+	[Test]
+	public async System.Threading.Tasks.Task Add_StepToTask_ShouldReturnCheckListItem()
+	{
+		//Arrange
+		var listId = "AQMkADAwATNiZmYAZC00YjBmLWQzOTItMDACLTAwCgAuAAADIptfVB-VcUaFb7L0jgOsSQEAcYiQalobw0a8Voz8RAJUmAAAAjxiAAAA";
+		var taskId = "AQMkADAwATNiZmYAZC00YjBmLWQzOTItMDACLTAwCgBGAAADIptfVB-VcUaFb7L0jgOsSQcAcYiQalobw0a8Voz8RAJUmAAAAjxiAAAAcYiQalobw0a8Voz8RAJUmAAAAo0oAAAA";
+
+		//Act
+		CheckListItemData checkListItem = new CheckListItemData()
+		{
+			DisplayName = "Step 1"
+		};
+
+		var result = await service.AddStepAsync(listId, taskId, checkListItem, CancellationToken.None);
+
+		//Assert
+		Assert.IsInstanceOf<CheckListItemData>(result);
+	}
 }

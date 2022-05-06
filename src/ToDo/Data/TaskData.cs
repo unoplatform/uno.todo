@@ -45,4 +45,10 @@ public class TaskData
 
 	[JsonPropertyName("parentList")]
 	public ParentListTaskData? ParentList { get; set; }
+
+	[JsonPropertyName("checklistItems@odata.context")]
+	public string? ChecklistItemsOdataContext { get; set; }
+
+	[JsonPropertyName("checklistItems")]
+	public List<CheckListItemData>? ChecklistItems { get; set; }
 }

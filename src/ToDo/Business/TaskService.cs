@@ -69,4 +69,44 @@ public class TaskService : ITaskService
 			.Select(data => new ToDoTask(data.ParentList!.Id!, data))
 			.ToImmutableList();
 	}
+
+	/// <inheritdoc />
+
+	public async ValueTask AddStepAsync(string baseTaskListId, string baseTaskId,
+		CheckListItem checkListItem, CancellationToken ct)
+	{
+		var createdStep = await _client.AddStepAsync(baseTaskListId, baseTaskId, checkListItem.ToData(), ct);
+
+		//TODO: add messenger notification
+		//_messenger.Send(new EntityMessage<CheckListItem>(EntityChange.Create, new(baseTaskId, createdStep)), baseTaskId);
+	}
+
+	/// <inheritdoc />
+
+	public async ValueTask<IImmutableList<CheckListItem>> GetStepsAsync(string baseTaskListId,
+		string baseTaskId, CancellationToken ct)
+		=> ((await _client.GetStepsAsync(baseTaskListId, baseTaskId, ct)).Value ?? Enumerable.Empty<CheckListItemData>())
+				.Select(data => new CheckListItem(data))
+				.ToImmutableList();
+
+	/// <inheritdoc />
+	public async ValueTask DeleteStepAsync(string baseTaskListId, string baseTaskId, string checklistItemId,
+		CancellationToken ct)
+	{
+		await _client.DeleteStepAsync(baseTaskListId, baseTaskId, checklistItemId, ct);
+
+		//TODO: suscribe notifications for deleting task step
+		//_messenger.Send(new EntityMessage<CheckListItem>(EntityChange.Delete, checklistItemId), baseTaskId);
+	}
+
+	/// <inheritdoc />
+	public async ValueTask UpdateStepAsync(string baseTaskListId, string baseTaskId,
+		 CheckListItem checkListItem, CancellationToken ct)
+	{
+		var updatedTaskStep = await _client.UpdateStepAsync(baseTaskListId, baseTaskId,
+			checkListItem.Id, checkListItem.ToData(), ct);
+
+		//TODO: suscribe update notification
+		//_messenger.Send(new EntityMessage<CheckListItem>(EntityChange.Update, new(baseTaskId, updatedTaskStep)), baseTaskId);
+	}
 }

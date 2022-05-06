@@ -46,4 +46,21 @@ public class MockTaskEndpoint : ITaskEndpoint
 		await _listEndpoint.UpdateTaskInList(listId, updatedTask);
 		return updatedTask;
 	}
+
+	public Task<CheckListItemData> AddStepAsync(string baseTaskListId, string baseTaskId,
+		CheckListItemData checkListItem, CancellationToken ct)
+		=> _listEndpoint.AddStepAsync(baseTaskListId, baseTaskId, checkListItem, ct);
+
+	public Task<TaskReponseData<CheckListItemData>> GetStepsAsync(string baseTaskListId,
+		string baseTaskId, CancellationToken ct)
+		=> _listEndpoint.GetStepsAsync(baseTaskListId,baseTaskId, ct);
+
+	public Task DeleteStepAsync(string baseTaskListId, string baseTaskId,
+		string checklistItemId, CancellationToken ct)
+		=> _listEndpoint.DeleteStepAsync(baseTaskListId, baseTaskId, checklistItemId, ct);
+
+	public Task<CheckListItemData> UpdateStepAsync(string baseTaskListId,
+		string baseTaskId, string checklistItemId, CheckListItemData checkListItem,
+		CancellationToken ct)
+		=> _listEndpoint.UpdateStepAsync(baseTaskListId, baseTaskId, checklistItemId, checkListItem, ct);
 }

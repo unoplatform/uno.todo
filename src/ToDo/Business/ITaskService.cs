@@ -13,4 +13,13 @@ public interface ITaskService
 	ValueTask<IImmutableList<ToDoTask>> GetAsync(TaskList list, CancellationToken ct);
 
 	ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default);
+
+	ValueTask AddStepAsync(string baseTaskListId, string baseTaskId, CheckListItem checkListItem, CancellationToken ct);
+
+	ValueTask<IImmutableList<CheckListItem>> GetStepsAsync(string baseTaskListId, string baseTaskId, CancellationToken ct);
+
+	ValueTask DeleteStepAsync(string baseTaskListId, string baseTaskId, string checklistItemId, CancellationToken ct);
+
+	ValueTask UpdateStepAsync(string baseTaskListId, string baseTaskId, CheckListItem checkListItem, CancellationToken ct);
+
 }
