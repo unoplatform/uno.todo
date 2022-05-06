@@ -36,4 +36,6 @@ public record TaskList
 	public bool IsShared { get; init; }
 
 	public string? WellknownListName { get; init; }
+
+	public bool IsWellKnown => WellknownListName is null or "none";
 }

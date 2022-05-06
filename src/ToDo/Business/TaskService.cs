@@ -58,11 +58,20 @@ public class TaskService : ITaskService
 	}
 
 	/// <inheritdoc />
-	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
+	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(CancellationToken ct = default)
 	{
-		var response = await (displayName is { Length: > 0 }
-			? _client.GetByFilterAsync(displayName, ct)
-			: _client.GetAllAsync(ct));
+		var response = await _client.GetAllAsync(ct);
+
+		return (response.Value ?? Enumerable.Empty<TaskData>())
+			.Where(data => data.ParentList?.Id is not null)
+			.Select(data => new ToDoTask(data.ParentList!.Id!, data))
+			.ToImmutableList();
+	}
+
+	/// <inheritdoc />
+	public async ValueTask<IImmutableList<ToDoTask>> SearchAsync(string displayName = "", CancellationToken ct = default)
+	{
+		var response = await _client.GetByFilterAsync(displayName, ct);
 
 		return (response.Value ?? Enumerable.Empty<TaskData>())
 			.Where(data => data.ParentList?.Id is not null)

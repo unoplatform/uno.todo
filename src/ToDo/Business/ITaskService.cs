@@ -12,5 +12,7 @@ public interface ITaskService
 
 	ValueTask<IImmutableList<ToDoTask>> GetAsync(TaskList list, CancellationToken ct);
 
-	ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default);
+	ValueTask<IImmutableList<ToDoTask>> GetAllAsync(CancellationToken ct = default);
+
+	ValueTask<IImmutableList<ToDoTask>> SearchAsync(string displayName = "", CancellationToken ct = default);
 }

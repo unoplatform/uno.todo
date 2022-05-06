@@ -36,7 +36,7 @@ public partial class HomeViewModel
 
 	public TaskList[] WellKnownLists { get; }
 
-	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
+	public IListFeed<TaskList> CustomLists => Lists.Where(list => !list.IsWellKnown);
 
 	public ICommand CreateTaskList => Command.Async(DoCreateTaskList);
 	private async ValueTask DoCreateTaskList(CancellationToken ct)
