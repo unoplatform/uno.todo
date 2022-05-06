@@ -1,30 +1,22 @@
-﻿
-
-using Uno.Extensions.Storage;
-
-namespace ToDo.Data.Mock;
+﻿namespace ToDo.Data.Mock;
 
 public class MockTaskListEndpoint : ITaskListEndpoint
 {
-	private const string ListDataFile = "lists.json";
-	private const string TasksDataFile = "tasks.json";
-	private const string ProfilePictureDataFile = "profilePicture.json";
+	private const string ListDataFile = "mock/lists.json";
+	private const string TasksDataFile = "mock/tasks.json";
 
 
 	private readonly ISerializer<TaskListData> _listSerializer;
 	private readonly ISerializer<TaskData> _taskSerializer;
-	private readonly ISerializer<string> _profilePictureSerializer;
 
 	private readonly IStorage _dataService;
 	public MockTaskListEndpoint(
 		ISerializer<TaskListData> listSerializer,
 		ISerializer<TaskData> taskSerializer,
-		ISerializer<string> profilePictureSerializer,
 		IStorage dataService)
 	{
 		_listSerializer = listSerializer;
 		_taskSerializer = taskSerializer;
-		_profilePictureSerializer = profilePictureSerializer;
 		_dataService = dataService;
 	}
 
@@ -146,17 +138,5 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 			return new TaskReponseData<TaskData> { Value = tasks.ToList() };
 
 		return new TaskReponseData<TaskData> { Value = tasks.Where(x => x.Title != null && x.Title.Contains(displayName)).ToList() };
-	}
-	
-	public async Task<HttpContent> GetProfilePictureAsync(CancellationToken ct)
-	{
-		var base64 =
-			await _dataService.ReadFileAsync<string>(_profilePictureSerializer,
-				ProfilePictureDataFile) ?? String.Empty;
-
-		var bytes = Convert.FromBase64String(base64);
-		var contents = new StreamContent(new MemoryStream(bytes));
-
-		return contents;
 	}
 }

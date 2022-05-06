@@ -2,14 +2,28 @@
 
 internal class MockUserProfilePictureEndpoint : IUserProfilePictureEndpoint
 {
-	private readonly MockTaskListEndpoint _listEndpoint;
+	private const string ProfilePictureDataFile = "mock/profilePicture.json";
+
+	private readonly ISerializer<string> _profilePictureSerializer;
+	private readonly IStorage _dataService;
 
 	public MockUserProfilePictureEndpoint(
-		ITaskListEndpoint listEndpoint)
+				ISerializer<string> profilePictureSerializer,
+				IStorage dataService)
 	{
-		_listEndpoint = (listEndpoint as MockTaskListEndpoint)!;
+		_profilePictureSerializer = profilePictureSerializer;
+		_dataService = dataService;
 	}
 
 	public async Task<HttpContent> GetAsync(CancellationToken ct)
-		=> await _listEndpoint.GetProfilePictureAsync(ct);
+	{
+		var base64 =
+			await _dataService.ReadFileAsync<string>(_profilePictureSerializer,
+				ProfilePictureDataFile) ?? throw new Exception("Unable to find mock profile picture");
+
+		var bytes = Convert.FromBase64String(base64);
+		var contents = new StreamContent(new MemoryStream(bytes));
+
+		return contents;
+	}
 }

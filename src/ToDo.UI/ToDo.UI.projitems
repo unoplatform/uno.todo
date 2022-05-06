@@ -12,6 +12,9 @@
     <Content Include="$(MSBuildThisFileDirectory)*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Mock\*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="$(MSBuildThisFileDirectory)Strings\Resources.l12n.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -168,8 +171,6 @@
     <Content Include="@(_Globbed_Content)" />
     <_Globbed_Embedded_Resource Include="$(MSBuildThisFileDirectory)*.json" Exclude="@(EmbeddedResource)" />
     <EmbeddedResource Include="@(_Globbed_Embedded_Resource)" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Mocks\" />
-  </ItemGroup>
+ </ItemGroup>
+
 </Project>
