@@ -165,5 +165,14 @@ public class AuthenticationService : IAuthenticationService
 		if (imageData != null && imageData.Length > 0 && _user != default)
 			_user = _user with { ProfilePicture = imageData };
 	}
+
+	public async Task SetProfilePicture(IUserProfilePictureService userProfilePictureService, CancellationToken cancellation)
+	{
+		var profilePicture = await userProfilePictureService.GetAsync(cancellation);
+		if (profilePicture != null && profilePicture.Length > 0 && _user != default)
+		{
+			_user = _user with { ProfilePicture = profilePicture };
+		}
+	}
 }
 

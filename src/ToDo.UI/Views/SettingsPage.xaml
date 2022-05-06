@@ -8,7 +8,8 @@
 	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:um="using:Uno.Material"
 	  xmlns:utu="using:Uno.Toolkit.UI"
-	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+	  mc:Ignorable="d">
 
 	<utu:AutoLayout>
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">

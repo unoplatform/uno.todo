@@ -24,13 +24,10 @@ public partial class WelcomeViewModel
 	private async ValueTask DoGetStarted(CancellationToken ct)
 	{
 		var user = await _authService.AuthenticateAsync(_dispatcher);
-		if (user is null) return;
-
-		var profile = await _userSvc.GetAsync(ct);
-		if (profile is not null)
+		if (user is not null)
 		{
-			_authService.SetProfilePicture(profile);
+			await _authService.SetProfilePicture(_userSvc, cancellation: ct);
+			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
 		}
-		await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
 	}
 }

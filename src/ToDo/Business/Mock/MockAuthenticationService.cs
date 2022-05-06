@@ -25,9 +25,12 @@ public class MockAuthenticationService : IAuthenticationService
 		_user = null;
 	}
 
-	public void SetProfilePicture(byte[] imageData)
+	public async Task SetProfilePicture(IUserProfilePictureService userProfilePictureService, CancellationToken cancellation)
 	{
-		if (imageData != null && imageData.Length > 0 && _user != default)
-			_user = _user with { ProfilePicture = imageData };
+		var profilePicture = await userProfilePictureService.GetAsync(cancellation);
+		if (profilePicture != null && profilePicture.Length > 0 && _user != default)
+		{
+			_user = _user with { ProfilePicture = profilePicture };
+		}
 	}
 }
