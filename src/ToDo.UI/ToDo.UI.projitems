@@ -27,6 +27,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.host.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ReferenceConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatter.cs" />
