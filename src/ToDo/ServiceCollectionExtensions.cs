@@ -10,22 +10,18 @@ public static class ServiceCollectionExtensions
 		Action<IServiceProvider, RefitSettings>? settingsBuilder = null,
 		bool useMocks=false)
 	{
-		void GetSettings(IServiceProvider sp, RefitSettings settings)
-		{
-			settingsBuilder?.Invoke(sp, settings);
-			settings.ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
-		}
-
 		_ = services
+			// TEMP - this hsould be the default serialization options for content serialization > uno.extensions
+			.AddSingleton(new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault })
 			.AddNativeHandler()
 			.AddContentSerializer()
-			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), GetSettings)
-			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), GetSettings)
-			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint), GetSettings);
+			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint))
+			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint))
+			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint));
 
 		if (useMocks)
 		{
-			services.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
+			_ = services.AddSingleton<ITaskListEndpoint, ToDo.Data.Mock.MockTaskListEndpoint>()
 				.AddSingleton<IUserProfilePictureEndpoint, ToDo.Data.Mock.MockUserProfilePictureEndpoint>()
 				.AddSingleton<ITaskEndpoint, ToDo.Data.Mock.MockTaskEndpoint>();
 		}
@@ -47,7 +43,7 @@ public static class ServiceCollectionExtensions
 		if (useMocks)
 		{
 			// Comment out the USE_MOCKS definition (top of this file) to prevent using mocks in development
-			services.AddSingleton<IAuthenticationService, MockAuthenticationService>();
+			_ = services.AddSingleton<IAuthenticationService, MockAuthenticationService>();
 		}
 		return services;
 	}
