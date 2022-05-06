@@ -1,5 +1,7 @@
 ﻿using Task = System.Threading.Tasks.Task;
 using NUnit.Framework;
+using ToDo.Data;
+using ToDo.Data.Models;
 
 namespace ToDo.Tests.Services
 {
