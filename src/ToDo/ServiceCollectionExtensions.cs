@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace ToDo;
+﻿namespace ToDo;
 
 public static class ServiceCollectionExtensions
 {

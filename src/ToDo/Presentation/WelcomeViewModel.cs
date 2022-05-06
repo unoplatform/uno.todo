@@ -1,6 +1,4 @@
-﻿using ToDo.Business.Services;
-
-namespace ToDo.Presentation;
+﻿namespace ToDo.Presentation;
 
 [ReactiveBindable]
 public partial class WelcomeViewModel

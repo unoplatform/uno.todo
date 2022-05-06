@@ -1,4 +1,4 @@
-namespace ToDo.Presentation;
+namespace ToDo.Presentation.Dialogs;
 
 public partial class RenameListViewModel
 {

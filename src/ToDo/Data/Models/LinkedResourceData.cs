@@ -1,4 +1,6 @@
-﻿namespace ToDo;
+﻿namespace ToDo.Data.Models;
+
+
 public class LinkedResourceData
 {
 	[JsonPropertyName("id")]

@@ -5,8 +5,8 @@
 
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
+using ToDo.Business.Models;
 using ToDo.Configuration;
-using Windows.ApplicationModel.Resources;
 
 namespace ToDo;
 

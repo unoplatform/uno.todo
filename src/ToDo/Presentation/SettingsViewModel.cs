@@ -1,7 +1,3 @@
-
-
-using Microsoft.Extensions.Localization;
-
 namespace ToDo.Presentation;
 
 [ReactiveBindable]

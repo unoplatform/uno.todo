@@ -1,4 +1,4 @@
-﻿namespace ToDo;
+﻿namespace ToDo.Data.Models;
 
 public class TaskListRequestData
 {

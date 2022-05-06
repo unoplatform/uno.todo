@@ -1,9 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
-using ToDo.Configuration;
-using Windows.Security.Authentication.Web;
-
-namespace ToDo.Business.Services;
+﻿namespace ToDo.Business.Services;
 
 public class AuthenticationService : IAuthenticationService
 {

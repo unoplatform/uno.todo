@@ -1,4 +1,5 @@
-﻿namespace ToDo;
+﻿namespace ToDo.Data.Models;
+
 public class DateTimeData
 {
 	[JsonPropertyName("dateTime")]

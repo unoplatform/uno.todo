@@ -1,4 +1,4 @@
-﻿namespace ToDo.Business;
+﻿namespace ToDo.Business.Models;
 
 public record EntityMessage<T>(EntityChange Change, T Value)
 {

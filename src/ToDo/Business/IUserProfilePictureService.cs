@@ -1,5 +1,5 @@
 ﻿
-namespace ToDo;
+namespace ToDo.Business;
 
 public interface IUserProfilePictureService
 {
