@@ -1,4 +1,6 @@
-﻿namespace ToDo;
+﻿using System.Text.Json;
+
+namespace ToDo;
 
 public static class ServiceCollectionExtensions
 {
@@ -8,12 +10,18 @@ public static class ServiceCollectionExtensions
 		Action<IServiceProvider, RefitSettings>? settingsBuilder = null,
 		bool useMocks=false)
 	{
+		void GetSettings(IServiceProvider sp, RefitSettings settings)
+		{
+			settingsBuilder?.Invoke(sp, settings);
+			settings.ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault });
+		}
+
 		_ = services
 			.AddNativeHandler()
 			.AddContentSerializer()
-			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
-			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder)
-			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint), settingsBuilder);
+			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint), GetSettings)
+			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint), GetSettings)
+			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint), GetSettings);
 
 		if (useMocks)
 		{
