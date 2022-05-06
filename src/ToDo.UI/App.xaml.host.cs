@@ -111,7 +111,6 @@ public sealed partial class App : Application
 			/// Dialogs and Flyouts
 			new ViewMap<AddTaskFlyout, AddTaskViewModel>(),
 			new ViewMap<AddListFlyout, AddListViewModel>(),
-			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(),
 			new ViewMap<RenameListFlyout, RenameListViewModel>(),
 
@@ -126,7 +125,6 @@ public sealed partial class App : Application
 			new ViewMap(
 				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
 				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
-			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,
 			confirmDeleteTaskDialog,
 			confirmDeleteNoteDialog,
@@ -155,7 +153,6 @@ public sealed partial class App : Application
 				new("TaskNote", View: views.FindByViewModel<TaskNoteViewModel>(), DependsOn:"Task"),
 				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
-				new("AuthToken", View: views.FindByViewModel<AuthTokenViewModel>()),
 				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
 				new("RenameList", View: views.FindByViewModel<RenameListViewModel>()),
 				new("ConfirmDeleteList", confirmDeleteListDialog),

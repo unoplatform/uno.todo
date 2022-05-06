@@ -47,9 +47,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskNote.xaml.cs">
       <DependentUpon>AddTaskNote.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml.cs">
-      <DependentUpon>AuthTokenDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\ExpirationDateFlyout.xaml.cs">
       <DependentUpon>ExpirationDateFlyout.xaml</DependentUpon>
     </Compile>
@@ -104,10 +101,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskNote.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,6 +164,5 @@
     <Content Include="@(_Globbed_Content)" />
     <_Globbed_Embedded_Resource Include="$(MSBuildThisFileDirectory)*.json" Exclude="@(EmbeddedResource)" />
     <EmbeddedResource Include="@(_Globbed_Embedded_Resource)" />
- </ItemGroup>
-
+  </ItemGroup>
 </Project>
