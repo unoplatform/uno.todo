@@ -61,15 +61,13 @@
     <PackageReference Include="Uno.WinUI.WebAssembly" Version="4.3.0-dev.135" />
     <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.0-dev.135" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.9" />
-    <PackageReference Include="Uno.Wasm.Bootstrap" Version="4.0.0-dev.107" />
-    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="4.0.0-dev.107" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.3.1" />
+    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.3.1" />
     <PackageReference Include="Uno.Core" Version="4.0.1" />
     <PackageReference Include="Uno.Material.WinUI" Version=" 2.0.0-dev.181" />
     <PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.16" />
     <PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.16" />
     <PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.559" />
     <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.559" />
     <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.559" />
