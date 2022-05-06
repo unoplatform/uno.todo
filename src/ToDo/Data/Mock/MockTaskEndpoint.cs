@@ -13,6 +13,7 @@ public class MockTaskEndpoint : ITaskEndpoint
 
 	public async Task<TaskData> CreateAsync(string listId, [Body] TaskData newTask, CancellationToken ct)
 	{
+		newTask.Id = Guid.NewGuid().ToString();
 		await _listEndpoint.AddTaskToList(listId, newTask);
 		return newTask;
 	}
