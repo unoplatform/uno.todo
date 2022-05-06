@@ -49,14 +49,3 @@ public partial class HomeViewModel
 		}
 	}
 }
-
-// TEMP - this needs to be added to Extensions
-public static class NavExt
-{
-
-	public static async Task<TResult?> GetDataAsync<TViewModel,TResult>(this INavigator service, object sender, string qualifier = Qualifiers.None, CancellationToken cancellation = default)
-	{
-		var result = await service.NavigateViewModelForResultAsync<TViewModel,TResult>(sender, qualifier, cancellation: cancellation).AsResult();
-		return result.SomeOrDefault();
-	}
-}
