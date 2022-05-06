@@ -56,7 +56,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		{
 			return;
 		}
-		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+		var updatedTask = task.ToggleImportance();
 
 		await _taskSvc.UpdateAsync(updatedTask, ct);
 	}
@@ -86,7 +86,7 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 			return;
 		}
 
-		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		var updatedTask = task.ToggleIsCompleted();
 		await _taskSvc.UpdateAsync(updatedTask, ct);
 	}
 
