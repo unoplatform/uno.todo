@@ -26,7 +26,7 @@ public class TaskListService : ITaskListService
 	{
 		var createdList = await _client.CreateAsync(new TaskListRequestData { DisplayName = displayName }, ct);
 
-		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Create, new (createdList)));
+		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Created, new (createdList)));
 	}
 
 	/// <inheritdoc />
@@ -34,9 +34,7 @@ public class TaskListService : ITaskListService
 	{
 		var updatedList = await _client.UpdateAsync(list.Id, new TaskListRequestData { DisplayName = list.DisplayName }, ct);
 
-		// Send message with both list.Id (in case TaskList page is open) and without list.Id (for updating HomePage)
-		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Update, new(updatedList)));
-		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Update, new(updatedList)), list.Id);
+		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Updated, new(updatedList)));
 	}
 
 	/// <inheritdoc />
@@ -44,6 +42,6 @@ public class TaskListService : ITaskListService
 	{
 		(await _client.DeleteAsync(list.Id, ct)).EnsureSuccessStatusCode();
 
-		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Delete, list));
+		_messenger.Send(new EntityMessage<TaskList>(EntityChange.Deleted, list));
 	}
 }
