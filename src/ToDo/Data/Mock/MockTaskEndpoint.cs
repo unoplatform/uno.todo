@@ -1,6 +1,4 @@
-﻿
-
-namespace ToDo.Data.Mock;
+﻿namespace ToDo.Data.Mock;
 
 public class MockTaskEndpoint : ITaskEndpoint
 {

@@ -1,4 +1,4 @@
-﻿namespace ToDo;
+﻿namespace ToDo.Data;
 
 [Headers("Authorization: Bearer")]
 public interface IUserProfilePictureEndpoint

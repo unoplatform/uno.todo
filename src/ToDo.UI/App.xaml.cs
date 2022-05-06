@@ -1,13 +1,6 @@
-// Only define mocks in debug as we don't have a way to dynamically switch them
-#if DEBUG
-#define USE_MOCKS
-#endif
 
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-using Uno.Extensions.Localization;
-using Uno.Extensions.Navigation.UI;
-using Windows.ApplicationModel.Resources;
 
 namespace ToDo;
 
@@ -20,145 +13,10 @@ public sealed partial class App : Application
 
 	public App()
 	{
-		InitializeLogging();
-
 		this.InitializeComponent();
 
 #if HAS_UNO || NETFX_CORE
 		this.Suspending += OnSuspending;
-#endif
-	}
-
-	private static IHost BuildAppHost()
-	{
-#if USE_MOCKS
-		var useMocks = true;
-#else
-		var useMocks = false;
-#endif
-
-		return UnoHost
-				.CreateDefaultBuilder()
-#if DEBUG
-				// Switch to Development environment when running in DEBUG
-				.UseEnvironment(Environments.Development)
-#endif
-
-				// NR: Don't remove this - temporarily using InitializeLogging while fixing uno.extensions.logging
-				//// Add platform specific log providers
-				//.UseLogging(configure: logBuilder =>
-				//{
-				//	// Configure log levels for different categories of logging
-				//	logBuilder
-				//			.SetMinimumLevel(LogLevel.Information)
-				//			.XamlLogLevel(LogLevel.Information)
-				//			.XamlLayoutLogLevel(LogLevel.Information);
-				//})
-
-				// Load configuration information from appsettings.json
-				.UseEmbeddedAppSettings<App>()
-				.UseCustomEmbeddedSettings<App>("appsettings.platform.json")
-
-				// Load AppInfo section
-				.UseConfiguration<AppInfo>()
-				.UseConfiguration<OAuthSettings>()
-
-				.UseSettings<ToDoSettings>()
-
-				// Register Json serializers (ISerializer and IStreamSerializer)
-				.UseSerialization()
-
-				// Register services for the application
-				.ConfigureServices((context, services) => services
-					.AddEndpoints(context, useMocks: useMocks)
-					.AddServices(useMocks: useMocks)
-							)
-
-				// Enable navigation, including registering views and viewmodels
-				.UseNavigation(
-						RegisterRoutes,
-						createViewRegistry: sc => new ReactiveViewRegistry(sc, ReactiveViewModelMappings.ViewModelMappings))
-					.ConfigureServices(services =>
-					{
-						services
-							.AddSingleton<IRouteResolver, ReactiveRouteResolver>();
-					})
-
-				// Add navigation support for toolkit controls such as TabBar and NavigationView
-				.UseToolkitNavigation()
-
-				// Add localization support
-				.UseLocalization()
-
-				.ConfigureServices(services => services.AddSingleton<IRequestHandler, NavigationViewRequestHandler>())
-
-				// NR: Don't remove this - temporarily using InitializeLogging while fixing uno.extensions.logging
-				.Build();// enableUnoLogging: true);
-	}
-
-	private static void InitializeLogging()
-	{
-#if DEBUG
-		// Logging is disabled by default for release builds, as it incurs a significant
-		// initialization cost from Microsoft.Extensions.Logging setup. If startup performance
-		// is a concern for your application, keep this disabled. If you're running on web or 
-		// desktop targets, you can use url or command line parameters to enable it.
-		//
-		// For more performance documentation: https://platform.uno/docs/articles/Uno-UI-Performance.html
-
-		var factory = LoggerFactory.Create(builder =>
-		{
-#if __WASM__
-                builder.AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
-#elif __IOS__
-                builder.AddProvider(new global::Uno.Extensions.Logging.OSLogLoggerProvider());
-#elif NETFX_CORE
-                builder.AddDebug();
-#else
-			builder.AddConsole();
-#endif
-
-			// Exclude logs below this level
-			builder.SetMinimumLevel(LogLevel.Trace);
-
-			// Default filters for Uno Platform namespaces
-			builder.AddFilter("Uno", LogLevel.Trace);
-			builder.AddFilter("Windows", LogLevel.Trace);
-			builder.AddFilter("Microsoft", LogLevel.Trace);
-
-			// Generic Xaml events
-			// builder.AddFilter("Windows.UI.Xaml", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.VisualStateGroup", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.StateTriggerBase", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.UIElement", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.FrameworkElement", LogLevel.Trace );
-
-			// Layouter specific messages
-			// builder.AddFilter("Windows.UI.Xaml.Controls", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.Controls.Layouter", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.Controls.Panel", LogLevel.Debug );
-
-			// builder.AddFilter("Windows.Storage", LogLevel.Debug );
-
-			// Binding related messages
-			// builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
-			// builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
-
-			// Binder memory references tracking
-			// builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug );
-
-			// RemoteControl and HotReload related
-			// builder.AddFilter("Uno.UI.RemoteControl", LogLevel.Information);
-
-			// Debug JS interop
-			// builder.AddFilter("Uno.Foundation.WebAssemblyRuntime", LogLevel.Debug );
-		});
-
-		global::Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory = factory;
-
-#if HAS_UNO
-		global::Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
-#endif
 #endif
 	}
 
@@ -187,19 +45,13 @@ public sealed partial class App : Application
 #endif
 #endif
 
-		var host = BuildAppHost();
-		if (host.Services.GetService<IRouteNotifier>() is { } notif)
-		{
-			notif.RouteChanged += RouteUpdated;
-		}
+		var notif = _host.Services.GetRequiredService<IRouteNotifier>();
+		notif.RouteChanged += RouteUpdated;
 
-		_window.AttachNavigation(host.Services);
+		_window.AttachNavigation(_host.Services);
 		_window.Activate();
 
-		await System.Threading.Tasks.Task.Run(async () =>
-		{
-			await host.StartAsync();
-		});
+		await Task.Run(() => _host.StartAsync());
 	}
 
 	/// <summary>
@@ -224,100 +76,6 @@ public sealed partial class App : Application
 		var deferral = e.SuspendingOperation.GetDeferral();
 		// TODO: Save application state and stop any background activity
 		deferral.Complete();
-	}
-
-	private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
-	{
-		var res = ResourceLoader.GetForViewIndependentUse();
-
-		MessageDialogViewMap BuildDialogViewMap(string section, bool delayUserInput, int defaultButtonIndex, params (object Id, string labelKeyPath)[] buttons)
-		{
-			return new MessageDialogViewMap
-			(
-				Content: ResLookup("Content"),
-				Title: ResLookup("Title"),
-				DelayUserInput: delayUserInput,
-				DefaultButtonIndex: defaultButtonIndex,
-				Buttons: buttons
-					.Select(x => new DialogAction(Label: ResLookup(x.labelKeyPath), Id: x.Id))
-					.ToArray()
-			);
-			string ResLookup(string keyPath)
-			{
-				try
-				{
-					// map absolute/relative path accordingly
-					var key = keyPath.StartsWith("./") ? keyPath.Substring(2) : $"Dialog_{section}_{keyPath}";
-					return res!.GetString(key);
-				}
-				catch { return String.Empty; }
-			}
-		}
-
-		var deleteButton = (DialogResults.Affirmative, "./Dialog_Common_Delete");
-		var cancelButton = (DialogResults.Negative, "./Dialog_Common_Cancel");
-		var confirmDeleteListDialog = BuildDialogViewMap("ConfirmDeleteList", true, 0, deleteButton, cancelButton);
-		var confirmDeleteTaskDialog = BuildDialogViewMap("ConfirmDeleteTask", true, 0, deleteButton, cancelButton);
-		var confirmDeleteNoteDialog = BuildDialogViewMap("ConfirmDeleteNote", true, 0, deleteButton, cancelButton);
-		var confirmSignOutDialog = BuildDialogViewMap("ConfirmSignOut", true, 0, (DialogResults.Affirmative, "SignOut"), cancelButton);
-
-		views.Register(
-			/// Dialogs and Flyouts
-			new ViewMap<AddTaskFlyout, AddTaskViewModel>(),
-			new ViewMap<AddListFlyout, AddListViewModel>(),
-			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
-			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(),
-			new ViewMap<RenameListFlyout, RenameListViewModel>(),
-
-			// Views
-			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
-			new ViewMap<TaskSearchFlyout>(),
-			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
-			new ViewMap<SettingsPage, SettingsViewModel.BindableSettingsViewModel>(),
-			new ViewMap<ShellControl, ShellViewModel>(),
-			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
-			new ViewMap(
-				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
-				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
-			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
-			confirmDeleteListDialog,
-			confirmDeleteTaskDialog,
-			confirmDeleteNoteDialog,
-			confirmSignOutDialog
-		);
-
-		routes.Register(
-			new RouteMap("", View: views.FindByViewModel<ShellViewModel>(), Nested: new RouteMap[]
-			{
-				new("Welcome", View: views.FindByViewModel<WelcomeViewModel.BindableWelcomeViewModel>()),
-				new("Home", View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()),
-				new("TaskList", View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(), Nested: new[]
-				{
-					new RouteMap("MultiTaskLists", IsDefault: true, Nested: new[]
-					{
-						new RouteMap("ToDo", IsDefault:true),
-						new RouteMap("Completed")
-					})
-				}),
-				new("Task", View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(), DependsOn:"TaskList"),
-				new("TaskSearch", View: views.FindByView<TaskSearchFlyout>(), Nested: new RouteMap[]
-				{
-					new("Search", View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(), IsDefault: true)
-				}),
-				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
-				new("TaskNote", View: views.FindByViewModel<TaskNoteViewModel>(), DependsOn:"Task"),
-				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
-				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
-				new("AuthToken", View: views.FindByViewModel<AuthTokenViewModel>()),
-				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
-				new("RenameList", View: views.FindByViewModel<RenameListViewModel>()),
-				new("ConfirmDeleteList", confirmDeleteListDialog),
-				new("ConfirmDeleteTask", confirmDeleteTaskDialog),
-				new("ConfirmDeleteNote", confirmDeleteNoteDialog),
-				new("ConfirmSignOut", confirmSignOutDialog)
-			})
-		);
 	}
 
 #pragma warning disable CS8632 // The annotation for nullable reference types should only be used in code within a '#nullable' annotations context.

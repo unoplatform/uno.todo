@@ -1,7 +1,3 @@
-
-
-using Microsoft.Extensions.Localization;
-
 namespace ToDo.Presentation;
 
 [ReactiveBindable]
@@ -34,34 +30,11 @@ public partial class SettingsViewModel
 		_authService = authService;
 		LocalizationSettings = localizationSettings;
 
-		(Cultures, _selectedCulture) = GetCultures(localizer);
+		Cultures = LocalizationSettings.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
+		_selectedCulture = Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First();
 	}
 
-	(DisplayCulture[] Cultures, DisplayCulture Current) GetCultures(IStringLocalizer localizer)
-	{
-		// LocalizationSettings is defined in: appsettings.json
-		if (LocalizationSettings.Value?.Cultures is { Length: > 0} cultures)
-		{
-			var results = cultures
-				.Select(culture => new DisplayCulture(GetLabelFor(culture), culture))
-				.ToArray();
-			var current =
-				results.FirstOrDefault(x => x.Culture == LocalizationSettings.Value?.CurrentCulture) ??
-				results.FirstOrDefault();
-
-			return (results, current);
-		}
-		else
-		{
-			var results = new[] { new DisplayCulture(GetLabelFor("en"), "en") };
-
-			return (results, results[0]);
-		}
-
-		string GetLabelFor(string culture) => localizer[$"SettingsPage_LanguageLabel_{culture}"];
-	}
-
-	public IState<UserContext?> CurrentUser => State<UserContext?>.Async(this, async ct => await _authService.GetCurrentUserAsync());
+	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authService.GetCurrentUserAsync());
 
 	public ICommand SignOut => Command.Async(DoSignOut);
 	private async ValueTask DoSignOut(CancellationToken ct)

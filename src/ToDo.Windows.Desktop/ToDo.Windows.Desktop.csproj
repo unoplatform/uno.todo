@@ -11,12 +11,6 @@
 		<DefineConstants>$(DefineConstants);WINUI</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="appsettings.platform.json" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.platform.json" />
-	</ItemGroup>
-	<ItemGroup>
 		<Manifest Include="$(ApplicationManifest)" />
 	</ItemGroup>
 	<ItemGroup>
@@ -47,26 +41,23 @@
 		<PackageReference Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.551" />
-		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.551" />
+		<PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Http" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Logging.Serilog" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Logging.WinUI" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.559" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.559" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ToDo\ToDo.csproj" />
 	</ItemGroup>
 	<Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
-	<ItemGroup>
-	  <_Globbed_Embedded_Resource Remove="appsettings.platform.json" />
-	</ItemGroup>
 </Project>

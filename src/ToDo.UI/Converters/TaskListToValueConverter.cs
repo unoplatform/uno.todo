@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ToDo.Business.Models;
 using Uno.Extensions.Reactive.Bindings;
 
 namespace ToDo.Converters

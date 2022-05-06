@@ -1,5 +1,4 @@
-﻿
-namespace ToDo.Business;
+﻿namespace ToDo.Business;
 
 public class TaskListService : ITaskListService
 {

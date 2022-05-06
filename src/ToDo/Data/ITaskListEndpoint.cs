@@ -1,4 +1,4 @@
-﻿namespace ToDo;
+﻿namespace ToDo.Data;
 
 [Headers("Content-Type: application/json")]
 public interface ITaskListEndpoint

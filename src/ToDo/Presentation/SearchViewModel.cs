@@ -17,7 +17,7 @@ public partial class SearchViewModel
 		.SelectAsync(_svc.GetAllAsync)
 		.AsListFeed();
 
-	public ICommand ToggleIsCompleted => Command.Create<ToDoTask>(c => c.Then(DoToggleIsImportant));
+	public ICommand ToggleIsCompleted => Command.Create<ToDoTask>(c => c.Then(DoToggleIsCompleted));
 	private async ValueTask DoToggleIsCompleted(ToDoTask task, CancellationToken ct)
 	{
 		if (task.Status is null)
@@ -25,7 +25,8 @@ public partial class SearchViewModel
 			return;
 		}
 
-		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		var updatedTask = task.ToggleIsCompleted();
+
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
@@ -36,7 +37,8 @@ public partial class SearchViewModel
 		{
 			return;
 		}
-		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+
+		var updatedTask = task.ToggleImportance();
 
 		await _svc.UpdateAsync(updatedTask, ct);
 	}

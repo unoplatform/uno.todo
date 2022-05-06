@@ -5,16 +5,13 @@ public partial class TaskViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskService _svc;
-	private readonly ILogger _logger;
 
 	private TaskViewModel(
-		ILogger<TaskListViewModel> logger,
 		INavigator navigator,
 		ITaskService svc,
 		IMessenger messenger,
 		ToDoTask entity)
 	{
-		_logger = logger;
 		_navigator = navigator;
 		_svc = svc;
 
@@ -73,7 +70,7 @@ public partial class TaskViewModel
 			return;
 		}
 
-		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
+		var updatedTask = task.ToggleIsCompleted();
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
 	
@@ -84,7 +81,7 @@ public partial class TaskViewModel
 		{
 			return;
 		}
-		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
+		var updatedTask = task.ToggleImportance();
 
 		await _svc.UpdateAsync(updatedTask, ct);
 	}

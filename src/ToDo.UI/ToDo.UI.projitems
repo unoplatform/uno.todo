@@ -12,11 +12,13 @@
     <Content Include="$(MSBuildThisFileDirectory)*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Mock\*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="$(MSBuildThisFileDirectory)Strings\Resources.l12n.xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(MSBuildThisFileDirectory)appsettings*.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)appsettings*.json" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
@@ -26,6 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.host.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FormatConverter.cs" />
@@ -41,9 +46,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskNote.xaml.cs">
       <DependentUpon>AddTaskNote.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml.cs">
-      <DependentUpon>AuthTokenDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\ExpirationDateFlyout.xaml.cs">
       <DependentUpon>ExpirationDateFlyout.xaml</DependentUpon>
@@ -99,10 +101,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddTaskNote.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\Dialogs\AuthTokenDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
