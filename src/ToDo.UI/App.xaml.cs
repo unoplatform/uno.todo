@@ -20,6 +20,8 @@ public sealed partial class App : Application
 
 	public App()
 	{
+		InitializeLogging();
+
 		this.InitializeComponent();
 
 #if HAS_UNO || NETFX_CORE
@@ -42,18 +44,16 @@ public sealed partial class App : Application
 				.UseEnvironment(Environments.Development)
 #endif
 
-				// Add platform specific log providers
-				.UseLogging()
-
-				// Configure log levels for different categories of logging
-				.ConfigureLogging(logBuilder =>
-				{
-					logBuilder
-							.SetMinimumLevel(LogLevel.Information)
-							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information)
-							.AddFilter("Uno.Extensions.Navigation", LogLevel.Trace);
-				})
+				// NR: Don't remove this - temporarily using InitializeLogging while fixing uno.extensions.logging
+				//// Add platform specific log providers
+				//.UseLogging(configure: logBuilder =>
+				//{
+				//	// Configure log levels for different categories of logging
+				//	logBuilder
+				//			.SetMinimumLevel(LogLevel.Information)
+				//			.XamlLogLevel(LogLevel.Information)
+				//			.XamlLayoutLogLevel(LogLevel.Information);
+				//})
 
 				// Load configuration information from appsettings.json
 				.UseEmbeddedAppSettings<App>()
@@ -69,10 +69,10 @@ public sealed partial class App : Application
 				.UseSerialization()
 
 				// Register services for the application
-			.ConfigureServices((context, services) => services
-				.AddEndpoints(context, useMocks: useMocks)
-				.AddServices(useMocks: useMocks)
-						)
+				.ConfigureServices((context, services) => services
+					.AddEndpoints(context, useMocks: useMocks)
+					.AddServices(useMocks: useMocks)
+							)
 
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(
@@ -90,9 +90,76 @@ public sealed partial class App : Application
 				// Add localization support
 				.UseLocalization()
 
-			.ConfigureServices(services => services.AddSingleton<IRequestHandler, NavigationViewRequestHandler>())
+				.ConfigureServices(services => services.AddSingleton<IRequestHandler, NavigationViewRequestHandler>())
 
-				.Build(enableUnoLogging: true);
+				// NR: Don't remove this - temporarily using InitializeLogging while fixing uno.extensions.logging
+				.Build();// enableUnoLogging: true);
+	}
+
+	private static void InitializeLogging()
+	{
+#if DEBUG
+		// Logging is disabled by default for release builds, as it incurs a significant
+		// initialization cost from Microsoft.Extensions.Logging setup. If startup performance
+		// is a concern for your application, keep this disabled. If you're running on web or 
+		// desktop targets, you can use url or command line parameters to enable it.
+		//
+		// For more performance documentation: https://platform.uno/docs/articles/Uno-UI-Performance.html
+
+		var factory = LoggerFactory.Create(builder =>
+		{
+#if __WASM__
+                builder.AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
+#elif __IOS__
+                builder.AddProvider(new global::Uno.Extensions.Logging.OSLogLoggerProvider());
+#elif NETFX_CORE
+                builder.AddDebug();
+#else
+			builder.AddConsole();
+#endif
+
+			// Exclude logs below this level
+			builder.SetMinimumLevel(LogLevel.Trace);
+
+			// Default filters for Uno Platform namespaces
+			builder.AddFilter("Uno", LogLevel.Trace);
+			builder.AddFilter("Windows", LogLevel.Trace);
+			builder.AddFilter("Microsoft", LogLevel.Trace);
+
+			// Generic Xaml events
+			// builder.AddFilter("Windows.UI.Xaml", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.VisualStateGroup", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.StateTriggerBase", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.UIElement", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.FrameworkElement", LogLevel.Trace );
+
+			// Layouter specific messages
+			// builder.AddFilter("Windows.UI.Xaml.Controls", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.Controls.Layouter", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.Controls.Panel", LogLevel.Debug );
+
+			// builder.AddFilter("Windows.Storage", LogLevel.Debug );
+
+			// Binding related messages
+			// builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
+			// builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
+
+			// Binder memory references tracking
+			// builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug );
+
+			// RemoteControl and HotReload related
+			// builder.AddFilter("Uno.UI.RemoteControl", LogLevel.Information);
+
+			// Debug JS interop
+			// builder.AddFilter("Uno.Foundation.WebAssemblyRuntime", LogLevel.Debug );
+		});
+
+		global::Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory = factory;
+
+#if HAS_UNO
+		global::Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
+#endif
+#endif
 	}
 
 	/// <summary>
@@ -177,9 +244,13 @@ public sealed partial class App : Application
 			);
 			string ResLookup(string keyPath)
 			{
-				// map absolute/relative path accordingly
-				var key = keyPath.StartsWith("./") ? keyPath.Substring(2) : $"Dialog_{section}_{keyPath}";
-				return res!.GetString(key);
+				try
+				{
+					// map absolute/relative path accordingly
+					var key = keyPath.StartsWith("./") ? keyPath.Substring(2) : $"Dialog_{section}_{keyPath}";
+					return res!.GetString(key);
+				}
+				catch { return String.Empty; }
 			}
 		}
 
@@ -207,7 +278,7 @@ public sealed partial class App : Application
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
 			new ViewMap(
-				DynamicView: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
+				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
 				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			new ViewMap<AuthTokenDialog, AuthTokenViewModel>(),
 			confirmDeleteListDialog,
@@ -236,7 +307,7 @@ public sealed partial class App : Application
 				}),
 				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
 				new("TaskNote", View: views.FindByViewModel<TaskNoteViewModel>(), DependsOn:"Task"),
-				new("AddTask", View: views.FindByView<AddTaskViewModel>()),
+				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
 				new("AuthToken", View: views.FindByViewModel<AuthTokenViewModel>()),
 				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
