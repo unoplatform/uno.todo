@@ -7,14 +7,12 @@ public partial class HomeViewModel
 	private readonly IAuthenticationService _authSvc;
 	private readonly IStringLocalizer _localizer;
 	private readonly ITaskListService _listSvc;
-	private readonly IUserProfilePictureService _userSvc;
 
 	private HomeViewModel(
 		INavigator navigator,
 		IStringLocalizer localizer,
 		IAuthenticationService authSvc,
 		ITaskListService listSvc,
-		IUserProfilePictureService userSvc,
 		IMessenger messenger)
 	{
 		_navigator = navigator;
@@ -22,7 +20,6 @@ public partial class HomeViewModel
 		_navigator = navigator;
 		_authSvc = authSvc;
 		_listSvc = listSvc;
-		_userSvc = userSvc;
 
 		Lists.Observe(messenger, list => list.Id);
 
@@ -33,17 +30,7 @@ public partial class HomeViewModel
 		};
 	}
 
-	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct =>
-	{
-		var user = await _authSvc.GetCurrentUserAsync();
-		if ( user != default && user.ProfilePicture is null )
-		{
-			var profilePictureContent = await _userSvc.GetAsync(ct);
-			_authSvc.SetProfilePicture(profilePictureContent);
-			return await _authSvc.GetCurrentUserAsync();
-		}
-		return user;
-	});
+	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authSvc.GetCurrentUserAsync());
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 

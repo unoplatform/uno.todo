@@ -6,7 +6,6 @@ public partial class SettingsViewModel
 	private readonly IAuthenticationService _authService;
 	private readonly INavigator _navigator;
 	private DisplayCulture _selectedCulture;
-	private readonly IUserProfilePictureService _userSvc;
 
 	public IWritableOptions<LocalizationSettings> LocalizationSettings { get; }
 
@@ -25,30 +24,17 @@ public partial class SettingsViewModel
 		INavigator navigator,
 		IAuthenticationService authService,
 		IWritableOptions<LocalizationSettings> localizationSettings,
-		IUserProfilePictureService userSvc,
 		IStringLocalizer localizer)
 	{
 		_navigator = navigator;
 		_authService = authService;
-		_userSvc = userSvc;
-
 		LocalizationSettings = localizationSettings;
 
 		Cultures = LocalizationSettings.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
 		_selectedCulture = Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First();
 	}
 
-	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct =>
-	{
-		var user = await _authService.GetCurrentUserAsync();
-		if (user != default && user.ProfilePicture is null)
-		{
-			var profilePictureContent = await _userSvc.GetAsync(ct);
-			_authService.SetProfilePicture(profilePictureContent);
-			return await _authService.GetCurrentUserAsync();
-		}
-		return user;
-	});
+	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authService.GetCurrentUserAsync());
 
 	public ICommand SignOut => Command.Async(DoSignOut);
 	private async ValueTask DoSignOut(CancellationToken ct)

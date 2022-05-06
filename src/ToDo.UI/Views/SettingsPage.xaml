@@ -10,12 +10,7 @@
     xmlns:uer="using:Uno.Extensions.Reactive.UI"
     xmlns:um="using:Uno.Material"
     xmlns:utu="using:Uno.Toolkit.UI"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d">
-    <Page.Resources>
-        <converters:BitmapSourceConverter x:Key="ByteToBitmapSourceConverter" />
-    </Page.Resources>
-
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <utu:AutoLayout>
         <utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
             <utu:NavigationBar
@@ -33,9 +28,9 @@
                         Orientation="Horizontal"
                         Spacing="10" />
                     <PersonPicture
-                        d:ProfilePicture="{Binding CurrentUser.ProfilePicture}"
                         utu:AutoLayout.CounterAlignment="Start"
-                        DisplayName="{Binding CurrentUser.Name}" />
+                        DisplayName="{Binding CurrentUser.Name}"
+                        ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource BitmapSourceConverter}}" />
                     <utu:AutoLayout
                         Padding="20,15,20,15"
                         utu:AutoLayout.PrimaryAlignment="Stretch"

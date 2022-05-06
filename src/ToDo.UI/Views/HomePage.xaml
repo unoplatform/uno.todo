@@ -13,7 +13,7 @@
     xmlns:um="using:Uno.Material"
     xmlns:utu="using:Uno.Toolkit.UI"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    mc:Ignorable="d not_win">
+    mc:Ignorable="not_win">
 
     <Page.Resources>
         <x:String x:Key="Icon_Add">F1 M 14 8 L 8 8 L 8 14 L 6 14 L 6 8 L 0 8 L 0 6 L 6 6 L 6 0 L 8 0 L 8 6 L 14 6 L 14 8 Z</x:String>
@@ -35,8 +35,6 @@
             DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}"
             ImportantValue="{StaticResource MaterialErrorBrush}"
             TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}" />
-        <converters:BitmapSourceConverter x:Key="ByteToBitmapSourceConverter" />
-
     </Page.Resources>
     <Grid>
         <muxc:NavigationView
@@ -64,22 +62,13 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-
-                    <!--<PersonPicture
-                        Grid.Column="0"
-                        Width="40"
-                        Height="40"
-                        VerticalAlignment="Center"
-                        d:ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource ByteToBitmapSourceConverter}}"
-                        DisplayName="{Binding CurrentUser.Name}" />-->
-
                     <PersonPicture
                         Grid.Column="0"
                         Width="40"
                         Height="40"
                         VerticalAlignment="Center"
-                        d:ProfilePicture="https://www.pngmart.com/files/2/Mario-PNG-Image.png"
-                        DisplayName="{Binding CurrentUser.Name}" />
+                        DisplayName="{Binding CurrentUser.Name}"
+                        ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource BitmapSourceConverter}}" />
 
                     <TextBlock
                         Grid.Column="1"
