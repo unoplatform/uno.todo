@@ -23,10 +23,9 @@ public partial class WelcomeViewModel
 	public ICommand GetStarted => Command.Async(DoGetStarted);
 	private async ValueTask DoGetStarted(CancellationToken ct)
 	{
-		var user = await _authService.AuthenticateAsync(_dispatcher);
+		var user = await _authService.AuthenticateAsync(_dispatcher, _userSvc, cancellation: ct);
 		if (user is not null)
 		{
-			await _authService.SetProfilePicture(_userSvc, cancellation: ct);
 			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
 		}
 	}
