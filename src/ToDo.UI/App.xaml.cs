@@ -13,8 +13,6 @@ public sealed partial class App : Application
 
 	public App()
 	{
-		InitializeLogging();
-
 		this.InitializeComponent();
 
 #if HAS_UNO || NETFX_CORE
