@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="$(MSBuildThisFileDirectory)appsettings*.json" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)appsettings*.json" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
@@ -166,5 +165,8 @@
     <Content Include="@(_Globbed_Content)" />
     <_Globbed_Embedded_Resource Include="$(MSBuildThisFileDirectory)*.json" Exclude="@(EmbeddedResource)" />
     <EmbeddedResource Include="@(_Globbed_Embedded_Resource)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Mocks\" />
   </ItemGroup>
 </Project>

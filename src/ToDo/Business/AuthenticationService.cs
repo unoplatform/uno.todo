@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
+using ToDo.Configuration;
 using Windows.Security.Authentication.Web;
 
 namespace ToDo.Business.Services;
@@ -14,7 +15,7 @@ public class AuthenticationService : IAuthenticationService
 
 	public AuthenticationService(
 		ILogger<AuthenticationService> logger,
-		IOptions<OAuthSettings> settings)
+		IOptions<Auth> settings)
 	{
 		_logger = logger;
 		var authSettings = settings.Value;

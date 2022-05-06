@@ -5,6 +5,8 @@
 
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
+using ToDo.Configuration;
+using ToDo.Settings;
 using Uno.Extensions.Localization;
 using Uno.Extensions.Navigation.UI;
 using Windows.ApplicationModel.Resources;
@@ -59,20 +61,19 @@ public sealed partial class App : Application
 				.UseEmbeddedAppSettings<App>()
 				.UseCustomEmbeddedSettings<App>("appsettings.platform.json")
 
-				// Load AppInfo section
-				.UseConfiguration<AppInfo>()
-				.UseConfiguration<OAuthSettings>()
-
-				.UseSettings<ToDoSettings>()
+				// Load OAuth configuration
+				.UseConfiguration<Auth>()
 
 				// Register Json serializers (ISerializer and IStreamSerializer)
 				.UseSerialization()
 
 				// Register services for the application
-				.ConfigureServices((context, services) => services
-					.AddEndpoints(context, useMocks: useMocks)
-					.AddServices(useMocks: useMocks)
-							)
+				.ConfigureServices(
+					(context, services) =>
+						services
+							.AddEndpoints(context, useMocks: useMocks)
+							.AddServices(useMocks: useMocks)
+						)
 
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(
