@@ -50,7 +50,7 @@
 									utu:AutoLayout.PrimaryAlignment="Stretch">
 						<TextBox x:Uid="TaskControl_TaskNameTextBox"
 								 PlaceholderText="Task Name"
-								 Text="{Binding Entity.Title}"
+								 Text="{Binding Entity.Title, Mode=TwoWay}"
 								 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 					</utu:AutoLayout>
 					<utu:AutoLayout>
@@ -110,50 +110,12 @@
 						</utu:AutoLayout>
 					</utu:AutoLayout>
 					<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
-					<utu:AutoLayout>
-						<utu:AutoLayout Spacing="16"
-										Padding="0,8,0,0"
-										Orientation="Horizontal">
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start"
-											utu:AutoLayout.PrimaryAlignment="Stretch">
-								<utu:AutoLayout PrimaryAxisAlignment="Center">
-									<utu:AutoLayout PrimaryAxisAlignment="Center">
-										<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
-												   TextWrapping="Wrap"
-												   Text="{Binding Entity.Body.Content}"
-												   Style="{StaticResource MaterialSubtitle1}" />
-									</utu:AutoLayout>
-								</utu:AutoLayout>
-							</utu:AutoLayout>
-						</utu:AutoLayout>
-					</utu:AutoLayout>
-					<utu:AutoLayout>
-						<utu:AutoLayout Spacing="16"
-										Orientation="Horizontal">
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
-											utu:AutoLayout.PrimaryAlignment="Stretch">
-								<utu:AutoLayout PrimaryAxisAlignment="Center">
-									<utu:AutoLayout PrimaryAxisAlignment="Center">
-										<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
-												   TextWrapping="Wrap"
-												   Style="{StaticResource MaterialBody2}" />
-									</utu:AutoLayout>
-								</utu:AutoLayout>
-							</utu:AutoLayout>
-							<utu:AutoLayout Orientation="Horizontal"
-											utu:AutoLayout.CounterAlignment="Center">
-								<utu:AutoLayout PrimaryAxisAlignment="End"
-												Orientation="Horizontal">
-									<Button x:Uid="TaskControl_AddTaskButton"
-											Content="Open"
-											Command="{Binding AddTaskNote}"
-											utu:AutoLayout.CounterAlignment="Start"
-											Style="{StaticResource MaterialTextButtonStyle}" />
-								</utu:AutoLayout>
-							</utu:AutoLayout>
-						</utu:AutoLayout>
-					</utu:AutoLayout>
-					<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+					<TextBox x:Uid="TaskControl_TaskBodyTextBox"
+							 Text="{Binding Entity.Body.Content, Mode=TwoWay}"
+							 PlaceholderText="Add Note"
+							 AcceptsReturn="True"
+							 TextWrapping="Wrap"
+							 Style="{StaticResource MaterialFilledTextBoxStyle}" />
 				</utu:AutoLayout>
 				<utu:AutoLayout Padding="20,0,10,0">
 					<utu:AutoLayout Spacing="16"

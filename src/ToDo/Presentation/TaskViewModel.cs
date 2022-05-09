@@ -16,7 +16,13 @@ public partial class TaskViewModel
 		_svc = svc;
 
 		Entity = State<ToDoTask>.Async(this, async _ => entity);
-		Entity.Observe(messenger, task => task.Id);
+		Entity.Execute(async (x, ct) =>
+		{
+			if (x is not null)
+			{
+				await _svc.UpdateAsync(x, ct);
+			}
+		});
 	}
 
 	public IState<ToDoTask> Entity { get; }
@@ -42,26 +48,6 @@ public partial class TaskViewModel
 		}
 	}
 
-	public ICommand AddTaskNote => Command.Create(b => b.Given(Entity).Then(DoAddTaskNote));
-	private async ValueTask DoAddTaskNote(ToDoTask task, CancellationToken ct)
-	{
-		var response = await _navigator.NavigateViewModelForResultAsync<TaskNoteViewModel, TaskBodyData>(this, data: task, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
-
-		var result = await response.Result;
-
-		var note = result.SomeOrDefault()?.Content;
-		if (note is not null)
-		{
-			var updated = task with { Body = (task.Body ?? new()) with { Content = note } };
-
-			await _svc.UpdateAsync(updated, ct);
-		}
-	}
-
 	public ICommand ToggleIsCompleted => Command.Create(b => b.Given(Entity).Then(DoToggleIsCompleted));
 	private async ValueTask DoToggleIsCompleted(ToDoTask task, CancellationToken ct)
 	{
@@ -70,10 +56,10 @@ public partial class TaskViewModel
 			return;
 		}
 
-		var updatedTask = task.ToggleIsCompleted();
+		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
-	
+
 	public ICommand ToggleIsImportant => Command.Create(b => b.Given(Entity).Then(DoToggleIsImportant));
 	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
 	{
@@ -81,7 +67,7 @@ public partial class TaskViewModel
 		{
 			return;
 		}
-		var updatedTask = task.ToggleImportance();
+		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
 
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
