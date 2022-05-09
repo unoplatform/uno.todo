@@ -14,6 +14,7 @@ export UNO_UITEST_LOGFILE=$BUILD_ARTIFACTSTAGINGDIRECTORY/screenshots/wasm/nunit
 export UNO_UITEST_WASM_PROJECT=$BUILD_SOURCESDIRECTORY/src/ToDo.Wasm/ToDo.Wasm.csproj
 export UNO_UITEST_WASM_OUTPUT_PATH=$BUILD_SOURCESDIRECTORY/src/ToDo.Wasm/bin/Release/net5.0/dist/
 export UNO_UITEST_NUNIT_VERSION=3.11.1
+export UNO_UITEST_DOTNETSERVE_VERSION=1.10.112
 export UNO_UITEST_NUGET_URL=https://dist.nuget.org/win-x86-commandline/v5.7.0/nuget.exe
 
 cd $BUILD_SOURCESDIRECTORY
@@ -24,7 +25,7 @@ dotnet build /p:Configuration=Release $UNO_UITEST_WASM_PROJECT /p:IsUiAutomation
 # install dotnet serve / Remove as needed
 dotnet tool uninstall dotnet-serve -g || true
 dotnet tool uninstall dotnet-serve --tool-path $BUILD_SOURCESDIRECTORY/build/tools || true
-dotnet tool install dotnet-serve --version 1.8.15 --tool-path $BUILD_SOURCESDIRECTORY/build/tools || true
+dotnet tool install dotnet-serve --version $UNO_UITEST_DOTNETSERVE_VERSION --tool-path $BUILD_SOURCESDIRECTORY/build/tools || true
 export PATH="$PATH:$BUILD_SOURCESDIRECTORY/build/tools"
 
 ## The python server serves the current working directory, and may be changed by the nunit runner
