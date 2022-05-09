@@ -52,6 +52,7 @@
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
+
 		<muxc:NavigationView x:Name="NavView"
 							 MenuItemsSource="{Binding WellKnownLists}"
 							 FooterMenuItemsSource="{Binding CustomLists}"
@@ -68,67 +69,68 @@
 			<muxc:NavigationView.PaneHeader>
 				<Grid Grid.Row="0"
 					  Padding="16,8"
-					  ColumnSpacing="8">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
-
-					<PersonPicture Grid.Column="0"
-								   DisplayName="{Binding CurrentUser.Name}"
-								   d:ProfilePicture="{Binding CurrentUser.AvatarUrl}"
-								   Width="40"
-								   Height="40"
-								   VerticalAlignment="Center" />
-
-					<TextBlock Grid.Column="1"
-							   Text="{Binding CurrentUser.Name}"
-							   VerticalAlignment="Center" />
-
-					<!-- This is a hack to allow both picture and textblock to respond to tap event -->
-					<Border Background="Transparent"
+					  ColumnSpacing="8"
+					  ColumnDefinitions="*,AUto">
+					
+					<Button Grid.Column="0"
 							uen:Navigation.Request="Settings"
-							Grid.ColumnSpan="2" />
+							BorderThickness="0"
+							HorizontalAlignment="Stretch"
+							HorizontalContentAlignment="Stretch"
+							Style="{StaticResource MaterialOutlinedButtonStyle}">
+						<Grid ColumnDefinitions="Auto,*"
+							  ColumnSpacing="8">
+							<PersonPicture Grid.Column="0"
+										   DisplayName="{Binding CurrentUser.Name}"
+										   Width="40"
+										   Height="40"
+										   VerticalAlignment="Center" />
+							<TextBlock Grid.Column="1"
+									   Text="{Binding CurrentUser.Name}"
+									   VerticalAlignment="Center"
+									   Style="{StaticResource MaterialSubtitle1}" />
+						</Grid>
+					</Button>
 
-					<PathIcon Grid.Column="2"
-							  Data="{StaticResource Icon_Search}"
-							  VerticalAlignment="Center"
-							  uen:Navigation.Request="!TaskSearch" />
+					<Button Grid.Column="1"
+							uen:Navigation.Request="!TaskSearch"
+							Style="{StaticResource MaterialButtonIconStyle}">
+						<PathIcon Data="{StaticResource Icon_Search}" />
+					</Button>
 				</Grid>
 			</muxc:NavigationView.PaneHeader>
 
-		<!-- Task Lists: template for WellKnownLists & CustomLists -->
-		<muxc:NavigationView.MenuItemTemplate>
-			<DataTemplate>
-				<muxc:NavigationViewItem Content="{Binding DisplayName}"
-										 uen:Navigation.Data="{Binding}">
-					<muxc:NavigationViewItem.Icon>
-						<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"
-								  Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
-					</muxc:NavigationViewItem.Icon>
-				</muxc:NavigationViewItem>
-			</DataTemplate>
-		</muxc:NavigationView.MenuItemTemplate>
+			<!-- Task Lists: template for WellKnownLists & CustomLists -->
+			<muxc:NavigationView.MenuItemTemplate>
+				<DataTemplate>
+					<muxc:NavigationViewItem Content="{Binding DisplayName}"
+											 uen:Navigation.Data="{Binding}">
+						<muxc:NavigationViewItem.Icon>
+							<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"
+									  Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
+						</muxc:NavigationViewItem.Icon>
+					</muxc:NavigationViewItem>
+				</DataTemplate>
+			</muxc:NavigationView.MenuItemTemplate>
 
-		<!-- Footer: New List -->
-		<muxc:NavigationView.PaneFooter>
-			<Border Padding="16">
-				<Button Content="Add a list"
-						Command="{Binding CreateTaskList}"
-						x:Uid="HomePage_CreateTaskList"
-						HorizontalAlignment="Stretch"
-						HorizontalContentAlignment="Left"
-						Style="{StaticResource MaterialTextButtonStyle}">
-					<um:ControlExtensions.Icon>
-						<PathIcon Data="{StaticResource Icon_Add}" />
-					</um:ControlExtensions.Icon>
-				</Button>
-			</Border>
-		</muxc:NavigationView.PaneFooter>
+			<!-- Footer: New List -->
+			<muxc:NavigationView.PaneFooter>
+				<Border Padding="16">
+					<Button Content="Add a list"
+							Command="{Binding CreateTaskList}"
+							x:Uid="HomePage_CreateTaskList"
+							HorizontalAlignment="Stretch"
+							HorizontalContentAlignment="Left"
+							Style="{StaticResource MaterialTextButtonStyle}">
+						<um:ControlExtensions.Icon>
+							<PathIcon Data="{StaticResource Icon_Add}" />
+						</um:ControlExtensions.Icon>
+					</Button>
+				</Border>
+			</muxc:NavigationView.PaneFooter>
 
-		<Grid uen:Region.Navigator="Visibility"
-			  uen:Region.Attached="True" />
-	</muxc:NavigationView>
-</Grid>
+			<Grid uen:Region.Navigator="Visibility"
+				  uen:Region.Attached="True" />
+		</muxc:NavigationView>
+	</Grid>
 </Page>
