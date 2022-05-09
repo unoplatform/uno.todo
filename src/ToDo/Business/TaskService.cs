@@ -53,19 +53,23 @@ public class TaskService : ITaskService
 		{
 			return ToEntity(await _client.GetAsync(list.Id, ct));
 		}
+
+		IImmutableList<ToDoTask> ToEntity(TaskReponseData<TaskData> response)
+			=> response
+				.Value
+				?.Select(data => new ToDoTask(list.Id, data))
+				.ToImmutableList()
+				?? ImmutableList<ToDoTask>.Empty;
 	}
 
 	/// <inheritdoc />
-	public async ValueTask<IImmutableList<ToDoTask>> SearchAsync(string displayName, CancellationToken ct)
-		=> displayName is null or { Length: 0 }
-			? ImmutableList<ToDoTask>.Empty // If we don't have a valid search term, we return an empty list instead of loading all tasks
-			: ToEntity(await _client.GetByFilterAsync(displayName, ct));
-
-	private static IImmutableList<ToDoTask> ToEntity(TaskReponseData<TaskData> response)
-		=> response
-			.Value
-			?.Where(data => data.ParentList?.Id is not null)
-			.Select(data => new ToDoTask(data.ParentList!.Id!, data))
-			.ToImmutableList()
-			?? ImmutableList<ToDoTask>.Empty;
+	public async ValueTask<IImmutableList<ToDoTask>> SearchAsync(string term, CancellationToken ct)
+		// Note: If we don't have a valid search term, we return an empty list instead of loading all tasks
+		=> term is { Length: > 0 } && await _client.GetByFilterAsync(term, ct) is { Value.Count: >0 } response
+			? response
+				.Value
+				.Where(data => data.ParentList?.Id is not null)
+				.Select(data => new ToDoTask(data.ParentList!.Id!, data))
+				.ToImmutableList()
+			: ImmutableList<ToDoTask>.Empty;
 }
