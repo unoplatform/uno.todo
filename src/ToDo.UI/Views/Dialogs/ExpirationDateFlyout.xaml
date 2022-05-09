@@ -33,91 +33,88 @@
 		<utu:AutoLayout Padding="0,8,0,8"
 						CornerRadius="4">
 			<utu:AutoLayout Orientation="Horizontal">
-				<utu:AutoLayout Padding="8,8,8,8"
-								Justify="SpaceBetween"
-								Orientation="Horizontal"
-								utu:AutoLayout.CounterAlignment="Start"
-								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<Button
-                        Content="Today"
-                        HorizontalContentAlignment="Left"
-                        Command="{Binding Today}"
-                        Style="{StaticResource MaterialTextButtonStyle}">
-						<um:ControlExtensions.Icon>
-							<PathIcon Data="{StaticResource Icon_Calendar_Today}"  />
-						</um:ControlExtensions.Icon>
-					</Button>
-					<!--<utu:AutoLayout Spacing="10"
-									Padding="0,0,16,0"
+				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0" Command="{Binding Today}">
+					<utu:AutoLayout Padding="8,8,8,8"
+									Justify="SpaceBetween"
 									Orientation="Horizontal"
-									utu:AutoLayout.CounterAlignment="Center">
-						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
-								  utu:AutoLayout.CounterAlignment="Start" />
-					</utu:AutoLayout>
-					<utu:AutoLayout Spacing="10"
-									Padding="0,2,0,2"
-									Orientation="Horizontal"
-									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-								   Text="Today"
-								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
-								   x:Uid="Task_Details_Add_Due_Date_Label" />
-					</utu:AutoLayout>-->
-				</utu:AutoLayout>
+						<utu:AutoLayout Spacing="10"
+										Padding="0,0,16,0"
+										Orientation="Horizontal"
+										utu:AutoLayout.CounterAlignment="Center">
+							<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+									  utu:AutoLayout.CounterAlignment="Start"/>
+						</utu:AutoLayout>
+						<utu:AutoLayout Spacing="10"
+										Padding="0,2,0,2"
+										Orientation="Horizontal"
+										utu:AutoLayout.CounterAlignment="Center"
+										utu:AutoLayout.PrimaryAlignment="Stretch">
+							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Today"
+									   utu:AutoLayout.CounterAlignment="Center"
+									   Style="{StaticResource MaterialBody2}"
+									   x:Uid="Task_Details_Add_Due_Date_Label" />
+						</utu:AutoLayout>
+					</utu:AutoLayout>
+				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
-				<utu:AutoLayout Padding="8,8,8,8"
-								Justify="SpaceBetween"
-								Orientation="Horizontal"
-								utu:AutoLayout.CounterAlignment="Start"
-								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<utu:AutoLayout Spacing="10"
-									Padding="0,0,16,0"
+				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0">
+					<utu:AutoLayout Padding="8,8,8,8"
+									Justify="SpaceBetween"
 									Orientation="Horizontal"
-									utu:AutoLayout.CounterAlignment="Center">
-						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
-								  utu:AutoLayout.CounterAlignment="Start" />
-					</utu:AutoLayout>
-					<utu:AutoLayout Spacing="10"
-									Padding="0,2,0,2"
-									Orientation="Horizontal"
-									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-								   Text="Tomorrow"
-								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
-								   x:Uid="Task_Details_Add_Due_Date_Label" />
+						<utu:AutoLayout Spacing="10"
+										Padding="0,0,16,0"
+										Orientation="Horizontal"
+										utu:AutoLayout.CounterAlignment="Center">
+							<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+									  utu:AutoLayout.CounterAlignment="Start"/>
+						</utu:AutoLayout>
+						<utu:AutoLayout Spacing="10"
+										Padding="0,2,0,2"
+										Orientation="Horizontal"
+										utu:AutoLayout.CounterAlignment="Center"
+										utu:AutoLayout.PrimaryAlignment="Stretch">
+							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Tomorrow"
+									   utu:AutoLayout.CounterAlignment="Center"
+									   Style="{StaticResource MaterialBody2}"
+									   x:Uid="Task_Details_Add_Due_Date_Label" />
+						</utu:AutoLayout>
 					</utu:AutoLayout>
-				</utu:AutoLayout>
+				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
-				<utu:AutoLayout Padding="8,8,8,8"
-								Justify="SpaceBetween"
-								Orientation="Horizontal"
-								utu:AutoLayout.CounterAlignment="Start"
-								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<utu:AutoLayout Spacing="10"
-									Padding="0,0,16,0"
+				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0">
+					<utu:AutoLayout Padding="8,8,8,8"
+									Justify="SpaceBetween"
 									Orientation="Horizontal"
-									utu:AutoLayout.CounterAlignment="Center">
-						<PathIcon Data="{StaticResource Icon_Calendar_Today}"
-								  utu:AutoLayout.CounterAlignment="Start" />
-					</utu:AutoLayout>
-					<utu:AutoLayout Spacing="10"
-									Padding="0,2,0,2"
-									Orientation="Horizontal"
-									utu:AutoLayout.CounterAlignment="Center"
+									utu:AutoLayout.CounterAlignment="Start"
 									utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
-								   Text="Next Week"
-								   utu:AutoLayout.CounterAlignment="Center"
-								   Style="{StaticResource MaterialBody2}"
-								   x:Uid="Task_Details_Add_Due_Date_Label" />
+						<utu:AutoLayout Spacing="10"
+										Padding="0,0,16,0"
+										Orientation="Horizontal"
+										utu:AutoLayout.CounterAlignment="Center">
+							<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+									  utu:AutoLayout.CounterAlignment="Start" />
+						</utu:AutoLayout>
+						<utu:AutoLayout Spacing="10"
+										Padding="0,2,0,2"
+										Orientation="Horizontal"
+										utu:AutoLayout.CounterAlignment="Center"
+										utu:AutoLayout.PrimaryAlignment="Stretch">
+							<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Text="Next Week"
+									   utu:AutoLayout.CounterAlignment="Center"
+									   Style="{StaticResource MaterialBody2}"
+									   x:Uid="Task_Details_Add_Due_Date_Label" />
+						</utu:AutoLayout>
 					</utu:AutoLayout>
-				</utu:AutoLayout>
+				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
 				<utu:AutoLayout Padding="8,8,8,8"
