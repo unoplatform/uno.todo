@@ -27,6 +27,8 @@ namespace ToDo.UI.Tests
 			App.Tap(important);
 
 			// This part fails with "an error has occured" in the task list
+			// See: https://github.com/unoplatform/uno.todo/issues/264
+			//
 			// Query payBills = q => q.All().Text("Pay bills");
 			// App.WaitForElement(payBills, timeoutMessage: "Timeout waiting for [Pay bills]");
 			// 
