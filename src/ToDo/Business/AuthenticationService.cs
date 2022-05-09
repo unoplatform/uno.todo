@@ -48,7 +48,7 @@ public class AuthenticationService : IAuthenticationService
 
 	public async Task<UserContext?> GetCurrentUserAsync() => _user;
 
-	public async Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher, IUserProfilePictureService userProfilePictureService, CancellationToken cancellation)
+	public async Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher)
 	{
 		try
 		{
@@ -56,12 +56,6 @@ public class AuthenticationService : IAuthenticationService
 			_user = !string.IsNullOrEmpty(result?.AccessToken)
 				? CreateContextFromAuthResult(result!)
 				: default;
-
-			var profilePicture = await userProfilePictureService.GetAsync(cancellation);
-			if (profilePicture != null && profilePicture.Length > 0 && _user != default)
-			{
-				_user = _user with { ProfilePicture = profilePicture };
-			}
 
 			return _user;
 		}
@@ -164,6 +158,12 @@ public class AuthenticationService : IAuthenticationService
 		}
 
 		return default;
+	}
+
+	public void SetUserProfilePicture(byte[] picture)
+	{
+		if (_user != null && picture != null && picture.Length > 0)
+			_user = _user with { ProfilePicture = picture };
 	}
 }
 
