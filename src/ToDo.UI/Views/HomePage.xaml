@@ -25,13 +25,13 @@
 		<x:Double x:Key="SplitModeThresholdWidth">800</x:Double>
 
 		<converters:TaskListToValueConverter x:Key="TaskListIconValueConverter"
-									  ImportantValue="{StaticResource Icon_Star_Rate}"
-									  TasksValue="{StaticResource Icon_House_Siding}"
-									  DefaultValue="{StaticResource Icon_List}" />
+											 ImportantValue="{StaticResource Icon_Star_Rate}"
+											 TasksValue="{StaticResource Icon_House_Siding}"
+											 DefaultValue="{StaticResource Icon_List}" />
 		<converters:TaskListToValueConverter x:Key="TaskListIconForegroundConverter"
-									ImportantValue="{StaticResource ErrorBrush}"
-									TasksValue="{StaticResource PrimaryVariantDarkBrush}"
-									DefaultValue="{StaticResource PrimaryVariantLightBrush}" />
+											 ImportantValue="{StaticResource ErrorBrush}"
+											 TasksValue="{StaticResource PrimaryVariantDarkBrush}"
+											 DefaultValue="{StaticResource PrimaryVariantLightBrush}" />
 	</Page.Resources>
 	<Grid>
 		<VisualStateManager.VisualStateGroups>
@@ -71,13 +71,13 @@
 					  Padding="16,8"
 					  ColumnSpacing="8"
 					  ColumnDefinitions="*,AUto">
-					
+
 					<Button Grid.Column="0"
 							uen:Navigation.Request="Settings"
 							BorderThickness="0"
 							HorizontalAlignment="Stretch"
 							HorizontalContentAlignment="Stretch"
-							Style="{StaticResource MaterialOutlinedButtonStyle}">
+							Style="{StaticResource OutlinedButtonStyle}">
 						<Grid ColumnDefinitions="Auto,*"
 							  ColumnSpacing="8">
 							<PersonPicture Grid.Column="0"
@@ -88,13 +88,13 @@
 							<TextBlock Grid.Column="1"
 									   Text="{Binding CurrentUser.Name}"
 									   VerticalAlignment="Center"
-									   Style="{StaticResource MaterialSubtitle1}" />
+									   Style="{StaticResource TitleMedium}" />
 						</Grid>
 					</Button>
 
 					<Button Grid.Column="1"
 							uen:Navigation.Request="!TaskSearch"
-							Style="{StaticResource MaterialButtonIconStyle}">
+							Style="{StaticResource IconButtonStyle}">
 						<PathIcon Data="{StaticResource Icon_Search}" />
 					</Button>
 				</Grid>
