@@ -21,7 +21,7 @@ jobs:
       version: 6.0.200
 
   - bash: |
-      sh build/scripts/wasm-uitest-run.sh
+      bash build/scripts/wasm-uitest-run.sh
     env:
       BUILD_SOURCESDIRECTORY: "$(build.sourcesdirectory)"
       BUILD_ARTIFACTSTAGINGDIRECTORY: "$(build.artifactstagingdirectory)"

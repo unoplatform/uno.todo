@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 IFS=$'\n\t'
 
 export UNO_UITEST_TARGETURI=http://localhost:5000
