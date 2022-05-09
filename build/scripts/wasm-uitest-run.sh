@@ -28,6 +28,9 @@ dotnet tool uninstall dotnet-serve --tool-path $BUILD_SOURCESDIRECTORY/build/too
 dotnet tool install dotnet-serve --version $UNO_UITEST_DOTNETSERVE_VERSION --tool-path $BUILD_SOURCESDIRECTORY/build/tools || true
 export PATH="$PATH:$BUILD_SOURCESDIRECTORY/build/tools"
 
+mkdir -p "$BUILD_ARTIFACTSTAGINGDIRECTORY/wasm-dist"
+cp -R "$UNO_UITEST_WASM_OUTPUT_PATH" "$BUILD_ARTIFACTSTAGINGDIRECTORY/wasm-dist"
+
 ## The python server serves the current working directory, and may be changed by the nunit runner
 dotnet-serve -p 5000 -d "$UNO_UITEST_WASM_OUTPUT_PATH" &
 
