@@ -17,7 +17,7 @@ public static partial class ReactiveViewModelMappings
 				{ typeof(SettingsViewModel),typeof(SettingsViewModel.BindableSettingsViewModel)},
 				{ typeof(WelcomeViewModel),typeof(WelcomeViewModel.BindableWelcomeViewModel)},
 				{ typeof(TaskListViewModel),typeof(TaskListViewModel.BindableTaskListViewModel )},
-				{ typeof(TaskViewModel),typeof(TaskViewModel.BindableTaskViewModel)}
+				{ typeof(TaskViewModel),typeof(TaskViewModel.BindableTaskViewModel)},
 			};
 
 }

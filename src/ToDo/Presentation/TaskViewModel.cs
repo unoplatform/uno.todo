@@ -42,6 +42,27 @@ public partial class TaskViewModel
 		}
 	}
 
+
+	public ICommand AddDueDate => Command.Create(c => c.Given(Entity).Then(DoAddDueDate));
+	private async ValueTask DoAddDueDate(ToDoTask task, CancellationToken ct)
+	{
+		var response = await _navigator.NavigateViewModelForResultAsync<ExpirationDateViewModel, DateTimeData>(this, data: task, cancellation: ct);
+		if (response is null)
+		{
+			return;
+		}
+
+		var result = await response.Result;
+
+		var date = result.SomeOrDefault()?.DateTime;
+		if (date is not null)
+		{
+			var updated = task with { DueDateTime = (task.DueDateTime ?? new()) with { DateTime = (DateTime)date, TimeZone="UTC" } };
+
+			await _svc.UpdateAsync(updated, ct);
+		}
+	}
+
 	public ICommand AddTaskNote => Command.Create(b => b.Given(Entity).Then(DoAddTaskNote));
 	private async ValueTask DoAddTaskNote(ToDoTask task, CancellationToken ct)
 	{

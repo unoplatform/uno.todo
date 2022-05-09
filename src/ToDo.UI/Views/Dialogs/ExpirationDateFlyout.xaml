@@ -38,7 +38,16 @@
 								Orientation="Horizontal"
 								utu:AutoLayout.CounterAlignment="Start"
 								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<utu:AutoLayout Spacing="10"
+					<Button
+                        Content="Today"
+                        HorizontalContentAlignment="Left"
+                        Command="{Binding Today}"
+                        Style="{StaticResource MaterialTextButtonStyle}">
+						<um:ControlExtensions.Icon>
+							<PathIcon Data="{StaticResource Icon_Calendar_Today}"  />
+						</um:ControlExtensions.Icon>
+					</Button>
+					<!--<utu:AutoLayout Spacing="10"
 									Padding="0,0,16,0"
 									Orientation="Horizontal"
 									utu:AutoLayout.CounterAlignment="Center">
@@ -55,7 +64,7 @@
 								   utu:AutoLayout.CounterAlignment="Center"
 								   Style="{StaticResource MaterialBody2}"
 								   x:Uid="Task_Details_Add_Due_Date_Label" />
-					</utu:AutoLayout>
+					</utu:AutoLayout>-->
 				</utu:AutoLayout>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">

@@ -75,18 +75,31 @@
 					<utu:AutoLayout PrimaryAxisAlignment="Center">
 						<utu:AutoLayout Spacing="16"
 										Orientation="Horizontal">
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center">
+							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start">
 								<utu:AutoLayout Spacing="16"
 												Orientation="Horizontal"
-												utu:AutoLayout.CounterAlignment="Start"
-												utu:AutoLayout.PrimaryLength="24"
-												utu:AutoLayout.CounterLength="24">
-									<PathIcon Data="{StaticResource Icon_Today}"
+												utu:AutoLayout.CounterAlignment="Start">
+									<Button utu:AutoLayout.CounterAlignment="Start"
+											Command="{Binding AddDueDate}"
+											Style="{StaticResource MaterialButtonIconStyle}">
+										<utu:AutoLayout Orientation="Horizontal">
+											
+										<PathIcon Data="{StaticResource Icon_Today}"
 											  Foreground="{ThemeResource MaterialPrimaryBrush}"
 											  utu:AutoLayout.CounterAlignment="Start" />
+										<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+												   TextWrapping="Wrap"
+												   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}"
+												   Style="{StaticResource MaterialSubtitle1}" />
+										</utu:AutoLayout>
+										<!--<PathIcon Data="{StaticResource Icon_Close}" />-->
+									</Button>
+									<!--<PathIcon Data="{StaticResource Icon_Today}"
+											  Foreground="{ThemeResource MaterialPrimaryBrush}"
+											  utu:AutoLayout.CounterAlignment="Start" />-->
 								</utu:AutoLayout>
 							</utu:AutoLayout>
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
+							<!--<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
 											utu:AutoLayout.PrimaryAlignment="Stretch">
 								<utu:AutoLayout PrimaryAxisAlignment="Center">
 									<utu:AutoLayout PrimaryAxisAlignment="Center">
@@ -96,9 +109,9 @@
 												   Style="{StaticResource MaterialSubtitle1}" />
 									</utu:AutoLayout>
 								</utu:AutoLayout>
-							</utu:AutoLayout>
+							</utu:AutoLayout>-->
 							<utu:AutoLayout Orientation="Horizontal"
-											utu:AutoLayout.CounterAlignment="Center">
+											utu:AutoLayout.CounterAlignment="End">
 								<utu:AutoLayout PrimaryAxisAlignment="End"
 												Orientation="Horizontal">
 									<Button utu:AutoLayout.CounterAlignment="Start"
