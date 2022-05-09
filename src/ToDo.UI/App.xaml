@@ -38,7 +38,7 @@
 						</ResourceDictionary>
 					</ResourceDictionary.ThemeDictionaries>
 				</ResourceDictionary>
-				
+
 				<!-- Application's custom styles -->
 				<ResourceDictionary Source="ms-appx:///Styles/FeedView.xaml" />
 				<ResourceDictionary Source="ms-appx:///Styles/NavigationBar.xaml" />
@@ -55,6 +55,12 @@
 
 			<converters:FormatConverter x:Key="FormatConverter" />
 			<converters:StringFormatter x:Key="StringFormatter" />
+			<converters:StringCompareConverter x:Key="IsNullOrEmpty" Comparison="IsNullOrEmpty" />
+			<converters:StringCompareConverter x:Key="IsNullOrWhitespace" Comparison="IsNullOrWhitespace" />
+			<converters:StringCompareConverter x:Key="IsEqualToParameterValue" Comparison="IsEqualToParameterValue" />
+			<converters:StringCompareConverter x:Key="IsNotNullNorEmpty" Comparison="IsNullOrEmpty" InvertResult="True" />
+			<converters:StringCompareConverter x:Key="IsNotNullNorWhitespace" Comparison="IsNullOrWhitespace" InvertResult="True" />
+			<converters:StringCompareConverter x:Key="IsNotEqualToParameterValue" Comparison="IsEqualToParameterValue" InvertResult="True" />
 			<converters:ReferenceConverter x:Key="IsNull" ConversionMode="IsNull" />
 			<converters:ReferenceConverter x:Key="IsNotNull" ConversionMode="IsNotNull" />
 
