@@ -17,18 +17,18 @@
 	<utu:AutoLayout Spacing="20"
 					Padding="20,20,20,20"
 					CornerRadius="8"
-					Background="{ThemeResource MaterialSurfaceBrush}">
+					Background="{ThemeResource SurfaceBrush}">
 
 		<TextBlock x:Uid="AddListFlyout_PageTitle"
-				   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+			Foreground="{ThemeResource OnSurfaceBrush}"
 				   TextWrapping="Wrap"
 				   Text="New list"
-				   Style="{StaticResource MaterialHeadline6}" />
+				   Style="{StaticResource TitleLarge}" />
 
 		<TextBox x:Uid="AddListFlyout_ListNameInput"
 				 PlaceholderText="Write the title"
 				 x:Name="ListNameText"
-				 Style="{StaticResource MaterialFilledTextBoxStyle}" />
+				 Style="{StaticResource FilledTextBoxStyle}" />
 
 		<utu:AutoLayout Spacing="10" Orientation="Horizontal">
 
@@ -41,14 +41,14 @@
 					Content="Cancel"
 					uen:Navigation.Request="-"
 					utu:AutoLayout.CounterAlignment="Start"
-					Style="{StaticResource MaterialTextButtonStyle}" />
+					Style="{StaticResource TextButtonStyle}" />
 
 			<Button x:Uid="AddListFlyout_CreateButton"
 					Content="Create"
 					uen:Navigation.Request="-"
 					uen:Navigation.Data="{Binding Text, ElementName=ListNameText}"
 					utu:AutoLayout.CounterAlignment="Start"
-					Style="{StaticResource MaterialContainedButtonStyle}">
+					Style="{StaticResource FilledButtonStyle}">
 				<um:ControlExtensions.Icon>
 					<PathIcon Data="{StaticResource Icon_Add}" />
 				</um:ControlExtensions.Icon>

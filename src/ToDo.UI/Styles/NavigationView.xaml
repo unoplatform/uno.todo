@@ -225,7 +225,7 @@
 	<Style x:Key="HomeNavigationViewStyle" TargetType="muxc:NavigationView">
 		<Setter Property="IsBackButtonVisible" Value="Collapsed" />
 		<Setter Property="IsTabStop" Value="False" />
-		<Setter Property="Background" Value="{ThemeResource MaterialSurfaceBrush}" />
+		<Setter Property="Background" Value="{ThemeResource SurfaceBrush}" />
 
 		<Setter Property="Template">
 			<Setter.Value>

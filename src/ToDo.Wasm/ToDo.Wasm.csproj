@@ -34,18 +34,11 @@
   <ItemGroup>
     <LinkerDescriptor Include="LinkerConfig.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <!--
-		This item group is required by the project template because of the
-		new SDK-Style project, otherwise some files are not added automatically.
 
-		You can safely remove this ItemGroup completely.
-		-->
-    <None Include="Program.cs" />
-    <None Include="LinkerConfig.xml" />
-    <None Include="wwwroot\web.config" />
-  </ItemGroup>
-  <ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug' or '$(IsUiAutomationMappingEnabled)'=='True'">
+		<IsUiAutomationMappingEnabled>True</IsUiAutomationMappingEnabled>
+		<DefineConstants>$(DefineConstants);USE_UITESTS;USE_MOCKS</DefineConstants>
+	</PropertyGroup>  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
@@ -64,9 +57,9 @@
     <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.3.1" />
     <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.3.1" />
     <PackageReference Include="Uno.Core" Version="4.0.1" />
-    <PackageReference Include="Uno.Material.WinUI" Version=" 2.0.0-dev.181" />
-    <PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.16" />
-    <PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.16" />
+    <PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.185" />
+    <PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.18" />
+    <PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.18" />
     <PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
     <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.583" />
     <PackageReference Include="Uno.Extensions.Core" Version="1.2.0-dev.583" />

@@ -8,17 +8,37 @@ namespace ToDo.UI.Tests
         [Test]
         public void When_SmokeTest()
         {
+			Query WelcomePage_GetStarted = q => q.All().Marked("WelcomePage_Button_Wide");
 
 			// Make sure the ViewModelButton has rendered
-			App.WaitForElement(q => q.Marked("ViewModelButton"));
-
-			// Query for the XamlButton and then tap it
-			Query xamlButton = q => q.All().Marked("XamlButton");
-			App.WaitForElement(xamlButton);
-			App.Tap(xamlButton);
+			App.WaitForElement(WelcomePage_GetStarted, timeoutMessage: "Timeout waiting for WelcomePage_Button_Wide");
 
 			// Take a screenshot and add it to the test results
-			TakeScreenshot("After tapped");
-        }
-    }
+			TakeScreenshot("GetStarted");
+
+			App.Tap(WelcomePage_GetStarted);
+
+			Query important = q => q.All().Text("Important");
+			App.WaitForElement(important, timeoutMessage: "Timeout waiting for Important");
+
+			// Take a screenshot and add it to the test results
+			TakeScreenshot("After important");
+
+			App.Tap(important);
+
+			// This part fails with "an error has occured" in the task list
+			// See: https://github.com/unoplatform/uno.todo/issues/264
+			//
+			// Query payBills = q => q.All().Text("Pay bills");
+			// App.WaitForElement(payBills, timeoutMessage: "Timeout waiting for [Pay bills]");
+			// 
+			// // Take a screenshot and add it to the test results
+			// TakeScreenshot("After pay bill");
+			// 
+			// App.Tap(payBills);
+			// 
+			// Query dueTime = q => q.All().Text("Due Wed, 13 April");
+			// App.WaitForElement(dueTime, timeoutMessage: "Timeout waiting for [Due Wed, 13 April]");
+		}
+	}
 }

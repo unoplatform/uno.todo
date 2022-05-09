@@ -14,8 +14,8 @@
 	<utu:AutoLayout>
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 			<utu:NavigationBar x:Uid="SettingsPage_NavigationBar"
-							   Content="Settings"
-							   Style="{StaticResource MaterialRootModalNavigationBarStyle}" />
+				Content="Settings"
+							   Style="{StaticResource RootModalNavigationBarStyle}" />
 			<utu:AutoLayout Padding="20,15,20,0">
 				<utu:AutoLayout Spacing="10"
 								Padding="0,0,0,10"
@@ -31,20 +31,20 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.PrimaryAlignment="Stretch" />
 				</utu:AutoLayout>
-				<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+				<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
 						   Text="{Binding CurrentUser.Name}"
-						   Style="{StaticResource MaterialHeadline5}" />
-				<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
+						   Style="{StaticResource TitleLarge}" />
+				<TextBlock Foreground="{ThemeResource OnSurfaceMediumBrush}"
 						   TextAlignment="Center"
 						   TextWrapping="Wrap"
 						   Text="{Binding CurrentUser.Email}"
-						   Style="{StaticResource MaterialBody2}" />
+						   Style="{StaticResource BodyMedium}" />
 				<Button x:Uid="SettingsPage_SignOutButton"
 						Content="sign out"
 						Command="{Binding SignOut}"
-						Style="{StaticResource MaterialTextButtonStyle}" />
+						Style="{StaticResource TextButtonStyle}" />
 			</utu:AutoLayout>
 			<utu:AutoLayout Padding="20,0,20,0"
 							utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -54,42 +54,43 @@
 									Padding="0,10,0,10">
 						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
 									 utu:AutoLayout.CounterLength="350"
-									 Style="{StaticResource MaterialDividerStyle}" />
+									 Style="{StaticResource DividerStyle}" />
 					</utu:AutoLayout>
 					<TextBlock x:Uid="SettingsPage_GeneralSection"
 							   Text="General"
 							   TextWrapping="Wrap"
-							   Foreground="{ThemeResource MaterialPrimaryBrush}"
-							   Style="{StaticResource MaterialSubtitle2}" />
+							   Foreground="{ThemeResource PrimaryBrush}"
+							   Style="{StaticResource TitleSmall}" />
 					<utu:AutoLayout Spacing="20">
 						<utu:AutoLayout Spacing="5">
 							<TextBlock x:Uid="SettingsPage_PaletteSection"
 									   Text="Color palette"
-									   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+									   Foreground="{ThemeResource OnSurfaceBrush}"
 									   utu:AutoLayout.CounterAlignment="Start"
-									   Style="{StaticResource MaterialSubtitle1}" />
+									   Style="{StaticResource TitleMedium}" />
 							<utu:ChipGroup x:Name="ColorPaletteChipGroup"
 										   SelectionMode="Single"
 										   ItemChecked="{x:Bind UpdateAppColorPalette}"
-										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
+										   Style="{StaticResource FilterChipGroupStyle}">
 								<utu:Chip x:Uid="SettingsPage_PalettePurple" Content="Purple"
-										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+										  Style="{StaticResource FilterChipStyle}" />
 								<utu:Chip x:Uid="SettingsPage_PaletteBlue" Content="Blue"
-										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+										  Style="{StaticResource FilterChipStyle}" />
 								<utu:Chip x:Uid="SettingsPage_PaletteYellow" Content="Yellow"
-										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+										  Style="{StaticResource FilterChipStyle}" />
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="5">
-							<TextBlock x:Uid="SettingsPage_LanguageLabel" Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+							<TextBlock x:Uid="SettingsPage_LanguageLabel" 
+									   Foreground="{ThemeResource OnSurfaceBrush}"
 									   Text="Language"
 									   utu:AutoLayout.CounterAlignment="Start"
-									   Style="{StaticResource MaterialSubtitle1}" />
+									   Style="{StaticResource TitleMedium}" />
 							<utu:ChipGroup x:Name="LanguageChipGroup"
 										   SelectionMode="Single"
 										   ItemsSource="{Binding Cultures}"
 										   SelectedItem="{Binding SelectedCulture, Mode=TwoWay}"
-										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
+										   Style="{StaticResource FilterChipGroupStyle}">
 								<utu:ChipGroup.ItemTemplate>
 									<DataTemplate>
 										<TextBlock Text="{Binding Display}" />
@@ -97,28 +98,29 @@
 								</utu:ChipGroup.ItemTemplate>
 							</utu:ChipGroup>
 							<TextBlock x:Uid="SettingsPage_NoteToRestart"
-									   Foreground="{ThemeResource MaterialOnSurfaceLowBrush}"
+									   Foreground="{ThemeResource OnSurfaceLowBrush}"
 									   Text="Change will be applied at next app restart"
 									   utu:AutoLayout.CounterAlignment="Start"
-									   Style="{StaticResource MaterialCaption}" />
+									   Style="{StaticResource BodySmall}" />
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="5">
-							<TextBlock x:Uid="SettingsPage_ThemeLabel" Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+							<TextBlock x:Uid="SettingsPage_ThemeLabel" 
+									   Foreground="{ThemeResource OnSurfaceBrush}"
 									   Text="Mode"
 									   utu:AutoLayout.CounterAlignment="Start"
-									   Style="{StaticResource MaterialSubtitle1}" />
+									   Style="{StaticResource TitleMedium}" />
 							<utu:ChipGroup x:Name="ThemeChipGroup"
 										   SelectionMode="Single"
 										   ItemChecked="{x:Bind UpdateAppTheme}"
-										   Style="{StaticResource MaterialFilledChoiceChipGroupStyle}">
+										   Style="{StaticResource FilterChipGroupStyle}">
 								<utu:Chip x:Uid="SettingsPage_ThemeLight"
 										  Content="Light"
 										  Tag="Light"
-										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+										  Style="{StaticResource FilterChipStyle}" />
 								<utu:Chip x:Uid="SettingsPage_ThemeDark"
 										  Content="Dark"
 										  Tag="Dark"
-										  Style="{StaticResource MaterialFilledChoiceChipStyle}" />
+										  Style="{StaticResource FilterChipStyle}" />
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
@@ -126,24 +128,25 @@
 								Padding="0,10,0,10">
 					<utu:Divider utu:AutoLayout.CounterAlignment="Start"
 								 utu:AutoLayout.CounterLength="350"
-								 Style="{StaticResource MaterialDividerStyle}" />
+								 Style="{StaticResource DividerStyle}" />
 				</utu:AutoLayout>
-					<TextBlock x:Uid="SettingsPage_AboutSection" Foreground="{ThemeResource MaterialPrimaryBrush}"
+					<TextBlock x:Uid="SettingsPage_AboutSection" 
+							   Foreground="{ThemeResource PrimaryBrush}"
 						   TextWrapping="Wrap"
 						   Text="About"
-						   Style="{StaticResource MaterialSubtitle2}" />
+						   Style="{StaticResource TitleSmall}" />
 				<utu:AutoLayout Spacing="5"
 								Orientation="Horizontal">
 					<TextBlock x:Uid="SettingsPage_VersionLabel"
 							   Text="Version"
-							   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+							   Foreground="{ThemeResource OnSurfaceBrush}"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"
-							   Style="{StaticResource MaterialSubtitle1}" />
-					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+							   Style="{StaticResource TitleMedium}" />
+					<TextBlock Foreground="{ThemeResource PrimaryBrush}"
 							   TextAlignment="End"
 							   Text="1.0.0"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"
-							   Style="{StaticResource MaterialSubtitle1}" />
+							   Style="{StaticResource TitleMedium}" />
 				</utu:AutoLayout>
 			</utu:AutoLayout>
 		</utu:AutoLayout>

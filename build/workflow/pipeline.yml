@@ -54,3 +54,5 @@ jobs:
       PathtoPublish: $(build.artifactstagingdirectory)
       ArtifactName: uno-ui-toolkit-drop
       ArtifactType: Container
+
+- template: uitests-wasm.yml

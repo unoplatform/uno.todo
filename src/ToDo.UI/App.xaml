@@ -13,19 +13,32 @@
 				<!-- Load WinUI resources -->
 				<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
 
-				<!-- Load Material Color Palette -->
-				<MaterialColors xmlns="using:Uno.Material"
-								OverrideSource="ms-appx:///Styles/ColorPaletteOverride.xaml" />
-				<MaterialFonts xmlns="using:Uno.Material"
-							   OverrideSource="ms-appx:///Styles/MaterialFontsOverride.xaml" />
-
-				<!-- Load the Material control resources -->
-				<MaterialResources xmlns="using:Uno.Material" WithImplicitStyles="True" />
+				<!-- Load Uno.UI.Toolkit resources -->
 				<ToolkitResources xmlns="using:Uno.Toolkit.UI" />
 
-				<!-- Load Material Toolkit resources -->
-				<MaterialToolkitResources xmlns="using:Uno.Toolkit.UI.Material" />
+				<!-- Load Material Color Palette -->
+				<MaterialColorsV2 xmlns="using:Uno.Material" OverrideSource="ms-appx:///Styles/ColorPaletteOverride.xaml" />
 
+				<!-- Load Material FontFamilies -->
+				<MaterialFonts xmlns="using:Uno.Material" OverrideSource="ms-appx:///Styles/MaterialFontsOverride.xaml" />
+
+				<!-- Load Material Control Resources -->
+				<MaterialResourcesV2 xmlns="using:Uno.Material" WithImplicitStyles="True" />
+
+				<!-- Load Material Toolkit Resources -->
+				<MaterialToolkitResourcesV2 xmlns="using:Uno.Toolkit.UI.Material" WithImplicitStyles="True" />
+
+				<ResourceDictionary>
+					<ResourceDictionary.ThemeDictionaries>
+						<ResourceDictionary x:Key="Light">
+							<Color x:Key="OverlayColor">#51000000</Color>
+						</ResourceDictionary>
+						<ResourceDictionary x:Key="Dark">
+							<Color x:Key="OverlayColor">#51FFFFFF</Color>
+						</ResourceDictionary>
+					</ResourceDictionary.ThemeDictionaries>
+				</ResourceDictionary>
+				
 				<!-- Application's custom styles -->
 				<ResourceDictionary Source="ms-appx:///Styles/FeedView.xaml" />
 				<ResourceDictionary Source="ms-appx:///Styles/NavigationBar.xaml" />
@@ -36,7 +49,7 @@
 
 			<!-- To override the default FlyoutLightDismissOverlayBackground resource -->
 			<SolidColorBrush x:Key="FlyoutLightDismissOverlayBackground"
-							 Color="{StaticResource MaterialOverlayColor}" />
+							 Color="{ThemeResource OverlayColor}" />
 			<x:Double x:Key="WideMinWindowWidth">800</x:Double>
 			<x:Double x:Key="ExtraWideMinWindowWidth">1000</x:Double>
 
