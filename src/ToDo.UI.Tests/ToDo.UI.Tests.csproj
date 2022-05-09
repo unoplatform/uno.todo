@@ -11,8 +11,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="NUnit" Version="3.13.3" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-		<PackageReference Include="Refit" Version="6.3.2" />
-		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 		<PackageReference Include="Uno.UITest.Helpers" Version="1.1.0-dev.32" />
 		<PackageReference Include="Uno.WinUI.MSAL" Version="4.2.6" />
 		<PackageReference Include="Xamarin.UITest" Version="3.2.6" />
