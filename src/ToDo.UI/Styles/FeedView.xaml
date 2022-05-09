@@ -14,7 +14,7 @@
 					<!-- MaterialProgressRingStyle not being resolve on WinUI -->
 					<!--<not_skia:Grid>
 						<winui:ProgressRing
-							Style="{StaticResource MaterialProgressRingStyle}"
+							Style="{StaticResource ProgressRingStyle}"
 							IsActive="{Binding}"
 							Width="50"
 							Height="50"
@@ -40,7 +40,7 @@
 
 					<!--<not_skia:Grid>
 						<winui:ProgressRing
-							Style="{StaticResource MaterialProgressRingStyle}"
+							Style="{StaticResource ProgressRingStyle}"
 							IsActive="{Binding}"
 							Width="50"
 							Height="50"

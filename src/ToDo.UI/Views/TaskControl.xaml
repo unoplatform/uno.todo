@@ -29,10 +29,10 @@
 									Format="{}Completed on {0:ddd, d MMMM}" />
 	</UserControl.Resources>
 
-	<utu:AutoLayout Background="{ThemeResource MaterialSurfaceBrush}">
+	<utu:AutoLayout Background="{ThemeResource SurfaceBrush}">
 		<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 			<utu:NavigationBar Content="{Binding Entity.Title}"
-							   Style="{StaticResource MaterialModalNavigationBarStyle}" />
+							   Style="{StaticResource ModalNavigationBarStyle}" />
 			<utu:AutoLayout Spacing="10"
 							Padding="0,10,0,0"
 							utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -41,7 +41,7 @@
 								Orientation="Horizontal">
 					<utu:AutoLayout>
 						<CheckBox utu:AutoLayout.CounterAlignment="Start"
-								  Style="{StaticResource MaterialCheckBoxStyle}"
+								  Style="{StaticResource CheckBoxStyle}"
 								  IsChecked="{Binding Entity.IsCompleted}"
 								  Command="{Binding ToggleIsCompleted}"
 								  CommandParameter="{Binding}" />
@@ -51,11 +51,11 @@
 						<TextBox x:Uid="TaskControl_TaskNameTextBox"
 								 PlaceholderText="Task Name"
 								 Text="{Binding Entity.Title, Mode=TwoWay}"
-								 Style="{StaticResource MaterialFilledTextBoxStyle}" />
+								 Style="{StaticResource FilledTextBoxStyle}" />
 					</utu:AutoLayout>
 					<utu:AutoLayout>
 						<ToggleButton utu:AutoLayout.CounterAlignment="Start"
-									  Style="{StaticResource MaterialToggleButtonIconStyle}"
+									  Style="{StaticResource IconToggleButtonStyle}"
 									  IsChecked="{Binding Entity.IsImportant}"
 									  Command="{Binding ToggleIsImportant}"
 									  CommandParameter="{Binding}">
@@ -71,7 +71,7 @@
 				<utu:AutoLayout Spacing="12"
 								Padding="20,10,20,0"
 								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+					<utu:Divider Style="{StaticResource DividerStyle}" />
 					<utu:AutoLayout PrimaryAxisAlignment="Center">
 						<utu:AutoLayout Spacing="16"
 										Orientation="Horizontal">
@@ -82,7 +82,7 @@
 												utu:AutoLayout.PrimaryLength="24"
 												utu:AutoLayout.CounterLength="24">
 									<PathIcon Data="{StaticResource Icon_Today}"
-											  Foreground="{ThemeResource MaterialPrimaryBrush}"
+											  Foreground="{ThemeResource PrimaryBrush}"
 											  utu:AutoLayout.CounterAlignment="Start" />
 								</utu:AutoLayout>
 							</utu:AutoLayout>
@@ -90,10 +90,10 @@
 											utu:AutoLayout.PrimaryAlignment="Stretch">
 								<utu:AutoLayout PrimaryAxisAlignment="Center">
 									<utu:AutoLayout PrimaryAxisAlignment="Center">
-										<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+										<TextBlock Foreground="{ThemeResource PrimaryBrush}"
 												   TextWrapping="Wrap"
 												   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}"
-												   Style="{StaticResource MaterialSubtitle1}" />
+												   Style="{StaticResource TitleMedium}" />
 									</utu:AutoLayout>
 								</utu:AutoLayout>
 							</utu:AutoLayout>
@@ -102,20 +102,20 @@
 								<utu:AutoLayout PrimaryAxisAlignment="End"
 												Orientation="Horizontal">
 									<Button utu:AutoLayout.CounterAlignment="Start"
-											Style="{StaticResource MaterialButtonIconStyle}">
+											Style="{StaticResource IconButtonStyle}">
 										<PathIcon Data="{StaticResource Icon_Close}" />
 									</Button>
 								</utu:AutoLayout>
 							</utu:AutoLayout>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-					<utu:Divider Style="{StaticResource MaterialDividerStyle}" />
+					<utu:Divider Style="{StaticResource DividerStyle}" />
 					<TextBox x:Uid="TaskControl_TaskBodyTextBox"
 							 Text="{Binding Entity.Body.Content, Mode=TwoWay}"
 							 PlaceholderText="Add Note"
 							 AcceptsReturn="True"
 							 TextWrapping="Wrap"
-							 Style="{StaticResource MaterialFilledTextBoxStyle}" />
+							 Style="{StaticResource FilledTextBoxStyle}" />
 				</utu:AutoLayout>
 				<utu:AutoLayout Padding="20,0,10,0">
 					<utu:AutoLayout Spacing="16"
@@ -124,16 +124,16 @@
 										utu:AutoLayout.PrimaryAlignment="Stretch">
 							<utu:AutoLayout PrimaryAxisAlignment="Center">
 								<utu:AutoLayout PrimaryAxisAlignment="Center">
-									<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
+									<TextBlock Foreground="{ThemeResource OnSurfaceMediumBrush}"
 											   TextWrapping="Wrap"
 											   Text="{Binding Entity.CreatedDateTime, Converter={StaticResource CreatedDateFormatter}, TargetNullValue=''}"
 											   Visibility="{Binding Entity.CompletedDateTime, Converter={StaticResource IsNull}}"
-											   Style="{StaticResource MaterialBody2}" />
-									<TextBlock Foreground="{ThemeResource MaterialOnSurfaceMediumBrush}"
+											   Style="{StaticResource BodyMedium}" />
+									<TextBlock Foreground="{ThemeResource OnSurfaceMediumBrush}"
 											   TextWrapping="Wrap"
 											   Text="{Binding Entity.CompletedDateTime.DateTime, Converter={StaticResource CompletedDateFormatter}}"
 											   Visibility="{Binding Entity.CompletedDateTime, Converter={StaticResource IsNotNull}}"
-											   Style="{StaticResource MaterialBody2}" />
+											   Style="{StaticResource BodyMedium}" />
 								</utu:AutoLayout>
 							</utu:AutoLayout>
 						</utu:AutoLayout>
@@ -143,7 +143,7 @@
 											Orientation="Horizontal">
 								<Button Command="{Binding Delete}"
 										utu:AutoLayout.CounterAlignment="Start"
-										Style="{StaticResource MaterialButtonIconStyle}">
+										Style="{StaticResource IconButtonStyle}">
 									<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
 								</Button>
 							</utu:AutoLayout>

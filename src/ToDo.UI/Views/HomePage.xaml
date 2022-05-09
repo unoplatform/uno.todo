@@ -29,9 +29,9 @@
 									  TasksValue="{StaticResource Icon_House_Siding}"
 									  DefaultValue="{StaticResource Icon_List}" />
 		<converters:TaskListToValueConverter x:Key="TaskListIconForegroundConverter"
-									ImportantValue="{StaticResource MaterialErrorBrush}"
-									TasksValue="{StaticResource MaterialPrimaryVariantDarkBrush}"
-									DefaultValue="{StaticResource MaterialPrimaryVariantLightBrush}" />
+									ImportantValue="{StaticResource ErrorBrush}"
+									TasksValue="{StaticResource PrimaryVariantDarkBrush}"
+									DefaultValue="{StaticResource PrimaryVariantLightBrush}" />
 	</Page.Resources>
 	<Grid>
 		<VisualStateManager.VisualStateGroups>
@@ -121,7 +121,7 @@
 							x:Uid="HomePage_CreateTaskList"
 							HorizontalAlignment="Stretch"
 							HorizontalContentAlignment="Left"
-							Style="{StaticResource MaterialTextButtonStyle}">
+							Style="{StaticResource TextButtonStyle}">
 						<um:ControlExtensions.Icon>
 							<PathIcon Data="{StaticResource Icon_Add}" />
 						</um:ControlExtensions.Icon>

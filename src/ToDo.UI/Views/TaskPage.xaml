@@ -9,7 +9,7 @@
 	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:um="using:Uno.Material"
-	  Background="{ThemeResource MaterialSurfaceBrush}">
+	  Background="{ThemeResource SurfaceBrush}">
 	<views:TaskControl />
 
 </Page>

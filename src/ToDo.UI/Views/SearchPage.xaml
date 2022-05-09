@@ -10,7 +10,7 @@
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:um="using:Uno.Material"
 	  mc:Ignorable="d"
-	  Background="{ThemeResource MaterialBackgroundBrush}">
+	  Background="{ThemeResource BackgroundBrush}">
 
 	<Page.Resources>
 		<x:String x:Key="Icon_Arrow_Back">F1 M 16 7 L 3.8299999237060547 7 L 9.420000076293945 1.4099998474121094 L 8 0 L 0 8 L 8 16 L 9.40999984741211 14.59000015258789 L 3.8299999237060547 9 L 16 9 L 16 7 Z</x:String>
@@ -23,10 +23,10 @@
 			<utu:AutoLayout Spacing="10"
 							Padding="10,0,20,10"
 							Orientation="Horizontal"
-							Background="{ThemeResource MaterialSurfaceBrush}">
+							Background="{ThemeResource SurfaceBrush}">
 				<Button uen:Navigation.Request="-"
 						utu:AutoLayout.CounterAlignment="Start"
-						Style="{StaticResource MaterialButtonIconStyle}"
+						Style="{StaticResource IconButtonStyle}"
 						x:Uid="Body_IconButton">
 					<PathIcon Data="{StaticResource Icon_Arrow_Back}" />
 				</Button>
@@ -35,8 +35,8 @@
 						 PlaceholderText="Search"
 						 utu:AutoLayout.CounterAlignment="Start"
 						 utu:AutoLayout.PrimaryAlignment="Stretch"
-						 Background="{ThemeResource MaterialSurfaceBrush}"
-						 Style="{StaticResource MaterialFilledTextBoxStyle}" />
+						 Background="{ThemeResource SurfaceBrush}"
+						 Style="{StaticResource FilledTextBoxStyle}" />
 			</utu:AutoLayout>
 			<utu:AutoLayout Padding="20,20,20,0"
 							utu:AutoLayout.PrimaryAlignment="Stretch">
@@ -46,7 +46,7 @@
 					<DataTemplate>
 						<ListView ItemsSource="{Binding Data}"
 								  uen:Navigation.Request="Task"
-								  Style="{StaticResource MaterialListViewStyle}">
+								  Style="{StaticResource ListViewStyle}">
 							<ListView.ItemsPanel>
 								<ItemsPanelTemplate>
 									<ItemsStackPanel Orientation="Vertical" />
@@ -57,8 +57,8 @@
 									<SwipeControl Margin="0,5">
 										<SwipeControl.RightItems>
 											<SwipeItems Mode="Reveal">
-												<SwipeItem Foreground="{ThemeResource MaterialSurfaceBrush}"
-														   Background="{ThemeResource MaterialErrorBrush}">
+												<SwipeItem Foreground="{ThemeResource SurfaceBrush}"
+														   Background="{ThemeResource ErrorBrush}">
 													<SwipeItem.IconSource>
 														<PathIconSource Data="{StaticResource IconSource_Delete_Outline}" />
 													</SwipeItem.IconSource>
@@ -67,7 +67,7 @@
 										</SwipeControl.RightItems>
 										<SwipeControl.Content>
 											<utu:AutoLayout PrimaryAxisAlignment="Center"
-															Background="{ThemeResource MaterialOnPrimaryBrush}">
+															Background="{ThemeResource OnPrimaryBrush}">
 												<utu:AutoLayout Spacing="5"
 																Orientation="Horizontal">
 													<utu:AutoLayout Padding="10,0,0,0"
@@ -80,7 +80,7 @@
 																	  Command="{controls:AncestralBinding Path=ToggleIsCompleted, AncestorType=uer:FeedView}"
 																	  CommandParameter="{Binding}"
 																	  utu:AutoLayout.CounterAlignment="Start"
-																	  Style="{StaticResource MaterialCheckBoxStyle}" />
+																	  Style="{StaticResource CheckBoxStyle}" />
 														</utu:AutoLayout>
 													</utu:AutoLayout>
 													<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
@@ -90,10 +90,10 @@
 																		utu:AutoLayout.PrimaryLength="60">
 															<utu:AutoLayout PrimaryAxisAlignment="Center"
 																			utu:AutoLayout.CounterAlignment="Start">
-																<TextBlock Foreground="{ThemeResource MaterialOnSurfaceBrush}"
+																<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 																		   Text="{Binding Title}"
 																		   utu:AutoLayout.CounterAlignment="Start"
-																		   Style="{StaticResource MaterialSubtitle1}" />
+																		   Style="{StaticResource TitleMedium}" />
 															</utu:AutoLayout>
 														</utu:AutoLayout>
 													</utu:AutoLayout>
@@ -106,13 +106,13 @@
 																		  Command="{controls:AncestralBinding Path=ToggleIsImportant, AncestorType=uer:FeedView}"
 																		  CommandParameter="{Binding}"
 																		  utu:AutoLayout.CounterAlignment="Start"
-																		  Style="{StaticResource MaterialToggleButtonIconStyle}">
+																		  Style="{StaticResource IconToggleButtonStyle}">
 																<ToggleButton.Content>
-																	<PathIcon Foreground="{StaticResource MaterialOnSurfaceLowBrush}"
+																	<PathIcon Foreground="{StaticResource OnSurfaceLowBrush}"
 																			  Data="{StaticResource Icon_Star_Rate}" />
 																</ToggleButton.Content>
 																<um:ControlExtensions.AlternateContent>
-																	<PathIcon Foreground="{StaticResource MaterialPrimaryVariantLightBrush}"
+																	<PathIcon Foreground="{StaticResource PrimaryVariantLightBrush}"
 																			  Data="{StaticResource Icon_Star_Rate}" />
 																</um:ControlExtensions.AlternateContent>
 															</ToggleButton>
