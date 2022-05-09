@@ -150,7 +150,6 @@ public sealed partial class App : Application
 					new("Search", View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(), IsDefault: true)
 				}),
 				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
-				new("TaskNote", View: views.FindByViewModel<TaskNoteViewModel>(), DependsOn:"Task"),
 				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
 				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel.BindableExpirationDateViewModel>()),

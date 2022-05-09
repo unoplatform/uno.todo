@@ -16,7 +16,13 @@ public partial class TaskViewModel
 		_svc = svc;
 
 		Entity = State<ToDoTask>.Async(this, async _ => entity);
-		Entity.Observe(messenger, task => task.Id);
+		Entity.Execute(async (x, ct) =>
+		{
+			if (x is not null)
+			{
+				await _svc.UpdateAsync(x, ct);
+			}
+		});
 	}
 
 	public IState<ToDoTask> Entity { get; }
@@ -91,10 +97,10 @@ public partial class TaskViewModel
 			return;
 		}
 
-		var updatedTask = task.ToggleIsCompleted();
+		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
 		await _svc.UpdateAsync(updatedTask, ct);
 	}
-	
+
 	public ICommand ToggleIsImportant => Command.Create(b => b.Given(Entity).Then(DoToggleIsImportant));
 	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
 	{
@@ -102,7 +108,7 @@ public partial class TaskViewModel
 		{
 			return;
 		}
-		var updatedTask = task.ToggleImportance();
+		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
 
 		await _svc.UpdateAsync(updatedTask, ct);
 	}

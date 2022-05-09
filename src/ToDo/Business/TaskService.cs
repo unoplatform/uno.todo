@@ -20,7 +20,7 @@ public class TaskService : ITaskService
 	{
 		var createdTask = await _client.CreateAsync(list.Id, newTask.ToData(), ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Create, new(list, createdTask)));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Created, new(list, createdTask)));
 	}
 
 	/// <inheritdoc />
@@ -29,7 +29,7 @@ public class TaskService : ITaskService
 		var updatedTask = await _client.UpdateAsync(task.ListId, task.Id, task.ToData(), ct);
 
 		// Send updates to listeners of both the list and the individual task (in case the task page is open)
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Update, new(task.ListId, updatedTask)));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Updated, new(task.ListId, updatedTask)));
 	}
 
 	/// <inheritdoc />
@@ -37,36 +37,39 @@ public class TaskService : ITaskService
 	{
 		await _client.DeleteAsync(task.ListId, task.Id, ct);
 
-		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Delete, task));
+		_messenger.Send(new EntityMessage<ToDoTask>(EntityChange.Deleted, task));
 	}
 
 	/// <inheritdoc />
-	public async ValueTask<IImmutableList<ToDoTask>> GetAsync(TaskList list, CancellationToken ct)
+	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(TaskList list, CancellationToken ct)
 	{
 		if (list.WellknownListName == TaskList.WellknownListNames.Important)
 		{
-			return (await GetAllAsync(ct: ct))
+			return ToEntity(await _client.GetAllAsync(ct))
 				.Where(task => task.IsImportant)
 				.ToImmutableList();
 		}
 		else
 		{
-			return ((await _client.GetAsync(list.Id, ct)).Value ?? Enumerable.Empty<TaskData>())
-				.Select(data => new ToDoTask(list.Id, data))
-				.ToImmutableList();
+			return ToEntity(await _client.GetAsync(list.Id, ct));
 		}
+
+		IImmutableList<ToDoTask> ToEntity(TaskReponseData<TaskData> response)
+			=> response
+				.Value
+				?.Select(data => new ToDoTask(list.Id, data))
+				.ToImmutableList()
+				?? ImmutableList<ToDoTask>.Empty;
 	}
 
 	/// <inheritdoc />
-	public async ValueTask<IImmutableList<ToDoTask>> GetAllAsync(string displayName = "", CancellationToken ct = default)
-	{
-		var response = await (displayName is { Length: > 0 }
-			? _client.GetByFilterAsync(displayName, ct)
-			: _client.GetAllAsync(ct));
-
-		return (response.Value ?? Enumerable.Empty<TaskData>())
-			.Where(data => data.ParentList?.Id is not null)
-			.Select(data => new ToDoTask(data.ParentList!.Id!, data))
-			.ToImmutableList();
-	}
+	public async ValueTask<IImmutableList<ToDoTask>> SearchAsync(string term, CancellationToken ct)
+		// Note: If we don't have a valid search term, we return an empty list instead of loading all tasks
+		=> term is { Length: > 0 } && await _client.GetByFilterAsync(term, ct) is { Value.Count: >0 } response
+			? response
+				.Value
+				.Where(data => data.ParentList?.Id is not null)
+				.Select(data => new ToDoTask(data.ParentList!.Id!, data))
+				.ToImmutableList()
+			: ImmutableList<ToDoTask>.Empty;
 }

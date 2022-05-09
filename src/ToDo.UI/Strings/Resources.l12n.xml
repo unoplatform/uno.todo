@@ -207,6 +207,11 @@
 			<fr>Nom de la tâche</fr>
 			<es>Nombre de la tarea</es>
 		</data>
+		<data name="TaskBodyTextBox.PlaceholderText">
+			<en>Add Note</en>
+			<fr>Ajouter une remarque</fr>
+			<es>Añadir nota</es>
+		</data>
 		<data name="AddTaskButton.Content">
 			<en>Open</en>
 			<fr>Ouvrir</fr>
@@ -233,28 +238,6 @@
 			<en>Search for tasks</en>
 			<fr>Rechercher des tâches</fr>
 			<es>Buscar tareas</es>
-		</data>
-	</section>
-	<section prefix="TaskNotePage_">
-		<data name="Title.Text">
-			<en>Add Note</en>
-			<fr>Ajouter une remarque</fr>
-			<es>Añadir nota</es>
-		</data>
-		<data name="InputTextBox.PlaceholderText">
-			<en>Add Note</en>
-			<fr>Ajouter une remarque</fr>
-			<es>Añadir nota</es>
-		</data>
-		<data name="CancelButton.Content">
-			<en>Cancel</en>
-			<fr>Annuler</fr>
-			<es>Cancelar</es>
-		</data>
-		<data name="CreateButton.Content">
-			<en>Add</en>
-			<fr>Ajouter</fr>
-			<es>Agregar</es>
 		</data>
 	</section>
 	<section prefix="SettingsPage_">
