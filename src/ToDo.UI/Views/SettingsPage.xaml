@@ -25,6 +25,7 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.PrimaryAlignment="Stretch" />
 					<PersonPicture DisplayName="{Binding CurrentUser.Name}"
+								    ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
 								   utu:AutoLayout.CounterAlignment="Start" />
 					<utu:AutoLayout Spacing="10"
 									Padding="20,15,20,15"
@@ -122,31 +123,31 @@
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-				<utu:AutoLayout Spacing="5"
+					<utu:AutoLayout Spacing="5"
 								Padding="0,10,0,10">
-					<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
 								 utu:AutoLayout.CounterLength="350"
 								 Style="{StaticResource MaterialDividerStyle}" />
-				</utu:AutoLayout>
+					</utu:AutoLayout>
 					<TextBlock x:Uid="SettingsPage_AboutSection" Foreground="{ThemeResource MaterialPrimaryBrush}"
 						   TextWrapping="Wrap"
 						   Text="About"
 						   Style="{StaticResource MaterialSubtitle2}" />
-				<utu:AutoLayout Spacing="5"
+					<utu:AutoLayout Spacing="5"
 								Orientation="Horizontal">
-					<TextBlock x:Uid="SettingsPage_VersionLabel"
+						<TextBlock x:Uid="SettingsPage_VersionLabel"
 							   Text="Version"
 							   Foreground="{ThemeResource MaterialOnSurfaceBrush}"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"
 							   Style="{StaticResource MaterialSubtitle1}" />
-					<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
+						<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
 							   TextAlignment="End"
 							   Text="1.0.0"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"
 							   Style="{StaticResource MaterialSubtitle1}" />
+					</utu:AutoLayout>
 				</utu:AutoLayout>
 			</utu:AutoLayout>
 		</utu:AutoLayout>
-	</utu:AutoLayout>
 	</utu:AutoLayout>
 </Page>

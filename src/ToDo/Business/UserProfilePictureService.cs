@@ -1,4 +1,4 @@
-﻿namespace ToDo.Business.Models;
+﻿namespace ToDo.Business;
 
 public class UserProfilePictureService : IUserProfilePictureService
 {

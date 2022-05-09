@@ -159,5 +159,11 @@ public class AuthenticationService : IAuthenticationService
 
 		return default;
 	}
+
+	public void SetUserProfilePicture(byte[] picture)
+	{
+		if (_user != null && picture != null && picture.Length > 0)
+			_user = _user with { ProfilePicture = picture };
+	}
 }
 

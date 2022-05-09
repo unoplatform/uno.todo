@@ -77,7 +77,7 @@
 
 					<PersonPicture Grid.Column="0"
 								   DisplayName="{Binding CurrentUser.Name}"
-								   d:ProfilePicture="{Binding CurrentUser.AvatarUrl}"
+								   ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
 								   Width="40"
 								   Height="40"
 								   VerticalAlignment="Center" />
@@ -98,37 +98,37 @@
 				</Grid>
 			</muxc:NavigationView.PaneHeader>
 
-		<!-- Task Lists: template for WellKnownLists & CustomLists -->
-		<muxc:NavigationView.MenuItemTemplate>
-			<DataTemplate>
-				<muxc:NavigationViewItem Content="{Binding DisplayName}"
+			<!-- Task Lists: template for WellKnownLists & CustomLists -->
+			<muxc:NavigationView.MenuItemTemplate>
+				<DataTemplate>
+					<muxc:NavigationViewItem Content="{Binding DisplayName}"
 										 uen:Navigation.Data="{Binding}">
-					<muxc:NavigationViewItem.Icon>
-						<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"
+						<muxc:NavigationViewItem.Icon>
+							<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"
 								  Foreground="{Binding Converter={StaticResource TaskListIconForegroundConverter}}" />
-					</muxc:NavigationViewItem.Icon>
-				</muxc:NavigationViewItem>
-			</DataTemplate>
-		</muxc:NavigationView.MenuItemTemplate>
+						</muxc:NavigationViewItem.Icon>
+					</muxc:NavigationViewItem>
+				</DataTemplate>
+			</muxc:NavigationView.MenuItemTemplate>
 
-		<!-- Footer: New List -->
-		<muxc:NavigationView.PaneFooter>
-			<Border Padding="16">
-				<Button Content="Add a list"
+			<!-- Footer: New List -->
+			<muxc:NavigationView.PaneFooter>
+				<Border Padding="16">
+					<Button Content="Add a list"
 						Command="{Binding CreateTaskList}"
 						x:Uid="HomePage_CreateTaskList"
 						HorizontalAlignment="Stretch"
 						HorizontalContentAlignment="Left"
 						Style="{StaticResource MaterialTextButtonStyle}">
-					<um:ControlExtensions.Icon>
-						<PathIcon Data="{StaticResource Icon_Add}" />
-					</um:ControlExtensions.Icon>
-				</Button>
-			</Border>
-		</muxc:NavigationView.PaneFooter>
+						<um:ControlExtensions.Icon>
+							<PathIcon Data="{StaticResource Icon_Add}" />
+						</um:ControlExtensions.Icon>
+					</Button>
+				</Border>
+			</muxc:NavigationView.PaneFooter>
 
-		<Grid uen:Region.Navigator="Visibility"
+			<Grid uen:Region.Navigator="Visibility"
 			  uen:Region.Attached="True" />
-	</muxc:NavigationView>
-</Grid>
+		</muxc:NavigationView>
+	</Grid>
 </Page>

@@ -7,4 +7,6 @@ public interface IAuthenticationService: IAuthenticationTokenProvider
 	Task<UserContext?> AuthenticateAsync(IDispatcher dispatcher);
 
 	Task SignOutAsync();
+
+	void SetUserProfilePicture(byte[] picture);
 }
