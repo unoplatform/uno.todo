@@ -24,7 +24,7 @@ public partial class WelcomeViewModel
 		var user = await _authService.AuthenticateAsync(_dispatcher);
 		if (user is not null)
 		{
-			var profilePicture = await _userSvc.GetAsync(ct);
+			var profilePicture = await _userSvc.GetAsync(cancellationToken: ct);
 			_authService.SetUserProfilePicture(profilePicture);
 			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
 		}
