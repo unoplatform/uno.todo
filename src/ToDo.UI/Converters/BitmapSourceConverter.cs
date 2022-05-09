@@ -15,5 +15,5 @@ public class BitmapSourceConverter : IValueConverter
 		return bitmap;
 	}
 	public object ConvertBack(object value, Type targetType, object parameter, string language)
-		=> throw new NotImplementedException("Only one-way conversion is supported.");
+		=> throw new NotSupportedException("Only one-way conversion is supported.");
 }
