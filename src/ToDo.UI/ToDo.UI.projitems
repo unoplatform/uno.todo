@@ -151,4 +151,5 @@
     <_Globbed_Embedded_Resource Include="$(MSBuildThisFileDirectory)*.json" Exclude="@(EmbeddedResource)" />
     <EmbeddedResource Include="@(_Globbed_Embedded_Resource)" />
   </ItemGroup>
+  <Import Project="Strings\ReswGeneration.targets" />
 </Project>
