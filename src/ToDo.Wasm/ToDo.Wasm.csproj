@@ -34,18 +34,11 @@
   <ItemGroup>
     <LinkerDescriptor Include="LinkerConfig.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <!--
-		This item group is required by the project template because of the
-		new SDK-Style project, otherwise some files are not added automatically.
 
-		You can safely remove this ItemGroup completely.
-		-->
-    <None Include="Program.cs" />
-    <None Include="LinkerConfig.xml" />
-    <None Include="wwwroot\web.config" />
-  </ItemGroup>
-  <ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Debug' or '$(IsUiAutomationMappingEnabled)'=='True'">
+		<IsUiAutomationMappingEnabled>True</IsUiAutomationMappingEnabled>
+		<DefineConstants>$(DefineConstants);USE_UITESTS;USE_MOCKS</DefineConstants>
+	</PropertyGroup>  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />

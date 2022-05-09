@@ -27,6 +27,11 @@ public sealed partial class App : Application
 	/// <param name="args">Details about the launch request and process.</param>
 	protected async override void OnLaunched(LaunchActivatedEventArgs args)
 	{
+#if USE_UITESTS
+		Uno.UI.FeatureConfiguration.UIElement.AssignDOMXamlName = true;
+#endif
+
+
 #if DEBUG
 		if (System.Diagnostics.Debugger.IsAttached)
 		{
