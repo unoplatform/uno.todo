@@ -61,7 +61,7 @@
 				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
-				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0">
+				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0" Command="{Binding Tomorrow}">
 					<utu:AutoLayout Padding="8,8,8,8"
 									Justify="SpaceBetween"
 									Orientation="Horizontal"
@@ -89,7 +89,7 @@
 				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
-				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0">
+				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0" Command="{Binding NextWeek}">
 					<utu:AutoLayout Padding="8,8,8,8"
 									Justify="SpaceBetween"
 									Orientation="Horizontal"
