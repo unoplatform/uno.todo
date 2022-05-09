@@ -3,7 +3,7 @@
 namespace ToDo.Presentation;
 
 [ReactiveBindable]
-public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
+public partial class TaskListViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly ITaskListService _listSvc;
@@ -25,13 +25,13 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 
 		Entity = State.Async(this, async _ => entity);
 
-		messenger.Register<EntityMessage<ToDoTask>>(this);
 		Entity.Observe(messenger, list => list.Id);
+		Tasks.Observe(messenger, Entity, (list, task) => list.Id == task.ListId, task => task.ListId);
 	}
 
 	public IState<TaskList> Entity { get; }
 
-	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await Entity).MapAsync(_taskSvc.GetAsync, ct));
+	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await Entity).MapAsync(_taskSvc.GetAllAsync, ct));
 
 	public IListFeed<ToDoTask> ActiveTasks => Tasks.Where(task => !task.IsCompleted);
 
@@ -100,30 +100,10 @@ public partial class TaskListViewModel : IRecipient<EntityMessage<ToDoTask>>
 		}
 
 		var newListName = (await response.Result).SomeOrDefault();
-		if (!String.IsNullOrWhiteSpace(newListName))
+		if (!string.IsNullOrWhiteSpace(newListName))
 		{
 			list = list with { DisplayName = newListName };
 			await _listSvc.UpdateAsync(list, ct);
-		}
-
-	}
-
-	public async void Receive(EntityMessage<ToDoTask> msg)
-	{
-		var ct = CancellationToken.None;
-		try
-		{
-			using var _ = SourceContext.GetOrCreate(this).AsCurrent();
-
-			var list = (await Entity).SomeOrDefault();
-			if (list?.Id == msg.Value.ListId)
-			{
-				await Tasks.UpdateAsync(msg, task => task.Id, ct);
-			}
-		}
-		catch (Exception e)
-		{
-			_logger.LogError(e,"Failed to apply task update message.");
 		}
 	}
 }

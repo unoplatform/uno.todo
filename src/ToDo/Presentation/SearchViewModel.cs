@@ -14,7 +14,7 @@ public partial class SearchViewModel
 
 	public IListFeed<ToDoTask> Results => Term
 		.Where(term => term is { Length: > 0 })
-		.SelectAsync(_svc.GetAllAsync)
+		.SelectAsync(_svc.SearchAsync)
 		.AsListFeed();
 
 	public ICommand ToggleIsCompleted => Command.Create<ToDoTask>(c => c.Then(DoToggleIsCompleted));
