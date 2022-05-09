@@ -69,6 +69,7 @@
 			</utu:AutoLayout>
 			<Button Content="Get started"
 					x:Uid="WelcomePage_GetStarted"
+					AutomationProperties.AutomationId="WelcomePage_Button_Narrow"
 					Command="{Binding GetStarted}"
 					Style="{StaticResource MaterialContainedButtonStyle}" />
 		</utu:AutoLayout>
@@ -106,6 +107,7 @@
 					<Button Content="Get started"
 							Command="{Binding GetStarted}"
 							x:Uid="WelcomePage_GetStarted"
+							AutomationProperties.AutomationId="WelcomePage_Button_Wide"
 							utu:AutoLayout.CounterAlignment="Start"
 							utu:AutoLayout.CounterLength="330"
 							Style="{StaticResource MaterialContainedButtonStyle}" />

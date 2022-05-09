@@ -8,17 +8,33 @@ namespace ToDo.UI.Tests
         [Test]
         public void When_SmokeTest()
         {
-
 			// Make sure the ViewModelButton has rendered
-			App.WaitForElement(q => q.Marked("ViewModelButton"));
+			App.WaitForElement(q => q.Marked("WelcomePage_Button_Wide"));
 
 			// Query for the XamlButton and then tap it
-			Query xamlButton = q => q.All().Marked("XamlButton");
-			App.WaitForElement(xamlButton);
-			App.Tap(xamlButton);
+			Query WelcomePage_GetStarted = q => q.All().Marked("WelcomePage_Button_Wide");
+			App.WaitForElement(WelcomePage_GetStarted);
+			App.Tap(WelcomePage_GetStarted);
 
 			// Take a screenshot and add it to the test results
 			TakeScreenshot("After tapped");
-        }
-    }
+
+			Query important = q => q.All().Text("Important");
+			App.WaitForElement(important);
+			App.Tap(important);
+
+			// Take a screenshot and add it to the test results
+			TakeScreenshot("After important");
+
+			Query payBills = q => q.All().Text("Pay bills");
+			App.WaitForElement(payBills);
+			App.Tap(payBills);
+
+			Query dueTime = q => q.All().Text("Due Wed, 13 April");
+			App.WaitForElement(dueTime);
+
+			// Take a screenshot and add it to the test results
+			TakeScreenshot("After pay bill");
+		}
+	}
 }
