@@ -25,6 +25,7 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.PrimaryAlignment="Stretch" />
 					<PersonPicture DisplayName="{Binding CurrentUser.Name}"
+								    ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
 								   utu:AutoLayout.CounterAlignment="Start" />
 					<utu:AutoLayout Spacing="10"
 									Padding="20,15,20,15"
@@ -122,9 +123,9 @@
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-				<utu:AutoLayout Spacing="5"
+					<utu:AutoLayout Spacing="5"
 								Padding="0,10,0,10">
-					<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
 								 utu:AutoLayout.CounterLength="350"
 								 Style="{StaticResource DividerStyle}" />
 				</utu:AutoLayout>
@@ -135,7 +136,7 @@
 						   Style="{StaticResource TitleSmall}" />
 				<utu:AutoLayout Spacing="5"
 								Orientation="Horizontal">
-					<TextBlock x:Uid="SettingsPage_VersionLabel"
+						<TextBlock x:Uid="SettingsPage_VersionLabel"
 							   Text="Version"
 							   Foreground="{ThemeResource OnSurfaceBrush}"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"

@@ -63,6 +63,7 @@
 			<converters:StringCompareConverter x:Key="IsNotEqualToParameterValue" Comparison="IsEqualToParameterValue" InvertResult="True" />
 			<converters:ReferenceConverter x:Key="IsNull" ConversionMode="IsNull" />
 			<converters:ReferenceConverter x:Key="IsNotNull" ConversionMode="IsNotNull" />
+			<converters:BitmapSourceConverter x:Key="BitmapSourceConverter" />
 
 		</ResourceDictionary>
 	</Application.Resources>
