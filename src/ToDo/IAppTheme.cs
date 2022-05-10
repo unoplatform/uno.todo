@@ -6,5 +6,5 @@ public interface IAppTheme
 {
 	bool IsDark { get; }
 
-	void SetTheme(bool darkMode);
+	Task SetThemeAsync(bool darkMode);
 }

@@ -4,7 +4,6 @@ public partial class SettingsViewModel
 {
 	private readonly IAuthenticationService _authService;
 	private readonly INavigator _navigator;
-	private string _selectedAppTheme;
 	private IAppTheme _appTheme;
 	private IWritableOptions<ToDoApp> _appSettings;
 
@@ -12,16 +11,7 @@ public partial class SettingsViewModel
 
 	public DisplayCulture[] Cultures { get; }
 
-	public string[] AppThemes { get; } 
-
-	public string SelectedAppTheme
-	{
-		get => _selectedAppTheme;
-		set
-		{
-			_ = DoThemeChange(value, CancellationToken.None);
-		}
-	}
+	public string[] AppThemes { get; }
 
 
 	private SettingsViewModel(
@@ -38,8 +28,10 @@ public partial class SettingsViewModel
 		_appTheme = appTheme;
 		_appSettings = appSettings;
 
-		AppThemes = new string [] { localizer["SettingsPage_ThemeLight"], localizer["SettingsPage_ThemeDark"] };
-		_selectedAppTheme = AppThemes[appTheme.IsDark ? 1 : 0];
+		AppThemes = new string[] { localizer["SettingsPage_ThemeLight"], localizer["SettingsPage_ThemeDark"] };
+		SelectedAppTheme = State.Value(this, () => AppThemes[appTheme.IsDark ? 1 : 0]);
+
+		SelectedAppTheme.Execute(ChangeAppTheme);
 
 		Cultures = LocalizationSettings.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
 		SelectedCulture = State.Value(this, () => Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First());
@@ -51,6 +43,10 @@ public partial class SettingsViewModel
 
 	[Value]
 	public IState<DisplayCulture> SelectedCulture { get; }
+
+	[Value]
+	public IState<string> SelectedAppTheme { get; }
+
 
 	public async ValueTask SignOut(CancellationToken ct)
 	{
@@ -71,13 +67,15 @@ public partial class SettingsViewModel
 		}
 	}
 
-	private async ValueTask DoThemeChange(string appTheme, CancellationToken ct)
-	{
-		_selectedAppTheme = appTheme;
 
-		var isDark = Array.IndexOf(AppThemes, _selectedAppTheme) == 1;
-		_appTheme.SetTheme(isDark);
-		await _appSettings.Update(s => s with { IsDark = isDark });
+	private async ValueTask ChangeAppTheme(string? appTheme, CancellationToken ct)
+	{
+		if (appTheme is { Length: > 0 })
+		{
+			var isDark = Array.IndexOf(AppThemes, appTheme) == 1;
+			await _appTheme.SetThemeAsync(isDark);
+			await _appSettings.Update(s => s with { IsDark = isDark });
+		}
 	}
 
 	public record DisplayCulture(string Display, string Culture);
