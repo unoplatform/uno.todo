@@ -25,7 +25,7 @@ public partial class TaskListViewModel
 		Entity = State.Value(this, () => entity);
 
 		Entity.Observe(messenger, list => list.Id);
-		Tasks.Observe(messenger, Entity, (list, task) => list.Id == task.ListId, task => task.ListId);
+		Tasks.Observe(messenger, Entity, (list, task) => list.Id == task.ListId, task => task.Id);
 	}
 
 	public IState<TaskList> Entity { get; }
