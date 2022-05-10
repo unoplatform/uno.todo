@@ -160,10 +160,11 @@ public class AuthenticationService : IAuthenticationService
 		return default;
 	}
 
-	public void SetUserProfilePicture(byte[] picture)
+	public async Task SetUserProfilePicture(IUserProfilePictureService _userSvc, CancellationToken ct)
 	{
-		if (_user != null && picture != null && picture.Length > 0)
-			_user = _user with { ProfilePicture = picture };
+		var profilePicture = await _userSvc.GetAsync(cancellationToken: ct);
+		if (_user != null && profilePicture != null && profilePicture.Length > 0)
+			_user = _user with { ProfilePicture = profilePicture };
 	}
 }
 

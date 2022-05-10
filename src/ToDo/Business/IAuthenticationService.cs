@@ -8,5 +8,5 @@ public interface IAuthenticationService: IAuthenticationTokenProvider
 
 	Task SignOutAsync();
 
-	void SetUserProfilePicture(byte[] picture);
+	Task SetUserProfilePicture(IUserProfilePictureService _userSvc, CancellationToken ct);
 }
