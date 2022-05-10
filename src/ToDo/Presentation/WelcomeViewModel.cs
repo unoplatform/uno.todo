@@ -1,6 +1,5 @@
 ﻿namespace ToDo.Presentation;
 
-[ReactiveBindable]
 public partial class WelcomeViewModel
 {
 	private readonly IAuthenticationService _authService;
@@ -17,8 +16,7 @@ public partial class WelcomeViewModel
 		_authService = authService;
 	}
 
-	public ICommand GetStarted => Command.Async(DoGetStarted);
-	private async ValueTask DoGetStarted(CancellationToken ct)
+	public async ValueTask GetStarted(CancellationToken ct)
 	{
 		var user = await _authService.AuthenticateAsync(_dispatcher);
 

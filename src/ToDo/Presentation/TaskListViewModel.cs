@@ -2,7 +2,6 @@
 
 namespace ToDo.Presentation;
 
-[ReactiveBindable]
 public partial class TaskListViewModel
 {
 	private readonly INavigator _navigator;
@@ -23,42 +22,36 @@ public partial class TaskListViewModel
 		_listSvc = listSvc;
 		_taskSvc = taskSvc;
 
-		Entity = State.Async(this, async _ => entity);
+		Entity = State.Value(this, () => entity);
 
 		Entity.Observe(messenger, list => list.Id);
-		Tasks.Observe(messenger, Entity, (list, task) => list.Id == task.ListId, task => task.ListId);
+		Tasks.Observe(messenger, Entity, (list, task) => list.Id == task.ListId, task => task.Id);
 	}
 
 	public IState<TaskList> Entity { get; }
 
-	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await (await Entity).MapAsync(_taskSvc.GetAllAsync, ct));
+	public IListState<ToDoTask> Tasks => ListState<ToDoTask>.Async(this, async ct => await _taskSvc.GetAllAsync((await Entity)!, ct));
 
 	public IListFeed<ToDoTask> ActiveTasks => Tasks.Where(task => !task.IsCompleted);
 
 	public IListFeed<ToDoTask> CompletedTasks => Tasks.Where(task => task.IsCompleted);
 
+	public async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
+		=> await _taskSvc.UpdateAsync(task.WithToggledIsImportant(), ct);
+
+	public async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
+		=> await _taskSvc.UpdateAsync(task.WithToggledIsCompleted(), ct);
+
+
 	public ICommand CreateTask => Command.Create(c => c.Given(Entity).Then(DoCreateTask));
 	private async ValueTask DoCreateTask(TaskList list, CancellationToken ct)
 	{
 		var taskName = await _navigator.GetDataAsync<AddTaskViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
-		if (taskName is not null)
+		if (taskName is { Length: > 0 })
 		{
-			// TODO: Configure properties of TaskData
 			var newTask = new ToDoTask { Title = taskName };
 			await _taskSvc.CreateAsync(list, newTask, ct);
 		}
-	}
-
-	public ICommand ToggleIsImportant => Command.Create<ToDoTask>(c => c.Then(DoToggleIsImportant));
-	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
-	{
-		if (task.Importance is null)
-		{
-			return;
-		}
-		var updatedTask = task.ToggleImportance();
-
-		await _taskSvc.UpdateAsync(updatedTask, ct);
 	}
 
 	public ICommand DeleteList => Command.Create(c => c.Given(Entity).Then(DoDeleteList));
@@ -76,18 +69,6 @@ public partial class TaskListViewModel
 			await _listSvc.DeleteAsync(list, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
 		}
-	}
-
-	public ICommand ToggleIsCompleted => Command.Create<ToDoTask>(c => c.Then(DoToggleIsCompleted));
-	private async ValueTask DoToggleIsCompleted(ToDoTask task, CancellationToken ct)
-	{
-		if (task.Status is null)
-		{
-			return;
-		}
-
-		var updatedTask = task.ToggleIsCompleted();
-		await _taskSvc.UpdateAsync(updatedTask, ct);
 	}
 
 	public ICommand RenameList => Command.Create(c => c.Given(Entity).Then(DoRenameList));
