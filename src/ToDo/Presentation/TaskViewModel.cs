@@ -33,6 +33,10 @@ public partial class TaskViewModel
 	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
 		=> await _svc.UpdateAsync(task.WithToggledIsImportant(), ct);
 
+	public ICommand DeleteDueDate => Command.Create(c => c.Given(Entity).Then(DoDeleteDueDate));
+	private async ValueTask DoDeleteDueDate(ToDoTask task, CancellationToken ct)
+		=> await _svc.UpdateAsync(task.WithDeleteDueDate(), ct);
+
 	public ICommand Delete => Command.Create(b => b.Given(Entity).Then(DoDelete));
 	private async ValueTask DoDelete(ToDoTask task, CancellationToken ct)
 	{
@@ -62,41 +66,5 @@ public partial class TaskViewModel
 
 			await _svc.UpdateAsync(updated, ct);
 		}
-	}
-
-	public ICommand DeleteDueDate => Command.Create(c => c.Given(Entity).Then(DoDeleteDueDate));
-	private async ValueTask DoDeleteDueDate(ToDoTask task, CancellationToken ct)
-	{
-		if (task.DueDateTime is null)
-		{
-			return;
-		}
-		var updatedTask = task with { DueDateTime = null };
-
-		await _svc.UpdateAsync(updatedTask, ct);
-	}
-
-	public ICommand ToggleIsCompleted => Command.Create(b => b.Given(Entity).Then(DoToggleIsCompleted));
-	private async ValueTask DoToggleIsCompleted(ToDoTask task, CancellationToken ct)
-	{
-		if (task.Status is null)
-		{
-			return;
-		}
-
-		var updatedTask = task with { Status = task.IsCompleted ? ToDoTask.TaskStatus.NotStarted : ToDoTask.TaskStatus.Completed };
-		await _svc.UpdateAsync(updatedTask, ct);
-	}
-
-	public ICommand ToggleIsImportant => Command.Create(b => b.Given(Entity).Then(DoToggleIsImportant));
-	private async ValueTask DoToggleIsImportant(ToDoTask task, CancellationToken ct)
-	{
-		if (task.Importance is null)
-		{
-			return;
-		}
-		var updatedTask = task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
-
-		await _svc.UpdateAsync(updatedTask, ct);
 	}
 }

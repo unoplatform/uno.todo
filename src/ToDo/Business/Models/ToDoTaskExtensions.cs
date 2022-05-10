@@ -11,4 +11,9 @@ public static class ToDoTaskExtensions
 	{
 		return task with { Importance = task.IsImportant ? ToDoTask.TaskImportance.Normal : ToDoTask.TaskImportance.Important };
 	}
+
+	public static ToDoTask WithDeleteDueDate(this ToDoTask task)
+	{
+		return task with { DueDateTime = null };
+	}
 }
