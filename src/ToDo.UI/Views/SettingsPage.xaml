@@ -104,23 +104,21 @@
 									   Style="{StaticResource BodySmall}" />
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="5">
-							<TextBlock x:Uid="SettingsPage_ThemeLabel" 
+							<TextBlock x:Uid="SettingsPage_ThemeLabel"
 									   Foreground="{ThemeResource OnSurfaceBrush}"
 									   Text="Mode"
 									   utu:AutoLayout.CounterAlignment="Start"
 									   Style="{StaticResource TitleMedium}" />
 							<utu:ChipGroup x:Name="ThemeChipGroup"
 										   SelectionMode="Single"
-										   ItemChecked="{x:Bind UpdateAppTheme}"
+										   ItemsSource="{Binding AppThemes}"
+										   SelectedItem="{Binding SelectedAppTheme, Mode=TwoWay}"
 										   Style="{StaticResource FilterChipGroupStyle}">
-								<utu:Chip x:Uid="SettingsPage_ThemeLight"
-										  Content="Light"
-										  Tag="Light"
-										  Style="{StaticResource FilterChipStyle}" />
-								<utu:Chip x:Uid="SettingsPage_ThemeDark"
-										  Content="Dark"
-										  Tag="Dark"
-										  Style="{StaticResource FilterChipStyle}" />
+								<utu:ChipGroup.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding}" />
+									</DataTemplate>
+								</utu:ChipGroup.ItemTemplate>
 							</utu:ChipGroup>
 						</utu:AutoLayout>
 					</utu:AutoLayout>

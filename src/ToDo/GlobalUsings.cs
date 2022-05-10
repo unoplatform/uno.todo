@@ -22,6 +22,7 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using Microsoft.Identity.Client;
 global using Refit;
+global using ToDo;
 global using ToDo.Business;
 global using ToDo.Business.Mock;
 global using ToDo.Business.Models;
