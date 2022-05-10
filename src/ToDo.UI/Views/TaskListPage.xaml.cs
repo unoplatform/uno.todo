@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Views;
 
-public sealed partial class TaskListPage
+public sealed partial class TaskListPage : Page
 {
 	public TaskListPage()
 	{
