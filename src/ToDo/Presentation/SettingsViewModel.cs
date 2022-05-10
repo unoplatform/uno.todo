@@ -32,13 +32,7 @@ public partial class SettingsViewModel
 
 	public async ValueTask SignOut(CancellationToken ct)
 	{
-		var response = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, "ConfirmSignOut", qualifier: Qualifiers.Dialog, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
-
-		var result = await response.Result;
+		var result = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, Dialog.ConfirmSignOut, cancellation: ct).AsResult();
 		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
 		{
 			await _authService.SignOutAsync();

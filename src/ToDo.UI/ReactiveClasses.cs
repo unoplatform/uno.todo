@@ -62,19 +62,8 @@ public class ReactiveRouteResolver : RouteResolver
 		var viewFunc = (drm.View?.View is not null) ?
 										() => drm.View.View :
 										drm.View?.ViewSelector;
-		return new RouteInfo(
-			Path: drm.Path,
-			View: viewFunc,
-			ViewAttributes: drm.View?.ViewAttributes,
-			ViewModel: (drm.View is ReactiveViewMap rvmp)?rvmp.BindableViewModel: drm.View?.ViewModel,
-			Data: drm.View?.Data?.Data,
-			ToQuery: drm.View?.Data?.UntypedToQuery,
-			FromQuery: drm.View?.Data?.UntypedFromQuery,
-			ResultData: drm.View?.ResultData,
-			IsDefault: drm.IsDefault,
-			DependsOn: drm.DependsOn,
-			Init: drm.Init,
-			Nested: ResolveViewMaps(drm.Nested));
+		return base.FromRouteMap(drm) with {
+			ViewModel = (drm.View is ReactiveViewMap rvmp) ? rvmp.BindableViewModel : drm.View?.ViewModel };
 	}
 
 	public override RouteInfo? FindByViewModel(Type? viewModelType)
