@@ -22,6 +22,7 @@ global using Uno.Extensions.Localization;
 global using Uno.Extensions.Serialization;
 global using Uno.Extensions.Navigation.Toolkit;
 global using Uno.Extensions.Navigation.Regions;
+global using Uno.Toolkit.UI;
 global using ToDo.Views;
 global using ToDo.Views.Dialogs;
 global using ToDo.Business;

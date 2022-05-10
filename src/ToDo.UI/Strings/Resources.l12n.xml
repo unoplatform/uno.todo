@@ -300,12 +300,12 @@
 			<fr>Mode</fr>
 			<es>Tema</es>
 		</data>
-		<data name="ThemeLight.Content">
+		<data name="ThemeLight">
 			<en>Light</en>
 			<fr>Clair</fr>
 			<es>Claro</es>
 		</data>
-		<data name="ThemeDark.Content">
+		<data name="ThemeDark">
 			<en>Dark</en>
 			<fr>Sombre</fr>
 			<es>Oscuro</es>
