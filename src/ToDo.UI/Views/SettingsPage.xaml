@@ -128,13 +128,13 @@
 						<utu:Divider utu:AutoLayout.CounterAlignment="Start"
 								 utu:AutoLayout.CounterLength="350"
 								 Style="{StaticResource DividerStyle}" />
-				</utu:AutoLayout>
+					</utu:AutoLayout>
 					<TextBlock x:Uid="SettingsPage_AboutSection" 
 							   Foreground="{ThemeResource PrimaryBrush}"
 						   TextWrapping="Wrap"
 						   Text="About"
 						   Style="{StaticResource TitleSmall}" />
-				<utu:AutoLayout Spacing="5"
+					<utu:AutoLayout Spacing="5"
 								Orientation="Horizontal">
 						<TextBlock x:Uid="SettingsPage_VersionLabel"
 							   Text="Version"
@@ -146,9 +146,10 @@
 							   Text="1.0.0"
 							   utu:AutoLayout.PrimaryAlignment="Stretch"
 							   Style="{StaticResource TitleMedium}" />
+					</utu:AutoLayout>
 				</utu:AutoLayout>
 			</utu:AutoLayout>
 		</utu:AutoLayout>
 	</utu:AutoLayout>
-	</utu:AutoLayout>
+
 </Page>
