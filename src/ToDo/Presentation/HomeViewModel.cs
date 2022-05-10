@@ -1,6 +1,5 @@
 ﻿namespace ToDo.Presentation;
 
-[ReactiveBindable]
 public partial class HomeViewModel
 {
 	private readonly INavigator _navigator;
@@ -38,8 +37,7 @@ public partial class HomeViewModel
 
 	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
 
-	public ICommand CreateTaskList => Command.Async(DoCreateTaskList);
-	private async ValueTask DoCreateTaskList(CancellationToken ct)
+	public async ValueTask CreateTaskList(CancellationToken ct)
 	{
 		var listName = await _navigator.GetDataAsync<AddListViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 

@@ -5,8 +5,6 @@
 
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-using ToDo.Business.Models;
-using ToDo.Configuration;
 
 namespace ToDo;
 
@@ -49,6 +47,9 @@ public sealed partial class App : Application
 				// Load OAuth configuration
 				.UseConfiguration<Auth>()
 
+				// Enable app settings
+				.UseSettings<ToDoApp>()
+
 				// Register Json serializers (ISerializer and IStreamSerializer)
 				.UseSerialization()
 
@@ -56,6 +57,7 @@ public sealed partial class App : Application
 				.ConfigureServices(
 					(context, services) =>
 						services
+							.AddScoped<IAppTheme, AppTheme>()
 							.AddEndpoints(context, useMocks: useMocks)
 							.AddServices(useMocks: useMocks)
 						)
@@ -85,8 +87,8 @@ public sealed partial class App : Application
 		{
 			return new LocalizableMessageDialogViewMap
 			(
-				Content: localizer => localizer![ResourceKey("Content")],
-				Title: localizer => localizer![ResourceKey("Title")],
+				Content: localizer => localizer![ResourceKey(ResourceKeys.DialogContent)],
+				Title: localizer => localizer![ResourceKey(ResourceKeys.DialogTitle)],
 				DelayUserInput: delayUserInput,
 				DefaultButtonIndex: defaultButtonIndex,
 				Buttons: buttons
@@ -100,12 +102,11 @@ public sealed partial class App : Application
 			}
 		}
 
-		var deleteButton = (DialogResults.Affirmative, "./Dialog_Common_Delete");
-		var cancelButton = (DialogResults.Negative, "./Dialog_Common_Cancel");
-		var confirmDeleteListDialog = BuildDialogViewMap("ConfirmDeleteList", true, 0, deleteButton, cancelButton);
-		var confirmDeleteTaskDialog = BuildDialogViewMap("ConfirmDeleteTask", true, 0, deleteButton, cancelButton);
-		var confirmDeleteNoteDialog = BuildDialogViewMap("ConfirmDeleteNote", true, 0, deleteButton, cancelButton);
-		var confirmSignOutDialog = BuildDialogViewMap("ConfirmSignOut", true, 0, (DialogResults.Affirmative, "SignOut"), cancelButton);
+		var deleteButton = (DialogResults.Affirmative, ResourceKeys.DeleteButton);
+		var cancelButton = (DialogResults.Negative, ResourceKeys.CancelButton);
+		var confirmDeleteListDialog = BuildDialogViewMap(Dialog.ConfirmDeleteList, true, 0, deleteButton, cancelButton);
+		var confirmDeleteTaskDialog = BuildDialogViewMap(Dialog.ConfirmDeleteTask, true, 0, deleteButton, cancelButton);
+		var confirmSignOutDialog = BuildDialogViewMap(Dialog.ConfirmSignOut, true, 0, (DialogResults.Affirmative, ResourceKeys.SignOutButton), cancelButton);
 
 		views.Register(
 			/// Dialogs and Flyouts
@@ -123,11 +124,10 @@ public sealed partial class App : Application
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
 			new ViewMap(
-				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources["WideMinWindowWidth"] ? typeof(TaskControl) : typeof(TaskPage),
+				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources[ResourceKeys.WideMinWindowWidth] ? typeof(TaskControl) : typeof(TaskPage),
 				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
 			confirmDeleteListDialog,
 			confirmDeleteTaskDialog,
-			confirmDeleteNoteDialog,
 			confirmSignOutDialog
 		);
 
@@ -154,11 +154,11 @@ public sealed partial class App : Application
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
 				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel.BindableExpirationDateViewModel>()),
 				new("RenameList", View: views.FindByViewModel<RenameListViewModel>()),
-				new("ConfirmDeleteList", confirmDeleteListDialog),
-				new("ConfirmDeleteTask", confirmDeleteTaskDialog),
-				new("ConfirmDeleteNote", confirmDeleteNoteDialog),
-				new("ConfirmSignOut", confirmSignOutDialog)
+				new(Dialog.ConfirmDeleteList, confirmDeleteListDialog),
+				new(Dialog.ConfirmDeleteTask, confirmDeleteTaskDialog),
+				new(Dialog.ConfirmSignOut, confirmSignOutDialog)
 			})
 		);
 	}
 }
+

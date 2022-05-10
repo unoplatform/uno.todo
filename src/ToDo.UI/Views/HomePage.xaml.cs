@@ -1,6 +1,4 @@
-﻿using Uno.Extensions.Navigation.UI;
-
-namespace ToDo.Views;
+﻿namespace ToDo.Views;
 
 public sealed partial class HomePage : Page
 {

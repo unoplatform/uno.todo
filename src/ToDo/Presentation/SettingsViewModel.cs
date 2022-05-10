@@ -1,64 +1,81 @@
 namespace ToDo.Presentation;
 
-[ReactiveBindable]
 public partial class SettingsViewModel
 {
 	private readonly IAuthenticationService _authService;
 	private readonly INavigator _navigator;
-	private DisplayCulture _selectedCulture;
+	private IAppTheme _appTheme;
+	private IWritableOptions<ToDoApp> _appSettings;
 
 	public IWritableOptions<LocalizationSettings> LocalizationSettings { get; }
 
 	public DisplayCulture[] Cultures { get; }
 
-	public DisplayCulture SelectedCulture
-	{
-		get => _selectedCulture;
-		set {
-			_selectedCulture = value;
-			_ = DoChangeLanguage(_selectedCulture, CancellationToken.None);
-		}
-	}
+	public string[] AppThemes { get; }
+
 
 	private SettingsViewModel(
 		INavigator navigator,
 		IAuthenticationService authService,
 		IWritableOptions<LocalizationSettings> localizationSettings,
-		IStringLocalizer localizer)
+		IStringLocalizer localizer,
+		IAppTheme appTheme,
+		IWritableOptions<ToDoApp> appSettings)
 	{
 		_navigator = navigator;
 		_authService = authService;
 		LocalizationSettings = localizationSettings;
+		_appTheme = appTheme;
+		_appSettings = appSettings;
+
+		AppThemes = new string[] { localizer["SettingsPage_ThemeLight"], localizer["SettingsPage_ThemeDark"] };
+		SelectedAppTheme = State.Value(this, () => AppThemes[appTheme.IsDark ? 1 : 0]);
+
+		SelectedAppTheme.Execute(ChangeAppTheme);
 
 		Cultures = LocalizationSettings.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
-		_selectedCulture = Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First();
+		SelectedCulture = State.Value(this, () => Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First());
+
+		SelectedCulture.Execute(ChangeLanguage);
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authService.GetCurrentUserAsync());
 
-	public ICommand SignOut => Command.Async(DoSignOut);
-	private async ValueTask DoSignOut(CancellationToken ct)
-	{
-		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmSignOut", qualifier: Qualifiers.Dialog, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
+	[Value]
+	public IState<DisplayCulture> SelectedCulture { get; }
 
-		var result = await response.Result;
+	[Value]
+	public IState<string> SelectedAppTheme { get; }
+
+
+	public async ValueTask SignOut(CancellationToken ct)
+	{
+		var result = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, Dialog.ConfirmSignOut, cancellation: ct).AsResult();
 		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
 		{
 			await _authService.SignOutAsync();
 
-			await _navigator.NavigateRouteAsync(this, string.Empty);
+			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
 		}
 	}
 
-	public ICommand ChangeLanguage => Command.Create<DisplayCulture>(b => b.Then(DoChangeLanguage));
-	private async ValueTask DoChangeLanguage(DisplayCulture culture, CancellationToken ct)
+	private async ValueTask ChangeLanguage(DisplayCulture? culture, CancellationToken ct)
 	{
-		_selectedCulture = culture;
-		await LocalizationSettings.Update(settings => settings.CurrentCulture = culture.Culture);
+		if (culture is not null)
+		{
+			await LocalizationSettings.Update(settings => settings.CurrentCulture = culture.Culture);
+		}
+	}
+
+
+	private async ValueTask ChangeAppTheme(string? appTheme, CancellationToken ct)
+	{
+		if (appTheme is { Length: > 0 })
+		{
+			var isDark = Array.IndexOf(AppThemes, appTheme) == 1;
+			await _appTheme.SetThemeAsync(isDark);
+			await _appSettings.Update(s => s with { IsDark = isDark });
+		}
 	}
 
 	public record DisplayCulture(string Display, string Culture);

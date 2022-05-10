@@ -168,10 +168,10 @@
   <data name="SettingsPage_ThemeLabel.Text" xml:space="preserve">
     <value>Tema</value>
   </data>
-  <data name="SettingsPage_ThemeLight.Content" xml:space="preserve">
+  <data name="SettingsPage_ThemeLight" xml:space="preserve">
     <value>Claro</value>
   </data>
-  <data name="SettingsPage_ThemeDark.Content" xml:space="preserve">
+  <data name="SettingsPage_ThemeDark" xml:space="preserve">
     <value>Oscuro</value>
   </data>
   <data name="SettingsPage_AboutSection.Text" xml:space="preserve">
