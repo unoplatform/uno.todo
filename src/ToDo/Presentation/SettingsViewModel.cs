@@ -39,7 +39,7 @@ public partial class SettingsViewModel
 	public ICommand SignOut => Command.Async(DoSignOut);
 	private async ValueTask DoSignOut(CancellationToken ct)
 	{
-		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmSignOut", qualifier: Qualifiers.Dialog, cancellation: ct);
+		var response = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, "ConfirmSignOut", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;

@@ -64,7 +64,7 @@ public partial class TaskListViewModel
 	public ICommand DeleteList => Command.Create(c => c.Given(Entity).Then(DoDeleteList));
 	private async ValueTask DoDeleteList(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateRouteForResultAsync<DialogAction>(this, "ConfirmDeleteList", qualifier: Qualifiers.Dialog, cancellation: ct);
+		var response = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, "ConfirmDeleteList", qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (response is null)
 		{
 			return;
