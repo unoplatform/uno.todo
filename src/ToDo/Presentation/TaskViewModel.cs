@@ -52,7 +52,7 @@ public partial class TaskViewModel
 	public ICommand AddDueDate => Command.Create(c => c.Given(Entity).Then(DoAddDueDate));
 	private async ValueTask DoAddDueDate(ToDoTask task, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<ExpirationDateViewModel.BindableExpirationDateViewModel, DateTimeData>(this, data: task, cancellation: ct);
+		var response = await _navigator.NavigateViewModelForResultAsync<ExpirationDateViewModel.BindableExpirationDateViewModel, DateTimeData>(this, qualifier:Qualifiers.Dialog, data: task, cancellation: ct);
 		if (response is null)
 		{
 			return;
@@ -67,6 +67,18 @@ public partial class TaskViewModel
 
 			await _svc.UpdateAsync(updated, ct);
 		}
+	}
+
+	public ICommand DeleteDueDate => Command.Create(c => c.Given(Entity).Then(DoDeleteDueDate));
+	private async ValueTask DoDeleteDueDate(ToDoTask task, CancellationToken ct)
+	{
+		if (task.DueDateTime is null)
+		{
+			return;
+		}
+		var updatedTask = task with { DueDateTime = null };
+
+		await _svc.UpdateAsync(updatedTask, ct);
 	}
 
 	public ICommand ToggleIsCompleted => Command.Create(b => b.Given(Entity).Then(DoToggleIsCompleted));

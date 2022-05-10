@@ -5,9 +5,19 @@ public partial class ExpirationDateViewModel
 {
 	private readonly INavigator _navigator;
 
+	public DateTime DueDate
+	{
+		get;
+		set;//TODO: the idea is return to TaskViewModel with the DueDate value / call BackToTaskMethod
+	}
 	private ExpirationDateViewModel(INavigator navigator)
 	{
 		_navigator = navigator;
+	}
+
+	private async ValueTask BackToTask()
+	{
+		 await _navigator.NavigateBackWithResultAsync(this, data: new DateTimeData { DateTime = DueDate });
 	}
 
 	public ICommand Today => Command.Async(DoToday);

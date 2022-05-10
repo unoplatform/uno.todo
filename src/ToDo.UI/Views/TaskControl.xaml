@@ -34,10 +34,10 @@
 			<utu:NavigationBar Content="{Binding Entity.Title}"
 							   Style="{StaticResource ModalNavigationBarStyle}" />
 			<utu:AutoLayout Spacing="10"
-							Padding="0,10,0,0"
+							Padding="20,10,20,0"
 							utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:AutoLayout Spacing="10"
-								Padding="12,0,12,0"
+								Padding="0"
 								Orientation="Horizontal">
 					<utu:AutoLayout>
 						<CheckBox utu:AutoLayout.CounterAlignment="Start"
@@ -68,69 +68,50 @@
 						</ToggleButton>
 					</utu:AutoLayout>
 				</utu:AutoLayout>
+				<utu:Divider Style="{StaticResource DividerStyle}" />
 				<utu:AutoLayout Spacing="12"
-								Padding="20,10,20,0"
-								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<utu:Divider Style="{StaticResource DividerStyle}" />
-					<utu:AutoLayout PrimaryAxisAlignment="Center">
+								Padding="0,10,0,0"
+								Orientation="Horizontal">
+					<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start" utu:AutoLayout.PrimaryAlignment="Stretch">
 						<utu:AutoLayout Spacing="16"
-										Orientation="Horizontal">
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Start">
-								<utu:AutoLayout Spacing="16"
-												Orientation="Horizontal"
-												utu:AutoLayout.CounterAlignment="Start">
-									<Button utu:AutoLayout.CounterAlignment="Start"
-											Command="{Binding AddDueDate}"
-											Style="{StaticResource MaterialButtonIconStyle}">
-										<utu:AutoLayout Orientation="Horizontal">
-											
-										<PathIcon Data="{StaticResource Icon_Today}"
-											  Foreground="{ThemeResource MaterialPrimaryBrush}"
-											  utu:AutoLayout.CounterAlignment="Start" />
-										<TextBlock Foreground="{ThemeResource MaterialPrimaryBrush}"
-												   TextWrapping="Wrap"
-												   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}"
-												   Style="{StaticResource MaterialSubtitle1}" />
-										</utu:AutoLayout>
-										<!--<PathIcon Data="{StaticResource Icon_Close}" />-->
-									</Button>
-									<!--<PathIcon Data="{StaticResource Icon_Today}"
-											  Foreground="{ThemeResource MaterialPrimaryBrush}"
-											  utu:AutoLayout.CounterAlignment="Start" />-->
+										utu:AutoLayout.CounterAlignment="Start">
+							<Button utu:AutoLayout.CounterAlignment="Start"
+									Command="{Binding AddDueDate}"
+									BorderThickness="0"
+									Style="{Binding MaterialTextButtonStyle}">
+								<utu:AutoLayout Orientation="Horizontal" Spacing="10">
+									<PathIcon Data="{StaticResource Icon_Today}"
+									  utu:AutoLayout.CounterAlignment="Start" />
+									<TextBlock
+										   TextWrapping="Wrap"
+										TextAlignment="Center"
+										   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}" />
 								</utu:AutoLayout>
-							</utu:AutoLayout>
-							<!--<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
-											utu:AutoLayout.PrimaryAlignment="Stretch">
-								<utu:AutoLayout PrimaryAxisAlignment="Center">
-									<utu:AutoLayout PrimaryAxisAlignment="Center">
-										<TextBlock Foreground="{ThemeResource PrimaryBrush}"
-												   TextWrapping="Wrap"
-												   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}"
-												   Style="{StaticResource TitleMedium}" />
-									</utu:AutoLayout>
-								</utu:AutoLayout>
-							</utu:AutoLayout>-->
-							<utu:AutoLayout Orientation="Horizontal"
-											utu:AutoLayout.CounterAlignment="End">
-								<utu:AutoLayout PrimaryAxisAlignment="End"
-												Orientation="Horizontal">
-									<Button utu:AutoLayout.CounterAlignment="Start"
-											Style="{StaticResource IconButtonStyle}">
-										<PathIcon Data="{StaticResource Icon_Close}" />
-									</Button>
-								</utu:AutoLayout>
-							</utu:AutoLayout>
+							</Button>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-					<utu:Divider Style="{StaticResource DividerStyle}" />
-					<TextBox x:Uid="TaskControl_TaskBodyTextBox"
+					<utu:AutoLayout
+						PrimaryAxisAlignment="End"
+						utu:AutoLayout.CounterAlignment="End">
+						<Button utu:AutoLayout.CounterAlignment="Start"
+								Command="{Binding DeleteDueDate}"
+								Style="{StaticResource IconButtonStyle}">
+							<PathIcon Data="{StaticResource Icon_Close}" />
+						</Button>
+					</utu:AutoLayout>
+				</utu:AutoLayout>
+				<utu:Divider Style="{StaticResource DividerStyle}" />
+				<utu:AutoLayout Spacing="12"
+								Padding="0,10,0,0"
+								utu:AutoLayout.PrimaryAlignment="Stretch">
+						<TextBox x:Uid="TaskControl_TaskBodyTextBox"
 							 Text="{Binding Entity.Body.Content, Mode=TwoWay}"
 							 PlaceholderText="Add Note"
 							 AcceptsReturn="True"
 							 TextWrapping="Wrap"
 							 Style="{StaticResource FilledTextBoxStyle}" />
 				</utu:AutoLayout>
-				<utu:AutoLayout Padding="20,0,10,0">
+				<utu:AutoLayout Padding="0">
 					<utu:AutoLayout Spacing="16"
 									Orientation="Horizontal">
 						<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
