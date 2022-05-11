@@ -91,7 +91,8 @@
 							</Button>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-					<utu:AutoLayout PrimaryAxisAlignment="End" utu:AutoLayout.CounterAlignment="End">
+					<utu:AutoLayout PrimaryAxisAlignment="End"
+									utu:AutoLayout.CounterAlignment="End">
 						<Button utu:AutoLayout.CounterAlignment="Start"
 								Command="{Binding DeleteDueDate}"
 								Style="{StaticResource IconButtonStyle}">
