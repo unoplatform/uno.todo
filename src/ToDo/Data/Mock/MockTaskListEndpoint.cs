@@ -2,8 +2,8 @@
 
 public class MockTaskListEndpoint : ITaskListEndpoint
 {
-	private const string ListDataFile = "mock/lists.json";
-	private const string TasksDataFile = "mock/tasks.json";
+	private const string ListDataFile = "Mock/lists.json";
+	private const string TasksDataFile = "Mock/tasks.json";
 
 
 	private readonly ISerializer<TaskListData> _listSerializer;
