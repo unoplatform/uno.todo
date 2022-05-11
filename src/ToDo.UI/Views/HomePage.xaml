@@ -49,6 +49,10 @@
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="NavView.(uen:Navigation.Request)"
+								Value="TaskList" />
+					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
