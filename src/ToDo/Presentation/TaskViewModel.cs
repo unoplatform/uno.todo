@@ -35,7 +35,7 @@ public partial class TaskViewModel
 
 	public ICommand DeleteDueDate => Command.Create(c => c.Given(Entity).Then(DoDeleteDueDate));
 	private async ValueTask DoDeleteDueDate(ToDoTask task, CancellationToken ct)
-		=> await _svc.UpdateAsync(task.WithDeleteDueDate(), ct);
+		=> await _svc.UpdateAsync(task.WithDueDate(dueDate: null), ct);
 
 	public ICommand Delete => Command.Create(b => b.Given(Entity).Then(DoDelete));
 	private async ValueTask DoDelete(ToDoTask task, CancellationToken ct)

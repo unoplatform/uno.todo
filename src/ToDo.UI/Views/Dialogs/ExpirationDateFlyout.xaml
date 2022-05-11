@@ -10,7 +10,7 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  mc:Ignorable="d"
-	  Background="{ThemeResource BackgroundBrush}">
+	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Page.Resources>
 		<ResourceDictionary>
@@ -19,21 +19,22 @@
 			<x:String x:Key="Icon_Chevron_Right">F1 M 1.4099998474121094 0 L 0 1.4099998474121094 L 4.579999923706055 6 L 0 10.59000015258789 L 1.4099998474121094 12 L 7.409999847412109 6 L 1.4099998474121094 0 Z</x:String>
 
 			<Style x:Key="MyCustomDatePickerStyle"
-					TargetType="DatePicker">
+				   TargetType="DatePicker">
 				<Setter Property="Template">
 					<Setter.Value>
 						<ControlTemplate TargetType="DatePicker">
 							<Grid x:Name="LayoutRoot">
 								<!-- Flyout Button -->
 								<Button x:Name="FlyoutButton"
-								HorizontalAlignment="Stretch"
-								HorizontalContentAlignment="Stretch"
-										Style="{Binding MaterialTextButtonStyle}" BorderThickness="0"
-								IsEnabled="{TemplateBinding IsEnabled}"
-								UseSystemFocusVisuals="{TemplateBinding UseSystemFocusVisuals}">
+										HorizontalAlignment="Stretch"
+										HorizontalContentAlignment="Stretch"
+										Style="{StaticResource TextButtonStyle}" BorderThickness="0"
+										IsEnabled="{TemplateBinding IsEnabled}"
+										UseSystemFocusVisuals="{TemplateBinding UseSystemFocusVisuals}">
 
 									<Grid Height="{TemplateBinding Height}"
-								  Background="Transparent">
+										  ColumnSpacing="0"
+										  Background="Transparent">
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="40" />
 											<ColumnDefinition Width="*" />
@@ -41,40 +42,37 @@
 										</Grid.ColumnDefinitions>
 
 										 <!--Icon--> 
-										<PathIcon Data="{StaticResource Icon_Calendar_Today}" HorizontalAlignment="Left"
-									  utu:AutoLayout.CounterAlignment="Start"/>
+										<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+												  HorizontalAlignment="Left"
+												  Foreground="{ThemeResource OnSurfaceBrush}"
+												  utu:AutoLayout.CounterAlignment="Start"/>
 
 										 <!--PlaceholderText--> 
 										<TextBlock x:Name="PlaceholderText"
-											   Margin="0,0,0,0"
-										   HorizontalAlignment="Left"
-										   VerticalAlignment="Center"
-										   Grid.Column="1"
-											FontWeight="Bold"
-											   Text="{TemplateBinding Header}"/>
+												   Margin="0,0,0,0"
+												   HorizontalAlignment="Left"
+												   VerticalAlignment="Center"
+												   Grid.Column="1"
+												   Foreground="{ThemeResource OnSurfaceBrush}"
+												   Text="{TemplateBinding Header}"/>
 
-										<!--<Path Data="M9.99984 6L8.58984 7.41L13.1698 12L8.58984 16.59L9.99984 18L15.9998 12L9.99984 6Z"
-									  HorizontalAlignment="Right"
-									  Grid.Column="2"
-									  VerticalAlignment="Center"/>-->
-										<PathIcon Data="{StaticResource Icon_Chevron_Right}" HorizontalAlignment="Right"
+										<PathIcon Data="{StaticResource Icon_Chevron_Right}"
+												  HorizontalAlignment="Right"
 												  Grid.Column="2"
+												  Foreground="{ThemeResource OnSurfaceBrush}"
 												  VerticalAlignment="Center"/>
 
 										<Grid x:Name="FlyoutButtonContentGrid"
-									  Visibility="Collapsed"
-									  
-									  VerticalAlignment="Center">
+											  Visibility="Collapsed"
+											  VerticalAlignment="Center">
 
 											 <!--DateText--> 
 											<TextBlock x:Name="DateText"
-											   Text="{Binding SelectedDate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:d}'}" />
-
-
+													   Text="{Binding SelectedDate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringFormatConverter}, ConverterParameter=' {0:d}'}" />
 
 											 <!--Removing this cause trouble with the DatePicker code--> 
 											<TextBlock x:Name="DayTextBlock"
-											   Opacity="0" />
+													   Opacity="0" />
 										</Grid>
 									</Grid>
 								</Button>
@@ -94,15 +92,16 @@
 				   TextAlignment="Center"
 				   TextWrapping="Wrap"
 				   Text="Due"
-				   Style="{StaticResource TitleLarge}"
-				   x:Uid="Task_Details_Add_Due_Date_Title" />
+				   Style="{StaticResource TitleLarge}"/>
 		<utu:AutoLayout Padding="0,10,0,0">
 			<utu:Divider Style="{StaticResource DividerStyle}" />
 		</utu:AutoLayout>
 		<utu:AutoLayout Padding="0,8,0,8"
 						CornerRadius="4">
 			<utu:AutoLayout Orientation="Horizontal">
-				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0" Command="{Binding Today}">
+				<Button Style="{StaticResource TextButtonStyle}"
+						BorderThickness="0"
+						Command="{Binding SelectToday}">
 					<utu:AutoLayout Padding="8,8,8,8"
 									Justify="SpaceBetween"
 									Orientation="Horizontal"
@@ -113,6 +112,7 @@
 										Orientation="Horizontal"
 										utu:AutoLayout.CounterAlignment="Center">
 							<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+									  Foreground="{ThemeResource OnSurfaceBrush}"
 									  utu:AutoLayout.CounterAlignment="Start"/>
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="10"
@@ -120,17 +120,17 @@
 										Orientation="Horizontal"
 										utu:AutoLayout.CounterAlignment="Center"
 										utu:AutoLayout.PrimaryAlignment="Stretch">
-							<TextBlock
-									   Text="Today"
-								FontWeight="Bold"
-									   utu:AutoLayout.CounterAlignment="Center"
-									   x:Uid="Task_Details_Add_Due_Date_Label" />
+							<TextBlock Text="Today"
+									   Foreground="{ThemeResource OnSurfaceBrush}"
+									   utu:AutoLayout.CounterAlignment="Center"/>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
 				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
-				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0" Command="{Binding Tomorrow}">
+				<Button Style="{StaticResource TextButtonStyle}"
+						BorderThickness="0"
+						Command="{Binding SelectTomorrow}">
 					<utu:AutoLayout Padding="8,8,8,8"
 									Justify="SpaceBetween"
 									Orientation="Horizontal"
@@ -141,6 +141,7 @@
 										Orientation="Horizontal"
 										utu:AutoLayout.CounterAlignment="Center">
 							<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+									  Foreground="{ThemeResource OnSurfaceBrush}"
 									  utu:AutoLayout.CounterAlignment="Start"/>
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="10"
@@ -148,17 +149,17 @@
 										Orientation="Horizontal"
 										utu:AutoLayout.CounterAlignment="Center"
 										utu:AutoLayout.PrimaryAlignment="Stretch">
-							<TextBlock
-									   Text="Tomorrow"
-								FontWeight="Bold"
-									   utu:AutoLayout.CounterAlignment="Center"
-									   x:Uid="Task_Details_Add_Due_Date_Label" />
+							<TextBlock Text="Tomorrow"
+									   Foreground="{ThemeResource OnSurfaceBrush}"
+									   utu:AutoLayout.CounterAlignment="Center"/>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
 				</Button>
 			</utu:AutoLayout>
 			<utu:AutoLayout Orientation="Horizontal">
-				<Button Style="{Binding MaterialTextButtonStyle}" BorderThickness="0" Command="{Binding NextWeek}">
+				<Button Style="{StaticResource TextButtonStyle}"
+						BorderThickness="0"
+						Command="{Binding SelectNextWeek}">
 					<utu:AutoLayout Padding="8,8,8,8"
 									Justify="SpaceBetween"
 									Orientation="Horizontal"
@@ -169,6 +170,7 @@
 										Orientation="Horizontal"
 										utu:AutoLayout.CounterAlignment="Center">
 							<PathIcon Data="{StaticResource Icon_Calendar_Today}"
+									  Foreground="{ThemeResource OnSurfaceBrush}"
 									  utu:AutoLayout.CounterAlignment="Start" />
 						</utu:AutoLayout>
 						<utu:AutoLayout Spacing="10"
@@ -176,11 +178,9 @@
 										Orientation="Horizontal"
 										utu:AutoLayout.CounterAlignment="Center"
 										utu:AutoLayout.PrimaryAlignment="Stretch">
-							<TextBlock
-									   Text="Next Week"
-								FontWeight="Bold"
-									   utu:AutoLayout.CounterAlignment="Center"
-									   x:Uid="Task_Details_Add_Due_Date_Label" />
+							<TextBlock Text="Next Week"
+									   Foreground="{ThemeResource OnSurfaceBrush}"
+									   utu:AutoLayout.CounterAlignment="Center"/>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
 				</Button>
@@ -191,9 +191,9 @@
 								Orientation="Horizontal"
 								utu:AutoLayout.CounterAlignment="Start"
 								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<DatePicker
-						Style="{StaticResource MyCustomDatePickerStyle}"
-						Header="Pick a Date" SelectedDate="{Binding DueDate, Mode=TwoWay}">
+					<DatePicker Style="{StaticResource MyCustomDatePickerStyle}"
+								Header="Pick a Date"
+								SelectedDate="{Binding DueDate, Mode=TwoWay}">
 					</DatePicker>
 				</utu:AutoLayout>
 			</utu:AutoLayout>

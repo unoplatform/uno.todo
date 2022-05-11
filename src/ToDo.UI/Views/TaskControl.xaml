@@ -78,21 +78,20 @@
 							<Button utu:AutoLayout.CounterAlignment="Start"
 									Command="{Binding AddDueDate}"
 									BorderThickness="0"
-									Style="{Binding MaterialTextButtonStyle}">
+									Style="{StaticResource OutlinedButtonStyle}">
 								<utu:AutoLayout Orientation="Horizontal" Spacing="10">
 									<PathIcon Data="{StaticResource Icon_Today}"
-									  utu:AutoLayout.CounterAlignment="Start" />
-									<TextBlock
-										   TextWrapping="Wrap"
-										TextAlignment="Center"
-										   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}" />
+											  Foreground="{ThemeResource OnSurfaceBrush}"
+											  utu:AutoLayout.CounterAlignment="Start" />
+									<TextBlock TextWrapping="Wrap"
+											   TextAlignment="Center"
+											   Foreground="{ThemeResource OnSurfaceBrush}"
+											   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}" />
 								</utu:AutoLayout>
 							</Button>
 						</utu:AutoLayout>
 					</utu:AutoLayout>
-					<utu:AutoLayout
-						PrimaryAxisAlignment="End"
-						utu:AutoLayout.CounterAlignment="End">
+					<utu:AutoLayout PrimaryAxisAlignment="End" utu:AutoLayout.CounterAlignment="End">
 						<Button utu:AutoLayout.CounterAlignment="Start"
 								Command="{Binding DeleteDueDate}"
 								Style="{StaticResource IconButtonStyle}">
@@ -104,7 +103,7 @@
 				<utu:AutoLayout Spacing="12"
 								Padding="0,10,0,0"
 								utu:AutoLayout.PrimaryAlignment="Stretch">
-						<TextBox x:Uid="TaskControl_TaskBodyTextBox"
+					<TextBox x:Uid="TaskControl_TaskBodyTextBox"
 							 Text="{Binding Entity.Body.Content, Mode=TwoWay}"
 							 PlaceholderText="Add Note"
 							 AcceptsReturn="True"
