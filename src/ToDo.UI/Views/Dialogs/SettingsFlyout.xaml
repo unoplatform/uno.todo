@@ -9,7 +9,7 @@
 		Placement="Full"
 		FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle}">
 
-	<UserControl>
+	<UserControl x:Name="FlyoutControl">
 		<UserControl.Resources>
 			<ControlTemplate x:Key="FrameTemplate"
 							 TargetType="Frame">
@@ -50,14 +50,15 @@
 			</ControlTemplate>
 		</UserControl.Resources>
 
-		<Frame x:Name="FrameRoot"
+		<!-- NR: You don't need the frame here - this is only required if you want to navigate to a second page inside the flyout -->
+		<!--<Frame x:Name="FrameRoot"
 			   uen:Region.Attached="True"
 			   Template="{StaticResource FrameTemplate}"
 			   Background="{ThemeResource SurfaceBrush}"
 			   Content="{Binding ElementName=FrameRoot, Path=DataContext}">
 			<Frame.ContentTemplate>
-				<DataTemplate>
-					<Grid>
+				<DataTemplate>-->
+		<Grid Background="{ThemeResource SurfaceBrush}">
 						<utu:AutoLayout>
 							<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 								<utu:NavigationBar x:Uid="SettingsPage_NavigationBar"
@@ -78,11 +79,7 @@
 														Orientation="Horizontal"
 														utu:AutoLayout.PrimaryAlignment="Stretch" />
 									</utu:AutoLayout>
-									<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
-											   TextAlignment="Center"
-											   TextWrapping="Wrap"
-											   Text="{Binding}"
-											   Style="{StaticResource TitleLarge}" />
+
 									<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 											   TextAlignment="Center"
 											   TextWrapping="Wrap"
@@ -207,8 +204,8 @@
 							</utu:AutoLayout>
 						</utu:AutoLayout>
 					</Grid>
-				</DataTemplate>
+				<!--</DataTemplate>
 			</Frame.ContentTemplate>
-		</Frame>
+		</Frame>-->
 	</UserControl>
 </Flyout>
