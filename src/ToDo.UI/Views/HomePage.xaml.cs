@@ -7,7 +7,7 @@ public sealed partial class HomePage : Page
 		this.InitializeComponent();
 	}
 
-	private async void SelectedListChanged(object sender, NavigationViewSelectionChangedEventArgs args)
+	private void SelectedListChanged(object sender, NavigationViewSelectionChangedEventArgs args)
 	{
 		if(DataContext is HomeViewModel.BindableHomeViewModel vm &&
 			args.SelectedItem is TaskList taskList)
