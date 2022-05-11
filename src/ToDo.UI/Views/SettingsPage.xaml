@@ -25,7 +25,7 @@
 									Orientation="Horizontal"
 									utu:AutoLayout.PrimaryAlignment="Stretch" />
 					<PersonPicture DisplayName="{Binding CurrentUser.Name}"
-								    ProfilePicture="{Binding CurrentUser.ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
+								    ProfilePicture="{Binding ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
 								   utu:AutoLayout.CounterAlignment="Start" />
 					<utu:AutoLayout Spacing="10"
 									Padding="20,15,20,15"

@@ -4,18 +4,25 @@ public class UserProfilePictureService : IUserProfilePictureService
 {
 	private readonly IUserProfilePictureEndpoint _client;
 
+	private byte[]? _profilePicture;
+	private string? _userEmailAddress;
+
 	public UserProfilePictureService(IUserProfilePictureEndpoint client)
 	{
 		_client = client;
 	}
 
-	public async Task<byte[]> GetAsync(CancellationToken ct)
+	public async ValueTask<byte[]> GetAsync(string userEmailAddress, CancellationToken ct)
 	{
-		var content
-			= await _client.GetAsync(ct);
+		if (_profilePicture is null ||
+			_profilePicture.Length == 0 ||
+			userEmailAddress !=_userEmailAddress)
+		{
+			var content = await _client.GetAsync(ct);
 
-		var response = await content.ReadAsByteArrayAsync();
-
-		return response;
+			_profilePicture = await content.ReadAsByteArrayAsync();
+			_userEmailAddress = userEmailAddress;
+		}
+		return _profilePicture;
 	}
 }
