@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AppTheme.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ReactiveClasses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml.cs">
       <DependentUpon>AddListFlyout.xaml</DependentUpon>

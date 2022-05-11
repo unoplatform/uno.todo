@@ -1,15 +1,12 @@
-// Only define mocks in debug as we don't have a way to dynamically switch them
-#if DEBUG
-#define USE_MOCKS
-#endif
-
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
+using ToDo.Extensions;
 
 namespace ToDo;
 
 public sealed partial class App : Application
 {
+	private const string _mock = "mock";
 	private readonly IHost _host = BuildAppHost();
 
 	private static IHost BuildAppHost()
@@ -20,6 +17,16 @@ public sealed partial class App : Application
 		var useMocks = false;
 #endif
 
+#if __WASM__
+		var stringUri = WebAssemblyRuntime.InvokeJS("window.location.href;");
+		var query = new Uri(stringUri).Query;
+		var queriesValues = System.Web.HttpUtility.ParseQueryString(query);
+
+		if (queriesValues.TryGetValue(_mock, out var value) && bool.TryParse(value, out var isMocked))
+		{
+			useMocks = isMocked;
+		}
+#endif
 		return UnoHost
 				.CreateDefaultBuilder()
 #if DEBUG
