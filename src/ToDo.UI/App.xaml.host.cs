@@ -4,35 +4,31 @@
 
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-using ToDo.Extensions;
-
 namespace ToDo;
 
 public sealed partial class App : Application
 {
-	private const string _mock = "mock";
 	private readonly IHost _host = BuildAppHost();
 
 	private static IHost BuildAppHost()
 	{
-#if USE_MOCKS
-		var useMocks = true;
-#else
-		var useMocks = false;
-#endif
-
-#if __WASM__
-		var stringUri = WebAssemblyRuntime.InvokeJS("window.location.href;");
-		var query = new Uri(stringUri).Query;
-		var queriesValues = System.Web.HttpUtility.ParseQueryString(query);
-
-		if (queriesValues.TryGetValue(_mock, out var value) && bool.TryParse(value, out var isMocked))
-		{
-			useMocks = isMocked;
-		}
-#endif
 		return UnoHost
 				.CreateDefaultBuilder()
+
+#if __WASM__
+				// TODO: Remove when the uno.extensions update comes through that includes this
+				.ConfigureHostConfiguration(config =>
+				{
+					var href = WebAssemblyRuntime.InvokeJS("window.location.href");
+					var query = new Uri(href).Query;
+						var queriesValues = System.Web.HttpUtility.ParseQueryString(query);
+						var queryDict = (from k in queriesValues.AllKeys
+										 select new { Key = k, Value = queriesValues[k] }).ToDictionary(x => x.Key, x => x.Value);
+						config.AddInMemoryCollection(queryDict);
+				})
+#endif
+
+
 #if DEBUG
 				// Switch to Development environment when running in DEBUG
 				.UseEnvironment(Environments.Development)
@@ -47,8 +43,7 @@ public sealed partial class App : Application
 					logBuilder
 							.SetMinimumLevel(LogLevel.Information)
 							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information)
-							.AddFilter("Uno.Extensions.Navigation", LogLevel.Trace);
+							.XamlLayoutLogLevel(LogLevel.Information);
 				})
 
 				// Load configuration information from appsettings.json
@@ -66,12 +61,16 @@ public sealed partial class App : Application
 
 				// Register services for the application
 				.ConfigureServices(
-					(context, services) =>
+					(context, services) => {
+
+						var section = context.Configuration.GetSection(nameof(ToDoApp));
+						var useMocks = bool.TryParse(section[nameof(ToDoApp.Mock)], out var isMocked) ? isMocked : false;
+
 						services
 							.AddScoped<IAppTheme, AppTheme>()
 							.AddEndpoints(context, useMocks: useMocks)
-							.AddServices(useMocks: useMocks)
-						)
+							.AddServices(useMocks: useMocks);
+						})
 
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(
