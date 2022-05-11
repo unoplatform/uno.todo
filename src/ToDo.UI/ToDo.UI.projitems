@@ -52,6 +52,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\RenameListFlyout.xaml.cs">
       <DependentUpon>RenameListFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\SettingsFlyout.xaml.cs">
+      <DependentUpon>SettingsFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\TaskSearchFlyout.xaml.cs">
       <DependentUpon>TaskSearchFlyout.xaml</DependentUpon>
     </Compile>
@@ -140,7 +143,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </_Globbled_Page>
-    <Page Include="@(_Globbled_Page)" />
+    <Page Include="@(_Globbled_Page)">
+      <SubType>Designer</SubType>
+    </Page>
     <_Globbed_Compile Include="$(MSBuildThisFileDirectory)**/*.xaml.cs" Exclude="@(Compile)">
       <DependentUpon>%(Filename)</DependentUpon>
     </_Globbed_Compile>

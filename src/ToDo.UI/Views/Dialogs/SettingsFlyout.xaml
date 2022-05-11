@@ -1,0 +1,214 @@
+﻿<Flyout x:Class="ToDo.Views.Dialogs.SettingsFlyout"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="using:ToDo.Views.Dialogs"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:uen="using:Uno.Extensions.Navigation.UI"
+		xmlns:utu="using:Uno.Toolkit.UI"
+		xmlns:controls="using:ToDo.Controls"
+		Placement="Full"
+		FlyoutPresenterStyle="{StaticResource FlyoutPresenterStyle}">
+
+	<UserControl>
+		<UserControl.Resources>
+			<ControlTemplate x:Key="FrameTemplate"
+							 TargetType="Frame">
+				<Grid>
+					<VisualStateManager.VisualStateGroups>
+						<VisualStateGroup>
+							<VisualState x:Name="Wide">
+								<VisualState.StateTriggers>
+									<AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWindowWidth}" />
+								</VisualState.StateTriggers>
+								<VisualState.Setters>
+									<Setter Target="FlyoutRoot.MinWidth"
+											Value="500" />
+									<Setter Target="FlyoutRoot.MinHeight"
+											Value="700" />
+									<Setter Target="FlyoutRoot.HorizontalAlignment"
+											Value="Center" />
+									<Setter Target="FlyoutRoot.VerticalAlignment"
+											Value="Center" />
+								</VisualState.Setters>
+							</VisualState>
+						</VisualStateGroup>
+					</VisualStateManager.VisualStateGroups>
+
+					<ContentPresenter x:Name="FlyoutRoot"
+									  Padding="{TemplateBinding Padding}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  Content="{TemplateBinding Content}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+									  ContentTransitions="{TemplateBinding ContentTransitions}"
+									  CornerRadius="{TemplateBinding CornerRadius}" />
+				</Grid>
+			</ControlTemplate>
+		</UserControl.Resources>
+
+		<Frame x:Name="FrameRoot"
+			   uen:Region.Attached="True"
+			   Template="{StaticResource FrameTemplate}"
+			   Background="{ThemeResource SurfaceBrush}"
+			   Content="{Binding ElementName=FrameRoot, Path=DataContext}">
+			<Frame.ContentTemplate>
+				<DataTemplate>
+					<Grid>
+						<utu:AutoLayout>
+							<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
+								<utu:NavigationBar x:Uid="SettingsPage_NavigationBar"
+												   Content="Settings"
+												   Style="{StaticResource RootModalNavigationBarStyle}" />
+								<utu:AutoLayout Padding="20,15,20,0">
+									<utu:AutoLayout Spacing="10"
+													Padding="0,0,0,10"
+													Orientation="Horizontal">
+										<utu:AutoLayout Spacing="10"
+														Padding="20,15,20,15"
+														Orientation="Horizontal"
+														utu:AutoLayout.PrimaryAlignment="Stretch" />
+										<PersonPicture DisplayName="{Binding CurrentUser.Name}"
+													   utu:AutoLayout.CounterAlignment="Start" />
+										<utu:AutoLayout Spacing="10"
+														Padding="20,15,20,15"
+														Orientation="Horizontal"
+														utu:AutoLayout.PrimaryAlignment="Stretch" />
+									</utu:AutoLayout>
+									<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
+											   TextAlignment="Center"
+											   TextWrapping="Wrap"
+											   Text="{Binding}"
+											   Style="{StaticResource TitleLarge}" />
+									<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
+											   TextAlignment="Center"
+											   TextWrapping="Wrap"
+											   Text="{Binding CurrentUser.Name}"
+											   Style="{StaticResource TitleLarge}" />
+									<TextBlock Foreground="{ThemeResource OnSurfaceMediumBrush}"
+											   TextAlignment="Center"
+											   TextWrapping="Wrap"
+											   Text="{Binding CurrentUser.Email}"
+											   Style="{StaticResource BodyMedium}" />
+									<Button x:Uid="SettingsPage_SignOutButton"
+											Content="sign out"
+											Command="{Binding SignOut}"
+											Style="{StaticResource TextButtonStyle}" />
+								</utu:AutoLayout>
+								<utu:AutoLayout Padding="20,0,20,0"
+												utu:AutoLayout.PrimaryAlignment="Stretch">
+									<utu:AutoLayout Spacing="5"
+													utu:AutoLayout.PrimaryAlignment="Stretch">
+										<utu:AutoLayout Spacing="5"
+														Padding="0,10,0,10">
+											<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+														 utu:AutoLayout.CounterLength="350"
+														 Style="{StaticResource DividerStyle}" />
+										</utu:AutoLayout>
+										<TextBlock x:Uid="SettingsPage_GeneralSection"
+												   Text="General"
+												   TextWrapping="Wrap"
+												   Foreground="{ThemeResource PrimaryBrush}"
+												   Style="{StaticResource TitleSmall}" />
+										<utu:AutoLayout Spacing="20">
+											<utu:AutoLayout Spacing="5">
+												<TextBlock x:Uid="SettingsPage_PaletteSection"
+														   Text="Color palette"
+														   Foreground="{ThemeResource OnSurfaceBrush}"
+														   utu:AutoLayout.CounterAlignment="Start"
+														   Style="{StaticResource TitleMedium}" />
+												<utu:ChipGroup x:Name="ColorPaletteChipGroup"
+															   SelectionMode="Single"
+															   Style="{StaticResource FilterChipGroupStyle}">
+													<!--ItemChecked="{x:Bind UpdateAppColorPalette}"
+															   Style="{StaticResource FilterChipGroupStyle}">-->
+													<utu:Chip x:Uid="SettingsPage_PalettePurple"
+															  Content="Purple"
+															  Style="{StaticResource FilterChipStyle}" />
+													<utu:Chip x:Uid="SettingsPage_PaletteBlue"
+															  Content="Blue"
+															  Style="{StaticResource FilterChipStyle}" />
+													<utu:Chip x:Uid="SettingsPage_PaletteYellow"
+															  Content="Yellow"
+															  Style="{StaticResource FilterChipStyle}" />
+												</utu:ChipGroup>
+											</utu:AutoLayout>
+											<utu:AutoLayout Spacing="5">
+												<TextBlock x:Uid="SettingsPage_LanguageLabel"
+														   Foreground="{ThemeResource OnSurfaceBrush}"
+														   Text="Language"
+														   utu:AutoLayout.CounterAlignment="Start"
+														   Style="{StaticResource TitleMedium}" />
+												<utu:ChipGroup x:Name="LanguageChipGroup"
+															   SelectionMode="Single"
+															   ItemsSource="{Binding Cultures}"
+															   SelectedItem="{Binding SelectedCulture, Mode=TwoWay}"
+															   Style="{StaticResource FilterChipGroupStyle}">
+													<utu:ChipGroup.ItemTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding Display}" />
+														</DataTemplate>
+													</utu:ChipGroup.ItemTemplate>
+												</utu:ChipGroup>
+												<TextBlock x:Uid="SettingsPage_NoteToRestart"
+														   Foreground="{ThemeResource OnSurfaceLowBrush}"
+														   Text="Change will be applied at next app restart"
+														   utu:AutoLayout.CounterAlignment="Start"
+														   Style="{StaticResource BodySmall}" />
+											</utu:AutoLayout>
+											<utu:AutoLayout Spacing="5">
+												<TextBlock x:Uid="SettingsPage_ThemeLabel"
+														   Foreground="{ThemeResource OnSurfaceBrush}"
+														   Text="Mode"
+														   utu:AutoLayout.CounterAlignment="Start"
+														   Style="{StaticResource TitleMedium}" />
+												<utu:ChipGroup x:Name="ThemeChipGroup"
+															   SelectionMode="Single"
+															   ItemsSource="{Binding AppThemes}"
+															   SelectedItem="{Binding SelectedAppTheme, Mode=TwoWay}"
+															   Style="{StaticResource FilterChipGroupStyle}">
+													<utu:ChipGroup.ItemTemplate>
+														<DataTemplate>
+															<TextBlock Text="{Binding}" />
+														</DataTemplate>
+													</utu:ChipGroup.ItemTemplate>
+												</utu:ChipGroup>
+											</utu:AutoLayout>
+										</utu:AutoLayout>
+										<utu:AutoLayout Spacing="5"
+														Padding="0,10,0,10">
+											<utu:Divider utu:AutoLayout.CounterAlignment="Start"
+														 utu:AutoLayout.CounterLength="350"
+														 Style="{StaticResource DividerStyle}" />
+										</utu:AutoLayout>
+										<TextBlock x:Uid="SettingsPage_AboutSection"
+												   Foreground="{ThemeResource PrimaryBrush}"
+												   TextWrapping="Wrap"
+												   Text="About"
+												   Style="{StaticResource TitleSmall}" />
+										<utu:AutoLayout Spacing="5"
+														Orientation="Horizontal">
+											<TextBlock x:Uid="SettingsPage_VersionLabel"
+													   Text="Version"
+													   Foreground="{ThemeResource OnSurfaceBrush}"
+													   utu:AutoLayout.PrimaryAlignment="Stretch"
+													   Style="{StaticResource TitleMedium}" />
+											<TextBlock Foreground="{ThemeResource PrimaryBrush}"
+													   TextAlignment="End"
+													   Text="1.0.0"
+													   utu:AutoLayout.PrimaryAlignment="Stretch"
+													   Style="{StaticResource TitleMedium}" />
+										</utu:AutoLayout>
+									</utu:AutoLayout>
+								</utu:AutoLayout>
+							</utu:AutoLayout>
+						</utu:AutoLayout>
+					</Grid>
+				</DataTemplate>
+			</Frame.ContentTemplate>
+		</Frame>
+	</UserControl>
+</Flyout>

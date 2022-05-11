@@ -73,7 +73,7 @@
 					  ColumnDefinitions="*,AUto">
 
 					<Button Grid.Column="0"
-							uen:Navigation.Request="Settings"
+							uen:Navigation.Request="!Settings"
 							BorderThickness="0"
 							HorizontalAlignment="Stretch"
 							HorizontalContentAlignment="Stretch"
