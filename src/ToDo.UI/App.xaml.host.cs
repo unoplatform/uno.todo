@@ -39,7 +39,8 @@ public sealed partial class App : Application
 #endif
 
 				// Add platform specific log providers
-				.UseLogging()
+				//Note for Extensions, at the moment we have the error CS0121: The call is ambiguous between the following methods or properties: 'HostBuilderExtensions.UseLogging(IHostBuilder, Action<ILoggingBuilder>?)' and 'HostBuilderExtensions.UseLogging(IHostBuilder, Action<HostBuilderContext, ILoggingBuilder>?)'
+				.UseLogging(_ => { })
 
 				// Configure log levels for different categories of logging
 				.ConfigureLogging(logBuilder =>

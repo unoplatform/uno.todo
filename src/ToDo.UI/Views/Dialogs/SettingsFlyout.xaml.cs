@@ -6,17 +6,17 @@ public sealed partial class SettingsFlyout : Flyout
 	{
 		this.InitializeComponent();
 
-		FlyoutControl.DataContextChanged += SettingsFlyout_DataContextChanged;
-	}
+	//	FlyoutControl.DataContextChanged += SettingsFlyout_DataContextChanged;
+	//}
 
-	// HACK: This is required because there's a bug in extensions where we're not awaiting the task that creates the viewmodel
-	// Ref: https://github.com/unoplatform/uno.extensions/pull/421
-	private async void SettingsFlyout_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
-	{
-		if(args.NewValue is Task<object?> tsk)
-		{
-			FlyoutControl.DataContext = await tsk;
-		}
+	//// HACK: This is required because there's a bug in extensions where we're not awaiting the task that creates the viewmodel
+	//// Ref: https://github.com/unoplatform/uno.extensions/pull/421
+	//private async void SettingsFlyout_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+	//{
+	//	if(args.NewValue is Task<object?> tsk)
+	//	{
+	//		FlyoutControl.DataContext = await tsk;
+	//	}
 		
 	}
 
