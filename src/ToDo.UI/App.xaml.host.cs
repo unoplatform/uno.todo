@@ -1,7 +1,3 @@
-#if DEBUG
-#define USE_MOCKS
-#endif
-
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 namespace ToDo;
@@ -14,21 +10,6 @@ public sealed partial class App : Application
 	{
 		return UnoHost
 				.CreateDefaultBuilder()
-
-#if __WASM__
-				// TODO: Remove when the uno.extensions update comes through that includes this
-				.ConfigureHostConfiguration(config =>
-				{
-					var href = WebAssemblyRuntime.InvokeJS("window.location.href");
-					var query = new Uri(href).Query;
-						var queriesValues = System.Web.HttpUtility.ParseQueryString(query);
-						var queryDict = (from k in queriesValues.AllKeys
-										 select new { Key = k, Value = queriesValues[k] }).ToDictionary(x => x.Key, x => x.Value);
-						config.AddInMemoryCollection(queryDict);
-				})
-#endif
-
-
 #if DEBUG
 				// Switch to Development environment when running in DEBUG
 				.UseEnvironment(Environments.Development)
@@ -53,6 +34,9 @@ public sealed partial class App : Application
 				// Load OAuth configuration
 				.UseConfiguration<Auth>()
 
+				// Load Mock configuration
+				.UseConfiguration<Mock>()
+
 				// Enable app settings
 				.UseSettings<ToDoApp>()
 
@@ -63,8 +47,12 @@ public sealed partial class App : Application
 				.ConfigureServices(
 					(context, services) => {
 
-						var section = context.Configuration.GetSection(nameof(ToDoApp));
-						var useMocks = bool.TryParse(section[nameof(ToDoApp.Mock)], out var isMocked) ? isMocked : false;
+						var section = context.Configuration.GetSection(nameof(Mock));
+						var useMocks = bool.TryParse(section[nameof(Mock.IsEnabled)], out var isMocked) ? isMocked : false;
+#if USE_MOCKS
+						// This is required for UI Testing where USE_MOCKS is enabled
+						useMocks=true;;
+#endif
 
 						services
 							.AddScoped<IAppTheme, AppTheme>()
