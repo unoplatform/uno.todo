@@ -1,5 +1,5 @@
 image:
-  file: .gitpod.Dockerfile
+  file: build/gitpod/.gitpod.Dockerfile
 
 ports:
   # Default port for the SampleApp
