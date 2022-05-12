@@ -1,6 +1,3 @@
 namespace ToDo.Presentation.Dialogs;
 
-public partial class RenameListViewModel
-{
-    
-}
+public partial record RenameListViewModel(TaskList Entity);

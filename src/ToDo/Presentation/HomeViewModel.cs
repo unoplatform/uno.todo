@@ -6,19 +6,22 @@ public partial class HomeViewModel
 	private readonly IAuthenticationService _authSvc;
 	private readonly IStringLocalizer _localizer;
 	private readonly ITaskListService _listSvc;
+	private readonly IWritableOptions<ToDoApp> _appSettings;
 
 	private HomeViewModel(
 		INavigator navigator,
 		IStringLocalizer localizer,
 		IAuthenticationService authSvc,
 		ITaskListService listSvc,
-		IMessenger messenger)
+		IMessenger messenger,
+		IWritableOptions<ToDoApp> appSettings)
 	{
 		_navigator = navigator;
 		_localizer = localizer;
 		_navigator = navigator;
 		_authSvc = authSvc;
 		_listSvc = listSvc;
+		_appSettings = appSettings;
 
 		Lists.Observe(messenger, list => list.Id);
 
@@ -27,6 +30,15 @@ public partial class HomeViewModel
 			new(TaskList.WellknownListNames.Important, _localizer["HomePage_ImportantTaskListLabel"]),
 			new(TaskList.WellknownListNames.Tasks, _localizer["HomePage_CommonTaskListLabel"]),
 		};
+
+		SelectedList = State.Async(this, async _ =>
+		{
+			var allList = await Lists;
+			// Delay to allow NavView to render before selecting an item
+			await Task.Delay(100);
+			var previousListId = _appSettings.Value?.LastTaskList;
+			return allList.FirstOrDefault(x => x.Id == previousListId) ?? WellKnownLists[0];
+		});
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authSvc.GetCurrentUserAsync());
@@ -35,7 +47,14 @@ public partial class HomeViewModel
 
 	public TaskList[] WellKnownLists { get; }
 
+	public IState<TaskList> SelectedList { get; }
+
 	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
+
+	public async ValueTask SelectedListChanged(TaskList selectedTaskList, CancellationToken ct)
+	{
+		await _appSettings.Update(x => x with { LastTaskList = selectedTaskList?.Id });
+	}
 
 	public async ValueTask CreateTaskList(CancellationToken ct)
 	{

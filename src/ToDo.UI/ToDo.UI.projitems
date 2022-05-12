@@ -35,6 +35,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ReferenceConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringCompareConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AppTheme.cs" />

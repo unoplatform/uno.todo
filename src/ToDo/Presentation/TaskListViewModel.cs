@@ -68,7 +68,7 @@ public partial class TaskListViewModel
 	public ICommand RenameList => Command.Create(c => c.Given(Entity).Then(DoRenameList));
 	private async ValueTask DoRenameList(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
+		var response = await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, data: list, cancellation: ct);
 		if (response is null)
 		{
 			return;
