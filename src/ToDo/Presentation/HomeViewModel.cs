@@ -49,7 +49,7 @@ public partial class HomeViewModel
 
 	public IState<TaskList> SelectedList { get; }
 
-	public IListFeed<TaskList> CustomLists => Lists.Where(list => list is { WellknownListName: null or "none" });
+	public IListFeed<TaskList> CustomLists => Lists.Where(list => list.IsCustom);
 
 	public async ValueTask SelectedListChanged(TaskList selectedTaskList, CancellationToken ct)
 	{
