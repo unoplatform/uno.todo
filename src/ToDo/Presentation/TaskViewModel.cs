@@ -62,7 +62,7 @@ public partial class TaskViewModel
 		var date = result.SomeOrDefault()?.DateTime;
 		if (date is not null)
 		{
-			var updated = task with { DueDateTime = (task.DueDateTime ?? new()) with { DateTime = (DateTime)date, TimeZone="UTC" } };
+			var updated = task with { DueDateTime = (task.DueDateTime ?? new()) with { DateTime = (DateTime)date } };
 
 			await _svc.UpdateAsync(updated, ct);
 		}

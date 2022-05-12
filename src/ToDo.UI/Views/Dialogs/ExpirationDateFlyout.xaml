@@ -18,7 +18,7 @@
 			<x:String x:Key="Icon_Calendar_Today">F1 M 18 2 L 17 2 L 17 0 L 15 0 L 15 2 L 5 2 L 5 0 L 3 0 L 3 2 L 2 2 C 0.8999999761581421 2 0 2.899999976158142 0 4 L 0 20 C 0 21.100000023841858 0.8999999761581421 22 2 22 L 18 22 C 19.100000023841858 22 20 21.100000023841858 20 20 L 20 4 C 20 2.899999976158142 19.100000023841858 2 18 2 Z M 18 20 L 2 20 L 2 7 L 18 7 L 18 20 Z</x:String>
 			<x:String x:Key="Icon_Chevron_Right">F1 M 1.4099998474121094 0 L 0 1.4099998474121094 L 4.579999923706055 6 L 0 10.59000015258789 L 1.4099998474121094 12 L 7.409999847412109 6 L 1.4099998474121094 0 Z</x:String>
 
-			<Style x:Key="MyCustomDatePickerStyle"
+			<Style x:Key="CustomDatePickerStyle"
 				   TargetType="DatePicker">
 				<Setter Property="Template">
 					<Setter.Value>
@@ -191,7 +191,7 @@
 								Orientation="Horizontal"
 								utu:AutoLayout.CounterAlignment="Start"
 								utu:AutoLayout.PrimaryAlignment="Stretch">
-					<DatePicker Style="{StaticResource MyCustomDatePickerStyle}"
+					<DatePicker Style="{StaticResource CustomDatePickerStyle}"
 								Header="Pick a Date"
 								SelectedDate="{Binding DueDate, Mode=TwoWay}">
 					</DatePicker>
