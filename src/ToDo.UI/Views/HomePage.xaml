@@ -49,6 +49,10 @@
 					<VisualState.StateTriggers>
 						<AdaptiveTrigger MinWindowWidth="0" />
 					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="NavView.(uen:Navigation.Request)"
+								Value="TaskList" />
+					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
@@ -63,7 +67,9 @@
 							 IsSettingsVisible="False"
 							 Style="{StaticResource HomeNavigationViewStyle}"
 							 CompactModeThresholdWidth="0"
-							 ExpandedModeThresholdWidth="0">
+							 ExpandedModeThresholdWidth="0"
+							 SelectedItem="{Binding SelectedList.Value}"
+							 SelectionChanged="SelectedListChanged">
 
 			<!-- Header: Profile (Setting button) + Search button -->
 			<muxc:NavigationView.PaneHeader>
