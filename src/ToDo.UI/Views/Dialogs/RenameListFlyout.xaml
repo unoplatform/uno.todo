@@ -16,15 +16,15 @@
 					Background="{ThemeResource SurfaceBrush}">
 
 		<TextBlock x:Uid="RenameListFlyout_Title"
-			Foreground="{ThemeResource OnSurfaceBrush}"
+				   Foreground="{ThemeResource OnSurfaceBrush}"
 				   TextWrapping="Wrap"
 				   Text="Rename list"
 				   Style="{StaticResource TitleLarge}" />
 
 		<TextBox x:Uid="RenameListFlyout_InputTextBox"
-				 x:Name="ListNameText"
+				 x:Name="InputTextBox"
 				 PlaceholderText="Rename list"
-				 Text="{Binding ListName, Mode=TwoWay}"
+				 Text="{Binding Entity.DisplayName, Mode=OneTime}"
 				 Style="{StaticResource FilledTextBoxStyle}" />
 
 		<utu:AutoLayout Spacing="10" Orientation="Horizontal">
@@ -45,6 +45,7 @@
 					uen:Navigation.Request="-"
 					uen:Navigation.Data="{Binding Text, ElementName=ListNameText}"
 					utu:AutoLayout.CounterAlignment="Start"
+					IsEnabled="{Binding ElementName=InputTextBox, Path=Text, Converter={StaticResource IsNotNullNorWhitespace}}"
 					Style="{StaticResource FilledButtonStyle}" />
 
 		</utu:AutoLayout>
