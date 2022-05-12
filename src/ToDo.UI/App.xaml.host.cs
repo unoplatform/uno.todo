@@ -1,36 +1,13 @@
-#if DEBUG
-#define USE_MOCKS
-#endif
-
 #pragma warning disable 109 // Remove warning for Window property on iOS
-
-using ToDo.Extensions;
 
 namespace ToDo;
 
 public sealed partial class App : Application
 {
-	private const string _mock = "mock";
 	private readonly IHost _host = BuildAppHost();
 
 	private static IHost BuildAppHost()
 	{
-#if USE_MOCKS
-		var useMocks = true;
-#else
-		var useMocks = false;
-#endif
-
-#if __WASM__
-		var stringUri = WebAssemblyRuntime.InvokeJS("window.location.href;");
-		var query = new Uri(stringUri).Query;
-		var queriesValues = System.Web.HttpUtility.ParseQueryString(query);
-
-		if (queriesValues.TryGetValue(_mock, out var value) && bool.TryParse(value, out var isMocked))
-		{
-			useMocks = isMocked;
-		}
-#endif
 		return UnoHost
 				.CreateDefaultBuilder()
 #if DEBUG
@@ -47,8 +24,7 @@ public sealed partial class App : Application
 					logBuilder
 							.SetMinimumLevel(LogLevel.Information)
 							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information)
-							.AddFilter("Uno.Extensions.Navigation", LogLevel.Trace);
+							.XamlLayoutLogLevel(LogLevel.Information);
 				})
 
 				// Load configuration information from appsettings.json
@@ -58,6 +34,9 @@ public sealed partial class App : Application
 				// Load OAuth configuration
 				.UseConfiguration<Auth>()
 
+				// Load Mock configuration
+				.UseConfiguration<Mock>()
+
 				// Enable app settings
 				.UseSettings<ToDoApp>()
 
@@ -66,12 +45,20 @@ public sealed partial class App : Application
 
 				// Register services for the application
 				.ConfigureServices(
-					(context, services) =>
+					(context, services) => {
+
+						var section = context.Configuration.GetSection(nameof(Mock));
+						var useMocks = bool.TryParse(section[nameof(Mock.IsEnabled)], out var isMocked) ? isMocked : false;
+#if USE_MOCKS
+						// This is required for UI Testing where USE_MOCKS is enabled
+						useMocks=true;;
+#endif
+
 						services
 							.AddScoped<IAppTheme, AppTheme>()
 							.AddEndpoints(context, useMocks: useMocks)
-							.AddServices(useMocks: useMocks)
-						)
+							.AddServices(useMocks: useMocks);
+						})
 
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(

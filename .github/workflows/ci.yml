@@ -38,10 +38,10 @@ jobs:
           useConfigFile: true
           configFilePath: build/gitversion.yml
 
-      - name: Setup dotnet 6.0.200
+      - name: Setup dotnet 6.0.300
         uses: actions/setup-dotnet@v1.7.2
         with:
-          dotnet-version: '6.0.200'
+          dotnet-version: '6.0.300'
 
       - run: |
           cd src/ToDo.Wasm

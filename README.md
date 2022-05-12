@@ -2,10 +2,6 @@
 
 - Staging builds are available here: https://happy-moss-09a619b10.1.azurestaticapps.net
  
-- Staging builds with mocked endpoint are available here: https://happy-moss-09a619b10.1.azurestaticapps.net/?mock=true
+- Staging builds with mocked endpoint are available here: https://happy-moss-09a619b10.1.azurestaticapps.net/?Mock:IsEnabled=true
 
-- Local wasm builds with mocked endpoint
-http://localhost:5000/?mock=true;
-https://localhost:49328/?mock=true
-
-- Local iisExpress builds with mocked endpoint http://localhost:49327/?mock=true;
+- Mocking is enabled by default when running locally in Debug. This can be disabled by REMOVING the IsEnabled property from the appsettings.development.json file (please don't commit this change)
