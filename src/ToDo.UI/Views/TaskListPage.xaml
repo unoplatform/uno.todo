@@ -88,11 +88,13 @@
 												<utu:AutoLayout PrimaryAxisAlignment="Center" utu:AutoLayout.CounterAlignment="Start">
 													<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 															   Text="{Binding Title}"
+															   MaxLines="1"
 															   utu:AutoLayout.CounterAlignment="Start"
 															   Style="{StaticResource TitleMedium}" />
 													<TextBlock Foreground="{ThemeResource OnSurfaceBrush}"
 															   Text="{Binding DueDateTime.DateTime, Converter={StaticResource TaskDueDateFormatter}}"
 															   utu:AutoLayout.CounterAlignment="Start"
+															   Visibility="{Binding DueDateTime.DateTime, Converter={StaticResource IsNotNull}}"
 															   Style="{StaticResource BodyMedium}" />
 												</utu:AutoLayout>
 											</utu:AutoLayout>
