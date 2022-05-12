@@ -1,6 +1,7 @@
 ﻿global using System;
 global using System.Collections.Generic;
 global using System.Collections.Immutable;
+global using System.Collections.Specialized;
 global using System.Diagnostics.Contracts;
 global using System.Globalization;
 global using System.IdentityModel.Tokens.Jwt;
@@ -14,6 +15,7 @@ global using System.Threading.Tasks;
 global using System.Windows.Input;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
+global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Http;
@@ -48,4 +50,3 @@ global using Uno.Extensions.Storage;
 global using Uno.UI.MSAL;
 global using Windows.Security.Authentication.Web;
 global using LogLevel = Microsoft.Extensions.Logging.LogLevel;
-
