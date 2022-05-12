@@ -3,20 +3,17 @@
 public partial class WelcomeViewModel
 {
 	private readonly IAuthenticationService _authService;
-	private readonly IUserProfilePictureService _userSvc;
 	private readonly INavigator _navigator;
 	private readonly IDispatcher _dispatcher;
 
 	private WelcomeViewModel(
 		IDispatcher dispatcher,
 		INavigator navigator,
-		IUserProfilePictureService userSvc,
 		IAuthenticationService authService)
 	{
 		_dispatcher = dispatcher;
 		_navigator =navigator;
 		_authService = authService;
-		_userSvc = userSvc;
 	}
 
 	public async ValueTask GetStarted(CancellationToken ct)
