@@ -43,7 +43,7 @@ public partial class SettingsViewModel
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authService.GetCurrentUserAsync());
-	public IFeed<byte[]?> ProfilePicture => Feed<byte[]?>.Async(async ct => await _userSvc.GetAsync((await CurrentUser).SomeOrDefault()?.Email ?? string.Empty, ct));
+	public IFeed<byte[]?> ProfilePicture => Feed<byte[]?>.Async(async ct => await _userSvc.GetAsync((await CurrentUser)?.Email ?? string.Empty, ct));
 
 	[Value]
 	public IState<DisplayCulture> SelectedCulture { get; }
