@@ -4,16 +4,20 @@ public partial class ExpirationDateViewModel
 {
 	private readonly INavigator _navigator;
 
-	public DateTime DueDate
-	{
-		get;
-		set;
-	}
-	private ExpirationDateViewModel(INavigator navigator)
+	private ExpirationDateViewModel(INavigator navigator, DateTimeData entity)
 	{
 		_navigator = navigator;
-		//DueDate.Execute(async (date, ct) => await _navigator.NavigateBackWithResultAsync(this, data: new DateTimeData { DateTime = date }, cancellation: ct);
+		Entity = State.Value(this, () => entity);
+		Entity.Execute(async (date, ct) =>
+		{
+			if (date is not null)
+			{
+				await _navigator.NavigateBackWithResultAsync(this, data: date, cancellation: ct);
+			}
+		});
 	}
+
+	public IState<DateTimeData> Entity { get; }
 
 	public async ValueTask SelectToday(CancellationToken ct)
 		=> await _navigator.NavigateBackWithResultAsync(this, data: new DateTimeData { DateTime = DateTime.Today }, cancellation: ct);
@@ -21,7 +25,7 @@ public partial class ExpirationDateViewModel
 	public async ValueTask SelectTomorrow(CancellationToken ct)
 		=> await _navigator.NavigateBackWithResultAsync(this, data: new DateTimeData { DateTime = DateTime.Today.AddDays(1) }, cancellation: ct);
 
-	private async ValueTask DoSelectNextWeek(CancellationToken ct)
+	public async ValueTask SelectNextWeek(CancellationToken ct)
 		=> await _navigator.NavigateBackWithResultAsync(this, data: new DateTimeData { DateTime = DateTime.Today.AddDays(7) }, cancellation: ct);
 
 }

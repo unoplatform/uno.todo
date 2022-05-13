@@ -110,7 +110,7 @@ public sealed partial class App : Application
 			/// Dialogs and Flyouts
 			new ViewMap<AddTaskFlyout, AddTaskViewModel>(),
 			new ViewMap<AddListFlyout, AddListViewModel>(),
-			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(),
+			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel.BindableExpirationDateViewModel>(Data: new DataMap<DateTimeData>()),
 			new ViewMap<RenameListFlyout, RenameListViewModel>(),
 
 			// Views
@@ -150,7 +150,7 @@ public sealed partial class App : Application
 				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
 				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
-				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
+				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel.BindableExpirationDateViewModel>()),
 				new("RenameList", View: views.FindByViewModel<RenameListViewModel>()),
 				new(Dialog.ConfirmDeleteList, confirmDeleteListDialog),
 				new(Dialog.ConfirmDeleteTask, confirmDeleteTaskDialog),

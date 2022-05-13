@@ -200,7 +200,7 @@
 								utu:AutoLayout.PrimaryAlignment="Stretch">
 					<DatePicker Style="{StaticResource CustomDatePickerStyle}"
 								Header="Pick a Date"
-								SelectedDate="{Binding DueDate, Mode=TwoWay}">
+								SelectedDate="{Binding Entity.DateTime, Mode=OneWay}">
 					</DatePicker>
 				</utu:AutoLayout>
 			</utu:AutoLayout>
