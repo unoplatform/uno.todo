@@ -3,5 +3,5 @@ namespace ToDo.Business;
 
 public interface IUserProfilePictureService
 {
-	ValueTask<byte[]> GetAsync(CancellationToken cancellationToken);
+	ValueTask<byte[]> GetAsync(UserContext? user, CancellationToken cancellationToken);
 }

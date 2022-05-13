@@ -19,6 +19,7 @@ public partial class WelcomeViewModel
 	public async ValueTask GetStarted(CancellationToken ct)
 	{
 		var user = await _authService.AuthenticateAsync(_dispatcher);
+
 		if(user is not null)
 		{
 			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);

@@ -45,7 +45,7 @@ public partial class HomeViewModel
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authSvc.GetCurrentUserAsync());
-	public IFeed<byte[]?> ProfilePicture => Feed<byte[]?>.Async(async ct => await _userSvc.GetAsync(ct));
+	public IFeed<byte[]?> ProfilePicture => Feed<byte[]?>.Async(async ct => await _userSvc.GetAsync(await CurrentUser, ct));
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 
