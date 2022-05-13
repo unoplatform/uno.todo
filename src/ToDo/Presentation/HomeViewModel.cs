@@ -4,6 +4,7 @@ public partial class HomeViewModel
 {
 	private readonly INavigator _navigator;
 	private readonly IAuthenticationService _authSvc;
+	private readonly IUserProfilePictureService _userSvc;
 	private readonly IStringLocalizer _localizer;
 	private readonly ITaskListService _listSvc;
 	private readonly IWritableOptions<ToDoApp> _appSettings;
@@ -12,6 +13,7 @@ public partial class HomeViewModel
 		INavigator navigator,
 		IStringLocalizer localizer,
 		IAuthenticationService authSvc,
+		IUserProfilePictureService userSvc,
 		ITaskListService listSvc,
 		IMessenger messenger,
 		IWritableOptions<ToDoApp> appSettings)
@@ -20,6 +22,7 @@ public partial class HomeViewModel
 		_localizer = localizer;
 		_navigator = navigator;
 		_authSvc = authSvc;
+		_userSvc = userSvc;
 		_listSvc = listSvc;
 		_appSettings = appSettings;
 
@@ -42,6 +45,7 @@ public partial class HomeViewModel
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authSvc.GetCurrentUserAsync());
+	public IFeed<byte[]?> ProfilePicture => Feed<byte[]?>.Async(async ct => await _userSvc.GetAsync(await CurrentUser, ct));
 
 	private IListState<TaskList> Lists => ListState<TaskList>.Async(this, _listSvc.GetAllAsync);
 

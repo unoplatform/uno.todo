@@ -87,9 +87,10 @@
 						<Grid ColumnDefinitions="Auto,*"
 							  ColumnSpacing="8">
 							<PersonPicture Grid.Column="0"
-										   DisplayName="{Binding CurrentUser.Name}"
-										   Width="40"
-										   Height="40"
+								   DisplayName="{Binding CurrentUser.Name}"
+								   ProfilePicture="{Binding ProfilePicture, Converter={StaticResource  BitmapSourceConverter}}"
+								   Width="40"
+								   Height="40"
 										   VerticalAlignment="Center" />
 							<TextBlock Grid.Column="1"
 									   Text="{Binding CurrentUser.Name}"

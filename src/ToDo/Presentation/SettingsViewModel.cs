@@ -3,6 +3,7 @@ namespace ToDo.Presentation;
 public partial class SettingsViewModel
 {
 	private readonly IAuthenticationService _authService;
+	private readonly IUserProfilePictureService _userSvc;
 	private readonly INavigator _navigator;
 	private IAppTheme _appTheme;
 	private IWritableOptions<ToDoApp> _appSettings;
@@ -17,6 +18,7 @@ public partial class SettingsViewModel
 	private SettingsViewModel(
 		INavigator navigator,
 		IAuthenticationService authService,
+		IUserProfilePictureService userSvc,
 		IWritableOptions<LocalizationSettings> localizationSettings,
 		IStringLocalizer localizer,
 		IAppTheme appTheme,
@@ -24,6 +26,7 @@ public partial class SettingsViewModel
 	{
 		_navigator = navigator;
 		_authService = authService;
+		_userSvc = userSvc;
 		LocalizationSettings = localizationSettings;
 		_appTheme = appTheme;
 		_appSettings = appSettings;
@@ -40,6 +43,7 @@ public partial class SettingsViewModel
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authService.GetCurrentUserAsync());
+	public IFeed<byte[]?> ProfilePicture => Feed<byte[]?>.Async(async ct => await _userSvc.GetAsync(await CurrentUser, ct));
 
 	[Value]
 	public IState<DisplayCulture> SelectedCulture { get; }
