@@ -64,11 +64,11 @@
 		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.607" />
 		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.607" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.607" />
-		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.191" />
+		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.201" />
 
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
-		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.18" />
-		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.18" />
+		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.21" />
+		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.21" />
 		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.9" />
 
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="3.3.1" />
