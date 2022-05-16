@@ -22,7 +22,7 @@
 		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.607" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.607" />
 		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.607" />
-		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="1.2.0-dev.607" />
+		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="1.2.0-dev.630" />
 		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="1.2.0-dev.607" />
 	</ItemGroup>
 	<ItemGroup>
