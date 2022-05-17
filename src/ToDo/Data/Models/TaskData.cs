@@ -27,13 +27,16 @@ public class TaskData
 	public DateTime LastModifiedDateTime { get; set; }
 
 	[JsonPropertyName("completedDateTime")]
-	public DateTimeData? CompletedDateTime { get; set; }
+	[JsonConverter(typeof(DateTimeDataConverter))]
+	public DateTimeOffset? CompletedDateTime { get; set; }
 
 	[JsonPropertyName("body")]
 	public TaskBodyData? Body { get; set; }
 
 	[JsonPropertyName("dueDateTime")]
-	public DateTimeData? DueDateTime { get; set; }
+	[JsonConverter(typeof(DateTimeDataConverter))]
+	public DateTimeOffset? DueDateTime { get; set; }
+
 
 	[JsonPropertyName("linkedResources@odata.context")]
 	public string? LinkedResourcesOdataContext { get; set; }
