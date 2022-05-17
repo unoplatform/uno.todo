@@ -66,9 +66,9 @@ public record ToDoTask
 
 	public TaskBodyData? Body { get; init; }
 
-	public DateTimeData? DueDateTime { get; init; }
+	public DateTimeOffset? DueDateTime { get; init; }
 
-	public DateTimeData? CompletedDateTime { get; init; }
+	public DateTimeOffset? CompletedDateTime { get; init; }
 
 	public string? LinkedResourcesOdataContext { get; init; }
 

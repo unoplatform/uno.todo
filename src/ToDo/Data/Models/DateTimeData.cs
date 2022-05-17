@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Data.Models;
 
-public class DateTimeData
+public record DateTimeData
 {
 	[JsonPropertyName("dateTime")]
 	public DateTime DateTime { get; set; }

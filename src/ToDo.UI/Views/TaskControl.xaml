@@ -75,33 +75,44 @@
 					<utu:AutoLayout PrimaryAxisAlignment="Center">
 						<utu:AutoLayout Spacing="16"
 										Orientation="Horizontal">
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center">
-								<utu:AutoLayout Spacing="16"
+							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
+											utu:AutoLayout.PrimaryAlignment="Stretch">
+								<Button Style="{StaticResource OutlinedButtonStyle}"
+										BorderThickness="0"
+										utu:AutoLayout.CounterAlignment="Start"
+										Command="{Binding AddDueDate}">
+									<utu:AutoLayout Orientation="Horizontal">
+										<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center">
+											<utu:AutoLayout Spacing="16"
 												Orientation="Horizontal"
 												utu:AutoLayout.CounterAlignment="Start"
 												utu:AutoLayout.PrimaryLength="24"
 												utu:AutoLayout.CounterLength="24">
-									<PathIcon Data="{StaticResource Icon_Today}"
+												<PathIcon Data="{StaticResource Icon_Today}"
 											  Foreground="{ThemeResource PrimaryBrush}"
 											  utu:AutoLayout.CounterAlignment="Start" />
-								</utu:AutoLayout>
-							</utu:AutoLayout>
-							<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
+											</utu:AutoLayout>
+										</utu:AutoLayout>
+										<utu:AutoLayout utu:AutoLayout.CounterAlignment="Center"
 											utu:AutoLayout.PrimaryAlignment="Stretch">
-								<utu:AutoLayout PrimaryAxisAlignment="Center">
-									<utu:AutoLayout PrimaryAxisAlignment="Center">
-										<TextBlock Foreground="{ThemeResource PrimaryBrush}"
+											<utu:AutoLayout PrimaryAxisAlignment="Center">
+												<utu:AutoLayout PrimaryAxisAlignment="Center">
+													<TextBlock Foreground="{ThemeResource PrimaryBrush}"
 												   TextWrapping="Wrap"
-												   Text="{Binding Entity.DueDateTime.DateTime, Converter={StaticResource DueDateFormatter}}"
+												   Text="{Binding Entity.DueDateTime, Converter={StaticResource DueDateFormatter}}"
 												   Style="{StaticResource TitleMedium}" />
+												</utu:AutoLayout>
+											</utu:AutoLayout>
+										</utu:AutoLayout>
 									</utu:AutoLayout>
-								</utu:AutoLayout>
+								</Button>
 							</utu:AutoLayout>
 							<utu:AutoLayout Orientation="Horizontal"
 											utu:AutoLayout.CounterAlignment="Center">
 								<utu:AutoLayout PrimaryAxisAlignment="End"
 												Orientation="Horizontal">
 									<Button utu:AutoLayout.CounterAlignment="Start"
+											Command="{Binding DeleteDueDate}"
 											Style="{StaticResource IconButtonStyle}">
 										<PathIcon Data="{StaticResource Icon_Close}" />
 									</Button>
@@ -131,7 +142,7 @@
 											   Style="{StaticResource BodyMedium}" />
 									<TextBlock Foreground="{ThemeResource OnSurfaceMediumBrush}"
 											   TextWrapping="Wrap"
-											   Text="{Binding Entity.CompletedDateTime.DateTime, Converter={StaticResource CompletedDateFormatter}}"
+											   Text="{Binding Entity.CompletedDateTime, Converter={StaticResource CompletedDateFormatter}}"
 											   Visibility="{Binding Entity.CompletedDateTime, Converter={StaticResource IsNotNull}}"
 											   Style="{StaticResource BodyMedium}" />
 								</utu:AutoLayout>

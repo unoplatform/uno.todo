@@ -110,7 +110,7 @@ public sealed partial class App : Application
 			/// Dialogs and Flyouts
 			new ViewMap<AddTaskFlyout, AddTaskViewModel>(),
 			new ViewMap<AddListFlyout, AddListViewModel>(),
-			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(),
+			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(Data: new DataMap<PickedDate>()),
 			new ViewMap<RenameListFlyout, RenameListViewModel>(),
 
 			// Views
