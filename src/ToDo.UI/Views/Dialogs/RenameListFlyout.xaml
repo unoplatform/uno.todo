@@ -43,7 +43,7 @@
 			<Button x:Uid="RenameListFlyout_RenameButton"
 					Content="Rename"
 					uen:Navigation.Request="-"
-					uen:Navigation.Data="{Binding Text, ElementName=ListNameText}"
+					uen:Navigation.Data="{Binding Text, ElementName=InputTextBox}"
 					utu:AutoLayout.CounterAlignment="Start"
 					IsEnabled="{Binding ElementName=InputTextBox, Path=Text, Converter={StaticResource IsNotNullNorWhitespace}}"
 					Style="{StaticResource FilledButtonStyle}" />

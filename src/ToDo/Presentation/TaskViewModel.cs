@@ -36,8 +36,8 @@ public partial class TaskViewModel
 	public ICommand Delete => Command.Create(b => b.Given(Entity).Then(DoDelete));
 	private async ValueTask DoDelete(ToDoTask task, CancellationToken ct)
 	{
-		var result = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, Dialog.ConfirmDeleteTask, cancellation: ct).AsResult();
-		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
+		var result = await _navigator.ShowMessageDialogAsync<object>(this, Dialog.ConfirmDeleteTask, cancellation: ct);
+		if (result == DialogResults.Affirmative)
 		{
 			await _svc.DeleteAsync(task, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
