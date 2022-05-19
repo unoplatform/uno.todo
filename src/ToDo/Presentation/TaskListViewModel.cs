@@ -24,8 +24,8 @@ public partial class TaskListViewModel
 
 		Entity = State.Value(this, () => entity);
 
-		Entity.Observe(messenger, list => list.Id);
-		Tasks.Observe(messenger, Entity, (list, task) => list.Id == task.ListId, task => task.Id);
+		messenger.Observe(Entity, list => list.Id);
+		messenger.Observe(Tasks, Entity, (list, task) => list.Id == task.ListId, task => task.Id);
 	}
 
 	public IState<TaskList> Entity { get; }
@@ -37,15 +37,20 @@ public partial class TaskListViewModel
 	public IListFeed<ToDoTask> CompletedTasks => Tasks.Where(task => task.IsCompleted);
 
 	public async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
-		=> await _taskSvc.UpdateAsync(task.WithToggledIsImportant(), ct);
+		=> await _taskSvc.UpdateAsync(task.ToggleIsImportant(), ct);
 
 	public async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
-		=> await _taskSvc.UpdateAsync(task.WithToggledIsCompleted(), ct);
+		=> await _taskSvc.UpdateAsync(task.ToggleIsCompleted(), ct);
 
 
-	public ICommand CreateTask => Command.Create(c => c.Given(Entity).Then(DoCreateTask));
-	private async ValueTask DoCreateTask(TaskList list, CancellationToken ct)
+	public async ValueTask CreateTask(CancellationToken ct)
 	{
+		var list = await Entity;
+		if (list is null)
+		{
+			return;
+		}
+
 		var taskName = await _navigator.GetDataAsync<AddTaskViewModel, string>(this, qualifier: Qualifiers.Dialog, cancellation: ct);
 		if (taskName is { Length: > 0 })
 		{
@@ -54,9 +59,14 @@ public partial class TaskListViewModel
 		}
 	}
 
-	public ICommand DeleteList => Command.Create(c => c.Given(Entity).Then(DoDeleteList));
-	private async ValueTask DoDeleteList(TaskList list, CancellationToken ct)
+	public async ValueTask DeleteList(CancellationToken ct)
 	{
+		var list = await Entity;
+		if (list is null)
+		{
+			return;
+		}
+
 		var result = await _navigator.ShowMessageDialogAsync<object>(this, Dialog.ConfirmDeleteList, cancellation: ct);
 		if (result == DialogResults.Affirmative)
 		{
@@ -65,13 +75,16 @@ public partial class TaskListViewModel
 		}
 	}
 
-	public ICommand RenameList => Command.Create(c => c.Given(Entity).Then(DoRenameList));
-	private async ValueTask DoRenameList(TaskList list, CancellationToken ct)
+	public async ValueTask RenameList(CancellationToken ct)
 	{
-		var result= await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, data: list, cancellation: ct).AsResult();
+		var list = await Entity;
+		if (list is null)
+		{
+			return;
+		}
 
-		var newListName = result.SomeOrDefault();
-		if (!string.IsNullOrWhiteSpace(newListName))
+		var result= await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, data: list, cancellation: ct).AsResult();
+		if (result.IsSome(out var newListName) && !string.IsNullOrWhiteSpace(newListName))
 		{
 			list = list with { DisplayName = newListName };
 			await _listSvc.UpdateAsync(list, ct);

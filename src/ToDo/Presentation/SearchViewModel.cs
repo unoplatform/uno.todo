@@ -17,8 +17,8 @@ public partial class SearchViewModel
 		.AsListFeed();
 
 	public async ValueTask ToggleIsCompleted(ToDoTask task, CancellationToken ct)
-		=> await _svc.UpdateAsync(task.WithToggledIsCompleted(), ct);
+		=> await _svc.UpdateAsync(task.ToggleIsCompleted(), ct);
 
 	public async ValueTask ToggleIsImportant(ToDoTask task, CancellationToken ct)
-		=> await _svc.UpdateAsync(task.WithToggledIsImportant(), ct);
+		=> await _svc.UpdateAsync(task.ToggleIsImportant(), ct);
 }

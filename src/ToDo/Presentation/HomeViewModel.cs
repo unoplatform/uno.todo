@@ -26,7 +26,7 @@ public partial class HomeViewModel
 		_listSvc = listSvc;
 		_appSettings = appSettings;
 
-		Lists.Observe(messenger, list => list.Id);
+		messenger.Observe(Lists, list => list.Id);
 
 		WellKnownLists = new TaskList[]
 		{
