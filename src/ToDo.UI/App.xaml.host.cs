@@ -27,18 +27,21 @@ public sealed partial class App : Application
 							.XamlLayoutLogLevel(LogLevel.Information);
 				})
 
-				// Load configuration information from appsettings.json
-				.UseEmbeddedAppSettings<App>()
-				.UseCustomEmbeddedSettings<App>("appsettings.platform.json")
+				.UseConfiguration(configure: configBuilder =>
+					configBuilder
+						// Load configuration information from appconfig.json
+						.EmbeddedSource<App>()
+						.EmbeddedSource<App>("appsettings.platform.json")
 
-				// Load OAuth configuration
-				.UseConfiguration<Auth>()
+						// Load OAuth configuration
+						.Section<Auth>()
 
-				// Load Mock configuration
-				.UseConfiguration<Mock>()
+						// Load Mock configuration
+						.Section<Mock>()
 
-				// Enable app settings
-				.UseSettings<ToDoApp>()
+						// Enable app settings
+						.Section<ToDoApp>()
+				)
 
 				// Register Json serializers (ISerializer and IStreamSerializer)
 				.UseSerialization()
