@@ -57,7 +57,7 @@ public partial class HomeViewModel
 
 	public async ValueTask SelectedListChanged(TaskList selectedTaskList, CancellationToken ct)
 	{
-		await _appSettings.Update(x => x with { LastTaskList = selectedTaskList?.Id });
+		await _appSettings.UpdateAsync(x => x with { LastTaskList = selectedTaskList?.Id });
 	}
 
 	public async ValueTask CreateTaskList(CancellationToken ct)

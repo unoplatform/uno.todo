@@ -19,6 +19,7 @@ public partial class SettingsViewModel
 		INavigator navigator,
 		IAuthenticationService authService,
 		IUserProfilePictureService userSvc,
+		IOptions<LocalizationConfiguration> localizationConfiguration,
 		IWritableOptions<LocalizationSettings> localizationSettings,
 		IStringLocalizer localizer,
 		IAppTheme appTheme,
@@ -36,7 +37,7 @@ public partial class SettingsViewModel
 
 		SelectedAppTheme.Execute(ChangeAppTheme);
 
-		Cultures = LocalizationSettings.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
+		Cultures = localizationConfiguration.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
 		SelectedCulture = State.Value(this, () => Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First());
 
 		SelectedCulture.Execute(ChangeLanguage);
@@ -54,8 +55,8 @@ public partial class SettingsViewModel
 
 	public async ValueTask SignOut(CancellationToken ct)
 	{
-		var result = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, Dialog.ConfirmSignOut, cancellation: ct).AsResult();
-		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
+		var result = await _navigator.ShowMessageDialogAsync<object>(this, Dialog.ConfirmSignOut, cancellation: ct);
+		if (result == DialogResults.Affirmative)
 		{
 			await _authService.SignOutAsync();
 
@@ -67,7 +68,7 @@ public partial class SettingsViewModel
 	{
 		if (culture is not null)
 		{
-			await LocalizationSettings.Update(settings => settings.CurrentCulture = culture.Culture);
+			await LocalizationSettings.UpdateAsync(settings => settings with { CurrentCulture = culture.Culture });
 		}
 	}
 
@@ -78,7 +79,7 @@ public partial class SettingsViewModel
 		{
 			var isDark = Array.IndexOf(AppThemes, appTheme) == 1;
 			await _appTheme.SetThemeAsync(isDark);
-			await _appSettings.Update(s => s with { IsDark = isDark });
+			await _appSettings.UpdateAsync(s => s with { IsDark = isDark });
 		}
 	}
 

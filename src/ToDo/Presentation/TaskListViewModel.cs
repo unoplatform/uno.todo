@@ -57,8 +57,8 @@ public partial class TaskListViewModel
 	public ICommand DeleteList => Command.Create(c => c.Given(Entity).Then(DoDeleteList));
 	private async ValueTask DoDeleteList(TaskList list, CancellationToken ct)
 	{
-		var result = await _navigator.NavigateRouteForResultAsync<LocalizableDialogAction>(this, Dialog.ConfirmDeleteList, cancellation: ct).AsResult();
-		if (result.SomeOrDefault()?.Id == DialogResults.Affirmative)
+		var result = await _navigator.ShowMessageDialogAsync<object>(this, Dialog.ConfirmDeleteList, cancellation: ct);
+		if (result == DialogResults.Affirmative)
 		{
 			await _listSvc.DeleteAsync(list, ct);
 			await _navigator.NavigateBackAsync(this, cancellation: ct);
@@ -68,13 +68,9 @@ public partial class TaskListViewModel
 	public ICommand RenameList => Command.Create(c => c.Given(Entity).Then(DoRenameList));
 	private async ValueTask DoRenameList(TaskList list, CancellationToken ct)
 	{
-		var response = await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, data: list, cancellation: ct);
-		if (response is null)
-		{
-			return;
-		}
+		var result= await _navigator.NavigateViewModelForResultAsync<RenameListViewModel, string>(this, qualifier: Qualifiers.Dialog, data: list, cancellation: ct).AsResult();
 
-		var newListName = (await response.Result).SomeOrDefault();
+		var newListName = result.SomeOrDefault();
 		if (!string.IsNullOrWhiteSpace(newListName))
 		{
 			list = list with { DisplayName = newListName };

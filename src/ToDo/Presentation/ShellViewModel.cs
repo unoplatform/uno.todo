@@ -21,11 +21,11 @@ public class ShellViewModel
 		var token = await _auth.GetAccessToken();
 		if (string.IsNullOrWhiteSpace(token))
 		{
-			await _navigator.NavigateViewModelAsync<WelcomeViewModel.BindableWelcomeViewModel>(this);
+			await _navigator.NavigateViewModelAsync<WelcomeViewModel>(this);
 		}
 		else
 		{
-			await _navigator.NavigateViewModelAsync<HomeViewModel.BindableHomeViewModel>(this);
+			await _navigator.NavigateViewModelAsync<HomeViewModel>(this);
 		}
 	}
 }

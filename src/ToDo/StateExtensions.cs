@@ -118,12 +118,12 @@ public static class StateExtensions
 			catch (OperationCanceledException) when (_ct.IsCancellationRequested)
 			{
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
-				if (this.Log().IsEnabled(LogLevel.Error))
-				{
-					this.Log().LogError(e, "Failed to apply update message.");
-				}
+				//if (this.Log().IsEnabled(LogLevel.Error))
+				//{
+				//	this.Log().LogError(e, "Failed to apply update message.");
+				//}
 			}
 		}
 
