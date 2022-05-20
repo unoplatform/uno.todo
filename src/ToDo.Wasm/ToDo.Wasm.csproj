@@ -74,7 +74,7 @@
 		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="4.0.0-dev.107" />
 
 		<PackageReference Include="Uno.WinUI.MSAL" Version="4.2.6" />
-		<PackageReference Include="Uno.WinUI.WebAssembly" Version="4.3.0-dev.135" />
+		<PackageReference Include="Uno.WinUI.WebAssembly" Version="4.3.0-dev.357" />
 		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.0-dev.135" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
 	<ItemGroup>
