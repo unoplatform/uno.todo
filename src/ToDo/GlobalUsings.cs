@@ -44,6 +44,7 @@ global using Uno.Extensions.Navigation;
 global using Uno.Extensions.Reactive;
 global using Uno.Extensions.Reactive.Core;
 global using Uno.Extensions.Reactive.Utils;
+global using Uno.Extensions.Reactive.Messaging;
 global using Uno.Extensions.Serialization;
 global using Uno.Extensions.Serialization.Refit;
 global using Uno.Extensions.Storage;
