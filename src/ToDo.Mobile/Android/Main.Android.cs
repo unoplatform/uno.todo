@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -10,17 +6,21 @@ using Android.Views;
 using Android.Widget;
 using Com.Nostra13.Universalimageloader.Core;
 using Microsoft.UI.Xaml.Media;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace ToDo.Droid
 {
 	[global::Android.App.ApplicationAttribute(
-		Label = "@string/ApplicationName",
-		Icon = "@mipmap/ic_launcher",
-		RoundIcon = "@mipmap/ic_launcher_round",
-		LargeHeap = true,
-		HardwareAccelerated = true,
-		Theme = "@style/AppTheme"
-	)]
+		 Label = "@string/ApplicationName",
+		 Icon = "@mipmap/ic_launcher",
+		 RoundIcon = "@mipmap/ic_launcher_round",
+		 LargeHeap = true,
+		 HardwareAccelerated = true,
+		 Theme = "@style/AppTheme"
+	 )]
 	public class Application : Microsoft.UI.Xaml.NativeApplication
 	{
 		public Application(IntPtr javaReference, JniHandleOwnership transfer)

@@ -23,12 +23,12 @@ public class StringCompareConverter : IValueConverter
 	public bool InvertResult { get; set; } = false;
 
 	/// <summary>
-	/// Value to returned when the comparison is successful. The default value is literal <see cref="true"/>.
+	/// Value to returned when the comparison is successful. The default value is literal true.
 	/// </summary>
 	public object TrueValue { get; set; } = true;
 	
 	/// <summary>
-	/// Value to returned when the comparison is not successful. The default value is literal <see cref="false"/>.
+	/// Value to returned when the comparison is not successful. The default value is literal false.
 	/// </summary>
 	public object FalseValue { get; set; } = false;
 

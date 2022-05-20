@@ -1,9 +1,12 @@
 using Android.App;
-using Android.Views;
 using Android.Content;
+using Android.Content.PM;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
 using Microsoft.Identity.Client;
 
-namespace ToDo.Droid
+namespace ToDo
 {
 	[Activity(
 			MainLauncher = true,
