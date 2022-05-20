@@ -34,11 +34,10 @@ public partial class HomeViewModel
 			new(TaskList.WellknownListNames.Tasks, _localizer["HomePage_CommonTaskListLabel"]),
 		};
 
+		// TODO: Need to update SelectedList if a list is renamed or deleted
 		SelectedList = State.Async(this, async _ =>
 		{
 			var allList = await Lists;
-			// Delay to allow NavView to render before selecting an item
-			await Task.Delay(100);
 			var previousListId = _appSettings.Value?.LastTaskList;
 			return allList.FirstOrDefault(x => x.Id == previousListId) ?? WellKnownLists[0];
 		});
