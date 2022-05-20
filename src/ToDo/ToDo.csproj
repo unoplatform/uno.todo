@@ -21,9 +21,10 @@
 		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.732" />
 		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.732" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.732" />
+		<PackageReference Include="Uno.Extensions.Reactive.Messaging" Version="1.2.0-dev.732" />
 		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.732" />
 		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="1.2.0-dev.732" />
-		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="1.2.0-dev.732" />
+		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="1.2.0-dev.769" />
 	</ItemGroup>
 	<ItemGroup>
 	  <SourceGeneratorInput Remove="Configuration\Mock.cs" />
