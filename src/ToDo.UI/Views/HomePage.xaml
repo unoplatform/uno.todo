@@ -68,8 +68,7 @@
 							 Style="{StaticResource HomeNavigationViewStyle}"
 							 CompactModeThresholdWidth="0"
 							 ExpandedModeThresholdWidth="0"
-							 SelectedItem="{Binding SelectedList.Value}"
-							 SelectionChanged="SelectedListChanged">
+							 SelectedItem="{Binding SelectedList.Value}">
 
 			<!-- Header: Profile (Setting button) + Search button -->
 			<muxc:NavigationView.PaneHeader>

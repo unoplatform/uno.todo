@@ -2,6 +2,8 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
 
+using Uno.Extensions.Navigation.UI;
+
 namespace ToDo;
 
 public sealed partial class App : Application
@@ -14,6 +16,8 @@ public sealed partial class App : Application
 	public App()
 	{
 		this.InitializeComponent();
+
+		var handlers = _host.Services.GetServices<IRequestHandler>();
 
 #if HAS_UNO || NETFX_CORE
 		this.Suspending += OnSuspending;
