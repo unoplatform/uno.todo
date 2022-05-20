@@ -21,7 +21,7 @@
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Uno.WinUI.MSAL" Version="4.2.6" />
     <PackageReference Include="Uno.Extensions.Configuration" Version="1.2.0-dev.732" />
-    <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.732" />
+    <PackageReference Include="Uno.Extensions.Hosting" Version="1.2.0-dev.769" />
   </ItemGroup>
 
   <ItemGroup>
