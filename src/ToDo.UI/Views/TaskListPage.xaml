@@ -190,14 +190,14 @@
 									  Foreground="{ThemeResource OnPrimaryMediumBrush}"
 									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
-								<PathIcon Data="{StaticResource Icon_Drive_File_Rename_Outline}" />
+								<BitmapIcon UriSource="ms-appx:///Assets/Icons/drive_file_rename_outline.png" />
 							</AppBarButton.Icon>
 						</AppBarButton>
 						<AppBarButton Command="{Binding DeleteList}"
 									  Foreground="{ThemeResource OnPrimaryMediumBrush}"
 									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
-								<PathIcon Data="{StaticResource Icon_Delete_Outline}" />
+								<BitmapIcon UriSource="ms-appx:///Assets/Icons/delete_outline.png" />
 							</AppBarButton.Icon>
 						</AppBarButton>
 					</utu:NavigationBar.PrimaryCommands>
