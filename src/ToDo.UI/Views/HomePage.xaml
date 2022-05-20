@@ -9,6 +9,7 @@
 	  xmlns:uen="using:Uno.Extensions.Navigation.UI"
 	  xmlns:uer="using:Uno.Extensions.Reactive.UI"
 	  xmlns:um="using:Uno.Material"
+	  xmlns:uut="using:Uno.UI.Toolkit"
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:not_win="http://uno.ui/not_win"
 	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -33,7 +34,7 @@
 											 TasksValue="{StaticResource PrimaryVariantDarkBrush}"
 											 DefaultValue="{StaticResource PrimaryVariantLightBrush}" />
 	</Page.Resources>
-	<Grid>
+	<Grid uut:VisibleBoundsPadding.PaddingMask="All">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup>
 				<VisualState x:Name="Wide">
