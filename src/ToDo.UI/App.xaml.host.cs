@@ -110,7 +110,7 @@ public sealed partial class App : Application
 		var confirmSignOutDialog = BuildDialogViewMap(Dialog.ConfirmSignOut, true, 0, (DialogResults.Affirmative, ResourceKeys.SignOutButton), cancelButton);
 
 		views.Register(
-			/// Dialogs and Flyouts
+			// Dialogs and Flyouts
 			new ViewMap<AddTaskFlyout, AddTaskViewModel>(),
 			new ViewMap<AddListFlyout, AddListViewModel>(),
 			new ViewMap<ExpirationDateFlyout, ExpirationDateViewModel>(Data: new DataMap<PickedDate>()),

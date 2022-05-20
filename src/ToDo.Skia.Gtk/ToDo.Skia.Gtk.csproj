@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
 		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<DefineConstants>$(DefinedConstants);WINUI</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup Condition="exists('..\ToDo.UWP')">
@@ -23,10 +23,10 @@
 		<PackageReference Include="Microsoft.Identity.Client" Version="4.43.1" />
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
-		<PackageReference Include="Uno.WinUI.MSAL" Version="4.2.6" />
-		<PackageReference Include="Uno.WinUI.Skia.Gtk" Version="4.3.0-dev.135" />
-		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.0-dev.135" Condition="'$(Configuration)'=='Debug'" />
-		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.1.9" />
+		<PackageReference Include="Uno.WinUI.MSAL" Version="4.3.5" />
+		<PackageReference Include="Uno.WinUI.Skia.Gtk" Version="4.3.5" />
+		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.5" Condition="'$(Configuration)'=='Debug'" />
+		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.5" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
 		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.201" />
 		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.28" />
