@@ -1,7 +1,5 @@
 #pragma warning disable 109 // Remove warning for Window property on iOS
 
-using Uno.Extensions.Navigation.UI;
-
 namespace ToDo;
 
 public sealed partial class App : Application
@@ -80,9 +78,6 @@ public sealed partial class App : Application
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
-
-				// TODO: Remove once Extensions has been updated - https://github.com/unoplatform/uno.extensions/issues/475
-				.ConfigureServices(services => services.AddSingleton<IRequestHandler, CustomNavigationViewRequestHandler>())
 
 				// Add localization support
 				.UseLocalization()
