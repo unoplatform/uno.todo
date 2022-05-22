@@ -53,6 +53,8 @@
 					<VisualState.Setters>
 						<Setter Target="NavView.(uen:Navigation.Request)"
 								Value="TaskList" />
+						<Setter Target="NavView.SelectedItem"
+								Value="{x:Null}" />
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
