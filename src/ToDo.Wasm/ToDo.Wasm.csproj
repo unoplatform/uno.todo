@@ -63,7 +63,7 @@
 		<PackageReference Include="Uno.Extensions.Navigation" Version="1.2.0-dev.769" />
 		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.769" />
 		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.769" />
-		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.769" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.779" />
 		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.201" />
 		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.28" />
 		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.28" />
