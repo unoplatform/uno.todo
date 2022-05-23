@@ -63,7 +63,9 @@
 							   Foreground="{ThemeResource PrimaryBrush}"
 							   Style="{StaticResource TitleSmall}" />
 					<utu:AutoLayout Spacing="20">
-						<utu:AutoLayout Spacing="5">
+						<!-- Commenting the Color Palette Section for now -->
+						<!-- Can be added again when it's implemented : https://github.com/unoplatform/uno.todo/issues/147 -->
+						<!--<utu:AutoLayout Spacing="5">
 							<TextBlock x:Uid="SettingsPage_PaletteSection"
 									   Text="Color palette"
 									   Foreground="{ThemeResource OnSurfaceBrush}"
@@ -80,7 +82,7 @@
 								<utu:Chip x:Uid="SettingsPage_PaletteYellow" Content="Yellow"
 										  Style="{StaticResource FilterChipStyle}" />
 							</utu:ChipGroup>
-						</utu:AutoLayout>
+						</utu:AutoLayout>-->
 						<utu:AutoLayout Spacing="5">
 							<TextBlock x:Uid="SettingsPage_LanguageLabel" 
 									   Foreground="{ThemeResource OnSurfaceBrush}"

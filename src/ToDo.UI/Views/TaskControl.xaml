@@ -60,10 +60,12 @@
 									  Command="{Binding ToggleIsImportant}"
 									  CommandParameter="{Binding}">
 							<ToggleButton.Content>
-								<PathIcon Data="{StaticResource Icon_Star_Rate_Empty}" />
+								<PathIcon Foreground="{StaticResource OnSurfaceLowBrush}"
+										  Data="{StaticResource Icon_Star_Rate}" />
 							</ToggleButton.Content>
 							<um:ControlExtensions.AlternateContent>
-								<PathIcon Data="{StaticResource Icon_Star_Rate}" />
+								<PathIcon Foreground="{StaticResource ErrorBrush}"
+										  Data="{StaticResource Icon_Star_Rate}" />
 							</um:ControlExtensions.AlternateContent>
 						</ToggleButton>
 					</utu:AutoLayout>

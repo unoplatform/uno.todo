@@ -37,7 +37,7 @@
     <value>Déconnexion</value>
   </data>
   <data name="WelcomePage_Welcome.Text" xml:space="preserve">
-    <value>Bienvennue à To Do!</value>
+    <value>Bienvenue à Uno To Do!</value>
   </data>
   <data name="WelcomePage_Line2.Text" xml:space="preserve">
     <value>La meilleure appli de gestion de tâches</value>

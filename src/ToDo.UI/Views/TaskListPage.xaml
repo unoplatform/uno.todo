@@ -20,19 +20,13 @@
 		<x:String x:Key="Icon_Star_Rate">F1 M 12.430000305175781 8 L 10 0 L 7.569999694824219 8 L 0 8 L 6.180000305175781 12.40999984741211 L 3.8299999237060547 20 L 10 15.309999465942383 L 16.18000030517578 20 L 13.829999923706055 12.40999984741211 L 20 8 L 12.430000305175781 8 Z</x:String>
 
 		<StaticResource x:Key="DefaultTaskListSurfaceBrush" ResourceKey="PrimaryVariantLightBrush" />
-		<StaticResource x:Key="DefaultTaskListOnSurfaceBrush" ResourceKey="PrimaryVariantLightBrush" />
 		<StaticResource x:Key="ImportantTaskListSurfaceBrush" ResourceKey="ErrorBrush" />
-		<StaticResource x:Key="ImportantTaskListOnSurfaceBrush" ResourceKey="OnErrorBrush" />
 
 		<!-- note: in order to use converter in Page.Background, that resource needs to be declared globally. -->
 		<converters:TaskListToValueConverter x:Key="TaskListSurfaceBrushConverter"
 											 ImportantValue="{StaticResource ImportantTaskListSurfaceBrush}"
 											 TasksValue="{StaticResource DefaultTaskListSurfaceBrush}"
 											 DefaultValue="{StaticResource DefaultTaskListSurfaceBrush}" />
-		<converters:TaskListToValueConverter x:Key="TaskListOnSurfaceBrushConverter"
-											 ImportantValue="{StaticResource ImportantTaskListOnSurfaceBrush}"
-											 TasksValue="{StaticResource DefaultTaskListOnSurfaceBrush}"
-											 DefaultValue="{StaticResource DefaultTaskListOnSurfaceBrush}" />
 		<converters:TaskListToValueConverter x:Key="TaskListVisibilityConverter"
 											 ImportantValue="Collapsed"
 											 TasksValue="Collapsed"
@@ -113,7 +107,7 @@
 														<PathIcon Foreground="{StaticResource OnSurfaceLowBrush}" Data="{StaticResource Icon_Star_Rate}" />
 													</ToggleButton.Content>
 													<um:ControlExtensions.AlternateContent>
-														<PathIcon Foreground="{StaticResource PrimaryVariantLightBrush}" Data="{StaticResource Icon_Star_Rate}" />
+														<PathIcon Foreground="{StaticResource ErrorBrush}" Data="{StaticResource Icon_Star_Rate}" />
 													</um:ControlExtensions.AlternateContent>
 												</ToggleButton>
 											</utu:AutoLayout>
@@ -177,9 +171,10 @@
 			<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:NavigationBar Content="{Binding Entity.DisplayName}"
 								   Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
+								   Foreground="{ThemeResource OnPrimaryBrush}"
 								   Style="{StaticResource NavigationBarStyle}">
 					<utu:NavigationBar.MainCommand>
-						<AppBarButton Foreground="{ThemeResource OnPrimaryMediumBrush}">
+						<AppBarButton Foreground="{ThemeResource OnPrimaryBrush}">
 							<AppBarButton.Icon>
 								<BitmapIcon UriSource="ms-appx:///Assets/Icons/back.png" />
 							</AppBarButton.Icon>
@@ -187,14 +182,14 @@
 					</utu:NavigationBar.MainCommand>
 					<utu:NavigationBar.PrimaryCommands>
 						<AppBarButton Command="{Binding RenameList}"
-									  Foreground="{ThemeResource OnPrimaryMediumBrush}"
+									  Foreground="{ThemeResource OnPrimaryBrush}"
 									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
 								<BitmapIcon UriSource="ms-appx:///Assets/Icons/drive_file_rename_outline.png" />
 							</AppBarButton.Icon>
 						</AppBarButton>
 						<AppBarButton Command="{Binding DeleteList}"
-									  Foreground="{ThemeResource OnPrimaryMediumBrush}"
+									  Foreground="{ThemeResource OnPrimaryBrush}"
 									  Visibility="{Binding Entity.Value, Converter={StaticResource TaskListVisibilityConverter}}">
 							<AppBarButton.Icon>
 								<BitmapIcon UriSource="ms-appx:///Assets/Icons/delete_outline.png" />
@@ -209,7 +204,7 @@
 					<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 						<utu:TabBar uen:Region.Attached="True"
 									Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
-									Style="{StaticResource TopTabBarStyle}">
+									Style="{StaticResource ColoredTopTabBarStyle}">
 							<utu:TabBarItem x:Uid="TaskListPage_TodoTab"
 											Content="To Do"
 											uen:Region.Name="ToDo"
@@ -264,19 +259,11 @@
 											  uen:Region.Name="ToDo"
 											  Visibility="Visible">
 									<DataTemplate>
-										<!--
-											Since both FeedView are Visible at the moment we need a background
-											because there are on top of each other
-										-->
-										<Border VerticalAlignment="Stretch"
-												HorizontalAlignment="Stretch"
-												Background="{StaticResource PrimaryVariantLightBrush}">
-											<ListView ItemsSource="{Binding Data}"
-													  uen:Navigation.Request="Task"
-													  SelectionMode="None"
-													  IsItemClickEnabled="True"
-													  Style="{StaticResource TaskListViewStyle}" />
-										</Border>
+										<ListView ItemsSource="{Binding Data}"
+												  uen:Navigation.Request="Task"
+												  SelectionMode="None"
+												  IsItemClickEnabled="True"
+												  Style="{StaticResource TaskListViewStyle}" />
 									</DataTemplate>
 								</uer:FeedView>
 
