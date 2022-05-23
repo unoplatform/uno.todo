@@ -112,7 +112,7 @@
 																			  Data="{StaticResource Icon_Star_Rate}" />
 																</ToggleButton.Content>
 																<um:ControlExtensions.AlternateContent>
-																	<PathIcon Foreground="{StaticResource PrimaryVariantLightBrush}"
+																	<PathIcon Foreground="{StaticResource ErrorBrush}"
 																			  Data="{StaticResource Icon_Star_Rate}" />
 																</um:ControlExtensions.AlternateContent>
 															</ToggleButton>

@@ -71,9 +71,9 @@
 	</section>
 	<section prefix="WelcomePage_">
 		<data name="Welcome.Text">
-			<en>Welcome to To Do!</en>
-			<fr>Bienvennue à To Do!</fr>
-			<es>¡Bienvenido a To Do!</es>
+			<en>Welcome to Uno To Do!</en>
+			<fr>Bienvenue à Uno To Do!</fr>
+			<es>¡Bienvenido a Uno To Do!</es>
 		</data>
 		<data name="Line2.Text">
 			<en>Start using the best to-do app</en>

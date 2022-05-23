@@ -37,7 +37,7 @@
     <value>Sign out</value>
   </data>
   <data name="WelcomePage_Welcome.Text" xml:space="preserve">
-    <value>Welcome to To Do!</value>
+    <value>Welcome to Uno To Do!</value>
   </data>
   <data name="WelcomePage_Line2.Text" xml:space="preserve">
     <value>Start using the best to-do app</value>
