@@ -53,9 +53,6 @@
 					<VisualState.Setters>
 						<Setter Target="NavView.(uen:Navigation.Request)"
 								Value="TaskList" />
-						<!-- TODO: Work out why this doesn't work on Wpf/Wasm? -->
-						<!--<Setter Target="NavView.SelectedItem"
-								Value="{x:Null}" />-->
 					</VisualState.Setters>
 				</VisualState>
 			</VisualStateGroup>
