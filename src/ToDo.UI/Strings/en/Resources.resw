@@ -129,55 +129,55 @@
   <data name="SearchPage_InputTextBox.PlaceholderText" xml:space="preserve">
     <value>Search for tasks</value>
   </data>
-  <data name="SettingsPage_NavigationBar.Content" xml:space="preserve">
+  <data name="SettingsFlyout_NavigationBar.Content" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="SettingsPage_SignOutButton.Content" xml:space="preserve">
+  <data name="SettingsFlyout_SignOutButton.Content" xml:space="preserve">
     <value>Sign out</value>
   </data>
-  <data name="SettingsPage_GeneralSection.Text" xml:space="preserve">
+  <data name="SettingsFlyout_GeneralSection.Text" xml:space="preserve">
     <value>General</value>
   </data>
-  <data name="SettingsPage_PaletteSection.Text" xml:space="preserve">
+  <data name="SettingsFlyout_PaletteSection.Text" xml:space="preserve">
     <value>Color palette</value>
   </data>
-  <data name="SettingsPage_PalettePurple.Content" xml:space="preserve">
+  <data name="SettingsFlyout_PalettePurple.Content" xml:space="preserve">
     <value>Purple</value>
   </data>
-  <data name="SettingsPage_PaletteBlue.Content" xml:space="preserve">
+  <data name="SettingsFlyout_PaletteBlue.Content" xml:space="preserve">
     <value>Blue</value>
   </data>
-  <data name="SettingsPage_PaletteYellow.Content" xml:space="preserve">
+  <data name="SettingsFlyout_PaletteYellow.Content" xml:space="preserve">
     <value>Yellow</value>
   </data>
-  <data name="SettingsPage_LanguageLabel.Text" xml:space="preserve">
+  <data name="SettingsFlyout_LanguageLabel.Text" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="SettingsPage_LanguageLabel_en" xml:space="preserve">
+  <data name="SettingsFlyout_LanguageLabel_en" xml:space="preserve">
     <value>English</value>
   </data>
-  <data name="SettingsPage_LanguageLabel_fr" xml:space="preserve">
+  <data name="SettingsFlyout_LanguageLabel_fr" xml:space="preserve">
     <value>Français</value>
   </data>
-  <data name="SettingsPage_LanguageLabel_es" xml:space="preserve">
+  <data name="SettingsFlyout_LanguageLabel_es" xml:space="preserve">
     <value>Español</value>
   </data>
-  <data name="SettingsPage_NoteToRestart.Text" xml:space="preserve">
+  <data name="SettingsFlyout_NoteToRestart.Text" xml:space="preserve">
     <value>Change will be applied at next app restart</value>
   </data>
-  <data name="SettingsPage_ThemeLabel.Text" xml:space="preserve">
+  <data name="SettingsFlyout_ThemeLabel.Text" xml:space="preserve">
     <value>Mode</value>
   </data>
-  <data name="SettingsPage_ThemeLight" xml:space="preserve">
+  <data name="SettingsFlyout_ThemeLight" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="SettingsPage_ThemeDark" xml:space="preserve">
+  <data name="SettingsFlyout_ThemeDark" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="SettingsPage_AboutSection.Text" xml:space="preserve">
+  <data name="SettingsFlyout_AboutSection.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="SettingsPage_VersionLabel.Text" xml:space="preserve">
+  <data name="SettingsFlyout_VersionLabel.Text" xml:space="preserve">
     <value>Version</value>
   </data>
 </root>

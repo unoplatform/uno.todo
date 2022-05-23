@@ -123,7 +123,7 @@ public sealed partial class App : Application
 			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
 			new ViewMap<TaskSearchFlyout>(),
 			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
-			new ViewMap<SettingsPage, SettingsViewModel.BindableSettingsViewModel>(),
+			new ViewMap<SettingsFlyout, SettingsViewModel.BindableSettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
 			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
 			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),

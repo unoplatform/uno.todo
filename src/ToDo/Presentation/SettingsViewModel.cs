@@ -32,12 +32,12 @@ public partial class SettingsViewModel
 		_appTheme = appTheme;
 		_appSettings = appSettings;
 
-		AppThemes = new string[] { localizer["SettingsPage_ThemeLight"], localizer["SettingsPage_ThemeDark"] };
+		AppThemes = new string[] { localizer["SettingsFlyout_ThemeLight"], localizer["SettingsFlyout_ThemeDark"] };
 		SelectedAppTheme = State.Value(this, () => AppThemes[appTheme.IsDark ? 1 : 0]);
 
 		SelectedAppTheme.Execute(ChangeAppTheme);
 
-		Cultures = localizationConfiguration.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsPage_LanguageLabel_{c}"], c)).ToArray();
+		Cultures = localizationConfiguration.Value!.Cultures!.Select(c => new DisplayCulture(localizer[$"SettingsFlyout_LanguageLabel_{c}"], c)).ToArray();
 		SelectedCulture = State.Value(this, () => Cultures.FirstOrDefault(c => c.Culture == LocalizationSettings.Value?.CurrentCulture) ?? Cultures.First());
 
 		SelectedCulture.Execute(ChangeLanguage);
@@ -60,7 +60,11 @@ public partial class SettingsViewModel
 		{
 			await _authService.SignOutAsync();
 
-			await _navigator.NavigateRouteAsync(this, string.Empty, cancellation: ct);
+			// Not Navigating to the Welcome page at the moment because the MessageDialog already dismiss the SettingsFlyout
+			// so when trying to navigate we get this exception:
+			// Exception thrown at 0x00007FF909C14FD9 (KernelBase.dll) in ToDo.Windows.Desktop.exe: WinRT originate error - 0x80004005 : 'The window has already been destroyed.'.
+			// This issue needs to be unblocked to resolve this navigation issue: https://github.com/unoplatform/uno.todo/issues/163
+			await _navigator.NavigateViewModelAsync<HomeViewModel>(this);
 		}
 	}
 
