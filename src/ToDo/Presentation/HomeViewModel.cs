@@ -34,14 +34,6 @@ public partial class HomeViewModel
 			new(TaskList.WellknownListNames.Tasks, _localizer["HomePage_CommonTaskListLabel"]),
 		};
 
-		SelectedList = State.Async(this, async _ =>
-		{
-			var allList = await Lists;
-			// Delay to allow NavView to render before selecting an item
-			await Task.Delay(100);
-			var previousListId = _appSettings.Value?.LastTaskList;
-			return allList.FirstOrDefault(x => x.Id == previousListId) ?? WellKnownLists[0];
-		});
 	}
 
 	public IFeed<UserContext?> CurrentUser => Feed<UserContext?>.Async(async ct => await _authSvc.GetCurrentUserAsync());
@@ -51,7 +43,11 @@ public partial class HomeViewModel
 
 	public TaskList[] WellKnownLists { get; }
 
-	public IState<TaskList> SelectedList { get; }
+	public IFeed<TaskList> SelectedList => Lists.AsFeed().Select(lists =>
+	{
+		var previousListId = _appSettings.Value?.LastTaskList;
+		return lists.FirstOrDefault(x => x.Id == previousListId) ?? WellKnownLists[0];
+	});
 
 	public IListFeed<TaskList> CustomLists => Lists.Where(list => list.IsCustom);
 

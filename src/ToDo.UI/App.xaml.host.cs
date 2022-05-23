@@ -19,10 +19,13 @@ public sealed partial class App : Application
 				.UseLogging()
 
 				// Configure log levels for different categories of logging
-				.ConfigureLogging(logBuilder =>
+				.ConfigureLogging((context, logBuilder) =>
 				{
 					logBuilder
-							.SetMinimumLevel(LogLevel.Information)
+							.SetMinimumLevel(
+								context.HostingEnvironment.IsDevelopment() ?
+									LogLevel.Trace :
+									LogLevel.Information)
 							.XamlLogLevel(LogLevel.Information)
 							.XamlLayoutLogLevel(LogLevel.Information);
 				})
@@ -31,7 +34,7 @@ public sealed partial class App : Application
 					configBuilder
 						// Load configuration information from appconfig.json
 						.EmbeddedSource<App>()
-						.EmbeddedSource<App>("appsettings.platform.json")
+						.EmbeddedSource<App>("platform")
 
 						// Load OAuth configuration
 						.Section<Auth>()
@@ -61,7 +64,7 @@ public sealed partial class App : Application
 							.AddScoped<IAppTheme, AppTheme>()
 							.AddEndpoints(context, useMocks: useMocks)
 							.AddServices(useMocks: useMocks);
-						})
+					})
 
 				// Enable navigation, including registering views and viewmodels
 				.UseNavigation(
