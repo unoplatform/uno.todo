@@ -64,9 +64,9 @@
 		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.779" />
 		<PackageReference Include="Uno.Extensions.Reactive" Version="1.2.0-dev.779" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="1.2.0-dev.779" />
-		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.201" />
-		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.28" />
-		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.28" />
+		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0-dev.218" />
+		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="1.4.0-dev.35" />
+		<PackageReference Include="Uno.Toolkit.WinUI" Version="1.4.0-dev.35" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
 		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.5" />
 
@@ -81,7 +81,4 @@
 		<ProjectReference Include="..\ToDo\ToDo.csproj" />
 	</ItemGroup>
 	<Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" Condition="Exists('..\ToDo.UI\ToDo.UI.projitems')" />
-	<ItemGroup>
-		<_Globbed_Embedded_Resource Remove="appsettings.platform.json" />
-	</ItemGroup>
 </Project>

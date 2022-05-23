@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
@@ -25,8 +24,5 @@
 		<PackageReference Include="Uno.Extensions.Serialization" Version="1.2.0-dev.779" />
 		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="1.2.0-dev.779" />
 		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="1.2.0-dev.779" />
-	</ItemGroup>
-	<ItemGroup>
-	  <SourceGeneratorInput Remove="Configuration\Mock.cs" />
 	</ItemGroup>
 </Project>
