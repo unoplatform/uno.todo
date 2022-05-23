@@ -240,7 +240,7 @@
 			<es>Buscar tareas</es>
 		</data>
 	</section>
-	<section prefix="SettingsPage_">
+	<section prefix="SettingsFlyout_">
 		<data name="NavigationBar.Content">
 			<en>Settings</en>
 			<fr>Paramètres</fr>
