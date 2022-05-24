@@ -12,6 +12,7 @@
 	  xmlns:uut="using:Uno.UI.Toolkit"
 	  xmlns:utu="using:Uno.Toolkit.UI"
 	  xmlns:not_win="http://uno.ui/not_win"
+	  xmlns:not_mobile="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
 	  mc:Ignorable="d not_win">
 
@@ -68,8 +69,10 @@
 							 IsSettingsVisible="False"
 							 Style="{StaticResource HomeNavigationViewStyle}"
 							 CompactModeThresholdWidth="0"
-							 ExpandedModeThresholdWidth="0"
-							 SelectedItem="{Binding SelectedList.Value}">
+							 ExpandedModeThresholdWidth="0">
+			<!-- TODO: Fix issue where this automatically navigates to a list on mobile
+			https://github.com/unoplatform/uno.todo/issues/342-->
+			<!--SelectedItem="{Binding SelectedList.Value}">-->
 
 			<!-- Header: Profile (Setting button) + Search button -->
 			<muxc:NavigationView.PaneHeader>
