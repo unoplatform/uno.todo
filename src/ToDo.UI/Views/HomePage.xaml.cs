@@ -24,8 +24,6 @@ public sealed partial class HomePage : Page
 			else
 			{
 				NavView.ClearValue(NavigationView.SelectedItemProperty);
-				//NavView.SetBinding(NavigationView.SelectedItemProperty, null);
-				//NavView.SelectedItem = null;
 			}
 		}
 	}
