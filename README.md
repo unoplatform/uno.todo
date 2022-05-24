@@ -7,7 +7,7 @@
 
 The design template makes it easy to jump-start or learn Uno Platform-powered mobile, web, and desktop applications. The app provides common functions such as logging on, recording tasks, adding due dates, setting reminders, and more.
 
-In addition, the sample code utilizes [Uno.Extensions Documentation](https://platform.uno/docs/articles/external/uno.extensions/doc/Overview/ExtensionsOverviewAndGettingStarted.html) and establishes the best practices for cross-platform application design and development considering multiple screen sizes, accessibility, enforcing brand guidelines, and more. 
+In addition, the sample code utilizes [Uno.Extensions](https://platform.uno/docs/articles/external/uno.extensions/doc/Overview/ExtensionsOverviewAndGettingStarted.html) and establishes the best practices for cross-platform application design and development considering multiple screen sizes, accessibility, enforcing brand guidelines, and more. 
 
 Finally, you can use the [Uno To Do Figma template design]((https://www.figma.com/community/file/1110780207444745729)) together with the [Uno Platform for Figma plugin](https://www.figma.com/community/plugin/1045528009520465828/Uno-Platform) LivePreview feature to experience the app before even coding it. Export design assets and get clean, responsive XAML true to the way the app was designed.
 
