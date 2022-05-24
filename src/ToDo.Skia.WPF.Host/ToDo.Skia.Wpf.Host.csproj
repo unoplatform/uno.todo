@@ -8,10 +8,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Identity.Client" Version="4.43.1" />
     <PackageReference Include="Refit" Version="6.3.2" />
-    <PackageReference Include="Uno.WinUI.MSAL" Version="4.3.5" />
-    <PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.3.5" />
-    <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.5" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.5" />
+    <PackageReference Include="Uno.WinUI.MSAL" Version="4.3.6" />
+    <PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.3.6" />
+    <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.6" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.6" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />

@@ -17,16 +17,16 @@
 				<ToolkitResources xmlns="using:Uno.Toolkit.UI" />
 
 				<!-- Load Material Color Palette -->
-				<MaterialColorsV2 xmlns="using:Uno.Material" OverrideSource="ms-appx:///Styles/ColorPaletteOverride.xaml" />
+				<MaterialColors xmlns="using:Uno.Material" OverrideSource="ms-appx:///Styles/ColorPaletteOverride.xaml" />
 
 				<!-- Load Material FontFamilies -->
 				<MaterialFonts xmlns="using:Uno.Material" OverrideSource="ms-appx:///Styles/MaterialFontsOverride.xaml" />
 
 				<!-- Load Material Control Resources -->
-				<MaterialResourcesV2 xmlns="using:Uno.Material" WithImplicitStyles="True" />
+				<MaterialResources xmlns="using:Uno.Material" />
 
 				<!-- Load Material Toolkit Resources -->
-				<MaterialToolkitResourcesV2 xmlns="using:Uno.Toolkit.UI.Material" WithImplicitStyles="True" />
+				<MaterialToolkitResources xmlns="using:Uno.Toolkit.UI.Material" />
 
 				<ResourceDictionary>
 					<ResourceDictionary.ThemeDictionaries>
