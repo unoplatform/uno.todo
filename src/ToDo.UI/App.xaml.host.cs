@@ -16,19 +16,15 @@ public sealed partial class App : Application
 #endif
 
 				// Add platform specific log providers
-				.UseLogging()
-
-				// Configure log levels for different categories of logging
-				.ConfigureLogging((context, logBuilder) =>
-				{
-					logBuilder
-							.SetMinimumLevel(
-								context.HostingEnvironment.IsDevelopment() ?
-									LogLevel.Trace :
-									LogLevel.Information)
-							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information);
-				})
+				.UseLogging(configure: (context, logBuilder) =>
+							// Configure log levels for different categories of logging
+							logBuilder
+									.SetMinimumLevel(
+										context.HostingEnvironment.IsDevelopment() ?
+											LogLevel.Trace :
+											LogLevel.Information)
+									.XamlLogLevel(LogLevel.Information)
+									.XamlLayoutLogLevel(LogLevel.Information))
 
 				.UseConfiguration(configure: configBuilder =>
 					configBuilder
