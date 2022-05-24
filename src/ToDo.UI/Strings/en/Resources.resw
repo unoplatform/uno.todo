@@ -180,4 +180,7 @@
   <data name="SettingsFlyout_VersionLabel.Text" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="FeedView_Loading.Text" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
 </root>
