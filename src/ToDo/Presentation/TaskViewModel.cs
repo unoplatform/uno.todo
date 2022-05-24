@@ -8,6 +8,7 @@ public partial class TaskViewModel
 	private TaskViewModel(
 		INavigator navigator,
 		ITaskService svc,
+		IMessenger messenger,
 		ToDoTask entity)
 	{
 		_navigator = navigator;
@@ -21,6 +22,8 @@ public partial class TaskViewModel
 				await _svc.UpdateAsync(task, ct);
 			}
 		});
+
+		messenger.Observe(Entity, task => task.Id);
 	}
 
 	public IState<ToDoTask> Entity { get; }
