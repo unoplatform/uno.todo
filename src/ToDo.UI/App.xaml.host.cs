@@ -16,19 +16,13 @@ public sealed partial class App : Application
 #endif
 
 				// Add platform specific log providers
-				.UseLogging()
-
-				// Configure log levels for different categories of logging
-				.ConfigureLogging((context, logBuilder) =>
-				{
-					logBuilder
-							.SetMinimumLevel(
-								context.HostingEnvironment.IsDevelopment() ?
-									LogLevel.Trace :
-									LogLevel.Information)
-							.XamlLogLevel(LogLevel.Information)
-							.XamlLayoutLogLevel(LogLevel.Information);
-				})
+				.UseLogging(configure: (context, logBuilder) =>
+							// Configure log levels for different categories of logging
+							logBuilder
+									.SetMinimumLevel(
+										context.HostingEnvironment.IsDevelopment() ?
+											LogLevel.Information :
+											LogLevel.Warning))
 
 				.UseConfiguration(configure: configBuilder =>
 					configBuilder
@@ -120,16 +114,16 @@ public sealed partial class App : Application
 			new ViewMap<RenameListFlyout, RenameListViewModel>(),
 
 			// Views
-			new ViewMap<HomePage, HomeViewModel.BindableHomeViewModel>(),
+			new ViewMap<HomePage, HomeViewModel>(),
 			new ViewMap<TaskSearchFlyout>(),
-			new ViewMap<SearchPage, SearchViewModel.BindableSearchViewModel>(),
-			new ViewMap<SettingsFlyout, SettingsViewModel.BindableSettingsViewModel>(),
+			new ViewMap<SearchPage, SearchViewModel>(),
+			new ViewMap<SettingsFlyout, SettingsViewModel>(),
 			new ViewMap<ShellControl, ShellViewModel>(),
-			new ViewMap<WelcomePage, WelcomeViewModel.BindableWelcomeViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel.BindableTaskListViewModel>(Data: new DataMap<TaskList>()),
+			new ViewMap<WelcomePage, WelcomeViewModel>(),
+			new ViewMap<TaskListPage, TaskListViewModel>(Data: new DataMap<TaskList>()),
 			new ViewMap(
 				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources[ResourceKeys.WideMinWindowWidth] ? typeof(TaskControl) : typeof(TaskPage),
-				ViewModel: typeof(TaskViewModel.BindableTaskViewModel), Data: new DataMap<ToDoTask>()),
+				ViewModel: typeof(TaskViewModel), Data: new DataMap<ToDoTask>()),
 			confirmDeleteListDialog,
 			confirmDeleteTaskDialog,
 			confirmSignOutDialog
@@ -138,9 +132,9 @@ public sealed partial class App : Application
 		routes.Register(
 			new RouteMap("", View: views.FindByViewModel<ShellViewModel>(), Nested: new RouteMap[]
 			{
-				new("Welcome", View: views.FindByViewModel<WelcomeViewModel.BindableWelcomeViewModel>()),
-				new("Home", View: views.FindByViewModel<HomeViewModel.BindableHomeViewModel>()),
-				new("TaskList", View: views.FindByViewModel<TaskListViewModel.BindableTaskListViewModel>(), Nested: new[]
+				new("Welcome", View: views.FindByViewModel<WelcomeViewModel>()),
+				new("Home", View: views.FindByViewModel<HomeViewModel>()),
+				new("TaskList", View: views.FindByViewModel<TaskListViewModel>(), Nested: new[]
 				{
 					new RouteMap("MultiTaskLists", IsDefault: true, Nested: new[]
 					{
@@ -148,12 +142,12 @@ public sealed partial class App : Application
 						new RouteMap("Completed")
 					})
 				}),
-				new("Task", View: views.FindByViewModel<TaskViewModel.BindableTaskViewModel>(), DependsOn:"TaskList"),
+				new("Task", View: views.FindByViewModel<TaskViewModel>(), DependsOn:"TaskList"),
 				new("TaskSearch", View: views.FindByView<TaskSearchFlyout>(), Nested: new RouteMap[]
 				{
-					new("Search", View: views.FindByViewModel<SearchViewModel.BindableSearchViewModel>(), IsDefault: true)
+					new("Search", View: views.FindByViewModel<SearchViewModel>(), IsDefault: true)
 				}),
-				new("Settings", View: views.FindByViewModel<SettingsViewModel.BindableSettingsViewModel>()),
+				new("Settings", View: views.FindByViewModel<SettingsViewModel>()),
 				new("AddTask", View: views.FindByViewModel<AddTaskViewModel>()),
 				new("AddList", View: views.FindByViewModel<AddListViewModel>()),
 				new("ExpirationDate", View: views.FindByViewModel<ExpirationDateViewModel>()),
