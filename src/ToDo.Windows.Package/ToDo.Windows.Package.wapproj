@@ -119,7 +119,7 @@
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Refit" Version="6.3.2" />
-    <PackageReference Include="Uno.WinUI.MSAL" Version="4.3.5" />
+    <PackageReference Include="Uno.WinUI.MSAL" Version="4.3.6" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
 </Project>
