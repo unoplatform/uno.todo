@@ -21,10 +21,8 @@ public sealed partial class App : Application
 							logBuilder
 									.SetMinimumLevel(
 										context.HostingEnvironment.IsDevelopment() ?
-											LogLevel.Trace :
-											LogLevel.Information)
-									.XamlLogLevel(LogLevel.Information)
-									.XamlLayoutLogLevel(LogLevel.Information))
+											LogLevel.Information :
+											LogLevel.Warning))
 
 				.UseConfiguration(configure: configBuilder =>
 					configBuilder
