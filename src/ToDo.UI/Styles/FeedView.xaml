@@ -21,12 +21,12 @@
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center" />
 					</not_skia:Grid>-->
-					<skia:Grid>
+					<Grid>
 						<TextBlock
 							Text="Loading"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center"/>
-					</skia:Grid>
+					</Grid>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
@@ -37,7 +37,6 @@
 			<Setter.Value>
 				<DataTemplate>
 					<!-- MaterialProgressRingStyle not being resolve on WinUI -->
-
 					<!--<not_skia:Grid>
 						<winui:ProgressRing
 							Style="{StaticResource ProgressRingStyle}"
@@ -47,12 +46,12 @@
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center" />
 					</not_skia:Grid>-->
-					<skia:Grid>
+					<Grid>
 						<TextBlock
 							Text="Loading"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Center"/>
-					</skia:Grid>
+					</Grid>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
