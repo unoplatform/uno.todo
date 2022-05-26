@@ -4,6 +4,7 @@ public partial class SettingsViewModel
 {
 	private readonly IAuthenticationService _authService;
 	private readonly IUserProfilePictureService _userSvc;
+	private readonly INavigator _sourceNavigator;
 	private readonly INavigator _navigator;
 	private IAppTheme _appTheme;
 	private IWritableOptions<ToDoApp> _appSettings;
@@ -16,6 +17,7 @@ public partial class SettingsViewModel
 
 
 	private SettingsViewModel(
+		NavigationRequest request,
 		INavigator navigator,
 		IAuthenticationService authService,
 		IUserProfilePictureService userSvc,
@@ -25,6 +27,7 @@ public partial class SettingsViewModel
 		IAppTheme appTheme,
 		IWritableOptions<ToDoApp> appSettings)
 	{
+		_sourceNavigator = request?.Source ?? navigator;
 		_navigator = navigator;
 		_authService = authService;
 		_userSvc = userSvc;
@@ -64,7 +67,7 @@ public partial class SettingsViewModel
 			// so when trying to navigate we get this exception:
 			// Exception thrown at 0x00007FF909C14FD9 (KernelBase.dll) in ToDo.Windows.Desktop.exe: WinRT originate error - 0x80004005 : 'The window has already been destroyed.'.
 			// This issue needs to be unblocked to resolve this navigation issue: https://github.com/unoplatform/uno.todo/issues/163
-			await _navigator.NavigateViewModelAsync<HomeViewModel>(this);
+			await _sourceNavigator.NavigateViewModelAsync<HomeViewModel>(this);
 		}
 	}
 
