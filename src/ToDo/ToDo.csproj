@@ -13,16 +13,7 @@
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
 		<PackageReference Include="Uno.WinUI.MSAL" Version="4.3.6" />
-		<PackageReference Include="Uno.Extensions.Core" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Http" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Http.Refit" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Navigation" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Reactive" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Reactive.Messaging" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Serialization" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="2.0.0" />
 	</ItemGroup>
+
+	<Import Project="..\Extensions.props" />
 </Project>
