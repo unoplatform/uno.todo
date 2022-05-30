@@ -83,7 +83,7 @@
 		<When Condition="'$(TargetFramework)'=='net6.0-android'">
 			<ItemGroup>
 				<PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.1.0" />
-				<PackageReference Include="Uno.UniversalImageLoader" Version="1.9.35" />
+				<PackageReference Include="Uno.UniversalImageLoader" Version="1.9.36" />
 			</ItemGroup>
 			<ItemGroup>
 				<AndroidEnvironment Include="Android/environment.conf" />
