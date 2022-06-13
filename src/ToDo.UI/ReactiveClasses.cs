@@ -1,31 +1,5 @@
 ﻿namespace ToDo;
 
-// Need an attribute to identify this as the static class where
-// the ViewModelMappings should be source generated
-// [ReactiveMappings]
-public static partial class ReactiveViewModelMappings
-{
-}
-
-// ********* Generated ********* //
-public static partial class ReactiveViewModelMappings
-{
-	public static IDictionary<Type, Type> ViewModelMappings = new Dictionary<Type, Type>()
-			{
-				{ typeof(HomeViewModel), typeof(HomeViewModel.BindableHomeViewModel)},
-				{ typeof(SearchViewModel),typeof(SearchViewModel.BindableSearchViewModel)},
-				{ typeof(SettingsViewModel),typeof(SettingsViewModel.BindableSettingsViewModel)},
-				{ typeof(WelcomeViewModel),typeof(WelcomeViewModel.BindableWelcomeViewModel)},
-				{ typeof(TaskListViewModel),typeof(TaskListViewModel.BindableTaskListViewModel )},
-				{ typeof(TaskViewModel),typeof(TaskViewModel.BindableTaskViewModel)},
-				{ typeof(ExpirationDateViewModel),typeof(ExpirationDateViewModel.BindableExpirationDateViewModel)}
-			};
-
-}
-// ***************************** //
-
-
-
 // ********* Classes to be added to Reactive.Navigation ********* //
 public class ReactiveViewRegistry : ViewRegistry
 {

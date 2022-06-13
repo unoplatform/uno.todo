@@ -8,7 +8,7 @@
 	<PropertyGroup>
 		<DebugType>portable</DebugType>
 		<DebugSymbols>True</DebugSymbols>
-		<NoWarn>Uno0001;CS1998;CA1416</NoWarn>
+		<NoWarn>Uno0001;CS1998;CA1416;NU1504;NU1505</NoWarn>
 		<SynthesizeLinkMetadata>true</SynthesizeLinkMetadata> 
 	</PropertyGroup>
 </Project>
