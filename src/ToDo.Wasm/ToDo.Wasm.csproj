@@ -43,40 +43,27 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Identity.Client" Version="4.43.1" />
+		<PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
 		<PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 		<PackageReference Include="Uno.Core" Version="4.0.1" />
-		<PackageReference Include="Uno.Extensions.Configuration" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Core" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Hosting" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Http" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="2.0.0" />
 		<PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.4.0" />
-
-		<PackageReference Include="Uno.Extensions.Logging.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Navigation" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Serialization" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Reactive" Version="2.0.0" />
-		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="2.0.0" />
-		<PackageReference Include="Uno.Material.WinUI" Version="2.0.0" />
+		<PackageReference Include="Uno.Material.WinUI" Version="2.1.0" />
 		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="2.0.0" />
 		<PackageReference Include="Uno.Toolkit.WinUI" Version="2.0.0" />
 		<PackageReference Include="Uno.SourceGenerationTasks" Version="4.0.2" />
-		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.6" />
+		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.8" />
 
 		<PackageReference Include="Uno.Wasm.Bootstrap" Version="3.3.1" />
 		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.3.1" />
 
-		<PackageReference Include="Uno.WinUI.MSAL" Version="4.3.6" />
-		<PackageReference Include="Uno.WinUI.WebAssembly" Version="4.3.6" />
-		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.6" Condition="'$(Configuration)'=='Debug'" />
+		<PackageReference Include="Uno.WinUI.MSAL" Version="4.3.8" />
+		<PackageReference Include="Uno.WinUI.WebAssembly" Version="4.3.8" />
+		<PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.8" Condition="'$(Configuration)'=='Debug'" />
 	</ItemGroup>
+	<Import Project="..\Extensions.winui.props" />
 	<ItemGroup>
 		<ProjectReference Include="..\ToDo\ToDo.csproj" />
 	</ItemGroup>
