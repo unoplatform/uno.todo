@@ -61,14 +61,7 @@ public sealed partial class App : Application
 					})
 
 				// Enable navigation, including registering views and viewmodels
-				.UseNavigation(
-						RegisterRoutes,
-						createViewRegistry: sc => new ReactiveViewRegistry(sc, ReactiveViewModelMappings.ViewModelMappings))
-					.ConfigureServices(services =>
-					{
-						services
-							.AddSingleton<IRouteResolver, ReactiveRouteResolver>();
-					})
+				.UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
 
 				// Add navigation support for toolkit controls such as TabBar and NavigationView
 				.UseToolkitNavigation()
@@ -118,12 +111,10 @@ public sealed partial class App : Application
 			new ViewMap<TaskSearchFlyout>(),
 			new ViewMap<SearchPage, SearchViewModel>(),
 			new ViewMap<SettingsFlyout, SettingsViewModel>(),
-			new ViewMap<ShellControl, ShellViewModel>(),
+			new ViewMap(ViewModel: typeof(ShellViewModel)),
 			new ViewMap<WelcomePage, WelcomeViewModel>(),
-			new ViewMap<TaskListPage, TaskListViewModel>(Data: new DataMap<TaskList>()),
-			new ViewMap(
-				ViewSelector: () => (App.Current as App)?.Window?.Content?.ActualSize.X > (double)App.Current.Resources[ResourceKeys.WideMinWindowWidth] ? typeof(TaskControl) : typeof(TaskPage),
-				ViewModel: typeof(TaskViewModel), Data: new DataMap<ToDoTask>()),
+			new DataViewMap<TaskListPage, TaskListViewModel, TaskList>(),
+			new DataViewMap<TaskPage,TaskViewModel, ToDoTask>(),
 			confirmDeleteListDialog,
 			confirmDeleteTaskDialog,
 			confirmSignOutDialog
@@ -136,11 +127,8 @@ public sealed partial class App : Application
 				new("Home", View: views.FindByViewModel<HomeViewModel>()),
 				new("TaskList", View: views.FindByViewModel<TaskListViewModel>(), Nested: new[]
 				{
-					new RouteMap("MultiTaskLists", IsDefault: true, Nested: new[]
-					{
-						new RouteMap("ToDo", IsDefault:true),
-						new RouteMap("Completed")
-					})
+					new RouteMap("ToDo", IsDefault:true),
+					new RouteMap("Completed")
 				}),
 				new("Task", View: views.FindByViewModel<TaskViewModel>(), DependsOn:"TaskList"),
 				new("TaskSearch", View: views.FindByView<TaskSearchFlyout>(), Nested: new RouteMap[]
