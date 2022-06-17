@@ -63,10 +63,6 @@ public partial class SettingsViewModel
 		{
 			await _authService.SignOutAsync();
 
-			// Not Navigating to the Welcome page at the moment because the MessageDialog already dismiss the SettingsFlyout
-			// so when trying to navigate we get this exception:
-			// Exception thrown at 0x00007FF909C14FD9 (KernelBase.dll) in ToDo.Windows.Desktop.exe: WinRT originate error - 0x80004005 : 'The window has already been destroyed.'.
-			// This issue needs to be unblocked to resolve this navigation issue: https://github.com/unoplatform/uno.todo/issues/163
 			await _sourceNavigator.NavigateViewModelAsync<HomeViewModel>(this);
 		}
 	}

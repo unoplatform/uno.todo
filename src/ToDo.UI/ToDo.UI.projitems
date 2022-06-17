@@ -40,7 +40,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\TaskListToValueConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AppTheme.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ReactiveClasses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Dialogs\AddListFlyout.xaml.cs">
       <DependentUpon>AddListFlyout.xaml</DependentUpon>
     </Compile>
@@ -61,9 +60,6 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\TaskControl.xaml.cs">
-      <DependentUpon>TaskControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\TaskListPage.xaml.cs">
       <DependentUpon>TaskListPage.xaml</DependentUpon>
@@ -114,10 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\SearchPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\TaskControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

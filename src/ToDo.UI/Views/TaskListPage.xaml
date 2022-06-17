@@ -155,8 +155,6 @@
 						<Setter Target="TaskColumn.Width" Value="2*" />
 						<Setter Target="TaskDetailsGrid.Visibility" Value="Visible" />
 						<Setter Target="TaskDetails.(uen:Region.Attached)" Value="true" />
-						<Setter Target="TaskDetails.(uen:Region.Attached)"
-								Value="true" />
 					</VisualState.Setters>
 				</VisualState>
 				<VisualState x:Name="Narrow">
@@ -199,8 +197,7 @@
 				</utu:NavigationBar>
 				<Grid utu:AutoLayout.CounterAlignment="Stretch"
 					  utu:AutoLayout.PrimaryAlignment="Stretch"
-					  uen:Region.Attached="True"
-					  uen:Region.Name="MultiTaskLists">
+					  uen:Region.Attached="True">
 					<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 						<utu:TabBar uen:Region.Attached="True"
 									Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
