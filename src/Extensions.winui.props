@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="2.1.0-dev.184" />
 		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="2.1.0-dev.184" />
-		<PackageReference Include="Uno.Extensions.Logging.WinUI" Version="2.1.0-dev.184" />
+		<PackageReference Include="Uno.Extensions.Logging.WinUI" Version="2.1.0-dev.192" />
 		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="2.1.0-dev.184" />
 		<PackageReference Include="Uno.Extensions.Navigation.WinUI" Version="2.1.0-dev.184" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="2.1.0-dev.184" />
