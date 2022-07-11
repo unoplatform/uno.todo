@@ -11,7 +11,7 @@
 		<PackageReference Include="Uno.Extensions.Serialization" Version="2.1.0-dev.184" />
 		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="2.1.0-dev.184" />
 		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="2.1.0-dev.184" />
-		<PackageReference Include="Uno.Extensions.Reactive" Version="2.1.0-dev.184" />
+		<PackageReference Include="Uno.Extensions.Reactive" Version="2.1.1" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="2.1.0-dev.184" />
 		<PackageReference Include="Uno.Extensions.Reactive.Messaging" Version="2.1.0-dev.184" />
 	</ItemGroup>
