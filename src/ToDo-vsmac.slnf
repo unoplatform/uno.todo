@@ -4,18 +4,12 @@
     "projects": [
 		"ToDo.UI\\ToDo.UI.shproj",
 
-		"ToDo.Droid\\ToDo.Droid.csproj",
-
-		"ToDo.iOS\\ToDo.iOS.csproj",
-
-
 		"ToDo.Wasm\\ToDo.Wasm.csproj",
-
-		"ToDo.macOS\\ToDo.macOS.csproj",
+		"ToDo\\ToDo.csproj",
+		"ToDo.Mobile\\ToDo.Mobile.csproj",
 
 		"ToDo.Skia.Gtk\\ToDo.Skia.Gtk.csproj",
-
-		"ToDo.Skia.Linux.FrameBuffer\\ToDo.Skia.Linux.FrameBuffer.csproj",
+		"ToDo.Tests\\ToDo.Tests.csproj"
     ]
   }
 }
