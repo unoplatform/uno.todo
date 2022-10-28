@@ -1,22 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-  <PropertyGroup>
-    <OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
-    <OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
-    <PackageReference Include="Refit" Version="6.3.2" />
-    <PackageReference Include="Uno.WinUI.MSAL" Version="4.3.8" />
-    <PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.3.8" />
-    <PackageReference Include="Uno.WinUI.RemoteControl" Version="4.3.8" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.3.8" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ToDo.Skia.WPF\ToDo.Skia.WPF.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Identity.Client" />
+		<PackageReference Include="Refit" />
+		<PackageReference Include="Uno.WinUI.MSAL" />
+		<PackageReference Include="Uno.WinUI.Skia.Wpf" />
+		<PackageReference Include="Uno.WinUI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
+		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ToDo.Skia.WPF\ToDo.Skia.WPF.csproj" />
+	</ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Data.Models;
 
-public record TaskBodyData
+public partial record TaskBodyData
 {
 	[JsonPropertyName("content")]
 	public string? Content { get; init; }

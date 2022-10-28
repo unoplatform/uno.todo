@@ -28,7 +28,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 	{
 		if (data is null)
 		{
-			data = (await _dataService.ReadFileAsync<TaskListData[]>(_listSerializer, ListDataFile)).ToList();
+			data = (await _dataService.ReadPackageFileAsync<TaskListData[]>(_listSerializer, ListDataFile)).ToList();
 		}
 		return data;
 	}
@@ -50,7 +50,7 @@ public class MockTaskListEndpoint : ITaskListEndpoint
 	{
 		if (allTasks is null)
 		{
-			allTasks = (await _dataService.ReadFileAsync<TaskData[]>(_taskSerializer, TasksDataFile)).ToList();
+			allTasks = (await _dataService.ReadPackageFileAsync<TaskData[]>(_taskSerializer, TasksDataFile)).ToList();
 		}
 		return allTasks;
 	}

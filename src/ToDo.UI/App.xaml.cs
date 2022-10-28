@@ -43,17 +43,15 @@ public sealed partial class App : Application
 		_window = new Window();
 		_window.Activate();
 #else
-#if WINUI
 		_window = Microsoft.UI.Xaml.Window.Current;
-#else
-		_window = Windows.UI.Xaml.Window.Current;
-#endif
 #endif
 
 		var notif = _host.Services.GetRequiredService<IRouteNotifier>();
 		notif.RouteChanged += RouteUpdated;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		_window.AttachNavigation(_host.Services);
+#pragma warning restore CS0618 // Type or member is obsolete
 		_window.Activate();
 
 		await Task.Run(() => _host.StartAsync());

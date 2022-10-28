@@ -4,16 +4,29 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Identity.Client" Version="4.44.0" />
-		<PackageReference Include="Refit" Version="6.3.2" />
-		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
-		<PackageReference Include="Uno.WinUI.MSAL" Version="4.3.8" />
-	</ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+		<PackageReference Include="Microsoft.Extensions.Http" />
+		<PackageReference Include="Microsoft.Identity.Client" />
+		<PackageReference Include="Refit" />
+		<PackageReference Include="Refit.HttpClientFactory" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+		<PackageReference Include="Uno.WinUI.MSAL" />
 
-	<Import Project="..\Extensions.props" />
+		<PackageReference Include="Uno.Extensions.Configuration" />
+		<PackageReference Include="Uno.Extensions.Core" />
+		<PackageReference Include="Uno.Extensions.Hosting" />
+		<PackageReference Include="Uno.Extensions.Http" />
+		<PackageReference Include="Uno.Extensions.Http.Refit" />
+		<PackageReference Include="Uno.Extensions.Localization.WinUI" />
+		<PackageReference Include="Uno.Extensions.Logging.Serilog" />
+		<PackageReference Include="Uno.Extensions.Navigation" />
+		<PackageReference Include="Uno.Extensions.Serialization" />
+		<PackageReference Include="Uno.Extensions.Serialization.Http" />
+		<PackageReference Include="Uno.Extensions.Serialization.Refit" />
+		<PackageReference Include="Uno.Extensions.Reactive" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" />
+		<PackageReference Include="Uno.Extensions.Reactive.Messaging" />
+	</ItemGroup>
 </Project>

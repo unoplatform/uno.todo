@@ -1,6 +1,6 @@
 namespace ToDo.Presentation.Dialogs;
 
-public record PickedDate(DateTimeOffset? Date);
+public partial record PickedDate(DateTimeOffset? Date);
 
 public partial class ExpirationDateViewModel
 {

@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Business.Models;
 
-public record TaskList
+public partial record TaskList
 {
 	public static class WellknownListNames
 	{
