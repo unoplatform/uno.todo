@@ -13,6 +13,8 @@ global using System.Text.Json.Serialization;
 global using System.Threading;
 global using System.Threading.Tasks;
 global using System.Windows.Input;
+global using System.Net.Http;
+global using System.IO;
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Mvvm.Messaging;
 global using Microsoft.Extensions.Configuration;

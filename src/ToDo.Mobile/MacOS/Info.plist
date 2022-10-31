@@ -11,7 +11,7 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.11</string>
+	<string>10.14</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -26,7 +26,7 @@
 	<string>NSApplication</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-  <key>ATSApplicationFontsPath</key>
-  <string>Fonts</string>
+	<key>ATSApplicationFontsPath</key>
+	<string>Fonts</string>
 </dict>
 </plist>
