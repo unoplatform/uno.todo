@@ -31,7 +31,8 @@
 		<PackageReference Include="Uno.Material.WinUI" />
 		<PackageReference Include="Uno.Toolkit.WinUI.Material" />
 		<PackageReference Include="Uno.Toolkit.WinUI" />
-		<PackageReference Include="Uno.SourceGenerationTasks" />
+		<PackageReference Include="SkiaSharp.Views.Uno.WinUI" />
+		<PackageReference Include="SkiaSharp.Skottie" />
 
 		<PackageReference Include="Uno.Extensions.Configuration" />
 		<PackageReference Include="Uno.Extensions.Core" />

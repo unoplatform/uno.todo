@@ -7,6 +7,7 @@
 		<PackageVersion Include="Uno.Extensions.Http" Version="2.3.0-dev.203" />
 		<PackageVersion Include="Uno.Extensions.Http.Refit" Version="2.3.0-dev.203" />
 		<PackageVersion Include="Uno.Extensions.Localization.WinUI" Version="2.3.0-dev.203" />
+		<PackageVersion Include="Uno.Extensions.Logging.OSLog" Version="1.4.0" />
 		<PackageVersion Include="Uno.Extensions.Logging.Serilog" Version="2.3.0-dev.203" />
 		<PackageVersion Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.4.0" />
 		<PackageVersion Include="Uno.Extensions.Logging.WinUI" Version="2.3.0-dev.203" />
@@ -46,6 +47,9 @@
 		<PackageVersion Include="Refit" Version="6.3.2" />
 		<PackageVersion Include="Refit.HttpClientFactory" Version="6.3.2" />
 
+		<PackageVersion Include="SkiaSharp.Skottie" Version="2.88.2" />
+		<PackageVersion Include="SkiaSharp.Views.Uno.WinUI" Version="2.88.2" />
+
 		<PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
 		<PackageVersion Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
 
@@ -59,6 +63,7 @@
 
 		<PackageVersion Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.6.0-dev.962" />
 		<PackageVersion Include="Uno.UITest.Helpers" Version="1.1.0-dev.32" />
+		<PackageVersion Include="Uno.UniversalImageLoader" Version="1.9.36"/>
 
 		<PackageVersion Include="Uno.Wasm.Bootstrap" Version="3.3.1" />
 		<PackageVersion Include="Uno.Wasm.Bootstrap.DevServer" Version="3.3.1" />
@@ -69,8 +74,9 @@
 		<PackageVersion Include="Uno.WinUI.Skia.Wpf" Version="4.6.0-dev.962" />
 		<PackageVersion Include="Uno.WinUI.WebAssembly" Version="4.6.0-dev.962" />
 		<PackageVersion Include="Uno.WinUI.RemoteControl" Version="4.6.0-dev.962"  />
-		<PackageVersion Include="Xamarin.UITest" Version="3.2.6" />
 
+		<PackageVersion Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.1.0"/>
+		<PackageVersion Include="Xamarin.UITest" Version="3.2.6" />
 
 	</ItemGroup>
 </Project>

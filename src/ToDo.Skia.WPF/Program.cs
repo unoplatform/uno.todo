@@ -1,3 +1,0 @@
-namespace ToDo.Skia.Gtk
-{
-}

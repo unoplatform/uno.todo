@@ -145,5 +145,7 @@
     <Content Include="@(_Globbed_Content)" />
     <_Globbed_Embedded_Resource Include="$(MSBuildThisFileDirectory)*.json" Exclude="@(EmbeddedResource)" />
     <EmbeddedResource Include="@(_Globbed_Embedded_Resource)" />
+    <Page Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
+    <ApplicationDefinition Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
   </ItemGroup>
 </Project>

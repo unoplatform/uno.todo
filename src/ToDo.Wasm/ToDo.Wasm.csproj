@@ -53,7 +53,6 @@
 		<PackageReference Include="Uno.Material.WinUI" />
 		<PackageReference Include="Uno.Toolkit.WinUI.Material" />
 		<PackageReference Include="Uno.Toolkit.WinUI" />
-		<PackageReference Include="Uno.SourceGenerationTasks" />
 		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
 
 		<PackageReference Include="Uno.Wasm.Bootstrap" />

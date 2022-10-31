@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ToDo.WPF.Host.Properties
+namespace ToDo.WPF.Properties
 {
 
 

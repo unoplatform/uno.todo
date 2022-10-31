@@ -1,9 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+		<OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<DefineConstants>$(DefinedConstants);WINUI</DefineConstants>
 		<NoWarn>$(NoWarn);NU1701</NoWarn>
-		<!-- Ignore for SkiaSharp warning for netstandard2.0 -->
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" />
@@ -19,11 +22,13 @@
 		<PackageReference Include="Uno.WinUI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
 		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" />
 		<PackageReference Include="Uno.WinUI.Skia.Wpf" />
+		<PackageReference Include="Uno.WinUI.RemoteControl" Condition="'$(Configuration)'=='Debug'" />
+		<PackageReference Include="SkiaSharp.Views.Uno.WinUI" />
+		<PackageReference Include="SkiaSharp.Skottie" />
 		<PackageReference Include="Uno.Core" />
 		<PackageReference Include="Uno.Material.WinUI" />
 		<PackageReference Include="Uno.Toolkit.WinUI.Material" />
 		<PackageReference Include="Uno.Toolkit.WinUI" />
-		<PackageReference Include="Uno.SourceGenerationTasks" />
 
 		<PackageReference Include="Uno.Extensions.Configuration" />
 		<PackageReference Include="Uno.Extensions.Core" />
@@ -46,12 +51,14 @@
 		<PackageReference Include="Uno.Extensions.Navigation.WinUI" />
 		<PackageReference Include="Uno.Extensions.Reactive.WinUI" />
 	</ItemGroup>
-	<ItemGroup>
-		<UpToDateCheckInput Include="..\ToDo.UI\**\*.xaml" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\ToDo\ToDo.csproj" />
 	</ItemGroup>
 	<Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
+
+	<ItemGroup>
+		<Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
+	</ItemGroup>
+
 </Project>
