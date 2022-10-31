@@ -15,8 +15,4 @@
 		<NoWarn>Uno0001;CS1998;CA1416;NU1504;NU1505;NU1507</NoWarn>
 		<SynthesizeLinkMetadata>true</SynthesizeLinkMetadata> 
 	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(_IsIOS)' == 'true'">
-		<MtouchExtraArgs>$(MtouchExtraArgs) --registrar=static</MtouchExtraArgs>
-	</PropertyGroup>
 </Project>
