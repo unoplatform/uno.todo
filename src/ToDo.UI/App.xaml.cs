@@ -37,20 +37,26 @@ public sealed partial class App : Application
 
 #if NET5_0_OR_GREATER && WINDOWS
 		_window = new Window();
-		_window.Activate();
 #else
 		_window = Microsoft.UI.Xaml.Window.Current;
 #endif
+		var appRoot = new Shell();
+		appRoot.SplashScreen.Initialize(_window, args);
+
+		_window.Content = appRoot;
+		_window.Activate();
+
+		_host = await _window.InitializeNavigationAsync(
+					async () =>
+					{
+						return BuildAppHost();
+					},
+					navigationRoot: appRoot.SplashScreen
+				);
 
 		var notif = _host.Services.GetRequiredService<IRouteNotifier>();
 		notif.RouteChanged += RouteUpdated;
 
-#pragma warning disable CS0618 // Type or member is obsolete
-		_window.AttachNavigation(_host.Services);
-#pragma warning restore CS0618 // Type or member is obsolete
-		_window.Activate();
-
-		await Task.Run(() => _host.StartAsync());
 
 		var appSettings = _host.Services.GetRequiredService<IWritableOptions<ToDoApp>>();
 		var isDark = appSettings.Value?.IsDark ?? false;
