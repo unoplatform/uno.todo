@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Business.Models;
 
-public record ToDoTask
+public partial record ToDoTask
 {
 	public static class TaskStatus
 	{

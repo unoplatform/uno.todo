@@ -4,7 +4,7 @@ namespace ToDo;
 
 public sealed partial class App : Application
 {
-	private readonly IHost _host = BuildAppHost();
+	private  IHost? _host { get; set; }
 
 	private static IHost BuildAppHost()
 	{

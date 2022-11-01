@@ -3,12 +3,16 @@
 		<LangVersion>10.0</LangVersion>
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 		<Nullable>enable</Nullable>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+		<DisableImplicitLibraryPacksFolder>true</DisableImplicitLibraryPacksFolder>
+		<UnoExtensionsGeneration_DisableNotNullIfNotNullAttribute>true</UnoExtensionsGeneration_DisableNotNullIfNotNullAttribute>
+		<UnoExtensionsGeneration_DisableNotNullWhenAttribute>true</UnoExtensionsGeneration_DisableNotNullWhenAttribute>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<DebugType>portable</DebugType>
 		<DebugSymbols>True</DebugSymbols>
-		<NoWarn>Uno0001;CS1998;CA1416;NU1504;NU1505</NoWarn>
+		<NoWarn>Uno0001;CS1998;CA1416;NU1504;NU1505;NU1507</NoWarn>
 		<SynthesizeLinkMetadata>true</SynthesizeLinkMetadata> 
 	</PropertyGroup>
 </Project>

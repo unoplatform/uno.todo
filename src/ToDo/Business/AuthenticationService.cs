@@ -108,9 +108,9 @@ public class AuthenticationService : IAuthenticationService
 		return authentication;
 	}
 
-	private ValueTask<AuthenticationResult> AcquireInteractiveTokenAsync(IDispatcher dispatcher)
+	private async ValueTask<AuthenticationResult> AcquireInteractiveTokenAsync(IDispatcher dispatcher)
 	{
-		return dispatcher.ExecuteAsync(async () => await _pca
+		return await dispatcher.ExecuteAsync(async ct => await _pca
 		  .AcquireTokenInteractive(_scopes)
 		  .WithUnoHelpers()
 		  .ExecuteAsync());

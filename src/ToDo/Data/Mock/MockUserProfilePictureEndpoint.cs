@@ -18,7 +18,7 @@ internal class MockUserProfilePictureEndpoint : IUserProfilePictureEndpoint
 	public async Task<HttpContent> GetAsync(CancellationToken ct)
 	{
 		var base64 =
-			await _dataService.ReadFileAsync<string>(_profilePictureSerializer,
+			await _dataService.ReadPackageFileAsync<string>(_profilePictureSerializer,
 				ProfilePictureDataFile) ?? throw new Exception("Unable to find mock profile picture");
 
 		var bytes = Convert.FromBase64String(base64);

@@ -1,0 +1,134 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>ToDo</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x86;x64;arm64</Platforms>
+		<RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+		<PublishProfile>win10-$(Platform).pubxml</PublishProfile>
+		<UseWinUI>true</UseWinUI>
+		<DefaultLanguage>en</DefaultLanguage>
+		<EnableMsixTooling>true</EnableMsixTooling>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="Images\LargeTile.scale-100.png" />
+		<Content Include="Images\LargeTile.scale-125.png" />
+		<Content Include="Images\LargeTile.scale-150.png" />
+		<Content Include="Images\LargeTile.scale-200.png" />
+		<Content Include="Images\LargeTile.scale-400.png" />
+		<Content Include="Images\LockScreenLogo.scale-200.png" />
+		<Content Include="Images\SmallTile.scale-100.png" />
+		<Content Include="Images\SmallTile.scale-125.png" />
+		<Content Include="Images\SmallTile.scale-150.png" />
+		<Content Include="Images\SmallTile.scale-200.png" />
+		<Content Include="Images\SmallTile.scale-400.png" />
+		<Content Include="Images\SplashScreen.scale-100.png" />
+		<Content Include="Images\SplashScreen.scale-125.png" />
+		<Content Include="Images\SplashScreen.scale-150.png" />
+		<Content Include="Images\SplashScreen.scale-200.png" />
+		<Content Include="Images\SplashScreen.scale-400.png" />
+		<Content Include="Images\Square150x150Logo.scale-100.png" />
+		<Content Include="Images\Square150x150Logo.scale-125.png" />
+		<Content Include="Images\Square150x150Logo.scale-150.png" />
+		<Content Include="Images\Square150x150Logo.scale-200.png" />
+		<Content Include="Images\Square150x150Logo.scale-400.png" />
+		<Content Include="Images\Square44x44Logo.scale-100.png" />
+		<Content Include="Images\Square44x44Logo.scale-125.png" />
+		<Content Include="Images\Square44x44Logo.scale-150.png" />
+		<Content Include="Images\Square44x44Logo.scale-200.png" />
+		<Content Include="Images\Square44x44Logo.scale-400.png" />
+		<Content Include="Images\Square44x44Logo.targetsize-16.png" />
+		<Content Include="Images\Square44x44Logo.targetsize-24.png" />
+		<Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
+		<Content Include="Images\Square44x44Logo.targetsize-256.png" />
+		<Content Include="Images\Square44x44Logo.targetsize-32.png" />
+		<Content Include="Images\Square44x44Logo.targetsize-48.png" />
+		<Content Include="Images\StoreLogo.scale-100.png" />
+		<Content Include="Images\StoreLogo.scale-125.png" />
+		<Content Include="Images\StoreLogo.scale-150.png" />
+		<Content Include="Images\StoreLogo.scale-200.png" />
+		<Content Include="Images\StoreLogo.scale-400.png" />
+		<Content Include="Images\Wide310x150Logo.scale-100.png" />
+		<Content Include="Images\Wide310x150Logo.scale-125.png" />
+		<Content Include="Images\Wide310x150Logo.scale-150.png" />
+		<Content Include="Images\Wide310x150Logo.scale-200.png" />
+		<Content Include="Images\Wide310x150Logo.scale-400.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Manifest Include="$(ApplicationManifest)" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" />
+		<PackageReference Include="Microsoft.Extensions.Http" />
+		<PackageReference Include="Microsoft.Identity.Client" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" />
+		<PackageReference Include="Refit" />
+		<PackageReference Include="Refit.HttpClientFactory" />
+		<PackageReference Include="Uno.Core.Extensions.Logging.Singleton" />
+		<PackageReference Include="Uno.WinUI.MSAL" />
+	</ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22000.25" />
+		<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22000.25" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Uno.Material.WinUI" />
+		<PackageReference Include="Uno.Toolkit.WinUI.Material" />
+		<PackageReference Include="Uno.Toolkit.WinUI" />
+		<PackageReference Include="System.Net.Http.WinHttpHandler" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Uno.Extensions.Configuration" />
+		<PackageReference Include="Uno.Extensions.Core" />
+		<PackageReference Include="Uno.Extensions.Hosting" />
+		<PackageReference Include="Uno.Extensions.Http" />
+		<PackageReference Include="Uno.Extensions.Http.Refit" />
+		<PackageReference Include="Uno.Extensions.Localization.WinUI" />
+		<PackageReference Include="Uno.Extensions.Logging.Serilog" />
+		<PackageReference Include="Uno.Extensions.Navigation" />
+		<PackageReference Include="Uno.Extensions.Serialization" />
+		<PackageReference Include="Uno.Extensions.Serialization.Http" />
+		<PackageReference Include="Uno.Extensions.Serialization.Refit" />
+		<PackageReference Include="Uno.Extensions.Reactive" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" />
+		<PackageReference Include="Uno.Extensions.Reactive.Messaging" />
+		<PackageReference Include="Uno.Extensions.Hosting.WinUI" />
+		<PackageReference Include="Uno.Extensions.Localization.WinUI" />
+		<PackageReference Include="Uno.Extensions.Logging.WinUI" />
+		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" />
+		<PackageReference Include="Uno.Extensions.Navigation.WinUI" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ToDo\ToDo.csproj" />
+	</ItemGroup>
+
+	<!-- 
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<ProjectCapability Include="Msix" />
+	</ItemGroup>
+
+	<!-- 
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if 
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+	</PropertyGroup>
+
+	<Import Project="..\ToDo.UI\ToDo.UI.projitems" Label="Shared" />
+
+</Project>

@@ -110,6 +110,7 @@
 			<muxc:NavigationView.MenuItemTemplate>
 				<DataTemplate>
 					<muxc:NavigationViewItem Content="{Binding DisplayName}"
+											 AutomationProperties.AutomationId="{Binding DisplayName}"
 											 uen:Navigation.Data="{Binding}">
 						<muxc:NavigationViewItem.Icon>
 							<PathIcon Data="{Binding Converter={StaticResource TaskListIconValueConverter}}"

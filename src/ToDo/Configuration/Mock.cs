@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Configuration;
 
-public record Mock
+public partial record Mock
 {
 	public bool IsEnabled { get; init; }
 }

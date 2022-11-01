@@ -86,5 +86,5 @@ public partial class SettingsViewModel
 		}
 	}
 
-	public record DisplayCulture(string Display, string Culture);
+	public partial record DisplayCulture(string Display, string Culture);
 }

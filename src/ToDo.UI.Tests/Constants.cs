@@ -9,7 +9,7 @@ namespace ToDo.UI.Tests
 {
     public class Constants
     {
-        public readonly static string WebAssemblyDefaultUri = "http://localhost:5000";
+        public readonly static string WebAssemblyDefaultUri = "https://localhost:54599";
         public readonly static string iOSAppName = "com.example.app";
         public readonly static string AndroidAppName = "com.example.app";
         public readonly static string iOSDeviceNameOrId = "iPad Pro (12.9-inch) (3rd generation)";

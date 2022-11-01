@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Uno.Extensions;
 using Uno.Extensions.Serialization;
 
 namespace ToDo.Tests.Services;

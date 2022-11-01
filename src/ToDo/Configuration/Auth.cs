@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Configuration;
 
-public record Auth
+public partial record Auth
 {
 	public string? ApplicationId { get; init; }
 	public string[]? Scopes { get; init; }

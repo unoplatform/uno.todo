@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Business.Models;
 
-public record UserContext
+public partial record UserContext
 {
 	public string? Name { get; init; }
 
