@@ -14,7 +14,7 @@
     <PackageVersion Include="Uno.Extensions.Navigation" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Navigation.WinUI" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="2.3.0-dev.203" />
-    <PackageVersion Include="Uno.Extensions.Serialization" Version="2.3.0-dev.203" />
+    <PackageVersion Include="Uno.Extensions.Serialization" Version="2.3.0-dev.263" />
     <PackageVersion Include="Uno.Extensions.Serialization.Http" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Serialization.Refit" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Reactive" Version="2.3.0-dev.203" />
