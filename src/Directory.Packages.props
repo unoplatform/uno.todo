@@ -17,7 +17,7 @@
     <PackageVersion Include="Uno.Extensions.Serialization" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Serialization.Http" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Serialization.Refit" Version="2.3.0-dev.203" />
-    <PackageVersion Include="Uno.Extensions.Reactive" Version="2.3.0-dev.203" />
+    <PackageVersion Include="Uno.Extensions.Reactive" Version="2.3.0-dev.263" />
     <PackageVersion Include="Uno.Extensions.Reactive.WinUI" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Reactive.Messaging" Version="2.3.0-dev.203" />
   </ItemGroup>
