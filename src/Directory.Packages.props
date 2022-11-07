@@ -8,7 +8,7 @@
     <PackageVersion Include="Uno.Extensions.Http.Refit" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Localization.WinUI" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Logging.OSLog" Version="1.4.0" />
-    <PackageVersion Include="Uno.Extensions.Logging.Serilog" Version="2.3.0-dev.203" />
+    <PackageVersion Include="Uno.Extensions.Logging.Serilog" Version="2.3.0-dev.266" />
     <PackageVersion Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.4.0" />
     <PackageVersion Include="Uno.Extensions.Logging.WinUI" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Navigation" Version="2.3.0-dev.203" />
