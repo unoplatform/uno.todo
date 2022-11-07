@@ -45,7 +45,7 @@
     <PackageVersion Include="System.Net.Http.WinHttpHandler" Version="6.0.1" />
     <PackageVersion Include="Uno.Core" Version="4.0.1" />
     <PackageVersion Include="Uno.Core.Extensions.Logging.Singleton" Version="4.0.1" />
-    <PackageVersion Include="Uno.Material.WinUI" Version="2.4.0-dev.42" />
+    <PackageVersion Include="Uno.Material.WinUI" Version="2.4.0-dev.60" />
     <PackageVersion Include="Uno.Toolkit.WinUI.Material" Version="2.4.0-dev.99" />
     <PackageVersion Include="Uno.Toolkit.WinUI" Version="2.4.0-dev.99" />
     <PackageVersion Include="Uno.UI.Adapter.Microsoft.Extensions.Logging" Version="4.6.0-dev.962" />
