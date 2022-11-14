@@ -1,6 +1,6 @@
 <Project ToolsVersion="15.0">
   <ItemGroup>
-    <PackageVersion Include="Uno.Extensions.Configuration" Version="2.3.0-dev.203" />
+    <PackageVersion Include="Uno.Extensions.Configuration" Version="2.3.0-dev.283" />
     <PackageVersion Include="Uno.Extensions.Core" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Hosting" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Hosting.WinUI" Version="2.3.0-dev.203" />
