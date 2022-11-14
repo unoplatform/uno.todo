@@ -3,7 +3,7 @@
     <PackageVersion Include="Uno.Extensions.Configuration" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Core" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Hosting" Version="2.3.0-dev.203" />
-    <PackageVersion Include="Uno.Extensions.Hosting.WinUI" Version="2.3.0-dev.203" />
+    <PackageVersion Include="Uno.Extensions.Hosting.WinUI" Version="2.3.0-dev.283" />
     <PackageVersion Include="Uno.Extensions.Http" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Http.Refit" Version="2.3.0-dev.203" />
     <PackageVersion Include="Uno.Extensions.Localization.WinUI" Version="2.3.0-dev.203" />
