@@ -3,8 +3,7 @@
 		<LangVersion>10.0</LangVersion>
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 		<Nullable>enable</Nullable>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-		<DisableImplicitLibraryPacksFolder>true</DisableImplicitLibraryPacksFolder>
+
 		<UnoExtensionsGeneration_DisableNotNullIfNotNullAttribute>true</UnoExtensionsGeneration_DisableNotNullIfNotNullAttribute>
 		<UnoExtensionsGeneration_DisableNotNullWhenAttribute>true</UnoExtensionsGeneration_DisableNotNullWhenAttribute>
 	</PropertyGroup>
@@ -14,5 +13,12 @@
 		<DebugSymbols>True</DebugSymbols>
 		<NoWarn>Uno0001;CS1998;CA1416;NU1504;NU1505;NU1507</NoWarn>
 		<SynthesizeLinkMetadata>true</SynthesizeLinkMetadata> 
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<UnoVersion>4.7.0-dev.73</UnoVersion>
+		<UnoExtensionsVersion>2.3.0-dev.263</UnoExtensionsVersion>
+		<UnoToolkitVersion>2.4.0-dev.110</UnoToolkitVersion>
+		<UnoMaterialVersion>2.4.0-dev.57</UnoMaterialVersion>
 	</PropertyGroup>
 </Project>
