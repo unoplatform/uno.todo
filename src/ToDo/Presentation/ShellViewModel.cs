@@ -8,7 +8,8 @@ public class ShellViewModel
 
 	public ShellViewModel(
 		INavigator navigator,
-		IAuthenticationTokenProvider authentication)
+		IAuthenticationTokenProvider authentication,
+		IServiceProvider sp)
 	{
 		_navigator = navigator;
 		_auth= authentication;

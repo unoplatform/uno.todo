@@ -16,9 +16,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<UnoVersion>4.7.0-dev.73</UnoVersion>
-		<UnoExtensionsVersion>2.3.0-dev.263</UnoExtensionsVersion>
-		<UnoToolkitVersion>2.4.0-dev.110</UnoToolkitVersion>
-		<UnoMaterialVersion>2.4.0-dev.57</UnoMaterialVersion>
+		<UnoVersion>4.6.19</UnoVersion>
+		<UnoExtensionsVersion>2.3.0-dev.318</UnoExtensionsVersion>
+		<UnoToolkitVersion>2.4.0-dev.115</UnoToolkitVersion>
+		<UnoMaterialVersion>2.4.0-dev.64</UnoMaterialVersion>
 	</PropertyGroup>
 </Project>
