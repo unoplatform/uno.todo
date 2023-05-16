@@ -1,4 +1,5 @@
-﻿namespace ToDo.Data.Mock;
+﻿#pragma warning disable CS8604 // Possible null reference argument.
+namespace ToDo.Data.Mock;
 
 public class MockTaskEndpoint : ITaskEndpoint
 {

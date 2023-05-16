@@ -1,3 +1,5 @@
+using IAuthenticationService = ToDo.Business.Services.IAuthenticationService;
+
 namespace ToDo.Presentation;
 
 public partial class SettingsViewModel
@@ -6,7 +8,7 @@ public partial class SettingsViewModel
 	private readonly IUserProfilePictureService _userSvc;
 	private readonly INavigator _sourceNavigator;
 	private readonly INavigator _navigator;
-	private IAppTheme _appTheme;
+	private IThemeService _appTheme;
 	private IWritableOptions<ToDoApp> _appSettings;
 
 	public IWritableOptions<LocalizationSettings> LocalizationSettings { get; }
@@ -16,7 +18,7 @@ public partial class SettingsViewModel
 	public string[] AppThemes { get; }
 
 
-	private SettingsViewModel(
+	public SettingsViewModel(
 		NavigationRequest request,
 		INavigator navigator,
 		IAuthenticationService authService,
@@ -24,7 +26,7 @@ public partial class SettingsViewModel
 		IOptions<LocalizationConfiguration> localizationConfiguration,
 		IWritableOptions<LocalizationSettings> localizationSettings,
 		IStringLocalizer localizer,
-		IAppTheme appTheme,
+		IThemeService appTheme,
 		IWritableOptions<ToDoApp> appSettings)
 	{
 		_sourceNavigator = request?.Source ?? navigator;
@@ -36,7 +38,8 @@ public partial class SettingsViewModel
 		_appSettings = appSettings;
 
 		AppThemes = new string[] { localizer["SettingsFlyout_ThemeLight"], localizer["SettingsFlyout_ThemeDark"] };
-		SelectedAppTheme = State.Value(this, () => AppThemes[appTheme.IsDark ? 1 : 0]);
+		var isDark = appTheme.IsDark;
+		SelectedAppTheme = State.Value(this, () => AppThemes[isDark ? 1 : 0]);
 
 		SelectedAppTheme.Execute(ChangeAppTheme);
 
@@ -81,7 +84,7 @@ public partial class SettingsViewModel
 		if (appTheme is { Length: > 0 })
 		{
 			var isDark = Array.IndexOf(AppThemes, appTheme) == 1;
-			await _appTheme.SetThemeAsync(isDark);
+			await _appTheme.SetThemeAsync(isDark?AppTheme.Dark:AppTheme.Light);
 			await _appSettings.UpdateAsync(s => s with { IsDark = isDark });
 		}
 	}

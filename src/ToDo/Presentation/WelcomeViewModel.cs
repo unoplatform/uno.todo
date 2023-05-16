@@ -1,4 +1,6 @@
-﻿namespace ToDo.Presentation;
+﻿using IAuthenticationService = ToDo.Business.Services.IAuthenticationService;
+
+namespace ToDo.Presentation;
 
 public partial class WelcomeViewModel
 {
@@ -6,7 +8,7 @@ public partial class WelcomeViewModel
 	private readonly INavigator _navigator;
 	private readonly IDispatcher _dispatcher;
 
-	private WelcomeViewModel(
+	public WelcomeViewModel(
 		IDispatcher dispatcher,
 		INavigator navigator,
 		IAuthenticationService authService)

@@ -168,7 +168,7 @@
 		<utu:AutoLayout Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}">
 			<utu:AutoLayout utu:AutoLayout.PrimaryAlignment="Stretch">
 				<utu:NavigationBar Content="{Binding Entity.DisplayName}"
-								   Background="{Binding Entity.Value, Converter={StaticResource TaskListSurfaceBrushConverter}}"
+								   
 								   Foreground="{ThemeResource OnPrimaryBrush}"
 								   Style="{StaticResource NavigationBarStyle}">
 					<utu:NavigationBar.MainCommand>
