@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="E2821155-50B7-468D-A15B-E0EAF55DAC2B"
+    Name="899A4C27-B305-4AAF-8FBF-0ACAFE8C2C9B"
     Publisher="O=ToDo"
     Version="1.0.0.0" />
 
-  <Properties>
-	<DisplayName>ToDo</DisplayName>
-	<PublisherDisplayName>ToDo</PublisherDisplayName>
-	<Logo>Images\StoreLogo.png</Logo>
-  </Properties>
+	<Properties>
+		<DisplayName>ToDo</DisplayName>
+		<PublisherDisplayName>ToDo</PublisherDisplayName>
+		<Logo>Images\StoreLogo.png</Logo>
+	</Properties>
 
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
@@ -27,20 +27,20 @@
   </Resources>
 
   <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
-      <uap:VisualElements
-        DisplayName="ToDo"
-        Description="ToDo"
-        BackgroundColor="#FFFFFF"
-        Square150x150Logo="Images\Square150x150Logo.png"
-        Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png"  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png">
-        </uap:DefaultTile >
-        <uap:SplashScreen Image="Images\SplashScreen.png"  BackgroundColor="#FFFFFF"/>
-      </uap:VisualElements>
-    </Application>
+	  <Application Id="App"
+	   Executable="$targetnametoken$.exe"
+	   EntryPoint="$targetentrypoint$">
+		  <uap:VisualElements
+			DisplayName="ToDo"
+			Description="ToDo"
+			BackgroundColor="#FFFFFF"
+			Square150x150Logo="Images\Square150x150Logo.png"
+			Square44x44Logo="Images\Square44x44Logo.png">
+			  <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png"  Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png">
+			  </uap:DefaultTile >
+			  <uap:SplashScreen Image="Images\SplashScreen.png"  BackgroundColor="#FFFFFF"/>
+		  </uap:VisualElements>
+	  </Application>
   </Applications>
 
   <Capabilities>

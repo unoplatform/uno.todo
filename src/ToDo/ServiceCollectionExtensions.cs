@@ -11,8 +11,8 @@ public static class ServiceCollectionExtensions
 		_ = services
 			// TEMP - this hsould be the default serialization options for content serialization > uno.extensions
 			.AddSingleton(new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault })
-			.AddNativeHandler()
-			.AddContentSerializer()
+			.AddNativeHandler(context)
+			.AddContentSerializer(context)
 			.AddRefitClient<ITaskEndpoint>(context, nameof(ITaskEndpoint))
 			.AddRefitClient<ITaskListEndpoint>(context, nameof(ITaskEndpoint))
 			.AddRefitClient<IUserProfilePictureEndpoint>(context, nameof(ITaskEndpoint));

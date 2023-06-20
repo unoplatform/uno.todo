@@ -1,46 +1,81 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) or '$(EnableWindowsTargeting)' == 'true'">$(TargetFrameworks);net7.0-windows10.0.19041</TargetFrameworks>
+		<TargetFrameworks>$(TargetFrameworks);net7.0;net7.0-ios;net7.0-android;net7.0-maccatalyst</TargetFrameworks>
+
+		<!-- Ensures the .xr.xml files are generated in a proper layout folder -->
+		<GenerateLibraryLayout>true</GenerateLibraryLayout>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="$(IsWinAppSdk)">
+		<RuntimeIdentifiers>win10-x64;win10-x86</RuntimeIdentifiers>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Identity.Client" Version="4.47.2" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
-		<PackageReference Include="Uno.WinUI.MSAL" Version="$(UnoVersion)" />
+		<PackageReference Include="Uno.Dsp.Tasks" Version="1.1.0" />
+		<PackageReference Include="Uno.Extensions.Configuration" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Core" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Core.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Http" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Http.Refit" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Logging.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Reactive.Messaging" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Serialization" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Authentication.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Hosting.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Navigation.Toolkit.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Extensions.Logging.Serilog" Version="2.5.0-dev.66" />
+		<PackageReference Include="Uno.Resizetizer" Version="1.2.0-dev.11" />
+		<PackageReference Include="Uno.Material.WinUI" Version="2.7.0-dev.11" />
+		<PackageReference Include="Uno.Toolkit.WinUI.Material" Version="3.1.0-dev.10" />
+		<PackageReference Include="Uno.Toolkit.WinUI" Version="3.1.0-dev.10" />
+		<PackageReference Include="Uno.WinUI" Version="4.10.0-dev.242" />
+		<PackageReference Include="Uno.WinUI.MSAL" Version="4.10.0-dev.242" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
 
 		<PackageReference Include="Refit" Version="6.3.2" />
 		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+	</ItemGroup>
 
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1"/>
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0"/>
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0"/>
-		<PackageReference Include="Refit" Version="6.3.2" />
-		<PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
+	<Choose>
+		<When Condition="$(IsWinAppSdk)">
+			<ItemGroup>
+				<!--
+				If you encounter this error message:
 
-		<PackageReference Include="Uno.WinUI"  Version="$(UnoVersion)" />
-		<PackageReference Include="Uno.WinUI.RemoteControl"  Version="$(UnoVersion)" Condition="'$(Configuration)'=='Debug'" />
-		<PackageReference Include="Uno.UI.Adapter.Microsoft.Extensions.Logging"  Version="$(UnoVersion)" />
+					error NETSDK1148: A referenced assembly was compiled using a newer version of Microsoft.Windows.SDK.NET.dll.
+					Please update to a newer .NET SDK in order to reference this assembly.
 
-		<PackageReference Include="Uno.Extensions.Authentication" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Configuration" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Core" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Hosting" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Http" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Http.Refit" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Localization" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Localization.WinUI" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Logging.Serilog" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Navigation" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Reactive" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Reactive.Messaging" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Reactive.WinUI" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Serialization" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Serialization.Http" Version="$(UnoExtensionsVersion)" />
-		<PackageReference Include="Uno.Extensions.Serialization.Refit" Version="$(UnoExtensionsVersion)" />
+				This means that the two packages below must be aligned with the "build" version number of
+				the "Microsoft.Windows.SDK.BuildTools" package above, and the "revision" version number
+				must be the highest found in https://www.nuget.org/packages/Microsoft.Windows.SDK.NET.Ref.
+				-->
+				<!-- <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.22621.28" />
+				<FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.22621.28" /> -->
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<Content Include="Assets\**" />
+				<Page Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
+				<Compile Update="**\*.xaml.cs">
+					<DependentUpon>%(Filename)</DependentUpon>
+				</Compile>
+				<PRIResource Include="**\*.resw" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
 
-
+	<ItemGroup>
+		<UnoDspImportColors Include="Styles\*.zip" Generator="Xaml" />
+		<UnoImage Include="Assets\**\*.svg" />
+		<EmbeddedResource Include="appsettings.json" />
+		<EmbeddedResource Include="appsettings.*.json" DependentUpon="appsettings.json" />
+		<UpToDateCheckInput Include="**\*.xaml" Exclude="bin\**\*.xaml;obj\**\*.xaml" />
 	</ItemGroup>
 </Project>

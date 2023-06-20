@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -6,10 +10,6 @@ using Android.Views;
 using Android.Widget;
 using Com.Nostra13.Universalimageloader.Core;
 using Microsoft.UI.Xaml.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ToDo.Droid
 {
@@ -24,12 +24,12 @@ namespace ToDo.Droid
 	public class Application : Microsoft.UI.Xaml.NativeApplication
 	{
 		public Application(IntPtr javaReference, JniHandleOwnership transfer)
-			: base(() => new App(), javaReference, transfer)
+			: base(() => new AppHead(), javaReference, transfer)
 		{
 			ConfigureUniversalImageLoader();
 		}
 
-		private void ConfigureUniversalImageLoader()
+		private static void ConfigureUniversalImageLoader()
 		{
 			// Create global configuration and initialize ImageLoader with this config
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration

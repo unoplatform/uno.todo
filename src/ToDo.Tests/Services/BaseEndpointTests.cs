@@ -18,12 +18,12 @@ internal class BaseEndpointTests<T> where T : notnull
 			.UseSerialization()
 			.ConfigureAppConfiguration(builder =>
 			{
-				var appsettingsPrefix = new Dictionary<string, string>
+				var appsettingsPrefix = new KeyValuePair<string, string>[]
 						{
-							{ "ITaskEndpoint:Url", "https://graph.microsoft.com/beta/me" },
-							{ "ITaskEndpoint:UseNativeHandler","true" }
+							new( "ITaskEndpoint:Url", "https://graph.microsoft.com/beta/me" ),
+							new KeyValuePair<string, string>( "ITaskEndpoint:UseNativeHandler","true" )
 						};
-				builder.AddInMemoryCollection(appsettingsPrefix);
+				builder.AddInMemoryCollection(appsettingsPrefix!);
 
 			})
 			.ConfigureServices((context, services) =>

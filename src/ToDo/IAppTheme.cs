@@ -1,7 +1,7 @@
-﻿namespace ToDo;
-
-// TODO: Extract these to uno extensions
+﻿// TODO: Extract these to uno extensions
 // See https://github.com/unoplatform/uno.extensions/discussions/420
+namespace ToDo;
+
 public interface IAppTheme
 {
 	bool IsDark { get; }
