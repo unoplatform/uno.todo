@@ -56,7 +56,7 @@ public class TestBase
 		if (fileNameWithoutExt != title)
 		{
 			var destFileName = Path
-				.Combine(Path.GetDirectoryName(fileInfo.FullName), title + Path.GetExtension(fileInfo.Name));
+				.Combine(Path.GetDirectoryName(fileInfo.FullName) ?? string.Empty, title + Path.GetExtension(fileInfo.Name));
 
 			if (File.Exists(destFileName))
 			{

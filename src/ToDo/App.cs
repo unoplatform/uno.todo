@@ -68,7 +68,7 @@ public class App : Application
 				{
 #if DEBUG
 					// DelegatingHandler will be automatically injected into Refit Client
-					services.AddTransient<DelegatingHandler, DebugHttpHandler>()
+					services.AddTransient<DelegatingHandler, DebugHttpHandler>();
 #endif
 				})
 				.ConfigureServices((context, services) =>
