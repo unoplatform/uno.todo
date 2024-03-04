@@ -1,3 +1,5 @@
+using Dialog = ToDo.Presentation.Dialogs.Dialog;
+
 namespace ToDo.Presentation;
 
 public partial class SettingsViewModel
@@ -16,7 +18,7 @@ public partial class SettingsViewModel
 	public string[] AppThemes { get; }
 
 
-	private SettingsViewModel(
+	public SettingsViewModel(
 		NavigationRequest request,
 		INavigator navigator,
 		IAuthenticationService authService,

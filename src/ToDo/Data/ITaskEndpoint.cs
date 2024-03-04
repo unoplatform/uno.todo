@@ -5,7 +5,7 @@ public interface ITaskEndpoint
 {
 	[Get("/todo/lists/{listId}/tasks/{taskId}")]
 	[Headers("Authorization: Bearer")]
-	Task<TaskData> GetAsync(string listId, string taskId, CancellationToken ct);
+	Task<TaskData?> GetAsync(string listId, string taskId, CancellationToken ct);
 
 	[Post("/todo/lists/{listId}/tasks")]
 	[Headers("Authorization: Bearer")]
@@ -25,7 +25,7 @@ public interface ITaskEndpoint
 
 	[Get("/tasks/allTasks?filter=contains(displayName,'{displayName}')")]
 	[Headers("Authorization: Bearer")]
-	Task<TaskReponseData<TaskData>> GetByFilterAsync(string displayName, CancellationToken ct);
+	Task<TaskReponseData<TaskData>?> GetByFilterAsync(string displayName, CancellationToken ct);
 
 	[Get("/tasks/allTasks")]
 	[Headers("Authorization: Bearer")]

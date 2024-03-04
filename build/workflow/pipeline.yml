@@ -23,10 +23,6 @@ variables:
   IsCanaryBranch: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/canaries/')]
   IsReleaseBranch: $[or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))]
 
-  ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
-  ANDROID_NDK_PATH: C:\Microsoft\AndroidNDK64\android-ndk-r16b
-  AndroidNdkDirectory: C:\Microsoft\AndroidNDK64\android-ndk-r16b
-
 jobs:
 - job: Windows
   pool:
@@ -34,7 +30,7 @@ jobs:
   
   steps:
   - template: templates/gitversion.yml
-  - template: templates/dotnet6-install-windows.yml
+  - template: templates/dotnet7-install-windows.yml
 
    # This SDK version is needed as long as `uap10.0` will be supported in Uno.Core
   - powershell: .\build\Install-WindowsSdkISO.ps1 18362

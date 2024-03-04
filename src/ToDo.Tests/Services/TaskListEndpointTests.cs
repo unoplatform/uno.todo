@@ -3,9 +3,9 @@ using NUnit.Framework;
 using ToDo.Data;
 using ToDo.Data.Models;
 
-namespace ToDo.Tests.Services
-{
-	internal class TaskListEndpointTests: BaseEndpointTests<ITaskListEndpoint>
+namespace ToDo.Tests.Services;
+
+internal class TaskListEndpointTests: BaseEndpointTests<ITaskListEndpoint>
     {
 
         [SetUp]
@@ -37,8 +37,8 @@ namespace ToDo.Tests.Services
             //Act
             var result = await service.CreateAsync(todoList, System.Threading.CancellationToken.None);
 
-			//Assert
-			Assert.IsNotNull(result, "The ToDo List can't be created");
+		//Assert
+		Assert.IsNotNull(result, "The ToDo List can't be created");
         }
 
         [Test]
@@ -115,8 +115,8 @@ namespace ToDo.Tests.Services
             //Act
             var result = await service.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
 
-			//Assert
-			Assert.IsNotNull(result, "The ToDo List found");
+		//Assert
+		Assert.IsNotNull(result, "The ToDo List found");
         }
 
         [Test]
@@ -132,8 +132,7 @@ namespace ToDo.Tests.Services
             //Act
             var result = await service.UpdateAsync(idTodoList, todoList, System.Threading.CancellationToken.None);
 
-			//Assert
-			Assert.IsNotNull(result, "The ToDo List wasn't find");
+		//Assert
+		Assert.IsNotNull(result, "The ToDo List wasn't find");
         }
     }
-}

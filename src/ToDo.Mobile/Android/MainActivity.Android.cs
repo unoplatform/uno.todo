@@ -6,13 +6,13 @@ using Android.Views;
 using Android.Widget;
 using Microsoft.Identity.Client;
 
-namespace ToDo
+namespace ToDo.Droid
 {
 	[Activity(
-			MainLauncher = true,
-			ConfigurationChanges = global::Uno.UI.ActivityHelper.AllConfigChanges,
-			WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden
-		)]
+		MainLauncher = true,
+		ConfigurationChanges = global::Uno.UI.ActivityHelper.AllConfigChanges,
+		WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden
+	)]
 	public class MainActivity : Microsoft.UI.Xaml.ApplicationActivity
 	{
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -23,4 +23,3 @@ namespace ToDo
 		}
 	}
 }
-
